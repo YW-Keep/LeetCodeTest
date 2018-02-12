@@ -11,6 +11,7 @@
  */
 import UIKit
 
+// 思路 竟然要获得位置  那么以位置为值 计算数为键 做计算
 class Solution {
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
         var cacheDic = [Int:Int]()
