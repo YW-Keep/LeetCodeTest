@@ -4,5 +4,6 @@
         <page name='1.Two Sum'/>
         <page name='2.Add Two Numbers'/>
         <page name='3. Longest Substring Without Repeating Characters'/>
+        <page name='4. Median of Two Sorted Arrays'/>
     </pages>
 </playground>
