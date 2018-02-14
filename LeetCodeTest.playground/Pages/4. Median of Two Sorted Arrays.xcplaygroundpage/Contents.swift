@@ -46,8 +46,8 @@ class Solution {
             return min(nums1[0],nums2[0])
         }
         
-        let index1 = min(k/2,nums1.count - 1)
-        let index2 = min(k/2,nums2.count - 1)
+        let index1 = min((k - 1)/2,nums1.count - 1)
+        let index2 = min((k - 1)/2,nums2.count - 1)
         
         if nums1[index1] < nums2[index2] {
             let newKey = (k - index1  - 1) < 0 ? 0 : (k - index1  - 1)
@@ -59,5 +59,5 @@ class Solution {
     }
 }
 let solution = Solution()
-solution.findValueInSortedArrays(2,[1,2],[1,2])
+solution.findValueInSortedArrays(7,[1,2,3,6,8],[1,2,3])
 
