@@ -13,7 +13,7 @@
  2个思路
  1.放进数组中
  2.快慢指针
- 这里就实现下快慢指针
+ 这里就实现下快慢指针 时间复杂度o(n)
  */
 import Foundation
 
@@ -28,6 +28,24 @@ public class ListNode {
 
 class Solution {
     func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
-        return ListNode(0)
+        var fast = head
+        var slow = head
+        var lenght = 0
+        while fast != nil {
+            if lenght > n {
+                slow = slow?.next
+            } else {
+                lenght = lenght + 1
+            }
+            fast = fast?.next
+        }
+        if lenght < n {
+            return head
+        } else if lenght == n {
+            return head?.next
+        } else {
+            slow?.next = slow?.next?.next
+            return head
+        }
     }
 }
