@@ -13,5 +13,7 @@
         <page name='20. Valid Parentheses'/>
         <page name='21. Merge Two Sorted Lists'/>
         <page name='22. Generate Parentheses'/>
+        <page name='23. Merge k Sorted Lists'/>
+        <page name='31.Next Permutation'/>
     </pages>
 </playground>

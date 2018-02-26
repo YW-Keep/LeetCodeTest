@@ -11,9 +11,6 @@
 
 import Foundation
 
-var str = "Hello, playground"
-
-//: [Next](@next)
 public class ListNode {
     public var val: Int
     public var next: ListNode?
