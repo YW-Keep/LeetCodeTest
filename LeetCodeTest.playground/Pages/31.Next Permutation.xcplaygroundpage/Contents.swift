@@ -12,15 +12,29 @@
  */
 
 import Foundation
-public class ListNode {
-    public var val: Int
-    public var next: ListNode?
-    public init(_ val: Int) {
-        self.val = val
-        self.next = nil
+
+class Solution {
+    func nextPermutation(_ nums: inout [Int]) {
+        var i = nums.count - 2
+        while i >= 0 && nums[i + 1] <= nums[i] {
+            i = i - 1
+        }
+        if i >= 0 {
+            var j = nums.count - 1;
+            while(j >= 0 && nums[j] <= nums[i]) {
+                j = j - 1
+            }
+            nums.swapAt(i, j)
+        }
+        revrse(&nums, start: i + 1)
+    }
+    func revrse(_ nums: inout [Int], start: Int) {
+        var i = start , j = nums.count - 1
+        while i < j {
+            nums.swapAt(i, j)
+            i += 1
+            j -= 1
+        }
     }
 }
 
-var my :[ListNode?] = []
-my = [nil, nil]
-print(my.count)

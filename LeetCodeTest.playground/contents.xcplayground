@@ -15,5 +15,6 @@
         <page name='22. Generate Parentheses'/>
         <page name='23. Merge k Sorted Lists'/>
         <page name='31.Next Permutation'/>
+        <page name='32. Longest Valid Parentheses'/>
     </pages>
 </playground>
