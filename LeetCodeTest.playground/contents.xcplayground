@@ -16,5 +16,6 @@
         <page name='23. Merge k Sorted Lists'/>
         <page name='31.Next Permutation'/>
         <page name='32. Longest Valid Parentheses'/>
+        <page name='33. Search in Rotated Sorted Array'/>
     </pages>
 </playground>
