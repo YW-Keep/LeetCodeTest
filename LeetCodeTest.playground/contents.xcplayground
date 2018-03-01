@@ -17,5 +17,6 @@
         <page name='31.Next Permutation'/>
         <page name='32. Longest Valid Parentheses'/>
         <page name='33. Search in Rotated Sorted Array'/>
+        <page name='34. Search for a Range'/>
     </pages>
 </playground>
