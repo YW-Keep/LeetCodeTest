@@ -15,4 +15,32 @@
 
 import Foundation
 
-
+class Solution {
+    func combinationSum(_ candidates: [Int], _ target: Int) -> [[Int]] {
+        guard candidates.count > 0 else {
+            return []
+        }
+        var result: [[Int]] = []
+        dfs(start: 0, sum: 0, targert: target, candidates: candidates, ans: [], result: &result)
+        return result
+    }
+    
+    func dfs(start: Int, sum: Int, targert: Int, candidates: [Int], ans: [Int], result: inout [[Int]]) {
+        
+        if(sum == targert) {
+            result.append(ans)
+        } else if(sum > targert) {
+            return
+        } else {
+            for i in start ..< candidates.count {
+                // 重复数字去重
+                if i > 0 &&  candidates[i] ==  candidates[i - 1] {
+                    continue
+                }
+                let newSum = sum + candidates[i]
+                let newAns = ans + [candidates[i]]
+                dfs(start: i, sum: newSum, targert: targert, candidates: candidates, ans: newAns, result: &result)
+            }
+        }
+    }
+}

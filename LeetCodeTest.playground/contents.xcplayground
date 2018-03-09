@@ -19,5 +19,6 @@
         <page name='33. Search in Rotated Sorted Array'/>
         <page name='34. Search for a Range'/>
         <page name='39. Combination Sum'/>
+        <page name='42. Trapping Rain Water'/>
     </pages>
 </playground>
