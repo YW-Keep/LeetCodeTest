@@ -20,5 +20,6 @@
         <page name='34. Search for a Range'/>
         <page name='39. Combination Sum'/>
         <page name='42. Trapping Rain Water'/>
+        <page name='46. Permutations'/>
     </pages>
 </playground>
