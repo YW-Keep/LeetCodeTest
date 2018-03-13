@@ -17,6 +17,28 @@ import Foundation
 
 class Solution {
     func permute(_ nums: [Int]) -> [[Int]] {
-        return []
+        var result: [[Int]] = []
+        guard nums.count > 1 else {
+            if nums.count == 0 {
+                return result
+            } else {
+                result.append(nums)
+                return result
+            }
+        }
+        dfs(nums: nums, ans: [], result: &result)
+        return result
+    }
+    func dfs(nums: [Int], ans: [Int], result: inout [[Int]]) {
+        guard nums.count > 1 else {
+            result.append((ans + nums))
+            return
+        }
+        for (index, value) in nums.enumerated() {
+            var newArray = nums
+            newArray.remove(at: index)
+            let newAns = ans + [value]
+            dfs(nums: newArray, ans: newAns, result: &result)
+        }
     }
 }
