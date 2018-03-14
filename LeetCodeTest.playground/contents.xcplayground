@@ -22,5 +22,6 @@
         <page name='42. Trapping Rain Water'/>
         <page name='46. Permutations'/>
         <page name='48. Rotate Image'/>
+        <page name='49. Group Anagrams'/>
     </pages>
 </playground>

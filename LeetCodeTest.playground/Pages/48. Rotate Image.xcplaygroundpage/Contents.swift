@@ -45,6 +45,20 @@ import Foundation
 
 class Solution {
     func rotate(_ matrix: inout [[Int]]) {
-        
+        guard matrix.count > 1 else {
+            return
+        }
+        let num = matrix.count - 1
+        for i in 0...(num - 1) {
+            for j in 0...(num - 1 - i) {
+                let tap = matrix[i][j]
+                matrix[i][j] = matrix[num - j][num - i]
+                matrix[num - j][num - i] = tap
+            }
+        }
+        let layer = (num + 1) / 2 - 1
+        for i in 0...layer {
+            matrix.swapAt(i, num - i)
+        }
     }
 }
