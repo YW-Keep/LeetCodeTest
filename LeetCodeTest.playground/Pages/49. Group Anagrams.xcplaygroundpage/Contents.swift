@@ -16,6 +16,17 @@ import Foundation
 
 class Solution {
     func groupAnagrams(_ strs: [String]) -> [[String]] {
-        return []
+        var listArray: [String:[String]] = [:]
+        for str in strs {
+            let key = String(str.sorted())
+            if listArray[key] != nil {
+                listArray[key] = listArray[key]! + [str]
+            } else {
+                listArray[key] = [str]
+            }
+        }
+        return listArray.map({ (_, array) -> [String] in
+            return array
+        })
     }
 }
