@@ -24,5 +24,6 @@
         <page name='48. Rotate Image'/>
         <page name='49. Group Anagrams'/>
         <page name='53. Maximum Subarray'/>
+        <page name='55. Jump Game'/>
     </pages>
 </playground>

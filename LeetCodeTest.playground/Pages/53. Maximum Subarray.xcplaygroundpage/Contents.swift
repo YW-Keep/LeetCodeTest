@@ -8,6 +8,18 @@ import Foundation
 
 class Solution {
     func maxSubArray(_ nums: [Int]) -> Int {
-        return 1
+        var max = nums[0]
+        var sum = 0
+        
+        for num in nums {
+            sum = sum + num
+            if max < sum {
+                max = sum
+            }
+            if sum < 0 {
+                sum = 0
+            }
+        }
+        return max
     }
 }
