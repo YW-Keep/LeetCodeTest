@@ -25,5 +25,6 @@
         <page name='49. Group Anagrams'/>
         <page name='53. Maximum Subarray'/>
         <page name='55. Jump Game'/>
+        <page name='56. Merge Intervals'/>
     </pages>
 </playground>

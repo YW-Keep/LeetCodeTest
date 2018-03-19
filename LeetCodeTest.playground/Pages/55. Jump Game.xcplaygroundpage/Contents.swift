@@ -16,6 +16,16 @@ import Foundation
 
 class Solution {
     func canJump(_ nums: [Int]) -> Bool {
-        return false
+        var right = 0
+        for (index, num) in nums.enumerated() {
+            right = max(right, index + num)
+            if right >= (nums.count - 1) {
+                return true
+            }
+            if right <= index {
+                return false
+            }
+        }
+        return true
     }
 }
