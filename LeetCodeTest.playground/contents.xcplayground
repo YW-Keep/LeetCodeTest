@@ -26,5 +26,6 @@
         <page name='53. Maximum Subarray'/>
         <page name='55. Jump Game'/>
         <page name='56. Merge Intervals'/>
+        <page name='62. Unique Paths'/>
     </pages>
 </playground>
