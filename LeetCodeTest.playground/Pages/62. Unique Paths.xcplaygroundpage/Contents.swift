@@ -10,6 +10,19 @@ import Foundation
 
 class Solution {
     func uniquePaths(_ m: Int, _ n: Int) -> Int {
-        return 1
+        var all = m + n - 2
+        let down = m - 1
+        let right  = n - 1
+        guard down > 0 && right > 0 else {
+            return 1
+        }
+        let count = min(down, right)
+        var reslut = 1
+        for num in 1...count {
+            reslut = reslut * all
+            all -= 1
+            reslut = reslut / num
+        }
+        return reslut
     }
 }
