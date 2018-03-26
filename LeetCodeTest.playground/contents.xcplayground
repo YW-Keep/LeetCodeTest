@@ -30,5 +30,6 @@
         <page name='64. Minimum Path Sum'/>
         <page name='70. Climbing Stairs'/>
         <page name='72. Edit Distance'/>
+        <page name='75. Sort Colors'/>
     </pages>
 </playground>
