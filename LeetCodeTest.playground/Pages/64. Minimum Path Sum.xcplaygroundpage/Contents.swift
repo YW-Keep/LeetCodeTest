@@ -11,9 +11,35 @@
  */
 
 import Foundation
-
 class Solution {
     func minPathSum(_ grid: [[Int]]) -> Int {
-        return 0
+        var last: [Int] = []
+        for (line, sunArray) in grid.enumerated() {
+            for(list, value) in sunArray.enumerated() {
+                guard line > 0 else {
+                    if list == 0 {
+                        last.append(value)
+                    } else {
+                        last.append(value + last[list - 1])
+                    }
+                    continue
+                }
+                guard list > 0 else {
+                    last[0] = last[0] + value
+                    continue
+                }
+                last[list] = min(last[list], last[list - 1]) + value
+            }
+        }
+        var minValue: Int = 0
+        for (index, value) in last.enumerated() {
+            guard index > 0 else {
+                minValue = value
+                continue
+            }
+            minValue = min(value, last[index - 1] + grid.last![index])
+        }
+        
+        return minValue
     }
 }

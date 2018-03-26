@@ -28,5 +28,7 @@
         <page name='56. Merge Intervals'/>
         <page name='62. Unique Paths'/>
         <page name='64. Minimum Path Sum'/>
+        <page name='70. Climbing Stairs'/>
+        <page name='72. Edit Distance'/>
     </pages>
 </playground>
