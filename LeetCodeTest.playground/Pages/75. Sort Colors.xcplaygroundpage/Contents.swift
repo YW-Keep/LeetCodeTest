@@ -13,11 +13,20 @@
  */
 import Foundation
 
-var str = "Hello, playground"
-
-var a = str.index(str.startIndex, offsetBy: 1)
-var m = str[str.index(str.startIndex, offsetBy: 1)]
-
-var text: [Int] = [Int](repeating: -1, count: 5)
-text[2] = 1
-
+class Solution {
+    func sortColors(_ nums: inout [Int]) {
+        var min = 0, indx = 0,  max = nums.count - 1
+        while indx <= max  {
+            if nums[indx] == 0 {
+                nums.swapAt(min, indx)
+                min += 1
+                indx += 1
+            } else if nums[indx] == 2 {
+                nums.swapAt(max, indx)
+                max -= 1
+            } else {
+                indx += 1
+            }
+        }
+    }
+}

@@ -31,5 +31,6 @@
         <page name='70. Climbing Stairs'/>
         <page name='72. Edit Distance'/>
         <page name='75. Sort Colors'/>
+        <page name='76. Minimum Window Substring'/>
     </pages>
 </playground>
