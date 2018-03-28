@@ -32,5 +32,6 @@
         <page name='72. Edit Distance'/>
         <page name='75. Sort Colors'/>
         <page name='76. Minimum Window Substring'/>
+        <page name='78. Subsets '/>
     </pages>
 </playground>
