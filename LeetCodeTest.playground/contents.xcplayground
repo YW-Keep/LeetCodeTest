@@ -33,5 +33,6 @@
         <page name='75. Sort Colors'/>
         <page name='76. Minimum Window Substring'/>
         <page name='78. Subsets '/>
+        <page name='79. Word Search'/>
     </pages>
 </playground>

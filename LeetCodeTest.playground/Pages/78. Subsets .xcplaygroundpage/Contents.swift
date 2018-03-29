@@ -22,6 +22,12 @@ import Foundation
 
 class Solution {
     func subsets(_ nums: [Int]) -> [[Int]] {
-        return []
+        var result: [[Int]] = [[]]
+        for num in nums {
+            result = result.map({ (index) -> [Int] in
+                return index + [num]
+            }) + [[num],[]]
+        }
+        return result
     }
 }
