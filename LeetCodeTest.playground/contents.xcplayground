@@ -34,5 +34,6 @@
         <page name='76. Minimum Window Substring'/>
         <page name='78. Subsets '/>
         <page name='79. Word Search'/>
+        <page name='84. Largest Rectangle in Histogram'/>
     </pages>
 </playground>
