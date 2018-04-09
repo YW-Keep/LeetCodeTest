@@ -2,7 +2,6 @@
 
 import Foundation
 
-var str = "Hello, playground"
 public class TreeNode {
     public var val: Int
     public var left: TreeNode?
