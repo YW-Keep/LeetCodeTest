@@ -23,6 +23,25 @@ public class TreeNode {
 
 class Solution {
     func isValidBST(_ root: TreeNode?) -> Bool {
+        var result: [Int] = []
+        self.traverse(root, &result)
+        guard result.count > 1 else {
+            return true
+        }
+        for indx in 1...(result.count - 1) {
+            if result[indx] <= result[indx - 1] {
+            return false
+            }
+        }
         return true
+    }
+    func traverse(_ root: TreeNode?,_ result: inout [Int]) {
+        guard let indx = root else {
+            return
+        }
+        
+        self.traverse(indx.left, &result)
+        result.append(indx.val)
+        self.traverse(indx.right, &result)
     }
 }

@@ -39,5 +39,6 @@
         <page name='94. Binary Tree Inorder Traversal'/>
         <page name='96. Unique Binary Search Trees'/>
         <page name='98. Validate Binary Search Tree'/>
+        <page name='101. 对称二叉树'/>
     </pages>
 </playground>
