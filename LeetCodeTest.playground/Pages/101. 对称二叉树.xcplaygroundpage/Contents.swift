@@ -27,7 +27,6 @@
 
 import Foundation
 
-var str = "Hello, playground"
 public class TreeNode {
     public var val: Int
     public var left: TreeNode?
@@ -42,6 +41,34 @@ public class TreeNode {
 class Solution {
     func isSymmetric(_ root: TreeNode?) -> Bool {
         
+        guard let index = root else {
+            return true
+        }
+        
+        return checkSymmetric(index.left, index.right)
+    }
+    
+    func checkSymmetric(_ left: TreeNode?, _ right: TreeNode?) -> Bool {
+
+        if left == nil && right == nil {
+            return true
+        }
+        
+        guard let indexLeft = left , let indexRight = right else {
+            return false
+        }
+        
+        if indexLeft.val == indexRight.val {
+            if !checkSymmetric(indexLeft.left, indexRight.right) {
+                return false
+            } else if !checkSymmetric(indexLeft.right, indexRight.left) {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return false
+        }
     }
 }
 
