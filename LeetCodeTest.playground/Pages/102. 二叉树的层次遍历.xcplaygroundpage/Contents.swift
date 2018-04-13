@@ -33,6 +33,26 @@ public class TreeNode {
 
 class Solution {
     func levelOrder(_ root: TreeNode?) -> [[Int]] {
-        return []
+        guard let node = root else {
+            return []
+        }
+        var layer = [node]
+        var reslut: [[Int]] = []
+        while layer.count > 0 {
+            var layerNum: [Int] = []
+            var nextLayer: [TreeNode] = []
+            for node in layer {
+                layerNum.append(node.val)
+                if let left = node.left {
+                    nextLayer.append(left)
+                }
+                if let right = node.right {
+                    nextLayer.append(right)
+                }
+            }
+            reslut.append(layerNum)
+            layer = nextLayer
+        }
+        return reslut
     }
 }

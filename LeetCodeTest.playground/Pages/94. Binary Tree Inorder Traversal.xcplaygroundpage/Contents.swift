@@ -14,6 +14,7 @@ public class TreeNode {
 }
 
 class Solution {
+    // 递归实现
     func inorderTraversal(_ root: TreeNode?) -> [Int] {
         var result: [Int] = []
         self.traverse(root, &result)
@@ -28,4 +29,25 @@ class Solution {
         result.append(indx.val)
         self.traverse(indx.right, &result)
     }
+    
+    // 非递归实现
+    func inorderTraversal2(_ root: TreeNode?) -> [Int] {
+        var stack: [TreeNode] = []
+        var note = root
+        var result: [Int] = [];
+        while !(note == nil && stack.isEmpty) {
+            while let root = note {
+                stack.append(root)
+                note = root.left
+            }
+            if !stack.isEmpty {
+                note = stack.last
+                stack.removeLast()
+                result.append(note!.val)
+                note = note?.right
+            }
+        }
+        return result
+    }
+    
 }
