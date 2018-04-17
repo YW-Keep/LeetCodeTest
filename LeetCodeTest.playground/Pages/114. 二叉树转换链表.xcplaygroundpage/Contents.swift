@@ -47,9 +47,55 @@ public class TreeNode {
         self.right = nil
     }
 }
-
+// 前序遍历方式获取
 class Solution {
     func flatten(_ root: TreeNode?) {
-        
+        var note = root
+        var stack: [TreeNode] = []
+        var listStack: [Int] = []
+        while !(note == nil && stack.isEmpty) {
+            while let inRoot = note {
+                listStack.append(inRoot.val)
+                stack.append(inRoot)
+                note = inRoot.left
+            }
+            if !stack.isEmpty {
+                note = stack.last
+                stack.removeLast()
+                note = note?.right
+            }
+        }
+        var Pointer: TreeNode? = nil
+        if listStack.count > 1 {
+            for num in listStack {
+                if Pointer == nil {
+                    Pointer = root
+                    Pointer?.left = nil
+                } else {
+                    Pointer?.right = TreeNode(num)
+                    Pointer = Pointer?.right
+                }
+            }
+        }
     }
 }
+// 网上找的方法 代码更简单 思路要把右边的树挂到左边（前序遍历的最后一个数，即最右边的数上）循环做
+class Solution2 {
+    func flatten(_ root: TreeNode?) {
+        var node = root
+        while(node != nil){
+            if node!.left != nil {
+                var cur  = node!.left
+                while(cur!.right != nil){
+                    cur = cur!.right
+                }
+                cur!.right = node!.right
+                node!.right = node!.left
+                node!.left = nil;
+            }
+            node = node!.right
+
+        }
+    }
+}
+
