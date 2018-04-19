@@ -23,6 +23,15 @@ import Foundation
 
 class Solution {
     func maxProfit(_ prices: [Int]) -> Int {
-        return 0
+        var maxProfit = 0
+        var min = Int.max
+        for num in prices {
+            if num > min {
+                maxProfit = max(maxProfit, num - min)
+            } else {
+                min = num
+            }
+        }
+        return maxProfit
     }
 }

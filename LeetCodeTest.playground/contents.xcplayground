@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw'>
+<playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='1.Two Sum'/>
         <page name='2.Add Two Numbers'/>
@@ -45,5 +45,7 @@
         <page name='105. 从前序与中序遍历序列构造二叉树'/>
         <page name='114. 二叉树转换链表'/>
         <page name='121. 买卖股票的最佳时机'/>
+        <page name='124. 二叉树中的最大路径和'/>
+        <page name='136.只出现一次的数字'/>
     </pages>
 </playground>
