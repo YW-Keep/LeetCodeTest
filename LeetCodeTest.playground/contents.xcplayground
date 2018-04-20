@@ -46,6 +46,7 @@
         <page name='114. 二叉树转换链表'/>
         <page name='121. 买卖股票的最佳时机'/>
         <page name='124. 二叉树中的最大路径和'/>
+        <page name='128. 最长连续序列'/>
         <page name='136.只出现一次的数字'/>
     </pages>
 </playground>
