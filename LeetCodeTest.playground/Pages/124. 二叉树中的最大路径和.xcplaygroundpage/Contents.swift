@@ -31,6 +31,18 @@ public class TreeNode {
 
 class Solution {
     func maxPathSum(_ root: TreeNode?) -> Int {
-        return 1
+        var result = Int.min
+        getRootMax(&result, root)
+        return result
+    }
+    
+    func getRootMax(_ reslut: inout Int,_ root: TreeNode?) -> Int {
+        guard root != nil else {
+            return 0
+        }
+        let left = max(getRootMax(&reslut, root!.left), 0)
+        let right = max(getRootMax(&reslut, root!.right), 0)
+        reslut = max(reslut, left + right + root!.val)
+        return max(left, right) + root!.val
     }
 }
