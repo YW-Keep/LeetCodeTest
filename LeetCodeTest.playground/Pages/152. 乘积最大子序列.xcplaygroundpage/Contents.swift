@@ -18,6 +18,16 @@ import Foundation
 
 class Solution {
     func maxProduct(_ nums: [Int]) -> Int {
-        return 0
+        var result = Int.min
+        var conMax = 1
+        var conMin = 1
+        for num in nums {
+            let inMax = max(conMax * num, conMin * num, num)
+            let inMin = min(conMax * num, conMin * num, num)
+            conMax = inMax
+            conMin = inMin
+            result = max(result , conMax)
+        }
+        return result
     }
 }
