@@ -52,5 +52,6 @@
         <page name='148. 排序链表'/>
         <page name='152. 乘积最大子序列'/>
         <page name='169. 求众数'/>
+        <page name='198. 打家劫舍'/>
     </pages>
 </playground>
