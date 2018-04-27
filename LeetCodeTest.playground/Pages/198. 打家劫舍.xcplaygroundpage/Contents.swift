@@ -9,6 +9,25 @@ import Foundation
 
 class Solution {
     func rob(_ nums: [Int]) -> Int {
-        return 0
+        guard nums.count > 0 else {
+            return 0
+        }
+        guard nums.count > 1 else {
+            return nums[0]
+        }
+        
+        guard nums.count > 2 else {
+            return max(nums[0], nums[1])
+        }
+        var beforeMax = nums[0]
+        var nowMax = max( nums[1],  nums[0])
+        for indx  in 2...(nums.count - 1) {
+            let num = nums[indx];
+            let maxNum = max(beforeMax + num, nowMax)
+            beforeMax = nowMax
+            nowMax = maxNum
+        }
+        
+        return nowMax
     }
 }

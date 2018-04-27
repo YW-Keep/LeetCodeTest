@@ -53,5 +53,6 @@
         <page name='152. 乘积最大子序列'/>
         <page name='169. 求众数'/>
         <page name='198. 打家劫舍'/>
+        <page name='200. 岛屿的个数'/>
     </pages>
 </playground>
