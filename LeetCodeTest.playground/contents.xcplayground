@@ -54,5 +54,6 @@
         <page name='169. 求众数'/>
         <page name='198. 打家劫舍'/>
         <page name='200. 岛屿的个数'/>
+        <page name='206. 反转链表'/>
     </pages>
 </playground>
