@@ -55,5 +55,8 @@
         <page name='198. 打家劫舍'/>
         <page name='200. 岛屿的个数'/>
         <page name='206. 反转链表'/>
+        <page name='207. 课程表'/>
+        <page name='215. 数组中的第K个最大元素'/>
+        <page name='218. 天际线问题'/>
     </pages>
 </playground>
