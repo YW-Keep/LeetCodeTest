@@ -58,5 +58,7 @@
         <page name='207. 课程表'/>
         <page name='215. 数组中的第K个最大元素'/>
         <page name='218. 天际线问题'/>
+        <page name='226. 翻转二叉树'/>
+        <page name='234. 回文链表'/>
     </pages>
 </playground>
