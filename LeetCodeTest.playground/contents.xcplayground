@@ -63,5 +63,6 @@
         <page name='238. 除自身以外数组的乘积'/>
         <page name='239. 滑动窗口最大值'/>
         <page name='240. 搜索二维矩阵 II'/>
+        <page name='279. 完全平方数'/>
     </pages>
 </playground>
