@@ -14,9 +14,27 @@
  */
 
 import Foundation
-
+// 动态规划  backupArray[i] =  min(backupArray[i], backupArray[i - j*j] + 1)
 class Solution {
     func numSquares(_ n: Int) -> Int {
-        return 0
+        
+        guard n > 1 else {
+            return 1;
+        }
+        
+        var backupArray: [Int] = [];
+        for index in 0...n {
+            backupArray.append(index);
+        }
+        for i in 2...n {
+            for j in 1...i {
+                guard j * j <= i else {
+                    break
+                }
+                backupArray[i] =  min(backupArray[i], backupArray[i - j*j] + 1)
+            }
+        }
+        
+        return backupArray[n]
     }
 }

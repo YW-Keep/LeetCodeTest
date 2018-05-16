@@ -64,5 +64,6 @@
         <page name='239. 滑动窗口最大值'/>
         <page name='240. 搜索二维矩阵 II'/>
         <page name='279. 完全平方数'/>
+        <page name='283. 移动零'/>
     </pages>
 </playground>

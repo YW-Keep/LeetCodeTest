@@ -137,4 +137,6 @@
 
 ### 思路：因为按顺序排列 所以减少不必要的 判断 （其实二分法 应该更快） 
 
-### 
+## 279. 完全平方数
+
+### 思路：动态规划  backupArray[i] =  min(backupArray[i], backupArray[i - j*j] + 1) 
