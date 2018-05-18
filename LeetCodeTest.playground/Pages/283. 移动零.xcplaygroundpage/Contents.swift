@@ -13,9 +13,22 @@
  */
 
 import Foundation
-
+// 把数字前移 前面的都判断过 这样移动次数少了
 class Solution {
     func moveZeroes(_ nums: inout [Int]) {
-        return []
+        guard nums.count > 0 else {
+            return
+        }
+        var zeroNum = 0
+        for indx in 0...(nums.count - 1) {
+            let num = nums[indx];
+            if num != 0 {
+                if indx != zeroNum {
+                nums.swapAt(indx, zeroNum)
+                }
+                zeroNum = zeroNum + 1
+            }
+        }
+
     }
 }

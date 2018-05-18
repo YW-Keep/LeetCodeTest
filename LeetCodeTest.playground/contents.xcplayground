@@ -65,5 +65,7 @@
         <page name='240. 搜索二维矩阵 II'/>
         <page name='279. 完全平方数'/>
         <page name='283. 移动零'/>
+        <page name='287. 寻找重复数'/>
+        <page name='300. 最长上升子序列'/>
     </pages>
 </playground>
