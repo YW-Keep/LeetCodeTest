@@ -67,5 +67,7 @@
         <page name='283. 移动零'/>
         <page name='287. 寻找重复数'/>
         <page name='300. 最长上升子序列'/>
+        <page name='301. 删除无效的括号'/>
+        <page name='309. 最佳买卖股票时机含冷冻期'/>
     </pages>
 </playground>
