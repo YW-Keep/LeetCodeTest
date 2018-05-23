@@ -69,5 +69,7 @@
         <page name='300. 最长上升子序列'/>
         <page name='301. 删除无效的括号'/>
         <page name='309. 最佳买卖股票时机含冷冻期'/>
+        <page name='322. 零钱兑换'/>
+        <page name='337. 打家劫舍 III'/>
     </pages>
 </playground>
