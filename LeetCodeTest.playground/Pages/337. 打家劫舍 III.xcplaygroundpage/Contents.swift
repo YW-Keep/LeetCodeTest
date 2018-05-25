@@ -24,6 +24,65 @@
 
 import Foundation
 
-var str = "Hello, playground"
+public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.left = nil
+        self.right = nil
+    }
+}
 
-//: [Next](@next)
+// 递归 思路是 根节点 抢了子节点不能抢 根节点不抢子节点可抢可不抢
+class Solution {
+    
+    func rob(_ root: TreeNode?) -> Int {
+        let res = dfs(root)
+        return max(res.0, res.1)
+    }
+    
+    func dfs(_ root: TreeNode?) -> (Int, Int) {
+        guard root != nil else {
+            return (0, 0)
+        }
+        let left = dfs(root!.left)
+        let right = dfs(root!.right)
+        return (left.1 + right.1 + root!.val, max(left.0, left.1) + max(right.0, right.1))
+    }
+}
+
+
+// 这种思路错误，因为有种可能 一排下面没有左右就可以选
+class Solution2 {
+    func rob(_ root: TreeNode?) -> Int {
+        guard root != nil else {
+            return 0
+        }
+        
+        var before = 0 , now = 0
+        var list: [[TreeNode]] = [[root!]]
+        while list.count != 0 {
+            var inList: [TreeNode] = []
+            var sum = 0
+            for tree in list.first! {
+                sum = sum + tree.val
+                if tree.left != nil {
+                    inList.append(tree.left!)
+                }
+                if tree.right != nil {
+                    inList.append(tree.right!)
+                }
+            }
+            if inList.count > 0 {
+                list.append(inList)
+            }
+            list.removeFirst()
+            let nowMax =  max(before + sum, now)
+            before = now
+            now = nowMax
+        }
+        return now
+    }
+}

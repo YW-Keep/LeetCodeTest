@@ -71,5 +71,7 @@
         <page name='309. 最佳买卖股票时机含冷冻期'/>
         <page name='322. 零钱兑换'/>
         <page name='337. 打家劫舍 III'/>
+        <page name='338. Bit位计数'/>
+        <page name='347. 前K个高频元素'/>
     </pages>
 </playground>
