@@ -14,6 +14,25 @@
 
 import Foundation
 
-var str = "Hello, playground"
-
-//: [Next](@next)
+// 其实先隐射一个字典，在用一个数组存所有的key,key的排序方式是出现的次数，用二分法排序。(这里偷懒了用系统的方法排序了哈哈)
+class Solution {
+    func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
+        guard k > 0 && nums.count > 0 else {
+            return []
+        }
+        var keyDic: [Int:Int] = [:]
+        var keyArray: [Int] = []
+        for num in nums {
+            if let number = keyDic[num] {
+                keyDic[num] = number + 1
+            } else {
+                keyDic[num] = 1
+                keyArray.append(num)
+            }
+        }
+        keyArray.sort { (fist, second) -> Bool in
+            return keyDic[fist]! > keyDic[second]!
+        }
+        return Array(keyArray[0...(k - 1)])
+    }
+}
