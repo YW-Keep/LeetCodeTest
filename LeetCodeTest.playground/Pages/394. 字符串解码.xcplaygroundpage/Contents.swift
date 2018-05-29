@@ -17,8 +17,42 @@
 
 import Foundation
 
+// 思路 堆栈
 class Solution {
     func decodeString(_ s: String) -> String {
-        return ""
+        var heap: [String] = []
+        for char in s {
+            let str = String(char)
+            if str == "]" {
+                var inStr = ""
+                while heap.last! != "["  {
+                    inStr = heap.last! + inStr
+                    heap.removeLast()
+                }
+                heap.removeLast()
+                var numStr = ""
+                while heap.last != nil && isNum(numString: heap.last!) {
+                    numStr = heap.last! + numStr
+                    heap.removeLast()
+                }
+                let num = Int(numStr) ?? 1
+                var lastStr = ""
+                for _ in  0...(num - 1) {
+                    lastStr = inStr + lastStr
+                }
+                heap.append(lastStr)
+            } else {
+                heap.append(str)
+            }
+        }
+        var reslut = ""
+        for inString in heap {
+            reslut = reslut + inString
+        }
+        return reslut
+    }
+    func isNum(numString: String) -> Bool {
+        let num = "1234567890"
+        return num.contains(numString)
     }
 }
