@@ -22,8 +22,38 @@
 
 import Foundation
 
+// 其实是一个背包问题  最后用了动态规划区解决它
 class Solution {
     func canPartition(_ nums: [Int]) -> Bool {
-        return true
+        guard nums.count > 1 else {
+            return false
+        }
+        let sum = nums.reduce(0, +)
+        guard sum%2 == 0 else {
+            return false
+        }
+        let mid = sum / 2
+        var record = Array(repeating: Array(repeating: 0 , count: mid + 1) , count: nums.count)
+        guard nums[0] <= mid else {
+            return false
+        }
+        for indx in nums[0]...mid {
+            record[0][indx] = nums[0]
+        }
+        
+        for i in 1...(nums.count - 1) {
+            let nowNum = nums[i]
+            guard nowNum <= mid else {
+                return false
+            }
+            for j in nowNum...mid {
+                record[i][j] = max(record[i-1][j], record[i-1][j-nowNum] + nums[i])
+            }
+        }
+        if record[nums.count - 1][mid] == mid {
+            return true
+        } else {
+            return false
+        }
     }
 }
