@@ -33,41 +33,38 @@
  */
 import Foundation
 
+// 思路 主要是 先把第一次的string 放入字典，然后位移加减字典字符如果count = 0 说明正好一样ps：最后还是超时了。 
 class Solution {
     func findAnagrams(_ s: String, _ p: String) -> [Int] {
         guard s.count >= p.count else {
             return []
         }
         var originalDic: [Character:Int] = [:]
+        var reslut: [Int] = []
         for char in p {
-            var num = 1
-            if let before = originalDic[char]  {
-                num = num + before
-            }
-            originalDic[char] = num
+            originalDic[char] = 1 + (originalDic[char] ?? 0)
         }
-
-        for (index ,char) in s.enumerated() {
-            var num = -1
-            if let before = originalDic[char] {
-                num = num + before
-            }
-            if num == 0  {
-                originalDic.removeValue(forKey: char)
-            } else {
+        
+        var charArray: [Character] = []
+        for char in s {
+            charArray.append(char)
+        }
+        var count = p.count
+        for index in 0...(s.count - 1) {
+            let char = charArray[index]
+            let num = (originalDic[char] ?? 0) - 1
+            count = num >= 0 ? count - 1 : count + 1
+            originalDic[char] = num
+            if index >= p.count {
+                let char = charArray[index - p.count]
+                let num = (originalDic[char] ?? 0) + 1
+                count = num <= 0 ? count - 1 : count + 1
                 originalDic[char] = num
             }
-            if index >= p.count {
-                var addNum = 1
-                let sindex = s.index(s.startIndex, offsetBy: index - p.count)
-                let str = s[sindex]
+            if count == 0 {
+                reslut.append(index - p.count + 1)
             }
         }
-        
-        return []
-    }
-    
-    func changeDic(orig: Int, changeDic: inout [Character:Int]) {
-        
+        return reslut
     }
 }
