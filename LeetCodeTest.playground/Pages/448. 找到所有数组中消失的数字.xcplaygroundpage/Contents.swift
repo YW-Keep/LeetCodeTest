@@ -15,6 +15,27 @@
  */
 import Foundation
 
-var str = "Hello, playground"
-
-//: [Next](@next)
+// 取负法 如果是负数表示已经访问过，最后把正值遍历出来输出 因为swift传入的数组不能直接修改，所以就有点尴尬。
+class Solution {
+    func findDisappearedNumbers(_ nums: [Int]) -> [Int] {
+        guard nums.count > 0 else {
+            return []
+        }
+        
+        var varNums = nums
+        for num in varNums {
+            let index = abs(num) - 1
+            if varNums[index] > 0 {
+                varNums[index] = -varNums[index]
+            }
+        }
+        
+        var reslut: [Int] = []
+        for index in 0...(nums.count - 1) {
+            if varNums[index] > 0 {
+                reslut.append(index + 1)
+            }
+        }
+        return reslut
+    }
+}
