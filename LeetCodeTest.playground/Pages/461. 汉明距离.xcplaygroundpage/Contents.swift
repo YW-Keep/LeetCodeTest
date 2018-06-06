@@ -4,7 +4,7 @@
  给出两个整数 x 和 y，计算它们之间的汉明距离。
  
  注意：
- 0 ≤ x, y < 231.
+ 0 ≤ x, y < 2^31.
  
  示例:
  
@@ -20,9 +20,18 @@
  上面的箭头指出了对应二进制位不同的位置。
  */
 import Foundation
-
+// 运算符的运用而已
 class Solution {
     func hammingDistance(_ x: Int, _ y: Int) -> Int {
-        return 0
+        var num = x ^ y
+        var reslut = 0
+        for _ in 0...31 {
+            if (num & 1) != 0 {
+                reslut += 1
+            }
+            num = num >> 1
+        }
+        return reslut
     }
 }
+
