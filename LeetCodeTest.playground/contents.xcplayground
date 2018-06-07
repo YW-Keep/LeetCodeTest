@@ -81,5 +81,6 @@
         <page name='448. 找到所有数组中消失的数字'/>
         <page name='461. 汉明距离'/>
         <page name='494. 目标和'/>
+        <page name='538. 把二叉搜索树转换为累加树'/>
     </pages>
 </playground>

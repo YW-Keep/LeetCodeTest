@@ -25,8 +25,30 @@
 
 import Foundation
 
+// 需要简化问题 ，我们可以这样考虑 把正数集 与负数集分开 那么就有： 正数集 - 负数集 = 目标
+// 两边加上总数。  那么久是  2 * 正数集合 = 目标 + 总和
+// 那么问题就变成了  找到子集和等于 （目标 + 总和）/ 2
+
 class Solution {
     func findTargetSumWays(_ nums: [Int], _ S: Int) -> Int {
-        return 0
+        let sum = nums.reduce(0, +)
+        guard sum >= S  && (sum + S) % 2 == 0 else {
+            
+            return 0
+        }
+        return subsetSum(nums, (sum + S)/2)
+    }
+    // 动态规划做 
+    func subsetSum(_ nums: [Int], _ S: Int) -> Int {
+        var dp = Array(repeating: 0, count: S + 1)
+        dp[0] = 1
+        for num in nums {
+            var taget = S
+            while taget >= num {
+                dp[taget] += dp[taget - num];
+                taget -= 1
+            }
+        }
+        return dp[S]
     }
 }
