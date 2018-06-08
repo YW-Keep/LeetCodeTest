@@ -27,8 +27,18 @@ public class TreeNode {
     }
 }
 
+// 搜索二叉树，那不是只要后序遍历就累加就可以了
 class Solution {
+    
+    var sum = 0
     func convertBST(_ root: TreeNode?) -> TreeNode? {
-        return nil
+        guard root != nil else {
+            return nil
+        }
+        convertBST(root!.right)
+        root!.val += sum
+        sum = root!.val
+        convertBST(root!.left)
+        return root
     }
 }

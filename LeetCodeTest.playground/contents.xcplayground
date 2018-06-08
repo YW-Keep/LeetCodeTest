@@ -82,5 +82,6 @@
         <page name='461. 汉明距离'/>
         <page name='494. 目标和'/>
         <page name='538. 把二叉搜索树转换为累加树'/>
+        <page name='543. 二叉树的直径'/>
     </pages>
 </playground>
