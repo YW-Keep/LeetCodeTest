@@ -16,6 +16,33 @@
 
 import Foundation
 
-var str = "Hello, playground"
+public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init(_ val: Int) {
+        self.val = val
+        self.left = nil
+        self.right = nil
+    }
+}
 
-//: [Next](@next)
+// 每个节点的最大长度就是左边最大长度加上右边最大长度 加一 有了这个思路我们就可以递归计算了
+class Solution {
+    func diameterOfBinaryTree(_ root: TreeNode?) -> Int {
+        var reslut = 0
+        depth(root, &reslut)
+        return reslut
+    }
+    func depth(_ root: TreeNode?, _ result: inout Int ) -> Int {
+        
+        guard root != nil else {
+            return 0
+        }
+        let left = depth(root!.left, &result)
+        let right = depth(root!.right, &result)
+        result = max(result, left + right)
+        return max(left, right) + 1
+        
+    }
+}
