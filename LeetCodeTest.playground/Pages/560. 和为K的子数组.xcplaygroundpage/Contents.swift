@@ -12,9 +12,47 @@
  */
 
 import Foundation
-
+// 复杂度为n*n 但是竟然能过
 class Solution {
     func subarraySum(_ nums: [Int], _ k: Int) -> Int {
-        return 0
+        
+        guard nums.count > 0 else {
+            return 0
+        }
+        
+        let count = nums.count
+        var reslut = 0
+        
+        for i in 0...(count - 1) {
+            var sum = 0
+            for j in i...(count - 1) {
+                sum = sum + nums[j]
+                if sum == k {
+                    reslut += 1
+                }
+            }
+        }
+        return reslut
+    }
+}
+
+// 这是一种从网上看来比较精妙的算法 时间复杂度空间复杂度均为n.
+class Solution2 {
+    func subarraySum(_ nums: [Int], _ k: Int) -> Int {
+        var reslut = 0
+        var dic: [Int:Int] = [0:1]
+        var sum = 0
+        for num in nums {
+            sum += num
+            if let count = dic[sum - k] {
+                reslut += count
+            }
+            if let count = dic[sum] {
+                dic[sum] = count + 1
+            } else {
+                dic[sum] = 1
+            }
+        }
+        return reslut
     }
 }

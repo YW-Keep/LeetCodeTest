@@ -84,5 +84,6 @@
         <page name='538. 把二叉搜索树转换为累加树'/>
         <page name='543. 二叉树的直径'/>
         <page name='560. 和为K的子数组'/>
+        <page name='572. 另一个树的子树'/>
     </pages>
 </playground>
