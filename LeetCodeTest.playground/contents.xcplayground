@@ -85,5 +85,7 @@
         <page name='543. 二叉树的直径'/>
         <page name='560. 和为K的子数组'/>
         <page name='572. 另一个树的子树'/>
+        <page name='581. 最短无序连续子数组'/>
+        <page name='617. 合并二叉树'/>
     </pages>
 </playground>

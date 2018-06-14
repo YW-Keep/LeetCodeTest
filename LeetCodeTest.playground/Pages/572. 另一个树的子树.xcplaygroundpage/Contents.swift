@@ -49,8 +49,29 @@ public class TreeNode {
     }
 }
 
+// 思路，每个节点去和目标树比较 递归算法。
 class Solution {
     func isSubtree(_ s: TreeNode?, _ t: TreeNode?) -> Bool {
-        return false
+        guard s != nil && t != nil else {
+            return false
+        }
+        if isSameTree(s, t) {
+            return true
+        } else {
+            return  isSubtree(s!.left,t) || isSubtree(s!.right,t)
+        }
+    }
+    func isSameTree(_ s: TreeNode?, _ t: TreeNode?) -> Bool {
+        if s == nil && t == nil {
+            return true
+        }
+        guard s != nil && t != nil else {
+            return false
+        }
+        if s!.val != t!.val {
+            return false
+        } else {
+            return isSameTree(s!.left , t!.left) && isSameTree(s!.right , t!.right)
+        }
     }
 }
