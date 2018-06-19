@@ -34,8 +34,18 @@ public class TreeNode {
         self.right = nil
     }
 }
+// 就简单的递归合并
 class Solution {
     func mergeTrees(_ t1: TreeNode?, _ t2: TreeNode?) -> TreeNode? {
-        return nil
+        guard  t1 != nil else {
+            return t2
+        }
+        guard t2 != nil else {
+            return t1
+        }
+        t1!.val = t1!.val + t2!.val
+        t1!.left = mergeTrees(t1!.left , t2!.left)
+        t1!.right = mergeTrees(t1!.right , t2!.right)
+        return t1
     }
 }

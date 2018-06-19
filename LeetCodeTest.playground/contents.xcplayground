@@ -87,5 +87,7 @@
         <page name='572. 另一个树的子树'/>
         <page name='581. 最短无序连续子数组'/>
         <page name='617. 合并二叉树'/>
+        <page name='621. 任务调度器'/>
+        <page name='647. 回文子串'/>
     </pages>
 </playground>
