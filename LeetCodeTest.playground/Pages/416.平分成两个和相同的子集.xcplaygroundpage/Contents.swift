@@ -33,24 +33,18 @@ class Solution {
             return false
         }
         let mid = sum / 2
-        var record = Array(repeating: Array(repeating: 0 , count: mid + 1) , count: nums.count)
-        guard nums[0] <= mid else {
-            return false
-        }
-        for indx in nums[0]...mid {
-            record[0][indx] = nums[0]
-        }
+        var record = Array(repeating: Array(repeating: 0 , count: mid + 1) , count: nums.count + 1)
         
-        for i in 1...(nums.count - 1) {
-            let nowNum = nums[i]
+        for i in 1...nums.count {
+            let nowNum = nums[i - 1]
             guard nowNum <= mid else {
                 return false
             }
             for j in nowNum...mid {
-                record[i][j] = max(record[i-1][j], record[i-1][j-nowNum] + nums[i])
+                record[i][j] = max(record[i-1][j], record[i-1][j-nowNum] + nowNum)
             }
         }
-        if record[nums.count - 1][mid] == mid {
+        if record[nums.count][mid] == mid {
             return true
         } else {
             return false
