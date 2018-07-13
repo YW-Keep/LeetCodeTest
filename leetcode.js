@@ -121,3 +121,26 @@ var findValueInSortedArray = function(k, num1, num2) {
         return findValueInSortedArray(k - index2 - 1, num1, num2.slice(index2 + 1, num2.length));
     }
 }
+// 11. 盛最多水的容器 （确定一个变量，修改另外一个变量）
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+    var max = 0;
+    var left = 0;
+    var right = height.length - 1;
+
+    while (left < right) {
+        let now = Math.min(height[left],height[right])*(right - left);
+        max = Math.max(max,now);
+        if (height[left] < height[right]) {
+            left += 1;
+        } else {
+            right -= 1;
+        }
+    }
+    return max;
+};
+let num = maxArea([1,1]);
+console.log(num);
