@@ -121,6 +121,51 @@ var findValueInSortedArray = function(k, num1, num2) {
         return findValueInSortedArray(k - index2 - 1, num1, num2.slice(index2 + 1, num2.length));
     }
 }
+// 5. 最长回文子串  首先插入#来除去奇偶性的判断  然后 Manacher 算法 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+    var newS = '#';
+    for (let index = 0; index < s.length; index++) {
+        newS += s[index];
+        newS += '#';
+    }
+    newS  = '$' + newS + '&';
+
+    var p = new Array();
+    var mid = 0;
+    var right = 0;
+
+    var max_mid = 0;
+    var max_leng = 0;
+    p[0] = 0;
+    for (let index = 1; index < newS.length; index++) {
+        if (index < right) {
+            p[index] = Math.min(p[2*mid - index], right - index)
+        } else {
+            p[index] = 1;
+        }
+        while(newS[index - p[index]] == newS[index + p[index]]) {
+            p[index]++;
+        }
+        if(p[index] + index > right) {
+            mid = index;
+            right = p[index] + index;
+        }
+        if(p[index] - 1 > max_leng){
+            max_leng = p[index] - 1;
+            max_mid = index;
+        }
+    }
+    var start = Math.floor(max_mid / 2 )  -  Math.floor(max_leng / 2);
+    if (max_mid % 2 == 0) {
+        start --;
+    }
+    return s.slice(start , start + max_leng);
+};
+
 // 11. 盛最多水的容器 （确定一个变量，修改另外一个变量）
 /**
  * @param {number[]} height
@@ -142,5 +187,3 @@ var maxArea = function(height) {
     }
     return max;
 };
-let num = maxArea([1,1]);
-console.log(num);
