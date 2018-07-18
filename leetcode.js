@@ -18,8 +18,10 @@ var twoSum = function(nums, target) {
     return [];
 };
 
-// 第二题 没什么难度 循环 需要考虑下进位
 
+
+
+// 第二题 没什么难度 循环 需要考虑下进位
 function ListNode(val) {
        this.val = val;
        this.next = null;
@@ -55,6 +57,8 @@ var addTwoNumbers = function(l1, l2) {
     return head.next;
 };
 
+
+
 // leetcode 第三题 我又用空间换时间了
 /**
  * @param {string} s
@@ -74,6 +78,8 @@ var lengthOfLongestSubstring = function(s) {
     }
     return reslut;
 };
+
+
 
 //4. 两个排序数组的中位数   排序数组，其实就是取数  二分法求值
 /**
@@ -121,6 +127,10 @@ var findValueInSortedArray = function(k, num1, num2) {
         return findValueInSortedArray(k - index2 - 1, num1, num2.slice(index2 + 1, num2.length));
     }
 }
+
+
+
+
 // 5. 最长回文子串  首先插入#来除去奇偶性的判断  然后 Manacher 算法 
 /**
  * @param {string} s
@@ -187,3 +197,90 @@ var maxArea = function(height) {
     }
     return max;
 };
+
+
+
+// 15. 三数之和  思路就是第一个数 然后做 一个数组中找到两个数的和等于目标值，首相想到的是用算法1的方法算2个数和等于目标值，发现这样很难去重
+// 所以换一种思路，先给数组排序，然后定一个数，头尾指针移动去寻找相应的值。最后加入。
+
+// 这是第一种方式写的  难以去重
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum1 = function(nums) {
+    var result = new Array();
+    var ma
+    for (let index = 0; index < nums.length; index++) {
+        var num  = nums[index]
+        let backArr = twoSum2( nums.slice(index + 1,nums.length) , -num);
+        result = result.concat(backArr);
+    }
+    return result;
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum2 = function(nums, target) {
+    var myMap = new Map();
+    var backArr = new Array();
+    for (let index = 0; index < nums.length; index++) {
+        let num = nums[index];
+        let reslut =  target - num;
+        if (myMap.get(reslut) != null) {
+            backArr.push([num,reslut,-target]);
+        } else {
+            myMap.set(num, index);
+        }
+    }
+    return backArr;
+};
+
+// 第二种
+var threeSum2 = function(nums) {
+    var result = new Array();
+    var newNums = nums.sort(compare);
+    for (let index = 0; index < newNums.length; index++) {
+        let num = newNums[index];
+        var start = index + 1;
+        var end = newNums.length - 1;
+        // 去重
+        if (index > 0 && (num == newNums[index - 1])) {
+            continue;
+        }
+        while (start < end) {
+            let sum = newNums[start] + newNums[end] + num;
+            if (sum == 0) {
+                result.push([newNums[start], newNums[end], num])
+                // 去重
+                while (start < end && (newNums[start] == newNums[start + 1])) {
+                    start++;
+                }
+                while (start < end && (newNums[end] == newNums[end - 1])) {
+                    end--;
+                }
+                start++;
+                end--;
+            } else if (sum < 0) {
+                start++;
+            } else {
+                end--;
+            }
+        }
+    }
+    return result;
+};
+
+// 排序方法
+var compare = function (x, y) {
+    if (x < y) {
+        return -1;
+    } else if (x > y) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
