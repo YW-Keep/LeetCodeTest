@@ -284,3 +284,43 @@ var compare = function (x, y) {
         return 0;
     }
 }
+
+
+
+//17. 电话号码的字母组合   深度遍历
+
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    if (digits.length < 1) {
+        return [];
+    }
+    var reslut = new Array();
+    dfs17(0,digits,"",reslut);
+    return reslut;
+};
+
+var conversion = [" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
+
+/**
+ * @param {number} step
+ * @param {string} digits
+ * @param {string} target
+ * @param {[string]} reslut
+ */
+var dfs17 = function(step, digits, target, reslut) {
+    if (step == digits.length) {
+        reslut.push(target);
+        return;
+    }
+    var addNum = Number(digits[step]);
+    var addString = conversion[addNum];
+
+    for (let index = 0; index < addString.length; index++) {
+        var element = addString[index];
+        dfs17(step + 1, digits, target + element, reslut);
+    }
+}
+
