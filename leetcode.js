@@ -324,3 +324,46 @@ var dfs17 = function(step, digits, target, reslut) {
     }
 }
 
+//19. 删除链表的倒数第N个节点  看到这个第一个想法就是快慢指针
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    var fast = head;
+    var slow = head;
+    var num = 0;
+    while (fast != null && num <= n ) {
+        fast = fast.next;
+        num++; 
+    }
+
+    while (fast != null) {
+        fast = fast.next;
+        slow = slow.next;
+    }
+
+    if (num == n) {
+        head =  head.next;
+    } else if (num > n) {
+        slow.next = slow.next.next;
+    }
+    
+    return head;
+};
+
