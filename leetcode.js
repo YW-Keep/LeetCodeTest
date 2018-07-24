@@ -396,3 +396,43 @@ var isValid = function(s) {
         return false;
     }
 };
+
+// 21. 合并两个有序链表
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var mergeTwoLists = function(l1, l2) {
+    var head = new ListNode(1);
+    var step = head;
+    while ( l1 != null && l2 != null) {
+        if (l1.val < l2.val) {
+            step.next = l1
+            l1 = l1.next;
+        } else {
+            step.next = l2
+            l2 = l2.next;
+        }
+        step = step.next;
+    }
+    if(l1 != null) {
+        step.next = l1;
+    } 
+    if(l2 != null) {
+        step.next = l2;
+    }
+    return  head.next;
+};
+
+
+var head1 = new ListNode(1);
+head1.next = new ListNode(2);
+head1.next.next = new ListNode(4);
+
+var head2 = new ListNode(1);
+head2.next = new ListNode(3);
+head2.next.next = new ListNode(4);
+
+var head3 = mergeTwoLists(head1,head2)
+console.log(head3);
