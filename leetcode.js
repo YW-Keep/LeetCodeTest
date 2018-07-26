@@ -308,7 +308,7 @@ var conversion = [" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wx
  * @param {number} step
  * @param {string} digits
  * @param {string} target
- * @param {[string]} reslut
+ * @param {string[]]} reslut
  */
 var dfs17 = function(step, digits, target, reslut) {
     if (step == digits.length) {
@@ -426,13 +426,68 @@ var mergeTwoLists = function(l1, l2) {
 };
 
 
-var head1 = new ListNode(1);
-head1.next = new ListNode(2);
-head1.next.next = new ListNode(4);
+// 22. 括号生成 二叉树的遍历思想
 
-var head2 = new ListNode(1);
-head2.next = new ListNode(3);
-head2.next.next = new ListNode(4);
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+    var reslut = Array();
+    addStr(reslut, "", n, n);
+    return reslut;
+};
 
-var head3 = mergeTwoLists(head1,head2)
-console.log(head3);
+
+/**
+ *
+ * @param {string[]]} reslut
+ * @param {string} nowStr
+ * @param {Number} open
+ * @param {Number} close
+ * @returns
+ */
+function addStr(reslut, nowStr, open, close) {
+    if (open == 0 && close == 0) {
+        reslut.push(nowStr);
+        return;
+    }
+    if(open > 0) {
+        addStr(reslut, nowStr + "(", open - 1, close);
+    }
+    if(close > 0 && close > open) {
+        addStr(reslut, nowStr + ")", open, close - 1);
+    }
+}
+
+           
+// 23. 合并K个排序链表 因为链表排序麻烦 所以想法是转成数组，在排序后生产
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+var mergeKLists = function(lists) {
+    var listArray = Array();
+    for (let index = 0; index < lists.length; index++) {
+        var element = lists[index];
+        while(element != null) {
+            listArray.push(element.val);
+            element = element.next;
+        }
+    }
+
+    listArray.sort(compare);
+    var head = new ListNode(1);
+    var step = head;
+    for (let index = 0; index < listArray.length; index++) {
+        var element = listArray[index];
+        step.next = new ListNode(element);
+        step = step.next;
+    }
+    return head.next;
+
+};
+
+function compare(value1, value2) {
+    return value1 - value2;
+}
