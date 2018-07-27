@@ -491,3 +491,28 @@ var mergeKLists = function(lists) {
 function compare(value1, value2) {
     return value1 - value2;
 }
+
+
+// 32. 最长有效括号 记录（ 的位置，到数组，然后进行安全计算
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestValidParentheses = function(s) {
+    var maxNum = 0;
+    var stack = Array();
+    stack.push(-1);
+    for (let index = 0; index < s.length; index++) {
+        var element = s[index];
+        if(element == "(") {
+            stack.push(index);
+        } else {
+            stack.pop();
+            if (stack.length == 0){
+                stack.push(index);
+            }
+            maxNum = Math.max(maxNum, index - stack[stack.length - 1]);
+        }
+    }
+    return maxNum;
+};
