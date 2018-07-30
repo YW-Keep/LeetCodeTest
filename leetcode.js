@@ -515,4 +515,35 @@ var longestValidParentheses = function(s) {
         }
     }
     return maxNum;
+}; 
+
+// 33. 搜索旋转排序数组
+// 思路 至少有一半是可以用的 那么继续用二分法去计算
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    var min = 0, max = nums.length -1, mid = 0;
+    while (min <= max) {
+        mid = Math.floor((min + max) / 2);
+        if(nums[mid] == target) {
+            return mid
+        } 
+        if (nums[min] <= nums[mid]) {
+            if (nums[min] <= target && target <nums[mid]) {
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        } else {
+            if(target <= nums[max] &&   nums[mid] < target) {
+                min = mid + 1;
+            } else {
+                max = mid - 1;
+            }
+        }
+    }
+    return -1;
 };
