@@ -547,3 +547,42 @@ var search = function(nums, target) {
     }
     return -1;
 };
+
+// 34. 在排序数组中查找元素的第一个和最后一个位置 (思路二分法先找到一个值 然后左右扩容)
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function(nums, target) {
+    var leftR = -1;
+    var rightR = -1;
+    
+    var left = 0;
+    var right = nums.length - 1;
+    var mid = 0;
+    while (left <= right) {
+        mid = Math.floor((left + right)/2);
+        if(nums[mid] == target) {
+            leftR = mid;
+            rightR = mid;
+            break;
+        } else if (nums[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    if(leftR >= 0){
+        while ((leftR - 1)  > -1 && nums[leftR -1] == target){
+            leftR--;
+        }
+        while ((rightR + 1)  < nums.length && nums[rightR +1] == target){
+            rightR++;
+        }
+    }
+    return [leftR, rightR];
+    
+};
