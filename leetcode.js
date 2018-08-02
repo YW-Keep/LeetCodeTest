@@ -611,3 +611,30 @@ var searchInsert = function(nums, target) {
     }
     return left;
 };
+
+//   39. 组合总和 深度遍历
+
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum = function(candidates, target) {
+    var result = Array();
+    combinationSumDFS(0, 0, Array());
+    function combinationSumDFS(start, sum, ans) {
+        if (sum == target) {
+            result.push(ans);
+        } else if (sum < target) {
+            for (let index = start; index < candidates.length; index++) {
+                let addNum = candidates[index];
+                let newAns = ans.slice(0);
+                newAns.push(addNum);
+                combinationSumDFS(index, sum + addNum, newAns);
+            }
+        }
+    }
+    return result;
+};
+
+
