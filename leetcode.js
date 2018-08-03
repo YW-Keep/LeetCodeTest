@@ -638,3 +638,23 @@ var combinationSum = function(candidates, target) {
 };
 
 
+//  42. 接雨水
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    var left = 0, right = height.length - 1;
+    var maxLeft = 0, maxRight = 0;
+    var ans = 0;
+    while(left < right) {
+        if(height[left] < height[right]) {
+            height[left] >= maxLeft ? (maxLeft = height[left]) : (ans += (maxLeft - height[left]));
+            left++;
+        } else {
+            height[right] >= maxRight ? (maxRight = height[right]) : (ans += (maxRight - height[right]));
+            right--;
+        }
+    }
+    return ans;
+};
