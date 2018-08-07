@@ -658,3 +658,36 @@ var trap = function(height) {
     }
     return ans;
 };
+
+//46. 全排列  2个思路，1深度遍历 2.动态规划
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var permute = function(nums) {
+    var reslut = Array();
+    permuteDFS(nums,Array(),reslut);
+    return reslut;
+
+    /**
+     *
+     *
+     * @param {number[]} nums
+     * @param {number[]} ans
+     * @param {number[][]} reslut
+     */
+    function permuteDFS(nums, ans, reslut) {
+        if (nums.length == 0) {
+            reslut.push(ans);
+        } else {
+            for (let index = 0; index < nums.length; index++) {
+                var newNums = nums.slice(0);
+                newNums.splice(index, 1);
+                var newAns = ans.slice(0);
+                newAns.push(nums[index]);
+                permuteDFS(newNums, newAns, reslut);
+            }
+        }
+    }
+};
+
