@@ -691,3 +691,40 @@ var permute = function(nums) {
     }
 };
 
+//  48. 旋转图像
+// 思路：直接旋转很麻烦，所以先进行斜对称变换再进行反转
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var rotate = function(matrix) {
+    
+    SlashSymmetry(matrix);
+    ParallelReverse(matrix);
+    /**
+     *  斜线反转
+     * @param {number[][]} matrix
+     */
+    function  SlashSymmetry(matrix){
+        for (let i = 0; i < matrix.length - 1; i++) {
+            for (let j = 0; j < matrix.length - i - 1; j++) {
+                let index = matrix[i][j];
+               matrix[i][j] = matrix[ matrix.length - 1 - j][ matrix.length - 1 -i];
+               matrix[ matrix.length - 1 - j][ matrix.length - 1 -i] = index;
+            }
+        }
+    }
+
+    /**
+     * 平行反转
+     * @param {number[][]} matrix
+     */
+    function ParallelReverse(matrix) {
+        let changeNum  = Math.floor(matrix.length/2);
+        for (let i = 0; i < changeNum; i++) {
+            let index = matrix[i];
+            matrix[i] = matrix[matrix.length - 1 - i];
+            matrix[matrix.length - 1 - i] = index;
+        }
+    }
+};
