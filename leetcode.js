@@ -728,3 +728,49 @@ var rotate = function(matrix) {
         }
     }
 };
+
+
+// 49. 字母异位词分组 思路主要是对字符串排序后匹配。
+
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+
+    var myMap = new Map();
+    for (let index = 0; index < strs.length; index++) {
+        const element = strs[index];
+        let key = sortString(element);
+        var oldStrs = myMap.get(key);
+        if (oldStrs != null) {
+            oldStrs.push(element);
+            myMap.set(key, oldStrs)
+        } else {
+            myMap.set(key, [element]);
+        }
+    }
+    var reslut = Array();
+    myMap.forEach(function (item) {
+        reslut.push(item);
+    });
+
+    return reslut;
+    /**
+     * 字符串排序
+     * @param {string} string
+     * @returns string
+     */
+    function sortString(string) {
+        var stringArray = Array();
+        for (let index = 0; index < string.length; index++) {
+            stringArray.push(string[index]);
+        }
+        stringArray.sort();
+        var reslut = "";
+        stringArray.forEach(element => {
+            reslut += element;
+        });
+        return reslut;
+    }
+};
