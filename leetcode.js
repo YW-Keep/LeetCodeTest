@@ -774,3 +774,25 @@ var groupAnagrams = function(strs) {
         return reslut;
     }
 };
+
+
+// 53. 最大子序和 思路 还是递归想 （如果前面和大于零则加入 小于零则舍弃）
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    var max = nums[0];
+    var sum = 0;
+    for (let index = 0; index < nums.length; index++) {
+        let num = nums[index];
+        sum = sum + num;
+        if (max < sum) {
+            max = sum;
+        }
+        if(sum < 0) {
+            sum = 0;
+        }
+    }
+    return max;
+};
