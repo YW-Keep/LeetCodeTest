@@ -796,3 +796,21 @@ var maxSubArray = function(nums) {
     }
     return max;
 };
+
+// 55. 跳跃游戏
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canJump = function(nums) {
+    var max = 0;
+    for (let index = 0; index < nums.length - 1; index++) {
+        let num = nums[index];
+        let nowMax = num + index;
+        max = Math.max(max,nowMax);
+        if (max <= index) {
+            return false;
+        } 
+    }
+    return true;
+};
