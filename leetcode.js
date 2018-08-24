@@ -814,3 +814,58 @@ var canJump = function(nums) {
     }
     return true;
 };
+
+// 56. 合并区间  先排序 这样问题就简单了
+
+function Interval(start, end) {
+    this.start = start;
+    this.end = end;
+}
+
+/**
+ * @param {Interval[]} intervals
+ * @return {Interval[]}
+ */
+var merge = function(intervals) {
+    if (intervals.length < 2) {
+        return intervals;
+    }
+    var compare = function(x,y) {
+        return x.start - y.start;
+    }
+    intervals.sort(compare);
+    var reslut = Array();
+    reslut.push(intervals[0])
+    for (let index = 1; index < intervals.length; index++) {
+        let element = intervals[index];
+        if (reslut[reslut.length - 1].end < element.start) {
+            reslut.push(element);
+        } else {
+            reslut[reslut.length - 1].end = Math.max(reslut[reslut.length - 1].end,element.end);
+        }
+    }
+    return reslut;
+};
+
+
+//  62. 不同路径  排序算法
+
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var uniquePaths = function(m, n) {
+    if(n < 1 || m < 1) {
+        return 1;
+    }
+    var all = n + m  - 2;
+    var min = Math.min(n,m);
+    var reslut = 1;
+    for (let index = 1; index < min; index++) {
+        reslut = all*reslut;
+        all--;
+        reslut = reslut/index
+    }
+    return reslut;
+};
