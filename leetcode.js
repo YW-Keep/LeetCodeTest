@@ -869,3 +869,52 @@ var uniquePaths = function(m, n) {
     }
     return reslut;
 };
+
+// 64. 最小路径和  其实也是动态规划，一排一排算最小值。
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var minPathSum = function(grid) {
+    var lastArray = Array()
+    for (let i = 0; i < grid.length; i++) {
+        let line = grid[i];
+        for (let j = 0; j < line.length; j++) {
+            let num = line[j];
+            if (i == 0) {
+                if(j == 0) {
+                    lastArray.push(num);
+                } else {
+                    lastArray.push(lastArray[lastArray.length - 1] + num);
+                }
+            } else {
+                if (j == 0) {
+                    lastArray[j] += num;
+                } else {
+                    lastArray[j] = Math.min(lastArray[j - 1],lastArray[j]) + num;
+                }
+            }
+        }
+    }
+    return lastArray[lastArray.length - 1];
+};
+
+// 70. 爬楼梯 最经典的动态规划入门题吧   后一个正好是前2个的和
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function(n) {
+    if(n < 2) {
+        return n;
+    }
+    var last = 1;
+    var now = 2;
+    for (let index = 2; index < n; index++) {
+        let num =  last + now;
+        last = now;
+        now = num;
+    }
+    return now;
+};
