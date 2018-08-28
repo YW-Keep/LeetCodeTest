@@ -918,3 +918,69 @@ var climbStairs = function(n) {
     }
     return now;
 };
+
+
+// 72. 编辑距离  其实是动态规划问题 但是要考虑到2维动态规划 ，需要一个二维数组
+
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var minDistance = function(word1, word2) {
+    if (word1.length == 0) {
+        return word2.length;
+    }
+    if (word2.length == 0) {
+        return word1.length;
+    }
+    // 初始化
+    var record = Array(word1.length + 1) 
+    for (let index = 0; index < record.length; index++) {
+        record[index] = Array(word2.length + 1)
+        record[index][0] = index;
+    }
+    for (let index = 0; index < record[0].length; index++) {
+        record[0][index] = index;
+    }
+    for (let row = 1; row < record.length; row++) {
+        for (let index = 1; index < record[0].length; index++) {
+            let char1 = word1.slice(row - 1,row)
+            let char2 = word2.slice(index - 1,index) 
+            if(char1 == char2) {
+                record[row][index] = record[row - 1][index - 1];
+            } else {
+                record[row][index] = Math.min(record[row - 1][index - 1],record[row][index - 1],record[row - 1][index]) + 1
+            }        
+        }
+    }
+    return record[word1.length][word2.length];
+};
+
+// 75. 颜色分类  其实很简单 做2个标记就可以了
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var sortColors = function(nums) {
+
+    var swapAt = function(num1, num2) {
+        let num =  nums[num2];
+        nums[num2] = nums[num1];
+        nums[num1] = num;
+    } 
+
+    var min = 0, index = 0, max = nums.length - 1;
+    while (index <= max) {
+        if(nums[index] == 0) {
+            swapAt(min, index);
+            min++;
+            index++;
+        } else if (nums[index] == 2) {
+            swapAt(max, index);
+            max--;
+        }else {
+            index++;
+        }
+    }
+};

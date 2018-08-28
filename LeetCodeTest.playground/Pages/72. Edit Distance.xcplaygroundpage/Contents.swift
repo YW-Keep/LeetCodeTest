@@ -42,7 +42,6 @@ class Solution {
                 }
             }
         }
-        
         return record[num1][num2]
     }
 }
