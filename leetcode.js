@@ -984,3 +984,166 @@ var sortColors = function(nums) {
         }
     }
 };
+
+// 76. 最小覆盖子串  主要思路 窗口思路 左边一个位置右边一个位置 一个个查询。
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+var minWindow = function(s, t) {
+
+    var addNum = function(map, char) {
+        var num = map.get(char)
+        if (num) {
+            map.set(char,num + 1);
+        } else {
+            map.set(char,1);
+        }
+    }
+
+    var tMap = new Map();
+    for (let index = 0; index < t.length; index++) {
+        let char = t.charAt(index);
+        addNum(tMap,char);
+    }
+    var found = 0, begain = -1, end = s.length , minLength = s.length, start = 0;
+    var tapMap = new Map()
+    for (let index = 0; index < s.length; index++) {
+        let char = s.charAt(index);
+        if(tMap.get(char)) {
+            addNum(tapMap,char);
+            if (tapMap.get(char) <= tMap.get(char)) {
+                found++;
+            }
+            if(found == t.length) {
+                var stop = 1
+                while(start < index && stop == 1) {
+                    let char = s.charAt(start);
+                    var num = tapMap.get(char);
+                    if(num && num > tMap.get(char)) {
+                        tapMap.set(char, num -1);
+                        start++;
+                    } else if(num) {
+                        stop = 0;
+                    } else {
+                        start++;
+                    }
+                }
+
+                if (index - start < minLength) {
+                    minLength = index - start
+                    begain = start;
+                    end = index;
+                }
+                let char = s.charAt(start);
+                var num = tapMap.get(char);
+                tapMap.set(char, num  - 1);
+                found--; 
+                start++;
+            }
+        }
+    }
+    return  (begain == -1) ? "": s.slice(begain, end+1);
+};
+
+// 78. 子集
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+
+var subsets = function(nums) {
+    var result = [[]]; 
+    for (var num of nums) {  
+      var temp = []
+      for (var before of result) {
+        temp.push(before.concat(num))
+      }
+      result = result.concat(temp);
+    }
+    return result;
+}
+
+// 79. 单词搜索  其实是深度遍历  细节很多需要思考
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+var exist = function(board, word) {
+
+    if ( !word || word.length == 0) {
+        return true;
+    }
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            if (board[i][j] == word.charAt(0)) {
+                let record = String(i) + "," + String(j);
+                if(dfs(word.slice(1,word.length),[record],i,j)){
+                    return true;
+                } 
+            }
+        }
+    }    
+    return false;
+    function dfs(word , records, i , j) {
+        if ( !word || word.length == 0) {
+            return true;
+        }
+
+        if (0 <= (i-1) && judge(i-1,j)){
+            return true;
+        }
+
+        if (0 <= (j-1) && judge(i,j-1)){
+            return true;
+        }
+
+        if ((i+1) < board.length &&judge(i+1,j)){
+            return true;
+        }
+
+        if ((j+1) < board[i].length &&judge(i,j+1)){
+            return true;
+        }
+        return false;
+        
+        function judge(i,j) {
+            let record = String(i) + "," + String(j);
+            if ((records.indexOf(record) == -1) && word.charAt(0) == board[i][j]) {
+                if (dfs(word.slice(1,word.length),records.concat(record),i,j)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+};
+
+// 84. 柱状图中最大的矩形 n复杂度算法  那么就要思考 如果是升序的话 这个问题就好处理了 如果不是升序则需要人为调成升序
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+var largestRectangleArea = function(heights) {
+    var listArray = Array();
+    var index = 0, max = 0;
+    while (index <heights.length) {
+        if (listArray.length == 0 || heights[listArray[listArray.length -1]] <= heights[index]) {
+            listArray.push(index);
+            index++;
+        }else {
+            let last = listArray.pop();
+            let topArea = heights[last]*(listArray.length == 0 ? index : index - listArray[listArray.length -1] - 1)
+            max = Math.max(max, topArea);
+        }
+    }
+    while (listArray.length > 0) {
+        let last = listArray.pop();
+        let topArea = heights[last]*(listArray.length == 0 ? index  : index - listArray[listArray.length- 1] - 1)
+        max = Math.max(max, topArea);
+    }
+
+    return max;
+};
