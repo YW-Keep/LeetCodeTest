@@ -630,7 +630,7 @@ var combinationSum = function(candidates, target) {
                 let addNum = candidates[index];
                 let newAns = ans.slice(0);
                 newAns.push(addNum);
-                combinationSumDFS(index, sum + addNum, newAns);
+                 combinationSumDFS(index, sum + addNum, newAns);
             }
         }
     }
@@ -1120,8 +1120,8 @@ var exist = function(board, word) {
         }
     }
 };
-
-// 84. 柱状图中最大的矩形 n复杂度算法  那么就要思考 如果是升序的话 这个问题就好处理了 如果不是升序则需要人为调成升序
+ 
+// 84. 柱状图中最大的矩形 n复杂度算法  那么就要思考 如果是升序的话 这个问题就好处理了 如果不是升序则需要人为调成升序  单调栈
 /**
  * @param {number[]} heights
  * @return {number}
@@ -1146,4 +1146,130 @@ var largestRectangleArea = function(heights) {
     }
 
     return max;
+};
+
+//  85. 最大矩形  首先把问题变为1维问题 然后其实就是单调栈问题了  其实就变成了问题 84 这里偷懒直接调用了84 的方法
+
+/**
+ * @param {character[][]} matrix
+ * @return {number}
+ */
+var maximalRectangle = function(matrix) {
+    if (matrix.length == 0) {
+        return 0;
+    }
+    var max = 0;
+    var heights = Array();
+    for (let index = 0; index < matrix[0].length; index++) {
+        heights.push(0)
+    }
+    for (let row = 0; row < matrix.length; row++) {
+        var list = matrix[row];
+        for (let index = 0; index < list.length; index++) {
+            if (matrix[row][index] == "1") {
+                heights[index] += 1;
+            } else {
+                heights[index] = 0;
+            }
+        }
+        max = Math.max(max, largestRectangleArea(heights.slice(0)));
+    }
+    return max;
+};
+
+
+// 94. 二叉树的中序遍历  递归写法
+
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function(root) {
+    var reslut  = Array();
+    traverse(root);
+    function traverse(root) {
+        if(root) {
+            traverse(root.left);
+            reslut.push(root.val);
+            traverse(root.right);
+        }
+    }
+    return reslut;
+};
+// 94. 二叉树的中序遍历  迭代写法 其实递归就是一个堆栈
+var inorderTraversal2 = function(root) {
+    var reslut = Array()
+    var stack = Array()
+    if(root) {
+        stack.push(root);
+    }
+    while(stack.length > 0) {
+       var last = stack[stack.length - 1];
+       if (last.left) {
+           stack.push(last.left);
+           last.left = null;
+       } else {
+           stack.pop();
+           reslut.push(last.val);
+           if(last.right) {
+            stack.push(last.right);
+           }
+       }
+    }
+    return reslut;
+};
+
+// 96. 不同的二叉搜索树  动态规划，问题可以分解
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numTrees = function(n) {
+    if (n < 2) {
+        return 1;
+    } 
+    var listArray = Array(n+1);
+    listArray[0] = 1;
+    listArray[1] = 1;
+    for (let i = 2; i <= n; i++) {
+        listArray[i] = 0;
+        for (let j = 0; j < i; j++) {
+            listArray[i] =  listArray[i] + listArray[j]*listArray[i - j - 1];
+        }
+    }
+    return listArray[n];
+};
+
+// 98. 验证二叉搜索树  
+// 节点的左子树只包含小于当前节点的数。 
+// 节点的右子树只包含大于当前节点的数。
+// 所有左子树和右子树自身必须也是二叉搜索树。
+// 所以可以用中序遍历来解决这个问题
+var isValidBST = function(root) {
+    var reslut = Array()
+    var stack = Array()
+    if(root) {
+        stack.push(root);
+    }
+    while(stack.length > 0) {
+       var last = stack[stack.length - 1];
+       if (last.left) {
+           stack.push(last.left);
+           last.left = null;
+       } else {
+           stack.pop();
+           if( reslut.length > 0 && reslut[reslut.length -1] >= last.val) {
+               return false;
+           }
+           reslut.push(last.val);
+           if(last.right) {
+            stack.push(last.right);
+           }
+       }
+    }
+    return true
 };
