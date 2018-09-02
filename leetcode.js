@@ -1273,3 +1273,46 @@ var isValidBST = function(root) {
     }
     return true
 };
+
+// 100. 相同的树  第一个印象 就是递归 
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function(p, q) {
+    if (p == null || q == null) {
+        if(p == q) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    return p.val == q.val && isSameTree(p.left,q.left) && isSameTree(p.right,q.right); 
+};
+
+// 101. 对称二叉树 其实与判断两棵树是否相等类似，这里只是判断2颗数是否对称 如果对称 左边等于右边
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+
+    if (root == null) {
+        return true;
+    }
+    return isSymmetricTwo(root.left, root.right);
+    
+    function isSymmetricTwo(p,q) {
+        if (p == null || q == null) {
+            if(p == q) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return p.val == q.val && isSameTree(p.left,q.right) && isSameTree(p.right,q.left); 
+
+    }
+};
