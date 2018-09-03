@@ -1316,3 +1316,67 @@ var isSymmetric = function(root) {
 
     }
 };
+
+//  102. 二叉树的层次遍历 递归存储子序列
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrder = function(root) {
+    if (root == null) {
+        return [];
+    }
+    var stack = [root];
+    var reslut = Array();
+    while (stack.length != 0) {
+        var rowArray = Array()
+        var nextArray = Array()
+        for (let index = 0; index < stack.length; index++) {
+            var element = stack[index];
+            rowArray.push(element.val);
+            if (element.left != null) {
+                nextArray.push(element.left);
+            }
+            if (element.right != null) {
+                nextArray.push(element.right);
+            }
+        }
+        stack = nextArray;
+        reslut.push(rowArray);
+    }
+    return reslut;
+};
+
+//  104. 二叉树的最大深度
+var maxDepth = function(root) {
+    if (root == null) {
+        return 0;
+    }
+    var stack = [root];
+    var reslut = 1;
+    while (stack.length != 0) {
+        var rowArray = Array()
+        var nextArray = Array()
+        for (let index = 0; index < stack.length; index++) {
+            var element = stack[index];
+            rowArray.push(element.val);
+            if (element.left != null) {
+                nextArray.push(element.left);
+            }
+            if (element.right != null) {
+                nextArray.push(element.right);
+            }
+        }
+        stack = nextArray;
+        reslut++;
+    }
+    return reslut;
+};
+
+// 递归写法
+var maxDepth = function(root) {
+    if(root  == null) {
+        return 0
+    }
+    return Math.max(maxDepth(root.left),maxDepth(root.right)) + 1;
+};
