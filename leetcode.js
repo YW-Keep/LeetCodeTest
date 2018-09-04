@@ -1380,3 +1380,76 @@ var maxDepth = function(root) {
     }
     return Math.max(maxDepth(root.left),maxDepth(root.right)) + 1;
 };
+
+// 105. 从前序与中序遍历序列构造二叉树  递归 注意防止递归过程中数组爆炸
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+var buildTree = function(preorder, inorder) {
+    if (preorder.length > 0 && inorder.length > 0) {
+        return bildTreeWithSize(0,preorder.length - 1,0,inorder.length - 1);
+    }
+    return null; 
+
+    function bildTreeWithSize(bStart,bEnd,mStrat,mEnd) {
+        if (bStart == bEnd) {
+            return new TreeNode(preorder[bStart]);
+        }
+        var root = preorder[bStart];
+        var tree = new TreeNode(root);
+        var num = inorder.indexOf(root);
+        if (mStrat <= num - 1) {
+            tree.left = bildTreeWithSize(bStart + 1, bStart + num - mStrat, mStrat, num - 1)
+        } 
+        
+        if (num + 1 <= mEnd) {
+            tree.right = bildTreeWithSize( bEnd + num + 1 - mEnd, bEnd, num + 1, mEnd)
+        }
+        return tree;
+    }
+};
+
+// 114. 二叉树展开为链表 需要原地算法  递归算法 左边的树挂到右边
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+var flatten = function(root) {
+    if (root == null) {
+        return;
+    }
+    flatten(root.left);
+    flatten(root.right);
+    if (root.left != null) {
+        if (root.right == null) {
+            root.right = root.left;
+            root.left = null;
+        }else {
+            var next = root.left;
+            while (next.right != null) {
+                next = next.right; 
+            }
+            next.right = root.right;
+            root.right = root.left;
+            root.left = null;
+        }    
+    }
+};
+// 网上更加 简单的写法 
+var flatten = function(root) {
+    var node = root;
+    while(node != null) {
+        if (node.left != null) {
+            var rNode = node.left;
+            while (rNode.right != null) {
+                rNode = rNode.right;
+            }
+            rNode.right = node.right;
+            node.right = node.left;
+            node.left = null;
+        }
+        node = node.right;
+    }
+}
