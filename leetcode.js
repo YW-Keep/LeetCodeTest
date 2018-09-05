@@ -1453,3 +1453,25 @@ var flatten = function(root) {
         node = node.right;
     }
 }
+
+// 121. 买卖股票的最佳时机  记录最小值 每次计算对比就好了
+
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    if (prices.length == 0) {
+        return 0;
+    }
+    var min = prices[0];
+    var maxD = 0;
+    for (var num of prices) {
+        if (min  <  num) {
+            maxD = Math.max(maxD, num - min);
+        } else {
+            min = num;
+        }
+    }
+    return maxD;
+};
