@@ -1475,3 +1475,21 @@ var maxProfit = function(prices) {
     }
     return maxD;
 };
+
+// 124. 二叉树中的最大路径和 考虑递归
+var maxPathSum = function(root) {
+    if (root == null) {
+        return 0;
+    } 
+    var maxNum = root.val;
+    maxPathSumToRoot(root);
+    function maxPathSumToRoot(root){
+        if (root == null) return 0;
+        var left = Math.max(maxPathSumToRoot(root.left),0);
+        var right = Math.max(maxPathSumToRoot(root.right),0);
+        maxNum = Math.max(maxNum, left + right + root.val);
+        return Math.max(left,right) + root.val;
+    } 
+    return maxNum;
+};
+
