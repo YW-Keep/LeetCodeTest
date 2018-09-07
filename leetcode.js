@@ -1493,3 +1493,27 @@ var maxPathSum = function(root) {
     return maxNum;
 };
 
+// 128. 最长连续序列  空间换时间 用map
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestConsecutive = function(nums) {
+    var recordMap = new Map();
+    var max = 0;
+    for(var num of nums) {
+        if (recordMap.get(num) != null) {
+            continue;
+        }
+        var left =  recordMap.get(num - 1) == null ? 0 : recordMap.get(num - 1);
+        var right =  recordMap.get(num + 1) == null ? 0 : recordMap.get(num + 1);
+        var inNum = left + right + 1;
+        recordMap.set(num,inNum);
+        recordMap.set(num - left, inNum);
+        recordMap.set(num + right, inNum);
+        max = Math.max(max, inNum);
+    }
+    return max;
+};
+
+longestConsecutive([100,4,200,1,3,2]);
