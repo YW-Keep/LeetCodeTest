@@ -1516,4 +1516,63 @@ var longestConsecutive = function(nums) {
     return max;
 };
 
-longestConsecutive([100,4,200,1,3,2]);
+// 136. 只出现一次的数字 想到运算符 就很简单 与运算 2个一样的数就被抵消了 留下来的就是只出现一次的
+var singleNumber = function(nums) {
+    var result = 0;
+    for (var num of nums) {
+        result ^= num;
+    }
+    return result;
+};
+
+// 139. 单词拆分   这个题要思索下，其实要想到 前面一部分如果能被分割 增加一个能分割的元素肯定也能被分割 所以就想到了 记录之前值的 动态规划
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+var wordBreak = function(s, wordDict) {
+    if (s.length == 0) {
+        return true;
+    }
+    var segmentation = Array(s.length + 1)
+    segmentation[0] = true;
+    for (let i = 1; i <= s.length; i++) {
+        var j =  i - 1
+        while (j >= 0) {
+            if (segmentation[j]) {
+                var indexStr = s.substr(j,i-j);
+                if(wordDict.indexOf(indexStr) != -1) {
+                    segmentation[i] = true;
+                    break;
+                }
+            }
+            j--;
+        }
+    }
+    return segmentation[s.length] ?  true : false;
+};
+
+// 141. 环形链表 判断是否为环形链表， 可以设置快慢指针快速遍历  环形问题 很多用快慢指针
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var hasCycle = function(head) {
+    if (head == null) {
+        return false;
+    }
+    var slow = head;
+    var fast = head.next;
+    while (fast) {
+        if (slow == fast) {
+            return true;
+        }
+        slow = slow.next;
+        fast = fast.next;
+        if(fast) {
+            fast = fast.next;
+        }
+    }
+    return false;
+};
