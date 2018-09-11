@@ -1576,3 +1576,24 @@ var hasCycle = function(head) {
     }
     return false;
 };
+// 142. 环形链表 II  主要要考虑链表不是一个循环 是一个循环还有一条线有可能，所以有入口点
+var detectCycle = function(head) {
+    var slow = head;
+    var fast = head;
+    while(true) {
+        if (fast == null || fast.next == null) {
+            return null;
+        }
+        slow = slow.next;
+        fast = fast.next.next;
+        if (fast == slow) {
+            break;
+        }
+    }
+    slow = head;
+    while(slow != false) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+    return slow;
+};
