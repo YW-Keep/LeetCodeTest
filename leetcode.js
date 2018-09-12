@@ -1597,3 +1597,48 @@ var detectCycle = function(head) {
     }
     return slow;
 };
+
+// 148. 排序链表 归并排序 先用快慢指针做拆分
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var sortList = function(head) {
+    if(head == null || head.next == null) {
+        return head;
+    }
+    var fast = head.next;
+    var slow = head;
+    while(fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    var next = slow.next;
+    slow.next = null;
+    
+    var merge1 = sortList(head);
+    var merge2 = sortList(next);
+    return mergeAction(merge1,merge2);
+    function mergeAction (merge1, merge2) {
+        var head = new ListNode(0);
+        var next = head;
+        while(merge1 && merge2) {
+            if(merge1.val < merge2.val ) {
+                next.next = merge1;
+                next = merge1;
+                merge1 = merge1.next;
+            } else {
+                next.next = merge2;
+                next = merge2;
+                merge2 = merge2.next;
+            }
+        }
+        if (merge1) {
+            next.next = merge1;
+        }
+        if (merge2) {
+            next.next = merge2;
+        }
+        return head.next;
+    }
+};
