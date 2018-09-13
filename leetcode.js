@@ -1642,3 +1642,16 @@ var sortList = function(head) {
         return head.next;
     }
 };
+
+// 152. 乘积最大子序列 负负得正 所以要记录最大正数 以及最小负数 （题目默认至少有一个数）
+var maxProduct = function(nums) {
+    var conMax = 1, conMin = 1, reslut = nums[0];
+    for (var num of nums) {
+       var inMax = Math.max(num, num*conMax, num*conMin);
+       var inMin = Math.min(num, num*conMax, num*conMin);
+       conMax = inMax;
+       conMin = inMin;
+        reslut = Math.max(conMax, reslut);
+    }
+    return reslut;
+};
