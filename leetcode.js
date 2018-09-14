@@ -1655,3 +1655,46 @@ var maxProduct = function(nums) {
     }
     return reslut;
 };
+ 
+// 160. 相交链表 思路1.  其实把一个链表遍历到尾部 指向 第二个链表头部 就是一个循环链表了   思路2 指向同一个点 后面肯定是长度一样 所以先把他们切割成一样长度 然后一起遍历
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+
+    var headAL = ListNodeLength(headA);
+    var headBL = ListNodeLength(headB);
+    var conA = headA;
+    var conB = headB;
+    if (headAL > headBL) {
+        while(headAL != headBL) {
+            conA = conA.next;
+            headAL--;
+        }
+    } else {
+        while(headAL != headBL) {
+            conB = conB.next;
+            headBL--;
+        }
+    }
+    while (conA && conB) {
+        if (conA == conB) {
+            return conA;
+        }else {
+            conA = conA.next;
+            conB = conB.next;
+        }
+    }
+    return null;
+
+    function ListNodeLength(head) {
+        var num = 0;
+        while(head) {
+            num++;
+            head = head.next;
+        }
+        return num;
+    }
+};
