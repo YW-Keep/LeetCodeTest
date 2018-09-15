@@ -1698,3 +1698,21 @@ var getIntersectionNode = function(headA, headB) {
         return num;
     }
 };
+
+// 169. 求众数 摩尔投票算法
+var majorityElement = function(nums) {
+    var major = nums[0];
+    var count = 0;
+    for (var num of nums) {
+        if (major == num) {
+            count++;
+        } else {
+            count--;
+            if (count == 0) {
+                major = num;
+                count = 1;
+            }
+        }
+    }
+    return major;
+};
