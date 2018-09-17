@@ -64,7 +64,7 @@ class Solution3 {
     func reverseList(_ head: ListNode?) -> ListNode? {
         guard head != nil && head?.next != nil else {
             return head
-        }
+        }                            
         let newhead = reverseList(head?.next)
         head?.next?.next = head
         head?.next = nil

@@ -1716,3 +1716,34 @@ var majorityElement = function(nums) {
     }
     return major;
 };
+
+// 198. 打家劫舍  动态规划 考虑没有多一家 最大值肯定是打了前一家与没打前一家加多一家里取的最大值
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(nums) {
+    var have = 0, noHave = 0;
+    for (var num of nums) {
+        var began = have;
+        have = Math.max(have, noHave + num);
+        noHave = Math.max(noHave, began);
+    }
+    return Math.max(have, noHave);
+};
+
+// 206. 反转链表 循环 递归
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    var newHead = null;
+    while(head) {
+        var stage = head.next;
+        head.next = newHead;
+        newHead = head;
+        head = stage;
+    }
+    return newHead;
+};
