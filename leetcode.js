@@ -1747,3 +1747,51 @@ var reverseList = function(head) {
     }
     return newHead;
 };
+
+// 215. 数组中的第K个最大元素
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+// var findKthLargest = function(nums, k) {
+//     if (nums.length == 0) {
+//         return 0;
+//     }
+//     if (nums.length == 1) {
+//         return nums[0];
+//     }
+//     var num = nums[0];
+//     var maxNum = Array();
+//     var minNum = Array();
+//     for (let index = 1; index < nums.length; index++) {
+//         var inNum = nums[index];
+//         if(num < inNum) {
+//             maxNum.push(inNum);
+//         } else {
+//             minNum.push(inNum);
+//         }
+//     }
+//     if (maxNum.length == k - 1) {
+//         return num;
+//     } else if (maxNum.length > k -1) {
+//         return findKthLargest(maxNum,k);
+//     } else {
+//         return findKthLargest(minNum,k - maxNum.length - 1);
+//     }
+// };
+
+// 上面超内存 还不如一个排序  
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findKthLargest = function(nums, k) {
+    
+    var newNums = nums.sort(sequence);
+    return newNums[k -1];
+    function sequence(a,b) {
+        return b - a;
+    }
+};
