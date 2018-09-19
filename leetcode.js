@@ -1795,3 +1795,15 @@ var findKthLargest = function(nums, k) {
         return b - a;
     }
 };
+
+// 226. 翻转二叉树 递归
+var invertTree = function(root) {
+    if (!root) {
+        return root;
+    }
+    var left =  invertTree(root.left);
+    var right = invertTree(root.right);
+    root.left = right;
+    root.right =  left;
+    return root;
+};
