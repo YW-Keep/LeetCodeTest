@@ -1807,3 +1807,43 @@ var invertTree = function(root) {
     root.right =  left;
     return root;
 };
+
+// 234.回文链表  快慢指针 去中间 然后反转链表 最后 逐一比较
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function(head) {
+    if (!head || !head.next) {
+        return true;
+    }
+    var fast = head;
+    var slow = head;
+    while(fast && fast.next) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    if(fast) {
+        slow = slow.next;
+    }
+    slow = reverseList(slow);
+    fast = head;
+    while (slow) {
+        if(fast.val != slow.val) {
+            return false;
+        }
+        fast = fast.next;
+        slow = slow.next;
+    }
+    return true;
+    function reverseList(head) {
+        var newHead = null;
+        while(head) {
+            var stage = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = stage;
+        }
+        return newHead;
+    };
+};
