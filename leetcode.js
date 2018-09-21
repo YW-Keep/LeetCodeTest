@@ -1847,3 +1847,23 @@ var isPalindrome = function(head) {
         return newHead;
     };
 };
+
+// 238.除自身以外数组的乘积
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var productExceptSelf = function(nums) {
+    var reslutArray = Array();
+    var backupNum = 1;
+    for (num of nums) {
+        reslutArray.push(backupNum);
+        backupNum *= num;
+    }
+    backupNum = nums[nums.length - 1];
+    for (let index = nums.length - 2; index  > -1; index--) {
+        reslutArray[index] *= backupNum;
+        backupNum *= nums[index]; 
+    }
+    return reslutArray;
+};
