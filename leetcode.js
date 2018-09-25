@@ -175,6 +175,23 @@ var longestPalindrome = function(s) {
     }
     return s.slice(start , start + max_leng);
 };
+// 7.反转整数 需要做判断
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+    var  rev = 0;
+    while(x != 0) {
+        var pop = x%10;
+        x = parseInt(x/10);
+        rev = rev*10 +pop; 
+    }
+    if(rev > Math.pow(2,31) -1 || rev < Math.pow(2,31)*-1) {
+        rev = 0;
+    }
+    return rev;
+};
 
 // 11. 盛最多水的容器 （确定一个变量，修改另外一个变量）
 /**
@@ -1866,4 +1883,29 @@ var productExceptSelf = function(nums) {
         backupNum *= nums[index]; 
     }
     return reslutArray;
+};
+
+// 239. 滑动窗口最大值 双向队列
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function(nums, k) {
+    var backArray = Array();
+    var result = Array();
+    for (let index = 0; index < nums.length; index++) {
+        var num =nums[index];
+        while(backArray.length > 0 && nums[backArray[backArray.length - 1]] < num) {
+            backArray.pop();
+        }
+        backArray.push(index);
+        if (backArray[0] == index - k) {
+            backArray.shift(0)
+        }
+        if (index >= k - 1) {
+            result.push(nums[backArray[0]]);
+        }
+    }
+    return result;
 };
