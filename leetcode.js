@@ -18,9 +18,6 @@ var twoSum = function(nums, target) {
     return [];
 };
 
-
-
-
 // 第二题 没什么难度 循环 需要考虑下进位
 function ListNode(val) {
        this.val = val;
@@ -79,8 +76,6 @@ var lengthOfLongestSubstring = function(s) {
     return reslut;
 };
 
-
-
 //4. 两个排序数组的中位数   排序数组，其实就是取数  二分法求值
 /**
  * @param {number[]} nums1
@@ -127,9 +122,6 @@ var findValueInSortedArray = function(k, num1, num2) {
         return findValueInSortedArray(k - index2 - 1, num1, num2.slice(index2 + 1, num2.length));
     }
 }
-
-
-
 
 // 5. 最长回文子串  首先插入#来除去奇偶性的判断  然后 Manacher 算法 
 /**
@@ -193,6 +185,59 @@ var reverse = function(x) {
     return rev;
 };
 
+//8.字符串转整数 (atoi)   考虑细节 做判断
+/**
+ * @param {string} str
+ * @return {number}
+ */
+var myAtoi = function(str) {
+    var reslut = 0;
+    var symbol = 1;
+    var newStr = str.replace(/(^\s*)|(\s*$)/g, "");
+    var numStr = "0987654321"
+    for (let index = 0; index < newStr.length; index++) {
+        var char = newStr[index];
+        if(index == 0 && char == "-") {
+            symbol = symbol * -1;
+            continue;
+        }
+        if(index == 0 && char == "+") {
+            continue;
+        }
+        if(numStr.indexOf(char) != -1){
+            reslut  = reslut*10 + parseInt(char);
+        } else {
+            break;
+        }
+    }
+    reslut = reslut*symbol;
+    if(reslut > Math.pow(2,31) -1) {
+        reslut = Math.pow(2,31) -1;
+    }
+    if(reslut < Math.pow(2,31)*-1) {
+        reslut = Math.pow(2,31)*-1;
+    }
+    return reslut;
+};
+
+//9.回文数  这里使用的是遍历 还可以把后半段反转 这是一种比较常用的技巧
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+    var str = x.toString();
+    if (str.length < 2) {
+        return true;
+    }
+    for (let index = 0; index < parseInt(str.length)/2; index++) {
+        if(str[index] != str[str.length - index -1]) {
+            return false;
+        }
+    }
+    return true
+};
+
 // 11. 盛最多水的容器 （确定一个变量，修改另外一个变量）
 /**
  * @param {number[]} height
@@ -215,7 +260,34 @@ var maxArea = function(height) {
     return max;
 };
 
-
+// 14.最长公共前缀 最简单的思想取相同的头部 遍历比较 感觉应该可以更快
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    if(strs.length == 0) {
+        return ""
+    }
+    var hander = strs[0];
+    for (let index = 1; index < strs.length; index++) {
+        var sendStr = strs[index];
+        var min = Math.min(sendStr.length,hander.length);
+        var num = 0;
+        while(num < min){
+            if(hander[num] != sendStr[num]) {
+                break;
+            }
+            num++;
+        }
+        if(num == 0) {
+            return "";
+        } else {
+            hander = hander.substr(0,num);
+        }
+    }
+    return hander;
+};
 
 // 15. 三数之和  思路就是第一个数 然后做 一个数组中找到两个数的和等于目标值，首相想到的是用算法1的方法算2个数和等于目标值，发现这样很难去重
 // 所以换一种思路，先给数组排序，然后定一个数，头尾指针移动去寻找相应的值。最后加入。
