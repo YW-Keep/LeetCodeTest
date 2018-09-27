@@ -299,7 +299,6 @@ var longestCommonPrefix = function(strs) {
  */
 var threeSum1 = function(nums) {
     var result = new Array();
-    var ma
     for (let index = 0; index < nums.length; index++) {
         var num  = nums[index]
         let backArr = twoSum2( nums.slice(index + 1,nums.length) , -num);
@@ -375,6 +374,39 @@ var compare = function (x, y) {
 }
 
 
+// 16.最接近的三数之和 排序遍历
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var threeSumClosest = function(nums, target) {
+    if (nums.length < 3) {
+        return null;
+    }
+    var newNums = nums.sort(compare);
+    var reslut = nums[0] + nums[1] + nums[2];
+    for (let index = 0; index < newNums.length; index++) {
+        var tap = target - newNums[index];
+        var start = index + 1;
+        var end = newNums.length - 1;
+        while (start < end) {
+           var newTap = newNums[start] + newNums[end];
+           if(newTap == tap) {
+               return target;
+           } else if (newTap > tap) {
+               end--;
+           } else {
+               start++;
+           }
+           reslut = Math.abs(reslut - target) < Math.abs(newTap - tap) ? reslut : newTap +newNums[index];
+        }
+    }
+    return reslut;
+    function compare(x,y) {
+        return x - y;
+    }
+};
 
 //17. 电话号码的字母组合   深度遍历
 
