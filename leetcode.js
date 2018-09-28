@@ -613,6 +613,25 @@ function compare(value1, value2) {
     return value1 - value2;
 }
 
+// 26.删除排序数组中的重复项  使用快慢指针就可以了
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    if(nums.length == 0) {
+        return 0;
+    }
+    var mark = 0;
+    for (let index = 0; index < nums.length; index++) {
+        if(nums[mark] != nums[index]) {
+            mark++;
+            nums[mark] = nums[index];
+        }
+    }
+    return mark + 1;
+};
+
 
 // 32. 最长有效括号 记录（ 的位置，到数组，然后进行安全计算
 /**
