@@ -613,7 +613,7 @@ function compare(value1, value2) {
     return value1 - value2;
 }
 
-// 26.删除排序数组中的重复项  使用快慢指针就可以了
+// 26.删除排序数组中的重复项 注意是排序数组所以使用快慢指针就可以了
 /**
  * @param {number[]} nums
  * @return {number}
@@ -798,6 +798,76 @@ var trap = function(height) {
     }
     return ans;
 };
+
+//  43.字符串相乘
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var multiply = function(num1, num2) {
+    var length = num1.length + num2.length;
+    var  reslut = "";
+    for (let index = 0; index < length; index++) {
+        reslut = reslut + "0";
+    }
+
+    for (let i = num1.length - 1; i > -1; i--) {
+        var carry = 0;
+        for (let j = num2.length - 1; j > -1; j--) {
+            var sum = parseInt(reslut[i + j + 1]) + parseInt(num1[i])*parseInt(num2[j]) + carry;
+            reslut = replacePos(reslut, i+j+2, String(sum%10));
+            carry = parseInt(sum/10);
+        }
+        var carrySum = parseInt(reslut[i]) + carry;
+        reslut = replacePos(reslut, i +1, String(carrySum));
+    }
+    while(reslut.length > 0 && reslut[0] == "0") {
+        reslut = reslut.slice(1);
+    }
+    if(reslut.length == 0) {
+        reslut = "0";
+    }
+
+    return reslut;
+
+    function replacePos(strObj, pos, replacetext) {
+        var str = strObj.substr(0, pos - 1) + replacetext + strObj.substring(pos, strObj.length);
+        return str;
+    }
+};
+// 这种方式应该稍微快一点
+var multiply = function(num1, num2) {
+    var maxLenght  =  num1.length + num2.length; 
+    var reslut = "";
+    var carray = 0;
+    for (let i = 0; i < maxLenght - 1; i++) {
+        let min = Math.max(i - num2.length + 1,0);
+        var max  = Math.min(i,num1.length - 1);
+        var sum = 0;
+        for (let j = min; j <= max ; j++) {
+            sum += num1[num1.length - 1 - j]*num2[num2.length - 1 - (i - j)]; 
+        }
+        sum += carray;
+        reslut = String(sum%10) + reslut;
+        carray = parseInt(sum/10);
+    }
+    if(carray > 0) {
+        reslut = String(carray) + reslut;
+    }
+    while(reslut.length > 0 && reslut[0] == "0") {
+        reslut = reslut.slice(1);
+    }
+    if(reslut.length == 0) {
+        reslut = "0";
+    }
+    return reslut;
+}
+
+multiply("2","3");
+multiply("1","100");
+
+multiply("89","86");
 
 //46. 全排列  2个思路，1深度遍历 2.动态规划
 /**
