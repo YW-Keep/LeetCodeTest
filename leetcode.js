@@ -864,10 +864,6 @@ var multiply = function(num1, num2) {
     return reslut;
 }
 
-multiply("2","3");
-multiply("1","100");
-
-multiply("89","86");
 
 //46. 全排列  2个思路，1深度遍历 2.动态规划
 /**
@@ -2102,3 +2098,61 @@ var maxSlidingWindow = function(nums, k) {
     }
     return result;
 };
+
+// 914. 卡牌分组 找数字因子
+/**
+ * @param {number[]} deck
+ * @return {boolean}
+ */
+var hasGroupsSizeX = function(deck) {
+    if(deck.length < 2) {
+        return false;
+    }
+    var myMap = new Map();
+    for (let index = 0; index < deck.length; index++) {
+        let num = deck[index];
+        if (myMap.get(num) != null) {
+            myMap.set(num, myMap.get(num)+1)
+        } else {
+            myMap.set(num, 1);
+        }
+    }
+
+    var tag = myMap.get(deck[0]);
+    var newNumArray = Array()
+    for(var key of myMap) {
+        tag = Math.min(tag, key[1]);
+        newNumArray.push(key[1]);
+    }
+    if (tag < 2) {
+        return false;
+    }
+
+    var sqrtNum = parseInt(Math.sqrt(tag))
+    var backArray = Array();
+    var setArray = Array();
+    for (let index = 2; index <= sqrtNum; index++) {
+        if (tag%index == 0) {
+            backArray.push(index);
+            setArray.push(tag/index);
+        }
+    }
+    backArray = backArray.concat(setArray);
+    backArray.push(tag);
+    for(var factor of backArray) {
+        var tag = 0;
+        for(var key of newNumArray) {
+            var num =  key%factor;
+            if (num != 0) {
+                break;
+            }
+            tag++;
+        }
+        if (tag == newNumArray.length) {
+            return true;
+        }
+    }
+    return false;
+};
+
+hasGroupsSizeX([0,0,0,0,0,1,1,2,3,4])
