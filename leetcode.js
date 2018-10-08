@@ -1003,6 +1003,66 @@ var maxSubArray = function(nums) {
     return max;
 };
 
+// 54.螺旋矩阵
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function(matrix) {
+    if(matrix.length == 0 || matrix[0].length == 0) {
+        return [];
+    }
+    var reslut = Array();
+    var xMin = -1;
+    var xMax = matrix[0].length;
+    var yMin = -1;
+    var yMax = matrix.length;
+    var direction = 0;
+    var i = 0,j = 0;
+    while (xMin < xMax - 1 && yMin < yMax - 1) {
+        var nowD = direction%4;
+        if (nowD == 0) {
+            while(j < xMax) {
+                reslut.push(matrix[i][j])
+                j++;
+            }
+            j--;
+            yMin++;
+            i++;
+        }
+        if (nowD == 1) {
+            while(i < yMax) {
+                reslut.push(matrix[i][j])
+                i++;
+            }
+            i--;
+            xMax--;
+            j--;
+        }
+        if (nowD == 2) {
+            while(xMin < j) {
+                reslut.push(matrix[i][j])
+                j--;
+            }
+            j++;
+            yMax--;
+            i--;
+        }
+        if (nowD == 3) {
+            while(yMin < i) {
+                reslut.push(matrix[i][j])
+                i--;
+            }
+            i++;
+            xMin++;
+            j++;
+        }
+        direction++;
+    }
+    return reslut;
+};
+
+
 // 55. 跳跃游戏
 /**
  * @param {number[]} nums
@@ -1053,6 +1113,72 @@ var merge = function(intervals) {
     return reslut;
 };
 
+// 59 螺旋矩形2
+/**
+ * @param {number} n
+ * @return {number[][]}
+ */
+var generateMatrix = function(n) {
+    if(n < 1) {
+        return [];
+    }
+    var reslut = Array();
+    var inArray = Array();
+    for (let index = 0; index < n; index++) {
+        inArray.push(0);
+    }
+    for (let index = 0; index < n; index++) {
+        reslut.push(inArray.concat());
+    }
+    var xMin = -1;
+    var xMax = reslut[0].length;
+    var yMin = -1;
+    var yMax = reslut.length;
+    var direction = 0;
+    var i = 0,j = 0;
+    var num = 1;
+    while (xMin < xMax - 1 && yMin < yMax - 1) {
+        var nowD = direction%4;
+        if (nowD == 0) {
+            while(j < xMax) {
+                reslut[i][j] = num++;
+                j++;
+            }
+            j--;
+            yMin++;
+            i++;
+        }
+        if (nowD == 1) {
+            while(i < yMax) {
+                reslut[i][j] = num++;
+                i++;
+            }
+            i--;
+            xMax--;
+            j--;
+        }
+        if (nowD == 2) {
+            while(xMin < j) {
+                reslut[i][j] = num++;
+                j--;
+            }
+            j++;
+            yMax--;
+            i--;
+        }
+        if (nowD == 3) {
+            while(yMin < i) {
+                reslut[i][j] = num++;
+                i--;
+            }
+            i++;
+            xMin++;
+            j++;
+        }
+        direction++;
+    }
+    return reslut;
+};
 
 //  62. 不同路径  排序算法
 
@@ -2154,5 +2280,3 @@ var hasGroupsSizeX = function(deck) {
     }
     return false;
 };
-
-hasGroupsSizeX([0,0,0,0,0,1,1,2,3,4])
