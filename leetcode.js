@@ -1180,6 +1180,41 @@ var generateMatrix = function(n) {
     return reslut;
 };
 
+// 61.旋转链表
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var rotateRight = function(head, k) {
+    if (head == null || head.next == null || k == 0) {
+        return head;
+    }
+
+    var num = 1;
+    var ponit = head;
+    while(ponit.next) {
+        num++;
+        ponit = ponit.next;
+    }
+    if (k > num && k%num == 0){
+        return head;
+    }
+    ponit.next = head;
+    if (num > k ) {
+        num = num - k;
+    } else {
+        num = num - k%num;
+    }
+    while (num > 1) {
+        head = head.next;
+        num--;
+    }
+    var newhead = head.next;
+    head.next = null;
+    return newhead;
+};
+
 //  62. 不同路径  排序算法
 
 /**
@@ -1509,6 +1544,40 @@ var maximalRectangle = function(matrix) {
     return max;
 };
 
+// 88.合并2个有序数组 从尾部开始存放
+
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function(nums1, m, nums2, n) {
+
+    var i = m - 1, j = n - 1 ;
+    var num = m + n  - 1 ;
+    while (i > -1 && j > -1) {
+        if(nums1[i] > nums2[j]) {
+            nums1[num] = nums1[i];
+            i--;
+        } else {
+            nums1[num] = nums2[j];
+            j--;
+        }
+        num--;
+    }
+    while (i > -1) {
+        nums1[num] = nums1[i];
+        i--;
+        num--;
+    }
+    while (j > -1) {
+        nums1[num] = nums2[j];
+        j--;
+        num--;
+    }
+};
 
 // 94. 二叉树的中序遍历  递归写法
 
