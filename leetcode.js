@@ -1579,6 +1579,27 @@ var merge = function(nums1, m, nums2, n) {
     }
 };
 
+// 89.格雷编码  递归思想~动态规划
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var grayCode = function(n) {
+    if(n == 0) {
+        return [0];
+    }
+    var reslut = [0,1];
+    var stap = 1;
+    while(stap < n) {
+        var num =  Math.pow(2,stap) - 1;
+        while(num > -1) {
+            reslut.push(reslut[num] + Math.pow(2,stap))
+            num--;
+        }
+        stap++;
+    }
+    return reslut;
+};
 // 94. 二叉树的中序遍历  递归写法
 
 function TreeNode(val) {
@@ -1875,6 +1896,19 @@ var maxProfit = function(prices) {
         }
     }
     return maxD;
+};
+
+// 122.买卖股票的最佳时机2 贪心算法
+/**
+ * @param {number[]} prices 
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    var reslut = 0;
+    for (let index = 1; index < prices.length; index++) {
+        reslut += Math.max(0,prices[index] - prices[index -1]);
+    }
+    return reslut;
 };
 
 // 124. 二叉树中的最大路径和 考虑递归
