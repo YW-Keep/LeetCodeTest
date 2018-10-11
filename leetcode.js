@@ -2090,6 +2090,64 @@ var maxProduct = function(nums) {
     }
     return reslut;
 };
+
+// 155. 最小堆  在用一个堆去记录最小值
+/**
+ * initialize your data structure here.
+ */
+var MinStack = function() {
+    this.listArray =  Array();
+    this.minArray = Array();
+};
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+MinStack.prototype.push = function(x) {
+    this.listArray.push(x);
+    if (this.listArray.length == 1) {
+        this.minArray.push(0);
+    } else {
+        var num = this.minArray[this.minArray.length - 1];
+        if(x < this.listArray[num]) {
+            this.minArray.push(this.listArray.length - 1);
+        }
+    }
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+    if (this.listArray.lenght == 0) {
+        return;
+    }
+    if(this.minArray[this.minArray.length - 1] == this.listArray.length - 1) {
+        this.minArray.pop();
+    }
+    this.listArray.pop();
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+    if (this.listArray.lenght == 0) {
+        return nil;
+    }
+    return this.listArray[this.listArray.length - 1];
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+    if (this.listArray.lenght == 0) {
+        return nil;
+    }
+    return this.listArray[this.minArray[this.minArray.length - 1]];
+};
  
 // 160. 相交链表 思路1.  其实把一个链表遍历到尾部 指向 第二个链表头部 就是一个循环链表了   思路2 指向同一个点 后面肯定是长度一样 所以先把他们切割成一样长度 然后一起遍历
 /**
@@ -2229,6 +2287,24 @@ var findKthLargest = function(nums, k) {
     function sequence(a,b) {
         return b - a;
     }
+};
+
+// 217.存在重复元素 字典记录
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function(nums) {
+    var dic = new Map();
+    for (let index = 0; index < nums.length; index++) {
+        const element = nums[index];
+        if(dic.get(element) != undefined) {
+            return true
+        } else {
+            dic.set(element,0);
+        }
+    }
+    return false;
 };
 
 // 226. 翻转二叉树 递归
