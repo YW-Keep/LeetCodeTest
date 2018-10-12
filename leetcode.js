@@ -2319,6 +2319,57 @@ var invertTree = function(root) {
     return root;
 };
 
+// 230.二叉搜索树中第k小的元素 中序遍历
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function(root, k) {
+    var stack = Array();
+    var num = 0;
+    if(root) {
+        stack.push(root);
+    }
+    while(stack.length > 0) {
+        var last = stack[stack.length - 1];
+        if(last.left) {
+            stack.push(last.left);
+            last.left = null;
+        } else {
+            stack.pop();
+            num++;
+            if(num == k) {
+                return last.val;
+            }
+            if(last.right) {
+                stack.push(last.right);
+            }
+        }
+    }
+};
+
+// 231.2的幂   2的次幂肯定是 最后一位是1 前面的位数都是0....
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfTwo = function(n) {
+    if(n < 1) return false;
+    var  hasOne = false;
+    while(n > 0) {
+        if (n&1) {
+            if(hasOne) {
+                return false;
+            } else {
+                hasOne = true;
+            }
+        }
+        n >>=1;
+    }
+    return true;
+};
+
 // 234.回文链表  快慢指针 去中间 然后反转链表 最后 逐一比较
 /**
  * @param {ListNode} head
