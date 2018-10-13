@@ -2443,7 +2443,25 @@ var lowestCommonAncestor = function(root, p, q) {
         }
     }
 };
-
+// 236. 二叉树的最近公共祖先 递归如果遇到跟p,q相等的则返回，递归左右树 如果都存在则就是该点如果一个不存在则在另外一个树上
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+    if(root == null || root == p || root == q) {
+        return root;
+    } 
+    var left = lowestCommonAncestor(root.left,p,q);
+    var right = lowestCommonAncestor(root.right,p,q);
+    if(left && right) {
+        return root;
+    } else {
+        return left == null ? right : left;
+    }
+};
 // 238.除自身以外数组的乘积
 /**
  * @param {number[]} nums
