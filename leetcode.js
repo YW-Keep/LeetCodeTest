@@ -2410,6 +2410,40 @@ var isPalindrome = function(head) {
     };
 };
 
+// 235.二叉搜索树的最近公共祖先
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+    var min = 0,max =0;
+    if(p.val > q.val) {
+        min = q.val;
+        max = p.val;
+    } else {
+        min = p.val;
+        max = q.val;
+    }
+    while(root) {
+        if(max < root.val) {
+            root = root.left;
+        } else if (min > root.val) {
+            root  = root.right;
+        } else {
+            return root;
+        }
+    }
+};
+
 // 238.除自身以外数组的乘积
 /**
  * @param {number[]} nums
