@@ -2462,6 +2462,17 @@ var lowestCommonAncestor = function(root, p, q) {
         return left == null ? right : left;
     }
 };
+// 237.删除链表中的节点 这题只传入了删除节点 要换个思维就是把删除节点跳过去
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+var deleteNode = function(node) {
+    node.val = node.next.val;
+    node.next = node.next.next;
+};
+
+
 // 238.除自身以外数组的乘积
 /**
  * @param {number[]} nums
@@ -2506,6 +2517,29 @@ var maxSlidingWindow = function(nums, k) {
     }
     return result;
 };
+
+// 292.Nim游戏 其实4是一个基数 一定能达到的数（即最大值加最小值）
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var canWinNim = function(n) {
+    return n%4 > 0 ;
+};
+
+// 344.反转字符串 反向循环
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseString = function(s) {
+    var reslut = "";
+    for (let index = 0; index < s.length; index++) {
+       reslut += s[s.length - index - 1];
+    }
+    return reslut;
+};
+
 
 // 914. 卡牌分组 找数字因子
 /**
@@ -2562,3 +2596,4 @@ var hasGroupsSizeX = function(deck) {
     }
     return false;
 };
+
