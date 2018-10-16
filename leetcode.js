@@ -2540,6 +2540,29 @@ var reverseString = function(s) {
     return reslut;
 };
 
+// 557.反转字符串中的单词3
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+    var reslut = "";
+    var word = "";
+    for (let index = 0; index < s.length; index++) {
+        let char = s[index];
+        if(char  == " ") {
+            reslut  += word + " "; 
+            word = "";
+        }  else {
+            word =  char + word;
+        }
+    }
+    if(word.length > 0) {
+        reslut = reslut + word;
+    }
+    return reslut;
+};
+
 
 // 914. 卡牌分组 找数字因子
 /**
