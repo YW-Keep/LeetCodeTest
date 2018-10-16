@@ -2540,7 +2540,7 @@ var reverseString = function(s) {
     return reslut;
 };
 
-// 557.反转字符串中的单词3
+// 557.反转字符串中的单词3  循环就好了
 /**
  * @param {string} s
  * @return {string}
