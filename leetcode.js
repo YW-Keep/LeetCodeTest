@@ -2517,6 +2517,35 @@ var maxSlidingWindow = function(nums, k) {
     }
     return result;
 };
+// 279.完全平方数 可以用动态规划做 当然 还有种方式就是： 四平方定理： 任何一个正整数都可以表示成不超过四个整数的平方之和。满足四数平方和定理的数n（这里要满足由四个数构成，小于四个不行），必定满足 n=4a(8b+7)
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numSquares = function(n) {
+    var num =  Math.floor(Math.sqrt(n));
+    if(num*num == n) {
+        return 1;
+    }
+    for (let index = num; index > 0; index--) {
+        for (let i = 1; i <= num; i++) {
+            if((index*index + i*i) == n) {
+                return 2;
+            }
+        }
+    }
+
+    var newN = n;
+    while(newN%4 == 0) {
+        newN = newN/4;
+    }
+    if(newN%8 == 7) {
+        return 4;
+    }
+    return 3;
+};
+numSquares(2);
+
 
 // 292.Nim游戏 其实4是一个基数 一定能达到的数（即最大值加最小值）
 /**
