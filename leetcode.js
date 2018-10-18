@@ -2517,6 +2517,52 @@ var maxSlidingWindow = function(nums, k) {
     }
     return result;
 };
+//  263.丑数 
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isUgly = function(num) {
+    if(num<1) return false;
+    while(num>1){
+        if(num%2==0){
+            num/=2;
+        }else if(num%3==0){
+            num/=3;
+        }else if(num%5==0){
+            num/=5;
+        }else{
+            return false;
+        }
+    }
+    return true;
+};
+// 264.丑数2 用动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthUglyNumber = function(n) {
+    var backAray = Array();
+    backAray.push(1);
+    var index2 = 0;
+    var index3 = 0;
+    var index5 = 0;
+    while(backAray.length != n) {
+        var min = Math.min(backAray[index2]*2,backAray[index3]*3,backAray[index5]*5);
+        if(min == backAray[index2]*2) {
+            index2++;
+        } else if(min == backAray[index3]*3) {
+            index3++;
+        } else {
+            index5++;
+        }
+        if(min != backAray[backAray.length - 1]) {
+            backAray.push(min);
+        }
+    }
+    return backAray[backAray.length -1];
+};
 // 279.完全平方数 可以用动态规划做 当然 还有种方式就是： 四平方定理： 任何一个正整数都可以表示成不超过四个整数的平方之和。满足四数平方和定理的数n（这里要满足由四个数构成，小于四个不行），必定满足 n=4a(8b+7)
 /**
  * @param {number} n
@@ -2544,7 +2590,6 @@ var numSquares = function(n) {
     }
     return 3;
 };
-numSquares(2);
 
 
 // 292.Nim游戏 其实4是一个基数 一定能达到的数（即最大值加最小值）
