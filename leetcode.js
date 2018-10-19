@@ -2563,6 +2563,27 @@ var nthUglyNumber = function(n) {
     }
     return backAray[backAray.length -1];
 };
+
+// 269.缺失数字 记录总数 计算应该的值减去就好了
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function(nums) {
+    if(nums.length == 0) {
+        return 0;
+    }
+    var sum = 0;
+    for (let index = 0; index < nums.length; index++) {
+        const element = nums[index];
+        sum += element;
+    }
+    return (nums.length)*(nums.length + 1)/2  - sum;
+};
+
+var num = missingNumber([9,6,4,2,3,5,7,0,1])
+var text  = "1";
+
 // 279.完全平方数 可以用动态规划做 当然 还有种方式就是： 四平方定理： 任何一个正整数都可以表示成不超过四个整数的平方之和。满足四数平方和定理的数n（这里要满足由四个数构成，小于四个不行），必定满足 n=4a(8b+7)
 /**
  * @param {number} n
