@@ -2581,9 +2581,6 @@ var missingNumber = function(nums) {
     return (nums.length)*(nums.length + 1)/2  - sum;
 };
 
-var num = missingNumber([9,6,4,2,3,5,7,0,1])
-var text  = "1";
-
 // 279.完全平方数 可以用动态规划做 当然 还有种方式就是： 四平方定理： 任何一个正整数都可以表示成不超过四个整数的平方之和。满足四数平方和定理的数n（这里要满足由四个数构成，小于四个不行），必定满足 n=4a(8b+7)
 /**
  * @param {number} n
@@ -2633,6 +2630,83 @@ var reverseString = function(s) {
        reslut += s[s.length - index - 1];
     }
     return reslut;
+};
+
+// 347.前K个高频元素  映射成map再排序
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function(nums, k) {
+    var myMap = new Map();
+    for (let index = 0; index < nums.length; index++) {
+        const element = nums[index];
+        if(myMap.get(element) != null) {
+            myMap.set(element,myMap.get(element) + 1);
+        } else {
+            myMap.set(element,1);
+        }
+    }
+
+    var reslut = Array();
+    for(var key of myMap) {
+        reslut.push(key[0]);
+    }
+    var sortArray = reslut.sort(copare);
+    function copare(x,y) {
+        return myMap.get(y) - myMap.get(x);
+    }
+    return sortArray.slice(0,k);
+};
+
+// 394.字符串解码 堆栈
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var decodeString = function(s) {
+
+    var heap = Array();
+    for(var str of s) {
+        if(str == "]") {
+            var loopStr = ""
+            var popStr = heap.pop();
+            while(popStr != "[") {
+                loopStr = popStr + loopStr;
+                popStr = heap.pop();
+            }
+            var loopNum = "";
+            popStr = heap.pop();
+            while(isNum(popStr)) {
+                loopNum = popStr + loopNum;
+                popStr = heap.pop();
+            }
+            if(popStr) {
+                heap.push(popStr);
+            }
+            popStr = "";
+            for (let index = 0; index < parseInt(loopNum); index++) {
+                popStr = popStr + loopStr;
+            }
+            heap.push(popStr);
+
+        } else {
+            heap.push(str);
+        }
+    } 
+
+    var relsut = "";
+    for (let index = 0; index < heap.length; index++) {
+        const element = heap[index];
+        relsut += element;
+    }
+    return relsut;
+
+    function isNum(x) {
+        var numString = "0123456789";
+        return numString.indexOf(x) != -1;
+    }
 };
 
 // 557.反转字符串中的单词3  循环就好了
