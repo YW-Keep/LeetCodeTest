@@ -2708,6 +2708,53 @@ var decodeString = function(s) {
         return numString.indexOf(x) != -1;
     }
 };
+// 406.根据身高重建队列  小数不会影响K
+/**
+ * @param {number[][]} people
+ * @return {number[][]}
+ */
+var reconstructQueue = function(people) {
+    var sortArray = people.sort(compare);
+    var reslut = Array();
+    for (let index = 0; index < sortArray.length; index++) {
+        const element = sortArray[index];
+        if(element[1] >= reslut.count) {
+            reslut.push(element);
+        } else {
+            reslut.splice(element[1],0,element);
+        }
+    }
+    return reslut;
+    function compare(x,y) {
+        if (y[0] == x[0]) {
+            return x[1] - y[1];
+        } else {
+            return y[0] - x[0];
+        }
+    }
+};
+
+// 448.找到所有数组中消失的 因为是1-N的数 用正负记录是否存在
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findDisappearedNumbers = function(nums) {
+    for (let index = 0; index < nums.length; index++) {
+        var element = Math.abs(nums[index]) -1;
+        if(nums[element] > 0) {
+            nums[element] = nums[element]*-1;
+        }
+    }
+    var relsutArray = Array();
+    for (let index = 0; index < nums.length; index++) {
+        const element = nums[index];
+        if (element > 0) {
+            relsutArray.push(index + 1);
+        }
+    }
+    return relsutArray;
+};
 
 // 557.反转字符串中的单词3  循环就好了
 /**
