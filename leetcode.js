@@ -2734,6 +2734,86 @@ var reconstructQueue = function(people) {
     }
 };
 
+// 416 分割子集 其实最后可以归到背包问题
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canPartition = function(nums) {
+    if(nums.length < 2) {
+        return false;
+    }
+    var sum = 0;
+    for (let index = 0; index < nums.length; index++) {
+        sum += nums[index]; 
+    }
+    if (sum%2 != 0) {
+        return false;
+    }
+    var mid = sum/2;
+    var backArray = Array();
+    for (let index = 0; index <= mid; index++) {
+        backArray.push(0);
+    }
+    var rootArray= Array();
+    for (let index = 0; index <= nums.length; index++) {
+        rootArray.push(backArray.concat());
+    }
+    for (let i = 1; i <= nums.length; i++) {
+        let num = nums[i -1];
+        if (num > mid) {
+            return false;
+        }
+        for (let j = num; j <= mid; j++) {
+            rootArray[i][j] = Math.max(rootArray[i-1][j],rootArray[i-1][j-num] + num);
+        }
+    }
+    if(rootArray[nums.length][mid] == mid) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+// 经典最快写法 递归写法 每次都是加或者不加两种情况
+var canPartition = function(nums) {
+    var sum = nums.reduce((a,b)=>a+b);
+    if(sum%2==1){
+        return false;
+    }
+    sum = sum / 2;
+    var result = false;
+    var obj = new Set();
+    f(0, 0);
+    return result;
+    
+    function f(r, k) {
+        if(obj.has(r+","+k)) {
+            return;
+        } else {
+            obj.add(r+","+k);
+        }
+        if(r == sum) {
+            result = true;
+        }
+        if(r>sum) {
+            return;
+        }
+        if(result) {
+            return;
+        }
+        if(k==nums.length) {
+            return
+        }
+        f(r+nums[k], k+1);
+        f(r, k+1);
+    }
+};
+
 // 448.找到所有数组中消失的 因为是1-N的数 用正负记录是否存在
 /**
  * @param {number[]} nums
