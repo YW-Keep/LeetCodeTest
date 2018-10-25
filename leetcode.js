@@ -2814,6 +2814,31 @@ var canPartition = function(nums) {
     }
 };
 
+// 437.路径总和3 递归
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {number}
+ */
+var pathSum = function(root, sum) {
+    if(root == null) {
+        return 0;
+    }
+    return dfs(root,sum) + pathSum(root.left,sum) +pathSum(root.right,sum);
+    function dfs(root,num) {
+        if(root == null) {
+            return 0
+        }
+        var count = 0;
+        if (root.val == num) {
+            count = 1;
+        }
+        count += dfs(root.left,num - root.val);
+        count += dfs(root.right,num - root.val);
+        return count;
+    }
+};
+
 // 448.找到所有数组中消失的 因为是1-N的数 用正负记录是否存在
 /**
  * @param {number[]} nums
