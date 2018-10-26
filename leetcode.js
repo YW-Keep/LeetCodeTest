@@ -2861,6 +2861,25 @@ var findDisappearedNumbers = function(nums) {
     return relsutArray;
 };
 
+// 461.汉明距离
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @return {number}
+ */
+var hammingDistance = function(x, y) {
+    var num = x^y;
+    var count = 0;
+    while(num) {
+        if((num & 1) == 1 ){
+            count++;
+        }
+        num >>= 1;
+    }
+    return count;
+};
+
 // 557.反转字符串中的单词3  循环就好了
 /**
  * @param {string} s
