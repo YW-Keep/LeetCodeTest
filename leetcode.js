@@ -2879,6 +2879,40 @@ var hammingDistance = function(x, y) {
     }
     return count;
 };
+// 494.目标和  一个数 肯定是正数或者负数， 那么我们可以加总和 即有  P(+) + P(-) = target 而 P(+) - p(-) = sum; 
+// 那么即有P(+) = (tagrget + sum)/2  也就是问题被转化成了 有个数组找出有多少个子集和为一个数  这就是一个背包问题
+// 背包问题的解法就是动态规划， 先用数组记录每个数能生成的次数，每次加一个数则遍历一遍比他大的数 减去这个数累加。如此计算
+/**
+ * @param {number[]} nums
+ * @param {number} S
+ * @return {number}
+ */
+var findTargetSumWays = function(nums, S) {
+    var sum = 0;
+    for(num of nums) {
+        sum += num;
+    }
+    if(S > sum || (S + sum)%2 == 1) {
+        return 0;
+    }
+    var  newS =  (S + sum)/2;
+
+    var backArray = Array();
+    backArray.push(1);
+    var sumNum = newS 
+    while(sumNum > 0) {
+        backArray.push(0);
+        sumNum--;
+    }
+    for(num of nums) {
+        var taget =  newS ;
+        while (taget >= num) {
+            backArray[taget] += backArray[taget - num];
+            taget--;
+        }
+    }
+    return backArray[newS];
+};
 
 // 557.反转字符串中的单词3  循环就好了
 /**
