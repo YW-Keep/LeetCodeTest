@@ -2914,6 +2914,48 @@ var findTargetSumWays = function(nums, S) {
     return backArray[newS];
 };
 
+//538.把二叉搜索树转换为累加树  递归调用
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBST = function(root) {
+    var  sum = 0;
+    return BST(root)
+
+    function BST(root) {
+        if(root == null) {
+            return root;
+        }
+        BST(root.right);
+        root.val += sum;
+        sum = root.val;
+        BST(root.left);
+        return root;
+    }
+};
+
+//543.二叉树的直径  递归
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var diameterOfBinaryTree = function(root) {
+    var max = 0;
+    distance(root);
+    function distance(root) {
+        if(root == null) {
+            return 0;
+        }
+        var left = distance(root.left);
+        var right = distance(root.right);
+        max = Math.max(max,left+right);
+        return Math.max(left,right) + 1;
+    }
+    return max;
+};
+
+
 // 557.反转字符串中的单词3  循环就好了
 /**
  * @param {string} s
