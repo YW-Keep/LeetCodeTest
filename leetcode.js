@@ -2955,6 +2955,29 @@ var diameterOfBinaryTree = function(root) {
     return max;
 };
 
+// 560.和为K的子数组  题目中显示的是连续的子数组的个数。 所以可以用字典
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var subarraySum = function(nums, k) {
+    var backMap = new Map();
+    backMap.set(0,1);
+    var sum = 0;
+    var reslut = 0;
+    for(num of nums) {
+        sum += num;
+        if(backMap.has(sum - k)) {
+            reslut += backMap.get(sum - k);
+        }
+        backMap.set(sum,(backMap.get(sum) || 0)+ 1);
+    }
+    return reslut;
+};
+
+subarraySum([1,1,1],2);
+
 
 // 557.反转字符串中的单词3  循环就好了
 /**
