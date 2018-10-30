@@ -2976,8 +2976,6 @@ var subarraySum = function(nums, k) {
     return reslut;
 };
 
-subarraySum([1,1,1],2);
-
 
 // 557.反转字符串中的单词3  循环就好了
 /**
