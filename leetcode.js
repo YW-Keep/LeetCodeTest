@@ -2999,7 +2999,7 @@ var subarraySum = function(nums, k) {
     return reslut;
 };
 
-// 572.另一个树的子树
+// 572.另一个树的子树  对比2个树是否相同
 /**
  * @param {TreeNode} s
  * @param {TreeNode} t
