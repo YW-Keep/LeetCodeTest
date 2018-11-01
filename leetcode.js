@@ -3026,6 +3026,31 @@ var isSubtree = function(s, t) {
     }
 };
 
+// 581.最短无序序列 寻找开始点与结束点遍历一次就可以找到了
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findUnsortedSubarray = function(nums) {
+    if(!nums || nums.length < 2) {
+        return 0;
+    }
+    var max = nums[0];
+    var min = nums[nums.length -1];
+    var end = -1;
+    var start = 0;
+    for (let index = 0; index < nums.length; index++) {
+        var max = Math.max(max,nums[index]);
+        var min = Math.min(min,nums[nums.length - 1 - index]);
+        if(nums[index] < max) {
+            end = index;
+        }
+        if(nums[nums.length - 1 - index] > min) {
+            start = nums.length - 1 - index;
+        }
+    }
+    return  end - start + 1;
+};
 
 // 914. 卡牌分组 找数字因子
 /**
