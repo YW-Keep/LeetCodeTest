@@ -1768,6 +1768,37 @@ var levelOrder = function(root) {
     }
     return reslut;
 };
+// 103.二叉树的锯齿层次遍历 在上面的基础上做了反转而已
+var zigzagLevelOrder = function(root) {
+    if (root == null) {
+        return [];
+    }
+    var stack = [root];
+    var reslut = Array();
+    var num = 1;
+    while (stack.length != 0) {
+        var rowArray = Array()
+        var nextArray = Array()
+        for (let index = 0; index < stack.length; index++) {
+            var element = stack[index];
+            rowArray.push(element.val);
+            if (element.left) {
+                nextArray.push(element.left);
+            }
+            if (element.right) {
+                nextArray.push(element.right);
+            }
+        }
+        if(num%2 == 0) {
+            rowArray.reverse();
+        }
+        num++;
+        stack = nextArray;
+        reslut.push(rowArray);
+    }
+    return reslut;
+};
+
 
 //  104. 二叉树的最大深度
 var maxDepth = function(root) {
@@ -1831,6 +1862,33 @@ var buildTree = function(preorder, inorder) {
         }
         return tree;
     }
+};
+
+// 107 二叉树的层序遍历2 遍历完成后反转
+var levelOrderBottom = function(root) {
+    if (root == null) {
+        return [];
+    }
+    var stack = [root];
+    var reslut = Array();
+    while (stack.length != 0) {
+        var rowArray = Array()
+        var nextArray = Array()
+        for (let index = 0; index < stack.length; index++) {
+            var element = stack[index];
+            rowArray.push(element.val);
+            if (element.left) {
+                nextArray.push(element.left);
+            }
+            if (element.right) {
+                nextArray.push(element.right);
+            }
+        }
+        stack = nextArray;
+        reslut.push(rowArray);
+    }
+    reslut.reverse();
+    return reslut;
 };
 
 // 114. 二叉树展开为链表 需要原地算法  递归算法 左边的树挂到右边
@@ -3065,6 +3123,34 @@ var mergeTrees = function(t1, t2) {
     newT.right = mergeTrees(t1.right,t2.right);
     return newT;
 };
+
+// 621.任务调度器 扩充思想 考虑最大的情况贪心算法
+
+/**
+ * @param {character[]} tasks
+ * @param {number} n
+ * @return {number}
+ */
+var leastInterval = function(tasks, n) {
+    var  mapBackup = new Map();
+    for(task of tasks) {
+        
+        mapBackup.set(task,(mapBackup.get(task) == null  ? 0 : mapBackup.get(task)) + 1);
+    }
+    var count = 1;
+    var max = 0;
+    for(map of mapBackup) {
+        if(map[1] > max) {
+            max = map[1];
+            count = 1;
+        } else if(map[1] == max) {
+            count++;
+        }
+    }
+    return Math.max((max - 1)*(n+1) + count ,tasks.length)
+};
+
+
 
 // 914. 卡牌分组 找数字因子
 /**
