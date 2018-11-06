@@ -260,6 +260,35 @@ var maxArea = function(height) {
     return max;
 };
 
+//  13.罗马数组转整数 逆转遍历
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function(s) {
+    var res = 0;
+    var map = {
+        I:1,
+        V:5,
+        X:10,
+        L:50,
+        C:100,
+        D:500,
+        M:1000
+    };
+    for(var i = s.length -1; i >= 0; i-- ){
+         var char = map[s[i]];
+         var nextChar = map[s[i-1]];
+        if(nextChar < char) {
+            res += char - nextChar;
+            i--;
+        } else {
+            res += char;
+        }
+    }
+    return res
+};
+
 // 14.最长公共前缀 最简单的思想取相同的头部 遍历比较 感觉应该可以更快
 /**
  * @param {string[]} strs
