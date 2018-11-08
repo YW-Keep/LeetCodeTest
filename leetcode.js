@@ -806,7 +806,35 @@ var combinationSum = function(candidates, target) {
     return result;
 };
 
-
+// 41.缺失的的第一个正数 还是考虑负数记录位置是否存在
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var firstMissingPositive = function(nums) {
+    for (let index = 0; index < nums.length; index++) {
+        if(nums[index] < 0) {
+            nums[index] = 0;
+        }
+    }
+    for (let index = 0; index < nums.length; index++) {
+        var num  = Math.abs(nums[index]) - 1;
+        if(num >= 0 && num < nums.length) {
+            if(nums[num] == 0) {
+                nums[num] = nums.length*-1;
+            }else {
+                nums[num] = Math.abs(nums[num])*-1;
+            }
+        }
+    }
+    for (let index = 0; index < nums.length; index++) {
+        const element = nums[index];
+        if(element >= 0 ) {
+            return  index + 1;
+        }
+    }
+    return  nums.length + 1;
+};
 //  42. 接雨水
 /**
  * @param {number[]} height
@@ -2819,6 +2847,27 @@ var reconstructQueue = function(people) {
             return y[0] - x[0];
         }
     }
+};
+
+// 412. Fizz Buzz 很简单 
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+let fizzBuzz = function(n) {
+    let res = [];
+    for (let i = 1; i <= n; i++) {
+        if (i % 15 === 0) {
+            res.push("FizzBuzz");
+        } else if (i % 3 === 0) {
+            res.push("Fizz");
+        } else if (i % 5 === 0) {
+            res.push("Buzz");
+        } else {
+            res.push(i.toString());
+        }
+    }
+    return res;
 };
 
 // 416 分割子集 其实最后可以归到背包问题
