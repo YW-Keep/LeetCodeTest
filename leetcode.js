@@ -8,9 +8,9 @@ var twoSum = function(nums, target) {
     var myMap = new Map();
     for (let index = 0; index < nums.length; index++) {
         let num = nums[index];
-        let reslut =  target - num;
-        if (myMap.get(reslut) != null) {
-            return [myMap.get(reslut), index];
+        let result =  target - num;
+        if (myMap.get(result) != null) {
+            return [myMap.get(result), index];
         } else {
             myMap.set(num, index);
         }
@@ -63,7 +63,7 @@ var addTwoNumbers = function(l1, l2) {
  */
 var lengthOfLongestSubstring = function(s) {
     var myMap = new Map();
-    var reslut = 0;
+    var result = 0;
     var begain = 0;
     for (let index = 0; index < s.length; index++) {
         let char = s[index];
@@ -71,9 +71,9 @@ var lengthOfLongestSubstring = function(s) {
             begain = Math.max(myMap.get(char) + 1,begain);
         }
         myMap.set(char,index);
-        reslut = Math.max(reslut,index - begain + 1);
+        result = Math.max(result,index - begain + 1);
     }
-    return reslut;
+    return result;
 };
 
 //4. 两个排序数组的中位数   排序数组，其实就是取数  二分法求值
@@ -191,7 +191,7 @@ var reverse = function(x) {
  * @return {number}
  */
 var myAtoi = function(str) {
-    var reslut = 0;
+    var result = 0;
     var symbol = 1;
     var newStr = str.replace(/(^\s*)|(\s*$)/g, "");
     var numStr = "0987654321"
@@ -205,19 +205,19 @@ var myAtoi = function(str) {
             continue;
         }
         if(numStr.indexOf(char) != -1){
-            reslut  = reslut*10 + parseInt(char);
+            result  = result*10 + parseInt(char);
         } else {
             break;
         }
     }
-    reslut = reslut*symbol;
-    if(reslut > Math.pow(2,31) -1) {
-        reslut = Math.pow(2,31) -1;
+    result = result*symbol;
+    if(result > Math.pow(2,31) -1) {
+        result = Math.pow(2,31) -1;
     }
-    if(reslut < Math.pow(2,31)*-1) {
-        reslut = Math.pow(2,31)*-1;
+    if(result < Math.pow(2,31)*-1) {
+        result = Math.pow(2,31)*-1;
     }
-    return reslut;
+    return result;
 };
 
 //9.回文数  这里使用的是遍历 还可以把后半段反转 这是一种比较常用的技巧
@@ -346,9 +346,9 @@ var twoSum2 = function(nums, target) {
     var backArr = new Array();
     for (let index = 0; index < nums.length; index++) {
         let num = nums[index];
-        let reslut =  target - num;
-        if (myMap.get(reslut) != null) {
-            backArr.push([num,reslut,-target]);
+        let result =  target - num;
+        if (myMap.get(result) != null) {
+            backArr.push([num,result,-target]);
         } else {
             myMap.set(num, index);
         }
@@ -414,7 +414,7 @@ var threeSumClosest = function(nums, target) {
         return null;
     }
     var newNums = nums.sort(compare);
-    var reslut = nums[0] + nums[1] + nums[2];
+    var result = nums[0] + nums[1] + nums[2];
     for (let index = 0; index < newNums.length; index++) {
         var tap = target - newNums[index];
         var start = index + 1;
@@ -428,10 +428,10 @@ var threeSumClosest = function(nums, target) {
            } else {
                start++;
            }
-           reslut = Math.abs(reslut - target) < Math.abs(newTap - tap) ? reslut : newTap +newNums[index];
+           result = Math.abs(result - target) < Math.abs(newTap - tap) ? result : newTap +newNums[index];
         }
     }
-    return reslut;
+    return result;
     function compare(x,y) {
         return x - y;
     }
@@ -447,9 +447,9 @@ var letterCombinations = function(digits) {
     if (digits.length < 1) {
         return [];
     }
-    var reslut = new Array();
-    dfs17(0,digits,"",reslut);
-    return reslut;
+    var result = new Array();
+    dfs17(0,digits,"",result);
+    return result;
 };
 
 var conversion = [" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
@@ -458,11 +458,11 @@ var conversion = [" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wx
  * @param {number} step
  * @param {string} digits
  * @param {string} target
- * @param {string[]]} reslut
+ * @param {string[]]} result
  */
-var dfs17 = function(step, digits, target, reslut) {
+var dfs17 = function(step, digits, target, result) {
     if (step == digits.length) {
-        reslut.push(target);
+        result.push(target);
         return;
     }
     var addNum = Number(digits[step]);
@@ -470,7 +470,7 @@ var dfs17 = function(step, digits, target, reslut) {
 
     for (let index = 0; index < addString.length; index++) {
         var element = addString[index];
-        dfs17(step + 1, digits, target + element, reslut);
+        dfs17(step + 1, digits, target + element, result);
     }
 }
 
@@ -583,30 +583,30 @@ var mergeTwoLists = function(l1, l2) {
  * @return {string[]}
  */
 var generateParenthesis = function(n) {
-    var reslut = Array();
-    addStr(reslut, "", n, n);
-    return reslut;
+    var result = Array();
+    addStr(result, "", n, n);
+    return result;
 };
 
 
 /**
  *
- * @param {string[]]} reslut
+ * @param {string[]]} result
  * @param {string} nowStr
  * @param {Number} open
  * @param {Number} close
  * @returns
  */
-function addStr(reslut, nowStr, open, close) {
+function addStr(result, nowStr, open, close) {
     if (open == 0 && close == 0) {
-        reslut.push(nowStr);
+        result.push(nowStr);
         return;
     }
     if(open > 0) {
-        addStr(reslut, nowStr + "(", open - 1, close);
+        addStr(result, nowStr + "(", open - 1, close);
     }
     if(close > 0 && close > open) {
-        addStr(reslut, nowStr + ")", open, close - 1);
+        addStr(result, nowStr + ")", open, close - 1);
     }
 }
 
@@ -864,29 +864,29 @@ var trap = function(height) {
  */
 var multiply = function(num1, num2) {
     var length = num1.length + num2.length;
-    var  reslut = "";
+    var  result = "";
     for (let index = 0; index < length; index++) {
-        reslut = reslut + "0";
+        result = result + "0";
     }
 
     for (let i = num1.length - 1; i > -1; i--) {
         var carry = 0;
         for (let j = num2.length - 1; j > -1; j--) {
-            var sum = parseInt(reslut[i + j + 1]) + parseInt(num1[i])*parseInt(num2[j]) + carry;
-            reslut = replacePos(reslut, i+j+2, String(sum%10));
+            var sum = parseInt(result[i + j + 1]) + parseInt(num1[i])*parseInt(num2[j]) + carry;
+            result = replacePos(result, i+j+2, String(sum%10));
             carry = parseInt(sum/10);
         }
-        var carrySum = parseInt(reslut[i]) + carry;
-        reslut = replacePos(reslut, i +1, String(carrySum));
+        var carrySum = parseInt(result[i]) + carry;
+        result = replacePos(result, i +1, String(carrySum));
     }
-    while(reslut.length > 0 && reslut[0] == "0") {
-        reslut = reslut.slice(1);
+    while(result.length > 0 && result[0] == "0") {
+        result = result.slice(1);
     }
-    if(reslut.length == 0) {
-        reslut = "0";
+    if(result.length == 0) {
+        result = "0";
     }
 
-    return reslut;
+    return result;
 
     function replacePos(strObj, pos, replacetext) {
         var str = strObj.substr(0, pos - 1) + replacetext + strObj.substring(pos, strObj.length);
@@ -896,7 +896,7 @@ var multiply = function(num1, num2) {
 // 这种方式应该稍微快一点
 var multiply = function(num1, num2) {
     var maxLenght  =  num1.length + num2.length; 
-    var reslut = "";
+    var result = "";
     var carray = 0;
     for (let i = 0; i < maxLenght - 1; i++) {
         let min = Math.max(i - num2.length + 1,0);
@@ -906,19 +906,19 @@ var multiply = function(num1, num2) {
             sum += num1[num1.length - 1 - j]*num2[num2.length - 1 - (i - j)]; 
         }
         sum += carray;
-        reslut = String(sum%10) + reslut;
+        result = String(sum%10) + result;
         carray = parseInt(sum/10);
     }
     if(carray > 0) {
-        reslut = String(carray) + reslut;
+        result = String(carray) + result;
     }
-    while(reslut.length > 0 && reslut[0] == "0") {
-        reslut = reslut.slice(1);
+    while(result.length > 0 && result[0] == "0") {
+        result = result.slice(1);
     }
-    if(reslut.length == 0) {
-        reslut = "0";
+    if(result.length == 0) {
+        result = "0";
     }
-    return reslut;
+    return result;
 }
 
 
@@ -928,27 +928,27 @@ var multiply = function(num1, num2) {
  * @return {number[][]}
  */
 var permute = function(nums) {
-    var reslut = Array();
-    permuteDFS(nums,Array(),reslut);
-    return reslut;
+    var result = Array();
+    permuteDFS(nums,Array(),result);
+    return result;
 
     /**
      *
      *
      * @param {number[]} nums
      * @param {number[]} ans
-     * @param {number[][]} reslut
+     * @param {number[][]} result
      */
-    function permuteDFS(nums, ans, reslut) {
+    function permuteDFS(nums, ans, result) {
         if (nums.length == 0) {
-            reslut.push(ans);
+            result.push(ans);
         } else {
             for (let index = 0; index < nums.length; index++) {
                 var newNums = nums.slice(0);
                 newNums.splice(index, 1);
                 var newAns = ans.slice(0);
                 newAns.push(nums[index]);
-                permuteDFS(newNums, newAns, reslut);
+                permuteDFS(newNums, newAns, result);
             }
         }
     }
@@ -1013,12 +1013,12 @@ var groupAnagrams = function(strs) {
             myMap.set(key, [element]);
         }
     }
-    var reslut = Array();
+    var result = Array();
     myMap.forEach(function (item) {
-        reslut.push(item);
+        result.push(item);
     });
 
-    return reslut;
+    return result;
     /**
      * 字符串排序
      * @param {string} string
@@ -1030,11 +1030,11 @@ var groupAnagrams = function(strs) {
             stringArray.push(string[index]);
         }
         stringArray.sort();
-        var reslut = "";
+        var result = "";
         stringArray.forEach(element => {
-            reslut += element;
+            result += element;
         });
-        return reslut;
+        return result;
     }
 };
 
@@ -1069,7 +1069,7 @@ var spiralOrder = function(matrix) {
     if(matrix.length == 0 || matrix[0].length == 0) {
         return [];
     }
-    var reslut = Array();
+    var result = Array();
     var xMin = -1;
     var xMax = matrix[0].length;
     var yMin = -1;
@@ -1080,7 +1080,7 @@ var spiralOrder = function(matrix) {
         var nowD = direction%4;
         if (nowD == 0) {
             while(j < xMax) {
-                reslut.push(matrix[i][j])
+                result.push(matrix[i][j])
                 j++;
             }
             j--;
@@ -1089,7 +1089,7 @@ var spiralOrder = function(matrix) {
         }
         if (nowD == 1) {
             while(i < yMax) {
-                reslut.push(matrix[i][j])
+                result.push(matrix[i][j])
                 i++;
             }
             i--;
@@ -1098,7 +1098,7 @@ var spiralOrder = function(matrix) {
         }
         if (nowD == 2) {
             while(xMin < j) {
-                reslut.push(matrix[i][j])
+                result.push(matrix[i][j])
                 j--;
             }
             j++;
@@ -1107,7 +1107,7 @@ var spiralOrder = function(matrix) {
         }
         if (nowD == 3) {
             while(yMin < i) {
-                reslut.push(matrix[i][j])
+                result.push(matrix[i][j])
                 i--;
             }
             i++;
@@ -1116,7 +1116,7 @@ var spiralOrder = function(matrix) {
         }
         direction++;
     }
-    return reslut;
+    return result;
 };
 
 
@@ -1157,17 +1157,17 @@ var merge = function(intervals) {
         return x.start - y.start;
     }
     intervals.sort(compare);
-    var reslut = Array();
-    reslut.push(intervals[0])
+    var result = Array();
+    result.push(intervals[0])
     for (let index = 1; index < intervals.length; index++) {
         let element = intervals[index];
-        if (reslut[reslut.length - 1].end < element.start) {
-            reslut.push(element);
+        if (result[result.length - 1].end < element.start) {
+            result.push(element);
         } else {
-            reslut[reslut.length - 1].end = Math.max(reslut[reslut.length - 1].end,element.end);
+            result[result.length - 1].end = Math.max(result[result.length - 1].end,element.end);
         }
     }
-    return reslut;
+    return result;
 };
 
 // 59 螺旋矩形2
@@ -1179,18 +1179,18 @@ var generateMatrix = function(n) {
     if(n < 1) {
         return [];
     }
-    var reslut = Array();
+    var result = Array();
     var inArray = Array();
     for (let index = 0; index < n; index++) {
         inArray.push(0);
     }
     for (let index = 0; index < n; index++) {
-        reslut.push(inArray.concat());
+        result.push(inArray.concat());
     }
     var xMin = -1;
-    var xMax = reslut[0].length;
+    var xMax = result[0].length;
     var yMin = -1;
-    var yMax = reslut.length;
+    var yMax = result.length;
     var direction = 0;
     var i = 0,j = 0;
     var num = 1;
@@ -1198,7 +1198,7 @@ var generateMatrix = function(n) {
         var nowD = direction%4;
         if (nowD == 0) {
             while(j < xMax) {
-                reslut[i][j] = num++;
+                result[i][j] = num++;
                 j++;
             }
             j--;
@@ -1207,7 +1207,7 @@ var generateMatrix = function(n) {
         }
         if (nowD == 1) {
             while(i < yMax) {
-                reslut[i][j] = num++;
+                result[i][j] = num++;
                 i++;
             }
             i--;
@@ -1216,7 +1216,7 @@ var generateMatrix = function(n) {
         }
         if (nowD == 2) {
             while(xMin < j) {
-                reslut[i][j] = num++;
+                result[i][j] = num++;
                 j--;
             }
             j++;
@@ -1225,7 +1225,7 @@ var generateMatrix = function(n) {
         }
         if (nowD == 3) {
             while(yMin < i) {
-                reslut[i][j] = num++;
+                result[i][j] = num++;
                 i--;
             }
             i++;
@@ -1234,7 +1234,7 @@ var generateMatrix = function(n) {
         }
         direction++;
     }
-    return reslut;
+    return result;
 };
 
 // 61.旋转链表
@@ -1285,13 +1285,13 @@ var uniquePaths = function(m, n) {
     }
     var all = n + m  - 2;
     var min = Math.min(n,m);
-    var reslut = 1;
+    var result = 1;
     for (let index = 1; index < min; index++) {
-        reslut = all*reslut;
+        result = all*result;
         all--;
-        reslut = reslut/index
+        result = result/index
     }
-    return reslut;
+    return result;
 };
 
 // 64. 最小路径和  其实也是动态规划，一排一排算最小值。
@@ -1645,20 +1645,67 @@ var grayCode = function(n) {
     if(n == 0) {
         return [0];
     }
-    var reslut = [0,1];
+    var result = [0,1];
     var stap = 1;
     while(stap < n) {
         var num =  Math.pow(2,stap) - 1;
         while(num > -1) {
-            reslut.push(reslut[num] + Math.pow(2,stap))
+            result.push(result[num] + Math.pow(2,stap))
             num--;
         }
         stap++;
     }
-    return reslut;
+    return result;
+};
+
+//93.复原IP地址 可以看成插入三个点 分割成4个地址，但是要校验地址的正确性，1.首位不为0 2. 小于255 可以用回溯算法
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var restoreIpAddresses = function(s) {
+    if (s.length < 4) {
+        return [];
+    } 
+    var result = Array()
+    dfs(0,3,"");
+    function dfs (start, n, ipSring) {
+        if( n == 0) {
+            var newString = s.substr(start,s.length-start);
+            if(correct(newString)) {
+                newString = ipSring + "." + newString;
+                result.push(newString);
+            }
+            return;
+        }
+        if ((s.length - start) <= n) {
+            return;
+        } ;
+        var min = Math.min(3,s.length - start) + 1;
+        for (let index = 1; index < min; index++) {
+            var newString = s.substr(start,index);
+            if(correct(newString)) {
+                newString = ipSring.length > 0 ? ipSring + "." + newString : newString;
+                var newNum = n - 1;
+                var newStrat =  start + index;
+                dfs(newStrat, newNum,newString);
+            }
+        }
+
+        function correct(checkString) {
+            if(checkString.length == 1) {
+                return true;
+            }
+            if ((checkString.length > 0 )&&(checkString.substr(0,1) != "0")) {
+              return parseInt(checkString) < 256;
+            }
+            return false;
+        }
+        
+    }
+    return result;
 };
 // 94. 二叉树的中序遍历  递归写法
-
 function TreeNode(val) {
     this.val = val;
     this.left = this.right = null;
@@ -1668,20 +1715,20 @@ function TreeNode(val) {
  * @return {number[]}
  */
 var inorderTraversal = function(root) {
-    var reslut  = Array();
+    var result  = Array();
     traverse(root);
     function traverse(root) {
         if(root) {
             traverse(root.left);
-            reslut.push(root.val);
+            result.push(root.val);
             traverse(root.right);
         }
     }
-    return reslut;
+    return result;
 };
 // 94. 二叉树的中序遍历  迭代写法 其实递归就是一个堆栈
 var inorderTraversal2 = function(root) {
-    var reslut = Array()
+    var result = Array()
     var stack = Array()
     if(root) {
         stack.push(root);
@@ -1693,13 +1740,13 @@ var inorderTraversal2 = function(root) {
            last.left = null;
        } else {
            stack.pop();
-           reslut.push(last.val);
+           result.push(last.val);
            if(last.right) {
             stack.push(last.right);
            }
        }
     }
-    return reslut;
+    return result;
 };
 
 // 96. 不同的二叉搜索树  动态规划，问题可以分解
@@ -1729,7 +1776,7 @@ var numTrees = function(n) {
 // 所有左子树和右子树自身必须也是二叉搜索树。
 // 所以可以用中序遍历来解决这个问题
 var isValidBST = function(root) {
-    var reslut = Array()
+    var result = Array()
     var stack = Array()
     if(root) {
         stack.push(root);
@@ -1741,10 +1788,10 @@ var isValidBST = function(root) {
            last.left = null;
        } else {
            stack.pop();
-           if( reslut.length > 0 && reslut[reslut.length -1] >= last.val) {
+           if( result.length > 0 && result[result.length -1] >= last.val) {
                return false;
            }
-           reslut.push(last.val);
+           result.push(last.val);
            if(last.right) {
             stack.push(last.right);
            }
@@ -1806,7 +1853,7 @@ var levelOrder = function(root) {
         return [];
     }
     var stack = [root];
-    var reslut = Array();
+    var result = Array();
     while (stack.length != 0) {
         var rowArray = Array()
         var nextArray = Array()
@@ -1821,9 +1868,9 @@ var levelOrder = function(root) {
             }
         }
         stack = nextArray;
-        reslut.push(rowArray);
+        result.push(rowArray);
     }
-    return reslut;
+    return result;
 };
 // 103.二叉树的锯齿层次遍历 在上面的基础上做了反转而已
 var zigzagLevelOrder = function(root) {
@@ -1831,7 +1878,7 @@ var zigzagLevelOrder = function(root) {
         return [];
     }
     var stack = [root];
-    var reslut = Array();
+    var result = Array();
     var num = 1;
     while (stack.length != 0) {
         var rowArray = Array()
@@ -1851,9 +1898,9 @@ var zigzagLevelOrder = function(root) {
         }
         num++;
         stack = nextArray;
-        reslut.push(rowArray);
+        result.push(rowArray);
     }
-    return reslut;
+    return result;
 };
 
 
@@ -1863,7 +1910,7 @@ var maxDepth = function(root) {
         return 0;
     }
     var stack = [root];
-    var reslut = 1;
+    var result = 1;
     while (stack.length != 0) {
         var rowArray = Array()
         var nextArray = Array()
@@ -1878,9 +1925,9 @@ var maxDepth = function(root) {
             }
         }
         stack = nextArray;
-        reslut++;
+        result++;
     }
-    return reslut;
+    return result;
 };
 
 // 递归写法
@@ -1927,7 +1974,7 @@ var levelOrderBottom = function(root) {
         return [];
     }
     var stack = [root];
-    var reslut = Array();
+    var result = Array();
     while (stack.length != 0) {
         var rowArray = Array()
         var nextArray = Array()
@@ -1942,10 +1989,10 @@ var levelOrderBottom = function(root) {
             }
         }
         stack = nextArray;
-        reslut.push(rowArray);
+        result.push(rowArray);
     }
-    reslut.reverse();
-    return reslut;
+    result.reverse();
+    return result;
 };
 
 // 114. 二叉树展开为链表 需要原地算法  递归算法 左边的树挂到右边
@@ -2019,11 +2066,11 @@ var maxProfit = function(prices) {
  * @return {number}
  */
 var maxProfit = function(prices) {
-    var reslut = 0;
+    var result = 0;
     for (let index = 1; index < prices.length; index++) {
-        reslut += Math.max(0,prices[index] - prices[index -1]);
+        result += Math.max(0,prices[index] - prices[index -1]);
     }
-    return reslut;
+    return result;
 };
 
 // 124. 二叉树中的最大路径和 考虑递归
@@ -2195,15 +2242,15 @@ var sortList = function(head) {
 
 // 152. 乘积最大子序列 负负得正 所以要记录最大正数 以及最小负数 （题目默认至少有一个数）
 var maxProduct = function(nums) {
-    var conMax = 1, conMin = 1, reslut = nums[0];
+    var conMax = 1, conMin = 1, result = nums[0];
     for (var num of nums) {
        var inMax = Math.max(num, num*conMax, num*conMin);
        var inMin = Math.min(num, num*conMax, num*conMin);
        conMax = inMax;
        conMin = inMin;
-        reslut = Math.max(conMax, reslut);
+        result = Math.max(conMax, result);
     }
-    return reslut;
+    return result;
 };
 
 // 155. 最小堆  在用一个堆去记录最小值
@@ -2594,18 +2641,18 @@ var deleteNode = function(node) {
  * @return {number[]}
  */
 var productExceptSelf = function(nums) {
-    var reslutArray = Array();
+    var resultArray = Array();
     var backupNum = 1;
     for (num of nums) {
-        reslutArray.push(backupNum);
+        resultArray.push(backupNum);
         backupNum *= num;
     }
     backupNum = nums[nums.length - 1];
     for (let index = nums.length - 2; index  > -1; index--) {
-        reslutArray[index] *= backupNum;
+        resultArray[index] *= backupNum;
         backupNum *= nums[index]; 
     }
-    return reslutArray;
+    return resultArray;
 };
 
 // 239. 滑动窗口最大值 双向队列
@@ -2740,11 +2787,11 @@ var canWinNim = function(n) {
  * @return {string}
  */
 var reverseString = function(s) {
-    var reslut = "";
+    var result = "";
     for (let index = 0; index < s.length; index++) {
-       reslut += s[s.length - index - 1];
+       result += s[s.length - index - 1];
     }
-    return reslut;
+    return result;
 };
 
 // 347.前K个高频元素  映射成map再排序
@@ -2764,11 +2811,11 @@ var topKFrequent = function(nums, k) {
         }
     }
 
-    var reslut = Array();
+    var result = Array();
     for(var key of myMap) {
-        reslut.push(key[0]);
+        result.push(key[0]);
     }
-    var sortArray = reslut.sort(copare);
+    var sortArray = result.sort(copare);
     function copare(x,y) {
         return myMap.get(y) - myMap.get(x);
     }
@@ -2811,12 +2858,12 @@ var decodeString = function(s) {
         }
     } 
 
-    var relsut = "";
+    var result = "";
     for (let index = 0; index < heap.length; index++) {
         const element = heap[index];
-        relsut += element;
+        result += element;
     }
-    return relsut;
+    return result;
 
     function isNum(x) {
         var numString = "0123456789";
@@ -2830,16 +2877,16 @@ var decodeString = function(s) {
  */
 var reconstructQueue = function(people) {
     var sortArray = people.sort(compare);
-    var reslut = Array();
+    var result = Array();
     for (let index = 0; index < sortArray.length; index++) {
         const element = sortArray[index];
-        if(element[1] >= reslut.count) {
-            reslut.push(element);
+        if(element[1] >= result.count) {
+            result.push(element);
         } else {
-            reslut.splice(element[1],0,element);
+            result.splice(element[1],0,element);
         }
     }
-    return reslut;
+    return result;
     function compare(x,y) {
         if (y[0] == x[0]) {
             return x[1] - y[1];
@@ -2987,14 +3034,14 @@ var findDisappearedNumbers = function(nums) {
             nums[element] = nums[element]*-1;
         }
     }
-    var relsutArray = Array();
+    var resultArray = Array();
     for (let index = 0; index < nums.length; index++) {
         const element = nums[index];
         if (element > 0) {
-            relsutArray.push(index + 1);
+            resultArray.push(index + 1);
         }
     }
-    return relsutArray;
+    return resultArray;
 };
 
 // 461.汉明距离
@@ -3097,21 +3144,21 @@ var diameterOfBinaryTree = function(root) {
  * @return {string}
  */
 var reverseWords = function(s) {
-    var reslut = "";
+    var result = "";
     var word = "";
     for (let index = 0; index < s.length; index++) {
         let char = s[index];
         if(char  == " ") {
-            reslut  += word + " "; 
+            result  += word + " "; 
             word = "";
         }  else {
             word =  char + word;
         }
     }
     if(word.length > 0) {
-        reslut = reslut + word;
+        result = result + word;
     }
-    return reslut;
+    return result;
 };
 
 // 560.和为K的子数组  题目中显示的是连续的子数组的个数。 所以可以用字典
@@ -3124,15 +3171,15 @@ var subarraySum = function(nums, k) {
     var backMap = new Map();
     backMap.set(0,1);
     var sum = 0;
-    var reslut = 0;
+    var result = 0;
     for(num of nums) {
         sum += num;
         if(backMap.has(sum - k)) {
-            reslut += backMap.get(sum - k);
+            result += backMap.get(sum - k);
         }
         backMap.set(sum,(backMap.get(sum) || 0)+ 1);
     }
-    return reslut;
+    return result;
 };
 
 // 572.另一个树的子树  对比2个树是否相同
