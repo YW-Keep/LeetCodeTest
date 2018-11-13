@@ -2481,6 +2481,52 @@ var invertTree = function(root) {
     return root;
 };
 
+// 229.求众数2  先找到那2个出现最多次的数，然后再做统计。 摩尔投票法
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var majorityElement = function(nums) {
+
+    var result1 = 0;
+    var result2 = 0;
+    var count1 = 0;
+    var count2 = 0;
+    for(num of nums) {
+        if(num == result1) {
+            count1++;
+        } else if(num == result2) {
+            count2++;
+        } else if(count1 == 0) {
+            result1 = num;
+            count1++;
+        } else if(count2 == 0) {
+            result2 = num;
+            count2++;
+        } else {
+            count1--;
+            count2--;
+        }
+    }
+    count1 = 0;
+    count2 = 0;
+    for(num of nums) {
+        if(num == result1) {
+            count1++;
+        } else if(num == result2) {
+            count2++;
+        }
+    }
+    var result = Array();
+    if(count1 > nums.length/3) {
+        result.push(result1);
+    }
+    if(count2 > nums.length/3) {
+        result.push(result2);
+    }
+    return result;
+};
+majorityElement([3,2,3])
 // 230.二叉搜索树中第k小的元素 中序遍历
 /**
  * @param {TreeNode} root
@@ -2781,6 +2827,30 @@ var canWinNim = function(n) {
     return n%4 > 0 ;
 };
 
+// 334. 递增的三元子序列 递归思想 记录2个值 一个最小值 一个第二小的值
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var increasingTriplet = function(nums) {
+    if(nums.length < 3) {
+        return false;
+    }
+    var min = nums[0];
+    var mid = Infinity;
+    for (let index = 1; index < nums.length; index++) {
+        const num = nums[index];
+        if(num > mid) {
+            return true;
+        } else if (num <= min) {
+            min = num;
+        } else if (num < mid ) {
+            mid = num;
+        }
+    }
+    return false;
+};
+
 // 344.反转字符串 反向循环
 /**
  * @param {string} s
@@ -2821,6 +2891,51 @@ var topKFrequent = function(nums, k) {
     }
     return sortArray.slice(0,k);
 };
+
+// 378.有序矩阵中第K小的元素 归并法做的 最快的应该是二分法遍历
+/**
+ * @param {number[][]} matrix
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function(matrix, k) {
+    var backAray = Array();
+    for (let index = 0; index < matrix.length; index++) {
+        const element = matrix[index];
+        backAray = mergeArray(backAray,element,k);
+    }
+    return backAray[k - 1];
+
+    function mergeArray(array1,array2,k) {
+        var backArray = Array()
+        var k1 = 0;
+        var k2 = 0;
+        while(k1 < array1.length && k2 < array2.length && backArray.length < k) {
+            if(array1[k1] > array2[k2]) {
+                backArray.push(array2[k2]);
+                k2++;
+            }else {
+                backArray.push(array1[k1]);
+                k1++;
+            }
+        }
+        if (k1 == array1.length) {
+            while(k2 < array2.length && backArray.length < k) {
+                backArray.push(array2[k2]);
+                k2++;
+            }
+        }
+        if (k2 == array2.length) {
+            while(k1 < array1.length && backArray.length < k) {
+                backArray.push(array1[k1]);
+                k1++;
+            }
+        }
+        return backArray;
+    }
+};
+kthSmallest([[ 1,  5,  9],[10, 11, 13],[12, 13, 15]],8);
+
 
 // 394.字符串解码 堆栈
 /**
@@ -3275,6 +3390,41 @@ var leastInterval = function(tasks, n) {
     return Math.max((max - 1)*(n+1) + count ,tasks.length)
 };
 
+// 788.旋转数字 简单的逻辑思考
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var rotatedDigits = function(N) {
+    var array1 = [3,4,7];
+    var array2 = [2,5,6,9];
+    var num = 1; 
+    var count = 0;
+    while (num <= N) {
+        var checkNum = num;
+        var isHave = false;
+        while(true) {
+            if (checkNum == 0) {
+                if(isHave) {
+                    count++;
+                }
+                break;
+            }
+            var num1 = checkNum%10;
+            checkNum = Math.floor(checkNum/10);
+            if(array1.indexOf(num1) != -1) {
+                break;
+            }
+            if(array2.indexOf(num1) != -1) {
+                isHave = true;
+            } 
+        }
+        num++;
+    }
+    return count;
+};
+
+rotatedDigits(10);
 
 
 // 914. 卡牌分组 找数字因子
