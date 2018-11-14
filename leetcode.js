@@ -3349,6 +3349,42 @@ var findUnsortedSubarray = function(nums) {
     }
     return  end - start + 1;
 };
+
+// 594.最长和谐子序列  先设置到map里 在做排序计算
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLHS = function(nums) {
+    if(nums.length < 2) {
+        return 0;
+    }
+    var myMap = new Map();
+    for (let num of nums) {
+        myMap.set(num,(myMap.get(num) || 0) + 1);
+    }
+    var keyArray = Array()
+    for(let key of myMap) {
+        keyArray.push(key[0]);
+    }
+    var newNums = keyArray.sort(compare);
+    var beforeNum = newNums[0];
+    var beforeCount = 0;
+    var maxNum = 0;
+    for(let num of newNums) {
+        let nowConut = myMap.get(num);
+        if((num - beforeNum) == 1) {
+            maxNum = Math.max(maxNum,nowConut+beforeCount);
+        } 
+        beforeCount = nowConut;
+        beforeNum = num;
+    }
+    return maxNum;
+    function compare(value1, value2) {
+        return value1 - value2;
+    }
+};
+
 // 617.合并二叉树
 /**
  * @param {TreeNode} t1
