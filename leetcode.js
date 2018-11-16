@@ -781,7 +781,7 @@ var searchInsert = function(nums, target) {
     return left;
 };
 
-//   39. 组合总和 深度遍历
+//   39. 组合总和  回溯算法
 
 /**
  * @param {number[]} candidates
@@ -789,21 +789,57 @@ var searchInsert = function(nums, target) {
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-    var result = Array();
-    combinationSumDFS(0, 0, Array());
-    function combinationSumDFS(start, sum, ans) {
-        if (sum == target) {
-            result.push(ans);
-        } else if (sum < target) {
-            for (let index = start; index < candidates.length; index++) {
-                let addNum = candidates[index];
-                let newAns = ans.slice(0);
-                newAns.push(addNum);
-                 combinationSumDFS(index, sum + addNum, newAns);
+    
+    var res=[];
+    function toback(target,list,index){
+      if(target==0){
+        res.push(list.slice(0));
+      }
+      for(var i=index;i<candidates.length;i++){
+        if(candidates[i]<=target){
+          list.push(candidates[i]);
+          toback(target-candidates[i],list,i);
+          list.pop();
+        }
+      }
+    }
+    toback(target,[],0);
+    return res
+};
+
+// 40.组合总和2 回溯算法加去重
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum2 = function(candidates, target) {
+    var res=[];
+    var newcandidates = candidates.sort(compare)
+    function toback(target,list,index){
+        if(target==0){
+            res.push(list.slice(0));
+        }
+        if(index == newcandidates.length) {
+          return;
+        }
+     
+       for(var i=index;i<newcandidates.length;i++){
+            if(newcandidates[i]<=target){
+                list.push(candidates[i]);
+                toback(target-newcandidates[i],list,i+1);
+                list.pop();
+                while(i < newcandidates.length - 1 &&  newcandidates[i] == newcandidates[i+1]) {
+                    i++;
+                }
             }
         }
     }
-    return result;
+    function compare(value1, value2) {
+        return value1 - value2;
+    }
+    toback(target,[],0);
+    return res
 };
 
 // 41.缺失的的第一个正数 还是考虑负数记录位置是否存在
@@ -3424,6 +3460,38 @@ var leastInterval = function(tasks, n) {
         }
     }
     return Math.max((max - 1)*(n+1) + count ,tasks.length)
+};
+
+// 680. 验证回文字符串 2 双指针
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var validPalindrome = function(s) {
+    if(s.length < 3) {
+        return true;
+    }
+    var start = 0;
+    var end = s.length - 1;
+    while(start < end ) {
+        if(s.substr(start,1) != s.substr(end,1)) {
+            return checkStr(s,start+1,end) || checkStr(s,start,end-1);
+        }
+        start++;
+        end--;
+    }
+    return true;
+
+    function checkStr (checkString,start, end) {
+        while(start < end) {
+            if(checkString.substr(start,1) != checkString.substr(end,1)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
 };
 
 // 788.旋转数字 简单的逻辑思考
