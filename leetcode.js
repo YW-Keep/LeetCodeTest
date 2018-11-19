@@ -2423,6 +2423,33 @@ var rob = function(nums) {
     return Math.max(have, noHave);
 };
 
+// 203.移除链表元素
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var removeElements = function(head, val) {
+    if(!head) {return null};
+    var next = head;
+    while(next && next.next) {
+        if(next.next.val == val) {
+            next.next = next.next.next;
+        } else {
+            next = next.next;
+        }
+    }
+    return head.val == val ? head.next : head;
+};
+
+
 // 206. 反转链表 循环 递归
 /**
  * @param {ListNode} head
@@ -3021,6 +3048,47 @@ var decodeString = function(s) {
         return numString.indexOf(x) != -1;
     }
 };
+
+// 402.移掉K位数字 当后面的数大于等于前面的数时需要递归到最后，然后要考虑0的情况 K是一个移除循环次数
+/**
+ * @param {string} num
+ * @param {number} k
+ * @return {string}
+ */
+var removeKdigits = function(num, k) {
+    if (k < 1) { return num; }
+    if(num.length <= k) {return "0";}
+    var result = num;
+    var start  = 0;
+    while(k > 0) {
+        if(start + 2 > result.length) {
+            start = result.length - 2;
+        }
+        if(start < 0) {start = 0};
+        var num1 = parseInt(result.substr(start, 1));
+        var num2 = parseInt(result.substr(start + 1,1));
+        while(start < result.length - 2 && num1 <= num2) {
+            start++;
+            num1 = num2;
+            num2 = parseInt(result.substr(start + 1,1)); 
+        }
+        if(num1 > num2) {
+            result = result.substring(0,start) + result.substring(start + 1,result.length);
+            start--;
+        } else {
+            result =  result.substring(0,start+1) + result.substring(start + 2,result.length);
+        }
+        k--;
+        var newNum = parseInt(result.substr(0,1));
+        while( newNum == 0 && result.length > 0) {
+            result = result.substring(1,result.length);
+            newNum = parseInt(result.substr(0,1));
+        }
+    }
+    return result || "0";
+};
+removeKdigits("1111111",3);
+
 // 406.根据身高重建队列  小数不会影响K
 /**
  * @param {number[][]} people
@@ -3248,6 +3316,24 @@ var findTargetSumWays = function(nums, S) {
     return backArray[newS];
 };
 
+// 495.提莫攻击 
+/**
+ * @param {number[]} timeSeries
+ * @param {number} duration
+ * @return {number}
+ */
+var findPoisonedDuration = function(timeSeries, duration) {
+    if(timeSeries.length < 1) { return 0;}
+    if(timeSeries.length == 1) {return duration;}
+    var time = duration;
+    var before = timeSeries[0];
+    for (let index = 1; index < timeSeries.length; index++) {
+        const element = timeSeries[index];
+        time +=  element - before > duration ? duration :  element - before;
+        before = element;
+    }
+    return time;
+};
 //538.把二叉搜索树转换为累加树  递归调用
 /**
  * @param {TreeNode} root
