@@ -2408,6 +2408,23 @@ var majorityElement = function(nums) {
     return major;
 };
 
+// 191.位1的个数
+/**
+ * @param {number} n - a positive integer
+ * @return {number}
+ */
+var hammingWeight = function(n) {
+    var count = 0;
+    var  flag = 1;
+    while(flag != 0) {
+        if(flag & n) {
+            count++;
+        }
+        flag = flag << 1;
+    }
+    return count;
+};
+
 // 198. 打家劫舍  动态规划 考虑没有多一家 最大值肯定是打了前一家与没打前一家加多一家里取的最大值
 /**
  * @param {number[]} nums
