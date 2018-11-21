@@ -2466,7 +2466,6 @@ var removeElements = function(head, val) {
     return head.val == val ? head.next : head;
 };
 
-
 // 206. 反转链表 循环 递归
 /**
  * @param {ListNode} head
@@ -3523,6 +3522,45 @@ var findLHS = function(nums) {
         return value1 - value2;
     }
 };
+
+// 605.种花问题   循环一次
+/**
+ * @param {number[]} flowerbed
+ * @param {number} n
+ * @return {boolean}
+ */
+var canPlaceFlowers = function(flowerbed, n) {
+   if(n == 0) {
+        return true;
+   }
+   var checkNum = Math.floor((flowerbed.length + 1)/2)
+   if(checkNum < n) {
+       return false;
+   } 
+   var backbed = 1;
+   var count = 0;
+   for (let index = 0; index < flowerbed.length; index++) {
+       let num = flowerbed[index];
+       if(num) {
+           backbed = 0;
+       } else {
+           backbed++;
+           if(backbed == 3) {
+               count++;
+               backbed = 1;
+               if (count == n) {
+                   return true;
+               }
+           }
+       }
+   }
+   if(backbed == 2) {
+       count++;
+   }
+   return count == n;
+};
+
+canPlaceFlowers([1,0,0,0,1],2);
 
 // 617.合并二叉树
 /**
