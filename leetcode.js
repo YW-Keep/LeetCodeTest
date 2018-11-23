@@ -2031,6 +2031,49 @@ var levelOrderBottom = function(root) {
     return result;
 };
 
+// 113.路径总和 2  回朔算法 递归算法 都可以
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {number[][]}
+ */
+var pathSum = function(root, sum) {
+    var result = Array();
+    var listArray = Array();
+    backBFS(root,listArray,sum);
+    function backBFS(root,listArray,sum) {
+        if(!root){return;}
+        if(root.left || root.right) {
+            listArray.push(root.val);
+            var newNum = sum - root.val;
+            if(root.left) {
+                backBFS(root.left,listArray,newNum);
+            }
+            if(root.right) {
+                backBFS(root.right,listArray,newNum);
+            }
+            listArray.pop()
+            return;
+        } else {
+            if(sum == root.val) {
+                listArray.push(root.val);
+                result.push(listArray.concat())
+                listArray.pop();
+                return;
+            }
+        }
+    }
+    return result;
+};
+
 // 114. 二叉树展开为链表 需要原地算法  递归算法 左边的树挂到右边
 /**
  * @param {TreeNode} root
@@ -2275,6 +2318,30 @@ var sortList = function(head) {
         return head.next;
     }
 };
+
+// 151.翻转字符串里的单词  可以用字符串分割然后倒叙遍历 添加的方式
+/**
+ * @param {string} str
+ * @returns {string}
+ */
+var reverseWords = function(str) {
+    var result = "";
+    var stage ="";
+
+    var newStr = str + " ";
+    for(let char of newStr) {
+        if (char == " ") {
+            if(stage.length > 0){
+                result = result.length > 0 ? stage + " " + result : stage;
+                stage = "";
+            }
+        } else {
+            stage += char.toString(); 
+        }
+    }
+    return result;
+};
+
 
 // 152. 乘积最大子序列 负负得正 所以要记录最大正数 以及最小负数 （题目默认至少有一个数）
 var maxProduct = function(nums) {
@@ -3559,8 +3626,6 @@ var canPlaceFlowers = function(flowerbed, n) {
    }
    return count == n;
 };
-
-canPlaceFlowers([1,0,0,0,1],2);
 
 // 617.合并二叉树
 /**
