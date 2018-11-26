@@ -780,9 +780,37 @@ var searchInsert = function(nums, target) {
     }
     return left;
 };
+// 38.报数 逻辑题
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var countAndSay = function(n) {
+    var result = "1";
+    for (let index = 1; index < n; index++) {
+        helper(result);
+    }
+    return result;
+    function helper(string) {
+        var backString = string.substr(0,1);
+        var num = 1;
+        var newString = "";
+        for (let index = 1; index < string.length; index++) {
+            var char = string.substr(index,1);
+            if(char == backString) {
+                num++;
+            } else {
+                newString += num.toString() + backString;
+                backString = char;
+                num = 1;
+            }
+        }
+        newString += num.toString() + backString;
+        result = newString;
+    }
+};
 
 //   39. 组合总和  回溯算法
-
 /**
  * @param {number[]} candidates
  * @param {number} target
@@ -3037,6 +3065,31 @@ var topKFrequent = function(nums, k) {
     }
     return sortArray.slice(0,k);
 };
+// 386.字典序排序  找规律递归
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var lexicalOrder = function(n) {
+    var result = Array();
+    var min = Math.min(9,n);
+    for (let index = 1; index <= min; index++) {
+        result.push(index);
+        helper(index*10);
+    }
+    return result;
+    function helper(num) {
+        for (let index = 0; index <= 9; index++) {
+            let newNum = num + index;
+            if(newNum <= n) {
+                result.push(newNum) 
+                helper(newNum*10)
+            } else {
+                return;
+            }
+        }
+    }
+};
 
 // 378.有序矩阵中第K小的元素 归并法做的 最快的应该是二分法遍历
 /**
@@ -3699,7 +3752,30 @@ var validPalindrome = function(s) {
         return true;
     }
 };
-
+// 739.每日温度 堆栈记录
+/**
+ * @param {number[]} T
+ * @return {number[]}
+ */
+var dailyTemperatures = function(T) {
+    var result = Array();
+    var backArray = Array();
+    for (let index = 0; index < T.length; index++) {
+        result.push(0);
+        let num = T[index];
+        while(backArray.length > 0) {
+            let i = backArray[backArray.length -1];
+            if(T[i] < num) {
+                result[i] = index - i;
+                backArray.pop();
+            } else {
+                break;
+            }
+        } 
+        backArray.push(index);
+    }
+    return result;
+};
 // 788.旋转数字 简单的逻辑思考
 /**
  * @param {number} N
