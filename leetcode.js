@@ -3398,9 +3398,34 @@ var findDisappearedNumbers = function(nums) {
     }
     return resultArray;
 };
-
+// 459.重复的子字符串  截取对比
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var repeatedSubstringPattern = function(s) {
+    for (let index = 1; index <= s.length/2; index++) {
+        if(s.length%index == 0 && checkStr(index)) {
+            return true;
+        }
+    }
+    return false
+    function checkStr(num){
+        var checkStr = s.substr(0,num);
+        var checkNum = num;
+        while(checkNum < s.length) {
+            var str = s.substr(checkNum,num);
+            if(str != checkStr) {
+                return false;
+            } else {
+                checkNum += num;
+            }
+        }
+        return true;
+    }
+};
+repeatedSubstringPattern("abcabcabcabc");
 // 461.汉明距离
-
 /**
  * @param {number} x
  * @param {number} y
