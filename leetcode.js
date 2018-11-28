@@ -3834,9 +3834,42 @@ var rotatedDigits = function(N) {
     }
     return count;
 };
-
-rotatedDigits(10);
-
+// 881.救生艇
+/**
+ * @param {number[]} people
+ * @param {number} limit
+ * @return {number}
+ */
+var numRescueBoats = function(people, limit) {
+    people = people.sort(compare);
+    var backArray = Array();
+    var count = 0;
+    for (let index = 0; index < people.length; index++) {
+        let weight = people[index];
+        if(backArray.length > 0 && backArray[backArray.length -1] >= weight){
+            backArray.pop();
+        }else {
+            count++;
+            backArray.push(limit - weight);
+        }
+    } 
+    return count;
+    function compare(value1, value2) {
+        return value2 - value1;
+    }
+};
+// 双指针更快 还不需要存贮 
+var numRescueBoats2 = function(people, limit) {
+    var trip = 0;
+    people.sort((a,b)=>a-b);
+    for (let i = 0,j = people.length - 1;i <=j;j--) {
+        if (people[i] + people[j] <= limit) {
+            i++;
+        }
+        trip++;
+    }
+    return trip;
+};
 
 // 914. 卡牌分组 找数字因子
 /**
