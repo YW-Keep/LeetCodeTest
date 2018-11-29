@@ -3834,6 +3834,44 @@ var rotatedDigits = function(N) {
     }
     return count;
 };
+
+// 813.最大平均和的分组 首先要推出公示 dp[i][k] = dp[j][k-1] + sum(i-j)/(i-j)  也是规划递推
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var largestSumOfAverages = function(A, K) {
+    var sum = Array();
+    var ave = Array();
+    sum.push(A[0]);
+    ave.push(A[0]);
+    for (let index = 1; index < A.length; index++) {
+        const num = A[index];
+        sum.push(sum[sum.length - 1] + num);
+        let mid = sum[index]/(index+1);
+        ave.push(mid);
+    }
+    var n = 1;
+    while(n < K) {
+        var tmp = Array();
+        for (let index = 0; index < A.length; index++) {
+            tmp.push(0);
+        }
+        for (let i = n; i < A.length; i++) {
+            for (let j = n - 1; j < i; j++) {
+                var ksum = ave[j] +(sum[i] -sum[j])/(i-j);
+                tmp[i] = Math.max(tmp[i],ksum);
+            }
+        }
+        ave = tmp;
+        n++;
+    }
+    return ave.pop()
+};
+largestSumOfAverages([9,1,2,3,9],3);
+
+
 // 881.救生艇
 /**
  * @param {number[]} people
