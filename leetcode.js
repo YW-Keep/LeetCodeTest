@@ -3777,6 +3777,34 @@ var validPalindrome = function(s) {
         return true;
     }
 };
+// 738.单调递增的数字 主要判断增减性
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var monotoneIncreasingDigits = function(N) {
+    var newNum = N;
+    var backArray = Array();
+    while(newNum != 0) {
+        var num = newNum%10;
+        newNum = Math.floor(newNum/10);
+        if(backArray.length == 0 || backArray[backArray.length - 1] >= num) {
+            backArray.push(num);
+        } else {
+            num--;
+            for (let index = 0; index < backArray.length; index++) {
+                backArray[index] = 9;
+            }
+            backArray.push(num);
+        }
+    } 
+    var result = 0;
+    while(backArray.length >0) {
+        result = result*10 + backArray.pop();
+    }
+    return result;
+};
+
 // 739.每日温度 堆栈记录
 /**
  * @param {number[]} T
