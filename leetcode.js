@@ -1408,6 +1408,32 @@ var climbStairs = function(n) {
 };
 
 
+// 67.二进制求和 遍历处理
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+var addBinary = function(a, b) {
+    var maxLenght = Math.max(a.length,b.length);
+    var result = "";
+    var back = 0;
+    for (let index = 0; index < maxLenght; index++) {
+        var num1 =  (a.length - 1 - index) >= 0 ? a.substr(a.length - 1 - index,1) : "0";
+        var num2 = (b.length - 1 - index) >=0 ? b.substr(b.length - 1 - index,1) : "0";
+        var num = parseInt(num1) + parseInt(num2) + back;
+        back = num > 1 ? 1 : 0;
+        var newStr =  (num == 1 || num == 3) ? "1" : "0";
+        result =  newStr + result;
+    }
+    if(back > 0) {
+        result = "1" + result;
+    } 
+    return result;
+};
+
+addBinary("1010","1011");
+
 // 72. 编辑距离  其实是动态规划问题 但是要考虑到2维动态规划 ，需要一个二维数组
 
 /**
@@ -3897,8 +3923,77 @@ var largestSumOfAverages = function(A, K) {
     }
     return ave.pop()
 };
-largestSumOfAverages([9,1,2,3,9],3);
 
+// 821.字符的最短距离  先找出目标的位置，然后位置相减得到距离
+/**
+ * @param {string} S
+ * @param {character} C
+ * @return {number[]}
+ */
+var shortestToChar = function(S, C) {
+    var backArray = Array();
+    for (let index = 0; index < S.length; index++) {
+        if(S.substr(index,1) == C) {
+            backArray.push(index);
+        }
+    }
+    var num = 0;
+    var result = Array();
+    for (let index = 0; index < S.length; index++) {
+        if(index <= backArray[num]) {
+            result.push(backArray[num] - index)
+        } else {
+            if(num < backArray.length - 1) {
+                if(index < backArray[num+1]) {
+                    result.push(Math.min(backArray[num + 1] - index,index - backArray[num]))
+                } else {
+                    num = num+1;
+                    result.push(0);
+                }
+            } else {
+                result.push(index - backArray[num])
+            }
+        }
+    }
+    return result;
+};
+
+// 846.一手顺子  先排序 再删除判断
+/**
+ * @param {number[]} hand
+ * @param {number} W
+ * @return {boolean}
+ */
+var isNStraightHand = function(hand, W) {
+    if(W == 1) { return true};
+    if(hand.length %W != 0) {
+        return false;
+    }
+    hand.sort(compare);
+
+    while(hand.length > 0){
+        var index = 0;
+        var num = hand[0];
+        var check = W - 1;
+        hand.splice(0,1)
+        while(index < hand.length && check > 0) {
+            if(num == hand[index]) {
+                index++
+            } else if (num + 1 == hand[index]) {
+                num = num +1;
+                hand.splice(index,1);
+                check--;
+            } else {
+                return false;
+            }
+        }
+        if(check != 0) {return  false};
+    }
+    return true;
+    function compare(value1, value2) {
+        return value1 - value2;
+    }
+};
 
 // 881.救生艇
 /**
