@@ -3889,6 +3889,17 @@ var rotatedDigits = function(N) {
     return count;
 };
 
+// 796. 旋转字符串  2个字符串拼接后是否包含另外一个字符串就可以了
+/**
+ * @param {string} A
+ * @param {string} B
+ * @return {boolean}
+ */
+var rotateString = function(A, B) {
+    if (A.length !== B.length) {return false}
+    return (B + B).includes(A)
+};
+
 // 813.最大平均和的分组 首先要推出公示 dp[i][k] = dp[j][k-1] + sum(i-j)/(i-j)  也是规划递推
 /**
  * @param {number[]} A
