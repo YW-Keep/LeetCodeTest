@@ -3855,6 +3855,24 @@ var dailyTemperatures = function(T) {
     }
     return result;
 };
+
+// 771.宝石与石头 遍历判断就可以了
+/**
+ * @param {string} J
+ * @param {string} S
+ * @return {number}
+ */
+var numJewelsInStones = function(J, S) {
+    var count = 0;
+    for (let index = 0; index < S.length; index++) {
+        let char = S.substr(index,1);
+        if(J.indexOf(char) !=-1) {
+            count++;
+        }
+    }
+    return count;
+};
+
 // 788.旋转数字 简单的逻辑思考
 /**
  * @param {number} N
