@@ -4061,6 +4061,34 @@ var numRescueBoats2 = function(people, limit) {
     return trip;
 };
 
+// 908. 最小差值 I  主要是题目难理解
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var smallestRangeI = function(A, K) {
+    if (A.length == 0 ) {
+        return 0;
+    }
+    var max = A[0];
+    var min = A[0];
+    for (let index = 0; index < A.length; index++) {
+        let element = A[index];
+        max = Math.max(max,element);
+        min = Math.min(min,element);
+    }
+    let num =  max - min - 2*K;
+    return  num > 0 ? num : 0;
+};
+
+// 思想一样 简写
+var smallestRangeI2 = function(A, K) {
+    var min = Math.min.apply(null, A);
+    var max = Math.max.apply(null, A);
+    return max - K > min + K ? max - min - 2 * K : 0;
+};
+
 // 914. 卡牌分组 找数字因子
 /**
  * @param {number[]} deck
