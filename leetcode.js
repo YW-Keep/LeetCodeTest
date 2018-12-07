@@ -3403,6 +3403,15 @@ var pathSum = function(root, sum) {
     }
 };
 
+//  441. 排列硬币  数学题 解方程
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var arrangeCoins = function(n) {
+    return Math.floor((Math.sqrt(8*n + 1) -1)/2);
+};
+
 // 448.找到所有数组中消失的 因为是1-N的数 用正负记录是否存在
 /**
  * @param {number[]} nums
