@@ -2668,6 +2668,25 @@ var containsDuplicate = function(nums) {
     }
     return false;
 };
+//  222. 完全二叉树的节点个数  递归算法  当然也可以左右树判断 进行递归调用
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var countNodes = function(root) {
+    if(!root) {
+        return 0;
+    } else {
+        return countNodes(root.left) +  countNodes(root.right) + 1;
+    }
+};
 
 // 226. 翻转二叉树 递归
 var invertTree = function(root) {
@@ -3530,6 +3549,73 @@ var findPoisonedDuration = function(timeSeries, duration) {
     }
     return time;
 };
+
+// 496.下一个更大元素 1   映射加堆栈
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var nextGreaterElement = function(nums1, nums2) {
+    var map =  new Map();
+    var stack = Array();
+    for (let index = 0; index < nums2.length; index++) {
+        const element = nums2[index];
+        while(stack.length > 0 && stack[stack.length - 1] < element) {
+            map.set(stack[stack.length - 1],element);
+            stack.pop();
+        } 
+        stack.push(element);
+    }
+    while(stack.length > 0) {
+        map.set(stack[stack.length - 1],-1);
+            stack.pop();
+    }
+    var reslut = Array();
+    for(let num of nums1) {
+        reslut.push(map.get(num));
+    }
+    return reslut;
+};
+
+// 503.下一个更大元素2  这里都可以不用map记录了 用数组就可以了
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var nextGreaterElements = function(nums) {
+    var map =  new Map();
+    var stack = Array();
+    for (let index = 0; index < nums.length; index++) {
+        const element = nums[index];
+        while(stack.length > 0 && nums[stack[stack.length - 1]] < element) {
+            map.set(stack[stack.length - 1],element);
+            stack.pop();
+        } 
+        stack.push(index);
+    }
+    var index = 0;
+    while(stack.length > 1 && index < nums.length) {
+       const element = nums[index];
+        while(stack.length > 0 && nums[stack[stack.length - 1]] < element) {
+            map.set(stack[stack.length - 1],element);
+            stack.pop();
+        } 
+        index++;
+    }
+    while(stack.length > 0) {
+        map.set(stack[stack.length - 1],-1);
+        stack.pop();
+    }
+    var  reslut = Array();
+    for (let index = 0; index < nums.length; index++) {
+        reslut.push(map.get(index))
+    }
+    return reslut;
+};
+nextGreaterElements([1,2,3]);
+
+
 //538.把二叉搜索树转换为累加树  递归调用
 /**
  * @param {TreeNode} root
