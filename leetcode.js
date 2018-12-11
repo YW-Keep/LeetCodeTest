@@ -2511,6 +2511,59 @@ var getIntersectionNode = function(headA, headB) {
     }
 };
 
+// 164. 最大间距
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maximumGap = function(nums) {
+    if(nums.length < 3) {
+        return 0;
+    }
+    nums.sort(compare)
+    var result = 0;
+    var back = nums[0];
+    for (let index = 1; index < nums.length; index++) {
+        const element = nums[index];
+        result = Math.max(result,element - back);
+        back = element;
+    }
+    return result;
+    function compare(value1, value2) {
+        return value1 - value2;
+    }
+};
+// 木桶排序算法大小桶
+var maximumGap = function(nums) {
+    if(nums.length < 2){
+        return 0;
+    }
+    var len = nums.length;
+    var max = nums[0];
+    var min = nums[0];
+    for(var i = 1;i < len;i++){
+        max = Math.max(max,nums[i]);
+        min = Math.min(min,nums[i]);
+    }
+    var gap = Math.floor((max-min)/len) + 1;
+    var bucketMax = new Array(len).fill(-Infinity);
+    var bucketMin = new Array(len).fill(Infinity);
+    for(var i = 0;i < len;i++){
+        var index = Math.floor((nums[i] - min) / gap);
+        bucketMax[index] = Math.max(bucketMax[index],nums[i]);
+        bucketMin[index] = Math.min(bucketMin[index],nums[i]);
+    }
+    var ans = 0;
+    var pre = bucketMax[0];
+    for(var i = 1;i < len;i++){
+        if(bucketMin[i] != Infinity){
+            ans = Math.max(ans,bucketMin[i]-pre);
+            pre = bucketMax[i];
+        }
+    }
+    return ans;
+};
+
 // 169. 求众数 摩尔投票算法
 var majorityElement = function(nums) {
     var major = nums[0];
@@ -3613,7 +3666,6 @@ var nextGreaterElements = function(nums) {
     }
     return reslut;
 };
-nextGreaterElements([1,2,3]);
 
 
 //538.把二叉搜索树转换为累加树  递归调用
