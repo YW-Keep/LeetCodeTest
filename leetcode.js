@@ -3919,6 +3919,45 @@ var leastInterval = function(tasks, n) {
     return Math.max((max - 1)*(n+1) + count ,tasks.length)
 };
 
+// 653. 两数之和 IV - 输入 BST 二叉树遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {boolean}
+ */
+var findTarget = function(root, k) {
+    var backMap = new Map();
+    var stack = Array();
+    if(root) {
+        stack.push(root);
+    }
+    while(stack.length > 0) {
+       var last = stack[stack.length - 1];
+       if (last.left) {
+           stack.push(last.left);
+           last.left = null;
+       } else {
+           stack.pop();
+            if(backMap.get(last.val)) {
+                return true;
+            } else {
+                backMap.set(k - last.val,"1");
+            }
+           if(last.right) {
+            stack.push(last.right);
+           }
+       }
+    }
+    return false;
+};
+
 // 680. 验证回文字符串 2 双指针
 /**
  * @param {string} s
