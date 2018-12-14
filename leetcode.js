@@ -4110,6 +4110,27 @@ var rotatedDigits = function(N) {
     return count;
 };
 
+// 795.区间子数数组个数
+var numSubarrayBoundedMax = function(A, L, R) {
+    var c_length = 0;  // 遍历位置
+    var c_last_key_length = 0; // 最后一个满足条件的位置
+    var sum = 0; //  总和
+    for(let num of A) {
+        if (num  > R) {
+            c_length = 0;
+            c_last_key_length = 0;
+        } else if (num < L) {
+            c_length++;
+            sum += c_last_key_length;
+        } else {
+            c_length++;
+            c_last_key_length = c_length;
+            sum += c_last_key_length;
+        }
+    }
+    return sum;
+};
+
 // 796. 旋转字符串  2个字符串拼接后是否包含另外一个字符串就可以了
 /**
  * @param {string} A
