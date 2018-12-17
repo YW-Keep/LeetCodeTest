@@ -3667,6 +3667,40 @@ var nextGreaterElements = function(nums) {
     return reslut;
 };
 
+// 523. 连续的子数组和 记录每次加后的余数 余数相等则表示中间一段相加为目标值
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var checkSubarraySum = function(nums, k) {
+    if (null == nums || nums.length <= 1) {
+        return false;
+    }
+    var set = [];
+    var sum = nums[0];
+    if (k != 0) {
+        set.push(sum % k);
+    } else {
+        set.push(sum);
+    }
+    for (var i= 1; i < nums.length; i++) {
+        sum += nums[i];
+        if (k != 0) {
+            if (sum % k == 0 || (set.indexOf(sum % k)!=-1 && set.indexOf(sum % k)!= set.length - 1)) {
+                return true;
+            }
+            set.push(sum % k);
+        } else {
+            let num = nums[i] + nums[i-1]
+            if (num == 0) {
+                return true;
+            }
+        }
+    }
+    return false;  
+ };
+
 
 //538.把二叉搜索树转换为累加树  递归调用
 /**
@@ -3989,6 +4023,35 @@ var validPalindrome = function(s) {
         return true;
     }
 };
+
+// 682. 棒球比赛  堆栈
+
+/**
+ * @param {string[]} ops
+ * @return {number}
+ */
+var calPoints = function(ops) {
+    var backArray = Array()
+    for (let op of ops) {
+        if(op == '+') {
+            let num = backArray[backArray.length -1] + backArray[backArray.length -2];
+            backArray.push(num);
+        } else if(op == 'D') {
+            let num = backArray[backArray.length -1]*2;
+            backArray.push(num);
+        }else if(op == 'C') {
+            backArray.pop();
+        } else {
+            backArray.push(parseInt(op));
+        }
+    }
+    var result = 0;
+    for (let num of  backArray) {
+        result += num; 
+    }
+    return result;
+};
+
 // 738.单调递增的数字 主要判断增减性
 /**
  * @param {number} N
@@ -4059,6 +4122,36 @@ var numJewelsInStones = function(J, S) {
     return count;
 };
 
+//  777.在LR字符串中交换相邻字符   R只能网友L只能往左  细细思考下就可以了
+/**
+ * @param {string} start
+ * @param {string} end
+ * @return {boolean}
+ */
+var canTransform = function(start, end) {
+    if(start.length != end.length) {return false} 
+    var i = 0,j = 0;
+    while(i<end.length && j< end.length) {
+        while(start.substr(i,1) =="X") {
+            i++;
+        }
+        while(end.substr(j,1) =="X") {
+            j++;
+        }
+        if(start.substr(i,1) != end.substr(j,1)) {
+            return false;
+        }
+        if(start.substr(i,1) == 'L' &&i<j) {
+            return false;
+        }
+        if(start.substr(i,1) == 'R' &&i>j) {
+            return false;
+        }
+        i++;
+        j++;
+    }
+    return true;
+};
 // 779. 第K个语法符号  递归  后面一个数肯定是由前面一个数推断过来的 所以不需要知道完整的数列
 /**
  * @param {number} N
