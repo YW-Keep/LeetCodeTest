@@ -4462,3 +4462,22 @@ var hasGroupsSizeX = function(deck) {
     return false;
 };
 
+
+// 946. 验证栈序列  逻辑处理
+/**
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
+ */
+var validateStackSequences = function(pushed, popped) {
+    var result = Array();
+    var  i = 0;
+    for(let num of pushed) {
+        result.push(num);
+        while(result.length > 0 && result[result.length - 1] == popped[i]) {
+            result.pop();
+            i++;
+        }
+    }
+    return result.length == 0;
+};
