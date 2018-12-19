@@ -3928,7 +3928,6 @@ var mergeTrees = function(t1, t2) {
 };
 
 // 621.任务调度器 扩充思想 考虑最大的情况贪心算法
-
 /**
  * @param {character[]} tasks
  * @param {number} n
@@ -3951,6 +3950,26 @@ var leastInterval = function(tasks, n) {
         }
     }
     return Math.max((max - 1)*(n+1) + count ,tasks.length)
+};
+// 633.平方数之和 左右指针
+/**
+ * @param {number} c
+ * @return {boolean}
+ */
+var judgeSquareSum = function(c) {
+    var end =  Math.floor(Math.sqrt(c));
+    var start = 0;
+    while(start <= end) {
+        let num = start*start + end*end;
+        if(num == c) {
+            return true;
+        } else if (num < c) {
+            start++;
+        } else {
+            end--;
+        }
+    }
+    return false;
 };
 
 // 653. 两数之和 IV - 输入 BST 二叉树遍历
