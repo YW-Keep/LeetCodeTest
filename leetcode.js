@@ -3231,8 +3231,45 @@ var kthSmallest = function(matrix, k) {
         return backArray;
     }
 };
-kthSmallest([[ 1,  5,  9],[10, 11, 13],[12, 13, 15]],8);
 
+//387.字符串中的第一个唯一字符
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function(s) {
+    var map = new Map();
+    for (let index = 0; index < s.length; index++) {
+        let element = s.substr(index,1);
+        if(map.get(element) != undefined) {
+            map.set(element,s.length);
+        } else {
+            map.set(element,index);
+        }
+    }
+    var result = s.length; 
+    for(let element of map) {
+        result = Math.min(element[1],result);
+    }
+    if(result == s.length) {
+        result = -1;
+    }
+    return result;
+};
+// 另外一种思路 只检查这些字母，如果只出现一次则记录 更快！
+var firstUniqChar = function(s) {
+    const alpha = 'abcdefghijklmnopqrstuvwxyz';
+    let first = s.length;
+    for(let i = 0; i < alpha.length; ++i){
+        let index = s.indexOf(alpha[i]);
+        if(index !== -1 && index === s.lastIndexOf(alpha[i])){
+            if(index < first){
+                first = index;
+            }
+        }
+    }
+    return first == s.length ? -1 : first;
+};
 
 // 394.字符串解码 堆栈
 /**
