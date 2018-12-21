@@ -4108,6 +4108,32 @@ var calPoints = function(ops) {
     return result;
 };
 
+// 717.1比特与2比特字符  逻辑题
+/**
+ * @param {number[]} bits
+ * @return {boolean}
+ */
+var isOneBitCharacter = function(bits) {
+    if (bits.length == 0 ){
+        return false;
+    }
+    if (bits[bits.length] == 1) {
+        return false;
+    }
+    var index = 0;
+    while (index < bits.length - 1) {
+        if(bits[index] == 1) {
+            index +=2;
+        } else {
+            index++;
+        }
+    }
+    return index == bits.length - 1;
+};
+
+var isTest = isOneBitCharacter([1, 0, 0])
+var num = 1;
+
 // 738.单调递增的数字 主要判断增减性
 /**
  * @param {number} N
