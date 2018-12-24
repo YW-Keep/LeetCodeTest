@@ -1634,6 +1634,40 @@ var exist = function(board, word) {
         }
     }
 };
+
+// 82.删除列表中的重复元素 2 逻辑题
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+    if(head == null) {
+        return head;
+    }
+    var  start = new ListNode(head.val -1);
+    start.next = head;
+    var tap = head;
+    var count = start.val;
+    var begain = start;
+    while(tap != null) {
+        if(tap.val == count) {
+            begain.next = tap.next;
+            tap.next = null;
+            tap = begain.next;
+        } else {
+            count = tap.val;
+            if(tap.next != null && tap.val == tap.next.val) {
+                begain.next = tap.next.next;
+                tap = begain.next;
+            } else {
+                begain = tap;
+                tap = tap.next;
+            }
+        }
+    }
+    return start.next;
+};
+
  
 // 84. 柱状图中最大的矩形 n复杂度算法  那么就要思考 如果是升序的话 这个问题就好处理了 如果不是升序则需要人为调成升序  单调栈
 /**
@@ -3163,6 +3197,33 @@ var topKFrequent = function(nums, k) {
     }
     return sortArray.slice(0,k);
 };
+
+// 365. 水壶问题 仔细考虑下 就是  z = ax +by;  这就是 求最大公约数 ，看看 z是不是 他们的倍数  所以问题就转化为求最大公约数了 最后考虑xy等于0以及z大于xy的特殊情况
+/**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @return {boolean}
+ */
+var canMeasureWater = function(x, y, z) {
+    // 辗转相除法
+    if(x == 0 || y == 0) { return z ==x || z== y}
+    if(z > (x+ y)) {return false}
+    var num = gcd(x,y);
+    return  z%num == 0;
+    function gcd(x,y) {
+        while(true) {
+            if((x = x%y) == 0) {
+                return y;
+            }
+            if((y = y%x) == 0) {
+                return x;
+            }
+        }
+    }
+};
+
+
 // 386.字典序排序  找规律递归
 /**
  * @param {number} n
@@ -4544,6 +4605,27 @@ var hasGroupsSizeX = function(deck) {
     return false;
 };
 
+// 938. 二叉搜索树的范围和  二叉树的遍历
+/**
+ * @param {TreeNode} root
+ * @param {number} L
+ * @param {number} R
+ * @return {number}
+ */
+var rangeSumBST = function(root, L, R) {
+    var result  =0;
+    traverse(root);
+    function traverse(root) {
+        if(root) {
+            traverse(root.left);
+            if(root.val >= L && root.val <= R) {
+                result += root.val;
+            }
+            traverse(root.right);
+        }
+    }
+    return result;
+};
 
 // 946. 验证栈序列  逻辑处理
 /**
