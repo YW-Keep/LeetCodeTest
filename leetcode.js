@@ -2598,6 +2598,19 @@ var maximumGap = function(nums) {
     return ans;
 };
 
+// 168. Excel表列名称  10进制转26进制 辗转相除法
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var convertToTitle = function(n) {
+    var result = '';
+    while(n > 0) {
+        result = String.fromCharCode( (n-1)%26 +65) + result;
+        n = Math.floor((n-1)/26);
+    } 
+    return result;
+};
 // 169. 求众数 摩尔投票算法
 var majorityElement = function(nums) {
     var major = nums[0];
