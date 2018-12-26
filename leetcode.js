@@ -4658,3 +4658,41 @@ var validateStackSequences = function(pushed, popped) {
     }
     return result.length == 0;
 };
+
+// 949. 给定数字能组成的最大时间  因为就4个数 所以穷举比逻辑处理更快
+/**
+ * @param {number[]} A
+ * @return {string}
+ */
+var largestTimeFromDigits = function(A) {
+    var  hours = -1;
+    var  min = -1;
+    check(A[0], A[1], A[2], A[3]);
+    check(A[0], A[2], A[1], A[3]);
+    check(A[0], A[3], A[1], A[2]);
+    check(A[1], A[2], A[0], A[3]);
+    check(A[1], A[3], A[0], A[2]);
+    check(A[2], A[3], A[0], A[1]);
+    function check(num1,num2,num3,num4) {
+        let h = bset(num1,num2,24);
+        let m  = bset(num3,num4,60);
+        if(h > -1 && m > -1) {
+            if(h > hours  || (hours == h && m > min)) {
+                hours = h;
+                min = m;
+            }
+        }
+    }
+    if(hours > -1) {
+        var result =  hours > 9 ?  hours.toString() : "0" + hours.toString();
+        result += ":";
+        result += min > 9 ?  min.toString() : "0" + min.toString();
+        return result;
+    }else {
+        return "";
+    }
+    function bset(num1,num2,rules) {
+        var ans = Math.max(10*num1 + num2 < rules ? 10*num1 + num2 : -1,10*num2 + num1 < rules ? 10*num2 + num1 : -1)
+        return ans;
+    }
+};
