@@ -4205,8 +4205,34 @@ var isOneBitCharacter = function(bits) {
     return index == bits.length - 1;
 };
 
-var isTest = isOneBitCharacter([1, 0, 0])
-var num = 1;
+// 728.自除数  逻辑题
+/**
+ * @param {number} left
+ * @param {number} right
+ * @return {number[]}
+ */
+var selfDividingNumbers = function(left, right) {
+    var result = [];
+    for (let index = left; index <= right; index++) {
+        if(check(index)) {
+            result.push(index);
+        }
+    }
+    return result;
+
+    function check (num) {
+        var newCheck = num;
+        while(newCheck > 0) {
+            let tap =  newCheck%10;
+            if (tap == 0 || num%tap != 0) {
+                return false;
+            }
+            newCheck = Math.floor(newCheck/10);
+        }
+        return true;
+    }
+    
+};
 
 // 738.单调递增的数字 主要判断增减性
 /**
