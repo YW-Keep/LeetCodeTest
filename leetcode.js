@@ -4205,6 +4205,34 @@ var isOneBitCharacter = function(bits) {
     return index == bits.length - 1;
 };
 
+// 718.最长重复子数组 动态规划 公式为  D[i][j]=a[i]==b[j]?d[i-1][j-1]+1:0  二维变成一维数组记录即可
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number}
+ */
+var findLength = function(A, B) {
+    var back = [];
+    var max = 0;
+    for (let index = 0; index < A.length; index++) {
+        back.push(0);
+    }
+    for (let i = 1; i <= A.length; i++) {
+        var backNum = back[0];
+        for (let j = 1; j <= B.length; j++) {
+            if(A[i-1]== B[j - 1]) {
+                var num = back[j];
+                back[j] = backNum + 1;
+                backNum = num;
+                max = Math.max(max,back[j]);
+            } else {
+                backNum  = back[j];
+                back[j] = 0;
+            }
+        }
+    }
+    return max;
+};
 // 728.自除数  逻辑题
 /**
  * @param {number} left
