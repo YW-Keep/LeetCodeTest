@@ -3432,7 +3432,35 @@ var removeKdigits = function(num, k) {
     }
     return result || "0";
 };
-removeKdigits("1111111",3);
+
+// 404.左叶子之和  二叉树的遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumOfLeftLeaves = function(root) {
+    var result = 0;
+    traverse(root);
+    function traverse(root) {
+        if(root) {
+            if(root.left !=null && root.left.left == null &&root.left.right == null) {
+                result += root.left.val;
+                traverse(root.right);
+            } else {
+                traverse(root.left);
+                traverse(root.right);
+            }
+        }
+    }
+    return result;
+};
 
 // 406.根据身高重建队列  小数不会影响K
 /**
