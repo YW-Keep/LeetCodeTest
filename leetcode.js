@@ -3840,6 +3840,27 @@ var checkSubarraySum = function(nums, k) {
     return false;  
  };
 
+ // 525.连续数组 计算差值的思想
+ /**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxLength = function(nums) {
+    var backMap = new Map();
+    var sum = 0;
+    var max = 0;
+    backMap.set(0,-1);
+    for (let index = 0; index < nums.length; index++) {
+        const element = nums[index];
+        sum +=  element == 1 ? 1 : -1;
+        if(backMap.get(sum) != null) {
+            max = Math.max(max, index - backMap.get(sum));
+        } else {
+            backMap.set(sum,index);
+        }
+    }
+    return max;
+};
 
 //538.把二叉搜索树转换为累加树  递归调用
 /**
@@ -4541,6 +4562,44 @@ var shortestToChar = function(S, C) {
     }
     return result;
 };
+
+// 826.安排工作以达到最大收益 贪心算法 工作隐射
+/**
+ * @param {number[]} difficulty
+ * @param {number[]} profit
+ * @param {number[]} worker
+ * @return {number}
+ */
+var maxProfitAssignment = function(difficulty, profit, worker) {
+    var mapBack = new Map()
+    for (let index = 0; index < difficulty.length; index++) {
+        if(mapBack.get(difficulty[index]) != null) {
+            mapBack.set(difficulty[index],Math.max(mapBack.get(difficulty[index]),profit[index]));
+        } else {
+            mapBack.set(difficulty[index],profit[index]);
+        }
+    }
+    difficulty = difficulty.sort(compare);
+    worker =  worker.sort(compare);
+    var max = 0;
+    var i = 0;
+    var sum = 0;
+    for (let index = 0; index < worker.length; index++) {
+        let work = worker[index];
+        while (difficulty[i] <= work && i < difficulty.length) {
+            max = Math.max(max,mapBack.get(difficulty[i]))
+            i++;
+        }
+        sum +=  max;
+    }
+    return sum;
+
+    function compare(x,y) {
+        return x - y; 
+    }
+};
+
+maxProfitAssignment([2,4,6,8,10],[10,20,30,40,50],[4,5,6,7])
 
 // 846.一手顺子  先排序 再删除判断
 /**
