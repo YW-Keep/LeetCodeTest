@@ -3306,6 +3306,38 @@ var kthSmallest = function(matrix, k) {
     }
 };
 
+// 397.整数替换 递归最简单的思路
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var integerReplacement = function(n) {
+    if(n == 1) {
+        return 0;
+    }
+    if(n%2 == 0 ){
+        return integerReplacement(n/2) + 1;
+    } else {
+        return Math.min(integerReplacement(n+1)+1,integerReplacement(n -1)+1);
+    }
+};
+
+// 下一位是0 肯定是最快的 所以用这个规则更快
+var integerReplacement = function(n) {
+    var count=0;
+    while(n!=1){
+        if(n%2==0){
+            n>>>=1;
+        }else if(n==3 || ((n>>>1)&1)==0){
+            n--;
+        }else{
+            n++;
+        }
+        count++;
+    }
+    return count;
+};
+
 //387.字符串中的第一个唯一字符
 /**
  * @param {string} s
@@ -4599,8 +4631,6 @@ var maxProfitAssignment = function(difficulty, profit, worker) {
     }
 };
 
-maxProfitAssignment([2,4,6,8,10],[10,20,30,40,50],[4,5,6,7])
-
 // 846.一手顺子  先排序 再删除判断
 /**
  * @param {number[]} hand
@@ -4798,6 +4828,36 @@ var validateStackSequences = function(pushed, popped) {
         }
     }
     return result.length == 0;
+};
+
+// 948.令牌放置，双指针 贪心算法
+/**
+ * @param {number[]} tokens
+ * @param {number} P
+ * @return {number}
+ */
+var bagOfTokensScore = function(tokens, P) {
+    tokens = tokens.sort(compare);
+    var start = 0;
+    var end = tokens.length - 1;
+    var num = 0;
+    while(start <= end) {
+        if(P >= tokens[start]) {
+            num++;
+            P = P - tokens[start];
+            start++;
+        } else {
+            if(num > 0 && end - start > 1) {
+                P = P + tokens[end] - tokens[start];
+                start++;
+                end--;
+            } else {
+                return num;
+            }
+        }
+    }
+    return num;
+    function compare(x,y) {return x - y};
 };
 
 // 949. 给定数字能组成的最大时间  因为就4个数 所以穷举比逻辑处理更快
