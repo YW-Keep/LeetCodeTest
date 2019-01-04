@@ -3915,6 +3915,30 @@ var convertBST = function(root) {
     }
 };
 
+// 540. 有序数组中的单一元素 有序的，就是个判断了
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNonDuplicate = function(nums) {
+    var backNum = 1.1;
+    var double = 1;
+    for (let num of nums) {
+        if (num == backNum) {
+            backNum = 1.1;
+            double = 1;
+        }  else {
+            if(double == 1) {
+                backNum = num;
+                double = 0;
+            }  else {
+                return backNum;
+            }
+        }
+    }
+    return nums[nums.length -1];
+};
+
 //543.二叉树的直径  递归
 /**
  * @param {TreeNode} root
@@ -4787,6 +4811,34 @@ var hasGroupsSizeX = function(deck) {
         }
     }
     return false;
+};
+
+// 926.将字符串反转到单调递增  正反考虑
+/**
+ * @param {string} S
+ * @return {number}
+ */
+var minFlipsMonoIncr = function(S) {
+    var backArray = [];
+    var num = 0;
+    backArray.push(0);
+    for (let index = 0; index < S.length; index++) {
+        let char = S.substr(index,1);
+        if(char == "1") {
+            num += 1;
+        }
+        backArray.push(num);
+    }
+    var min = backArray[S.length];
+    num = 0;
+    for (let index = S.length -1; index > -1; index--) {
+        let char = S.substr(index,1);
+        if(char == "0") {
+            num += 1;
+        }
+        min = Math.min(min,backArray[index] + num);
+    }
+    return min;
 };
 
 // 938. 二叉搜索树的范围和  二叉树的遍历
