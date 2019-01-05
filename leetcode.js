@@ -4729,6 +4729,33 @@ var numRescueBoats2 = function(people, limit) {
     return trip;
 };
 
+// 884.两句话中的不常见单子  空间换时间
+/**
+ * @param {string} A
+ * @param {string} B
+ * @return {string[]}
+ */
+var uncommonFromSentences = function(A, B) {
+    let array1 = A.split(" ");
+    let array2 = B.split(" ");
+    var arrayAll = array1.concat(array2);
+    var backMap = new Map();
+    for(let str of arrayAll) {
+        if(backMap.get(str) != null) {
+            backMap.set(str,0);
+        } else {
+            backMap.set(str,1);
+        }
+    }
+    var result = [];
+    for(let kvs of backMap) {
+        if(kvs[1] == 1) {
+            result.push(kvs[0]);
+        }
+    }
+    return result;
+};
+
 // 908. 最小差值 I  主要是题目难理解
 /**
  * @param {number[]} A
