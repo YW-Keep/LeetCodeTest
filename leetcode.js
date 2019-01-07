@@ -4188,6 +4188,33 @@ var judgeSquareSum = function(c) {
     return false;
 };
 
+// 637.二叉树的层平均值 二叉树的层序遍历
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var averageOfLevels = function(root) {
+    var result = [];
+    var backArray = [];
+    if(root) {
+        backArray.push(root);
+    }
+    while(backArray.length > 0) {
+        var sum = 0;
+        var newBack =[];
+        for(let tip of backArray) {
+            sum += tip.val;
+            if(tip.left) { newBack.push(tip.left)};
+            if(tip.right) { newBack.push(tip.right)}
+        }
+        let num =  sum / backArray.length;
+        result.push(num);
+        backArray = newBack;
+    }
+    return result;
+};
+
+
 // 653. 两数之和 IV - 输入 BST 二叉树遍历
 /**
  * Definition for a binary tree node.
@@ -4752,6 +4779,41 @@ var uncommonFromSentences = function(A, B) {
         if(kvs[1] == 1) {
             result.push(kvs[0]);
         }
+    }
+    return result;
+};
+
+// 904.水果成篮   动态规划 记录之前的值
+/**
+ * @param {number[]} tree
+ * @return {number}
+ */
+var totalFruit = function(tree) {
+    var fKey = 0,fNum = -1;
+    var sKey = 0,sNum = -1;  
+    var start = -1;
+    var result = 0;
+    for (let index = 0; index < tree.length; index++) {
+        let fruit = tree[index];
+        if(fNum == -1) {
+            fNum = index;
+            fKey = fruit;
+        } else {
+            if(fKey == fruit) {
+                fNum = index;
+            } else {
+                var backKey = fKey;
+                var backNum = fNum;
+                fKey = fruit;
+                fNum = index;
+                if(sKey != fruit && sNum != -1) {
+                    start = sNum;
+                }
+                sKey = backKey;
+                sNum = backNum;
+            }
+        }
+        result = Math.max(result,index - start);
     }
     return result;
 };
