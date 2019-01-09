@@ -4254,6 +4254,71 @@ var findTarget = function(root, k) {
     return false;
 };
 
+// 670.最大交换  排序对比
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var maximumSwap = function(num) {
+    var numString = num.toString();
+    var numArray = [];
+    for (let index = 0; index < numString.length; index++) {
+        var oneNum = parseInt(numString.substr(index,1))
+        numArray.push(oneNum);
+    }
+    var start = 0;
+    var end = -1;
+    var backNum = 10;
+    var backArray = numArray.slice();
+    backArray.sort(compare);
+    for (let index = 0; index < numString.length; index++) {
+        var oneNum = parseInt(numString.substr(index,1))
+        if(backNum == 10) {
+            if(backArray[index] != oneNum) {
+                start = index;
+                backNum = backArray[index];
+            }
+        } else {
+            if(oneNum == backNum) {
+                end  = index;
+            }
+        }
+    }
+    
+    if(end != -1) {
+        var back =  numArray[start];
+        numArray[start] = numArray[end];
+        numArray[end] = back;
+        var sum = 0;
+        for (let index = 0; index < numArray.length; index++) {
+            sum =  sum*10 + numArray[index];
+        }
+        return sum;
+    } else {
+        return num;
+    }
+ 
+    function compare(x,y) {
+        return y - x;
+    }
+};
+
+// 简化版本
+var maximumSwap = function(num) {
+    let result = num
+    let numStr = (num + '').split('')
+    for (let a = 0; a < numStr.length - 1; a++) {
+      let  maxNum = Math.max.apply(null, numStr.slice(a + 1, numStr.length))
+      if (parseInt(numStr[a]) < parseInt(maxNum)) {
+        let item = numStr[a]
+        numStr[a] = maxNum
+        numStr[numStr.lastIndexOf(maxNum + '')] = item
+        result = parseInt(numStr.join(''))
+        break
+      }
+    }
+    return result
+  };
 // 680. 验证回文字符串 2 双指针
 /**
  * @param {string} s
@@ -4445,6 +4510,45 @@ var dailyTemperatures = function(T) {
         backArray.push(index);
     }
     return result;
+};
+
+// 769.最多能完成排序块  关键 左边最大 小于 右边最小 就可以分割 贪心算法
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var maxChunksToSorted = function(arr) {
+    if(arr.length <= 1) {
+        return arr.length;
+    }
+    var minBack = new Array(arr.length);
+    minBack[arr.length - 1] = arr[arr.length -1];
+    for (let index = arr.length -2; index >= 0; index--) {
+        minBack[index] = Math.min(arr[index],minBack[index + 1]);
+    }
+    var  max = arr[0];
+    var count = 1;
+    for (let index = 1; index < arr.length; index++) {
+        let num = arr[index];
+        if(minBack[index] >= max) {
+            count++;
+            max = arr[index];
+        } else {
+            max = Math.max(max,arr[index]);
+        }
+    }
+    return count;
+};
+
+// 数字是连续数字 可以更简单
+var maxChunksToSorted = function(arr) {
+    let count=0;
+    for(let i=0,max=0;i<arr.length;count++){
+        do{
+            max=Math.max(max,arr[i++]);
+        }while(i!=max+1)
+    }
+    return count;
 };
 
 // 771.宝石与石头 遍历判断就可以了
