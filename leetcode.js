@@ -5142,3 +5142,40 @@ var largestTimeFromDigits = function(A) {
         return ans;
     }
 };
+
+// 961.重复N次的元素 简单的题目
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var repeatedNTimes = function(A) {
+    if(A.length <2) {
+        return 0;
+    }
+    var mapBack = new Map()
+    for (let index = 0; index < A.length; index++) {
+        if(mapBack.get(A[index])) {
+            var newNum = mapBack.get(A[index]) + 1;
+            if(newNum*2 == A.length){
+                return A[index];
+            }
+            mapBack.set(A[index],newNum);
+        } else {
+            mapBack.set(A[index],1);
+        }
+    }
+};
+
+// 因为其他数都不同 只要找到重复数字就好了
+var repeatedNTimes = function(A) {
+    const tmp = [];
+    for (let num of A) {
+        if (tmp.includes(num)) {
+            tmp.push(num);
+            break;
+        } else {
+            tmp.push(num);
+        }
+    }
+    return tmp[tmp.length - 1];
+};
