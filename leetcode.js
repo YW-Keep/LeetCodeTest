@@ -3170,6 +3170,22 @@ var increasingTriplet = function(nums) {
     return false;
 };
 
+// 342.4的幂  一个循环搞定
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isPowerOfFour = function(num) {
+    if(num == 0) {
+        return false;
+    }
+    var newNum = num;
+    while(newNum%4 == 0) {
+        newNum = newNum/4;
+    }
+    return newNum == 1;
+};
+
 // 344.反转字符串 反向循环
 /**
  * @param {string} s
