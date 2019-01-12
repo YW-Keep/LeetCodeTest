@@ -2205,6 +2205,30 @@ var flatten = function(root) {
     }
 }
 
+//  128. 杨辉三角 按照逻辑相加
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function(numRows) {
+    if(numRows == 0) {return []}
+    if(numRows == 1) {return [[1]]}
+    if(numRows == 1) {return [[1],[1,1]]}
+    var result = [[1],[1,1]] 
+    var num = 2;
+    while(num < numRows) {
+        num++;
+        var  back = [1];
+        for (let index = 1; index < num - 1; index++) {
+            var newNum = result[result.length - 1][index -1] + result[result.length - 1][index]
+            back.push(newNum);
+        }
+        back.push(1);
+        result.push(back);
+    }
+    return result;
+};
+
 // 121. 买卖股票的最佳时机  记录最小值 每次计算对比就好了
 
 /**
