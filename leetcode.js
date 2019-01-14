@@ -4499,6 +4499,40 @@ var selfDividingNumbers = function(left, right) {
     
 };
 
+// 735.行星碰撞  堆栈 逻辑判断
+/**
+ * @param {number[]} asteroids
+ * @return {number[]}
+ */
+var asteroidCollision = function(asteroids) {
+    var backArray = [];
+    for(num of asteroids) {
+        if(backArray.length == 0) {
+            backArray.push(num);
+        } else {
+            let lastNum = backArray[backArray.length -1];
+            if(lastNum > 0 && num < 0)  {
+                while(backArray.length > 0 && backArray[backArray.length -1] < Math.abs(num) && backArray[backArray.length - 1] > 0) {
+                    backArray.pop();
+                }
+                if(backArray.length > 0) {
+                    if(backArray[backArray.length -1] == Math.abs(num)) {
+                        backArray.pop();
+                    } else if (backArray[backArray.length -1] < 0) {
+                        backArray.push(num);
+                    }
+                } else {
+                    backArray.push(num);
+                }
+            } else {
+                backArray.push(num);
+            }
+        }
+    }
+    return backArray;
+};
+
+
 // 738.单调递增的数字 主要判断增减性
 /**
  * @param {number} N
@@ -4825,6 +4859,58 @@ var maxProfitAssignment = function(difficulty, profit, worker) {
         return x - y; 
     }
 };
+
+// 844.比较含退格的字符串 正序得出结果对比 更快的是反向对比，然后如果是# 跳过前面的字符。
+/**
+ * @param {string} S
+ * @param {string} T
+ * @return {boolean}
+ */
+var backspaceCompare = function(S, T) {
+
+    let newS = checkStr(S);
+    let newT = checkStr(T);
+    return newS == newT;
+
+    function checkStr(Str) {
+        var newStr = "";
+        for (let index = 0; index < Str.length; index++) {
+            let char = Str.substr(index,1);
+            if(char != "#") {
+                newStr = newStr + char.toString();
+            } else {
+                if(newStr.length >0) {
+                    newStr = newStr.substr(0,newStr.length -1);
+                }
+            }
+        }
+        return newStr;
+    }
+};
+
+var backspaceCompare = function(S, T) {
+
+    let newS = checkStr(S);
+    let newT = checkStr(T);
+    return newS == newT;
+
+    function checkStr(Str) {
+        var newStr = "";
+        for (let index = 0; index < Str.length; index++) {
+            let char = Str.substr(index,1);
+            if(char != "#") {
+                newStr = newStr + char.toString();
+            } else {
+                if(newStr.length >0) {
+                    newStr = newStr.substr(0,newStr.length -1);
+                }
+            }
+        }
+        return newStr;
+    }
+};
+
+
 
 // 846.一手顺子  先排序 再删除判断
 /**
