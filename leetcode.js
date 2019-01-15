@@ -5305,3 +5305,48 @@ var repeatedNTimes = function(A) {
     }
     return tmp[tmp.length - 1];
 };
+ 
+// 965.单值二叉树 二叉树的遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isUnivalTree = function(root) {
+    if(!root) { return true}
+    let num = root.val;
+    var backArray = [root];
+    while(backArray.length > 0) {
+        var newBack = [];
+        for(let node of backArray) {
+            if(node.val != num) {
+                return false;
+            }
+            if(node.left) {
+                newBack.push(node.left);
+            } 
+            if(node.right) {
+                newBack.push(node.right);
+            }
+        }
+        backArray = newBack;
+    }
+    return true;
+};
+// 还有中写法 递归写法
+var isUnivalTree = function(root) {
+    if(root===null) return true
+    if(root.left !== null && root.left.val !== root.val){
+    	return false 
+    }
+    if(root.right !== null && root.right.val !== root.val) {
+    	return false 
+    }
+    return isUnivalTree(root.left) && isUnivalTree(root.right)
+};
