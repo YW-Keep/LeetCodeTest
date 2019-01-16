@@ -5350,3 +5350,41 @@ var isUnivalTree = function(root) {
     }
     return isUnivalTree(root.left) && isUnivalTree(root.right)
 };
+
+// 962.最大宽度坡 
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+// 双循环 解法
+var maxWidthRamp = function(A) {
+    var max = 0;
+    for (let i = A.length -1; i > max; i--) {
+        for (let j = 0; j < i - max; j++) {
+            if(A[i] >= A[j]) {
+                max = i-j
+            }
+        }
+    }
+    return max 
+};
+// 递减栈 速度会快很多
+var maxWidthRamp = function(A) {
+    let ans = 0
+    const arr = [[0, A[0]]]
+    for (let i = 1; i < A.length; i++) {
+      if (A[i] < arr[arr.length - 1][1]) {
+        arr.push([i, A[i]])
+        continue
+      }
+      let t = i
+      for (let j = arr.length - 1; j >= 0; j--) {
+        if (arr[j][1] > A[i]) {
+          break
+        }
+        t = arr[j][0]
+      }
+      ans = Math.max(ans, i - t)
+    }
+    return ans
+  }
