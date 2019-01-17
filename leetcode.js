@@ -4294,6 +4294,39 @@ var findTarget = function(root, k) {
     return false;
 };
 
+// 665.非递减数列 一次递归 记录
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var checkPossibility = function(nums) {
+    if(nums.length < 3) {
+        return true;
+    }
+    var back = nums[0];
+    var isfirst = true;
+    for (let index = 1; index < nums.length; index++) {
+        let num =  nums[index];
+        if(num < back) {
+            if(isfirst) {
+                isfirst = false;
+                if(index == 1) {
+                    back = num;
+                } else {
+                    back = nums[index - 2] <= num ?  num : back;
+                }
+            }else {
+                return false;
+            }
+        } else {
+            back = num;
+        }
+        
+    }
+    return true;
+};
+checkPossibility([4,2,1])
+
 // 670.最大交换  排序对比
 /**
  * @param {number} num
