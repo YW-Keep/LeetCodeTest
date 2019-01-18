@@ -3878,6 +3878,35 @@ var nextGreaterElements = function(nums) {
     return reslut;
 };
 
+// 506.相对名次 排序遍历最简单 还有种方式就是占坑法 比较快 但是会耗费空间
+/**
+ * @param {number[]} nums
+ * @return {string[]}
+ */
+var findRelativeRanks = function(nums) {
+    var newNums = nums.concat();
+    newNums.sort(compare);
+    var result = [];
+    for(num of nums) {
+        var index = newNums.indexOf(num);
+        if(index == 0) {
+            result.push("Gold Medal");
+        } else if(index == 1) {
+            result.push("Silver Medal");
+        } else if(index == 2) {
+            result.push("Bronze Medal");
+        } else {
+            index++;
+            result.push(index.toString());
+        }
+    }
+    return result;
+    function compare(x,y) {
+        return y -x;
+    }
+};
+findRelativeRanks([10,3,8,9,4]);
+
 // 523. 连续的子数组和 记录每次加后的余数 余数相等则表示中间一段相加为目标值
 /**
  * @param {number[]} nums
@@ -4325,7 +4354,6 @@ var checkPossibility = function(nums) {
     }
     return true;
 };
-checkPossibility([4,2,1])
 
 // 670.最大交换  排序对比
 /**
