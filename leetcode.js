@@ -2727,6 +2727,31 @@ var reverseList = function(head) {
     return newHead;
 };
 
+// 213.打家劫舍 2  分解成 不是一个圆 不打劫第一个 不打劫最后一个 两种情况
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var rob = function(nums) {
+    let length = nums.length;
+    if(length == 0) {
+        return 0;
+    } else if(length == 1) {
+        return nums[0];
+    } else {
+        return Math.max(easyRob(nums.slice(0, nums.length - 1)),easyRob(nums.slice(1)))
+    }
+    function easyRob(nums) {
+        var have = 0, noHave = 0;
+        for (var num of nums) {
+            var began = have;
+            have = Math.max(have, noHave + num);
+            noHave = Math.max(noHave, began);
+        }
+        return Math.max(have, noHave);
+    }  
+};
+
 // 215. 数组中的第K个最大元素
 /**
  * @param {number[]} nums
@@ -3905,7 +3930,27 @@ var findRelativeRanks = function(nums) {
         return y -x;
     }
 };
-findRelativeRanks([10,3,8,9,4]);
+
+// 509.斐波那契数 循环 
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var fib = function(N) {
+    if(N == 0) {
+        return 0;
+    } else {
+        var back = 0;
+        var now = 1;
+        while(N > 1) {
+            let tap = now;
+            now = now + back;
+            back = tap;
+            N--;
+        }
+        return now;
+    }
+};
 
 // 523. 连续的子数组和 记录每次加后的余数 余数相等则表示中间一段相加为目标值
 /**
@@ -4321,6 +4366,29 @@ var findTarget = function(root, k) {
        }
     }
     return false;
+};
+
+// 657. 机器人能否返回原点 逻辑题
+/**
+ * @param {string} moves
+ * @return {boolean}
+ */
+var judgeCircle = function(moves) {
+    var RL = 0;
+    var UD = 0;
+    for (let index = 0; index < moves.length; index++) {
+        let char = moves.substr(index,1).toString();
+        if(char == "R") {
+            RL++;
+        }else if(char == "L") {
+            RL--;
+        }else if (char == "U") {
+            UD++;
+        }else {
+            UD--;
+        }
+    }
+    return RL == 0 && UD == 0;  
 };
 
 // 665.非递减数列 一次递归 记录
