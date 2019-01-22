@@ -3093,6 +3093,28 @@ var maxSlidingWindow = function(nums, k) {
     }
     return result;
 };
+
+// 260. 只出现一次的数字 III  map 消除
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var singleNumber = function(nums) {
+    var backMap = new Map();
+    for(let num of nums) {
+        if(backMap.has(num)) {
+            backMap.delete(num);
+        } else {
+            backMap.set(num,0);
+        }
+    }
+    var result = [];
+    for( let mapTop of backMap) {
+        result.push(mapTop[0]);
+    }
+    return result;
+};
+
 //  263.丑数 
 /**
  * @param {number} num
