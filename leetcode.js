@@ -5100,6 +5100,35 @@ var isNStraightHand = function(hand, W) {
     }
 };
 
+//853.车队 倒算 算时间
+/**
+ * @param {number} target
+ * @param {number[]} position
+ * @param {number[]} speed
+ * @return {number}
+ */
+var carFleet = function(target, position, speed) {
+    if(position.length == 0) {return 0;}
+    var mapBack =new Map();
+    for (let index = 0; index < position.length; index++) {
+        mapBack.set(position[index],speed[index]);
+    }
+    position.sort(compare);
+    var count = 1;
+    var time  = (target - position[0])/mapBack.get(position[0]);
+    for (let index = 1; index < position.length; index++) {
+        var inTime = (target - position[index])/mapBack.get(position[index]);
+        if(time < inTime) {
+            count++;
+            time = inTime;
+        }
+    }
+    return count;
+    function compare (x,y) {
+        return y - x;
+    }
+};
+
 // 881.救生艇
 /**
  * @param {number[]} people
