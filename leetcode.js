@@ -2205,7 +2205,7 @@ var flatten = function(root) {
     }
 }
 
-//  128. 杨辉三角 按照逻辑相加
+//  118. 杨辉三角 按照逻辑相加
 /**
  * @param {number} numRows
  * @return {number[][]}
@@ -2227,6 +2227,41 @@ var generate = function(numRows) {
         result.push(back);
     }
     return result;
+};
+
+// 120.三角形最小路径和  动态规划 计算每层最小值
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function(triangle) {
+    if(triangle.length == 1) { return triangle[0][0]; }
+    var backArray = triangle[0];
+    for (let index = 1; index < triangle.length; index++) {
+        var newArray = triangle[index];
+        var  newBack = [];
+        newBack.push(backArray[0] + newArray[0]);
+        for (let index = 1; index < newArray.length - 1; index++) {
+            var num = newArray[index] + Math.min(backArray[index -1],backArray[index])
+            newBack.push(num);
+        }
+        newBack.push(backArray[backArray.length -1] + newArray[newArray.length -1]);
+        backArray = newBack;
+    }
+    var result = backArray[0];
+    for (let index = 1; index < backArray.length; index++) {
+        result = Math.min(result,backArray[index]);
+    }
+    return result;
+};
+// 倒着算 更快 但是破坏了 结构
+let minimumTotal = function(triangle) {
+    for (let row = triangle.length - 2; row >= 0; --row) {
+        for (let col = 0; col < triangle[row].length; ++col) {
+            triangle[row][col] += Math.min(triangle[row + 1][col], triangle[row + 1][col + 1]);
+        }
+    }
+    return triangle[0][0];
 };
 
 // 121. 买卖股票的最佳时机  记录最小值 每次计算对比就好了
