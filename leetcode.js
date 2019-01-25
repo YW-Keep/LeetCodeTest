@@ -1407,6 +1407,24 @@ var climbStairs = function(n) {
     return now;
 };
 
+// 66. 加一 简单的逻辑计算 考虑 99情况即可
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function(digits) {
+    var num = digits.length - 1;
+    while(num >= 0) {
+        if(digits[num] != 9) {
+            digits[num] = digits[num] + 1;
+            return digits;
+        } else {
+            digits[num] = 0;
+            num--;
+        }
+    }
+    return [1].concat(digits);
+};
 
 // 67.二进制求和 遍历处理
 /**
@@ -2255,7 +2273,7 @@ var minimumTotal = function(triangle) {
     return result;
 };
 // 倒着算 更快 但是破坏了 结构
-let minimumTotal = function(triangle) {
+let minimumTotal2 = function(triangle) {
     for (let row = triangle.length - 2; row >= 0; --row) {
         for (let col = 0; col < triangle[row].length; ++col) {
             triangle[row][col] += Math.min(triangle[row + 1][col], triangle[row + 1][col + 1]);
