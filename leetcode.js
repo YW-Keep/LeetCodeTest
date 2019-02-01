@@ -5621,3 +5621,34 @@ var maxWidthRamp = function(A) {
     }
     return ans
   }
+
+  // 970. 强整数
+  /**
+ * @param {number} x
+ * @param {number} y
+ * @param {number} bound
+ * @return {number[]}
+ */
+var powerfulIntegers = function(x, y, bound) {
+
+    var result = [];
+    cycleText(1,1);
+    return result;
+
+    function cycleText(x1,y1) {
+        let num = x1 + y1;
+        if(num <= bound) {
+            if(result.indexOf(num) == -1) {
+                result.push(num);
+            } 
+            if(x != 1 && x1*x != 1) {
+                cycleText(x1*x,y1);
+            }
+            if (y != 1 && y1*y != 1) {
+                cycleText(x1,y1*y);
+            } 
+        } 
+    }
+};
+
+powerfulIntegers(-1,1,15);
