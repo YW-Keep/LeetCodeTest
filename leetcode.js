@@ -5650,5 +5650,3 @@ var powerfulIntegers = function(x, y, bound) {
         } 
     }
 };
-
-powerfulIntegers(-1,1,15);
