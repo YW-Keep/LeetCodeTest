@@ -2706,6 +2706,18 @@ var majorityElement = function(nums) {
     return major;
 };
 
+// 189. 旋转数组 两个自带的方法搞定
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var rotate = function(nums, k) {
+    let l = nums.length;
+    k %= l
+    nums.unshift(...nums.splice(nums.length - k, k))
+};
+
 // 191.位1的个数
 /**
  * @param {number} n - a positive integer
