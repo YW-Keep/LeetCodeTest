@@ -5216,6 +5216,42 @@ var carFleet = function(target, position, speed) {
     }
 };
 
+// 878.第N个神奇数字 给定一个数N,那么小于等于N的数字中，神奇数字的个数应该为N/A+N/B-N/AB的最小公倍数
+/**
+ * @param {number} N
+ * @param {number} A
+ * @param {number} B
+ * @return {number}
+ */
+var nthMagicalNumber = function(N, A, B) {
+    var low = 0;
+    var hight = N*A*B;
+    let g = A*B/gcd(A,B);
+    while(low< hight){
+        let mid = Math.floor((low + hight)/2);
+        let t =  Math.floor(mid/A) + Math.floor(mid/B) - Math.floor(mid/g)
+        if(t < N) {
+            low = mid +1;
+        } else {
+            hight = mid;
+        }
+    }
+    while(hight%A !=0 && hight%B != 0){
+        hight--;
+    }
+    return hight%1000000007
+    function gcd(x,y) {
+        while(true) {
+            if((x = x%y) == 0) {
+                return y;
+            }
+            if((y = y%x) == 0) {
+                return x;
+            }
+        }
+    }
+};
+
 // 881.救生艇
 /**
  * @param {number[]} people
