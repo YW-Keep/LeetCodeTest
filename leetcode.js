@@ -3828,6 +3828,26 @@ var findDisappearedNumbers = function(nums) {
     }
     return resultArray;
 };
+
+// 458. 可怜的小猪  数字表示最大意思问题
+/**
+ * @param {number} buckets
+ * @param {number} minutesToDie
+ * @param {number} minutesToTest
+ * @return {number}
+ */
+var poorPigs = function(buckets, minutesToDie, minutesToTest) {
+    if(buckets == 1) {return 0};
+    let base =  Math.floor(minutesToTest/minutesToDie) + 1;
+    var num = 1;
+    var sum = base;
+    while(sum < buckets) {
+        num++;
+        sum = sum*base;
+    }
+    return num;
+};
+
 // 459.重复的子字符串  截取对比
 /**
  * @param {string} s
