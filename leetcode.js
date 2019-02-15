@@ -5592,6 +5592,30 @@ var largestTimeFromDigits = function(A) {
     }
 };
 
+// 950. 按递增顺序显示卡牌  找规律倒推
+/**
+ * @param {number[]} deck
+ * @return {number[]}
+ */
+var deckRevealedIncreasing = function(deck) {
+    if (deck.length < 2){
+        return deck;
+    }
+    deck.sort(compare);
+    var result = [];
+    result.unshift(deck.pop());
+    result.unshift(deck.pop());
+    while(deck.length > 0 ) {
+        result.unshift(result.pop());
+        result.unshift(deck.pop());
+    }
+    return result;
+
+    function compare (x,y) {
+        return x - y;
+    }
+};
+
 // 961.重复N次的元素 简单的题目
 /**
  * @param {number[]} A
