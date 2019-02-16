@@ -5455,6 +5455,28 @@ var hasGroupsSizeX = function(deck) {
     return false;
 };
 
+// 915.分割数组 两次遍历
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var partitionDisjoint = function(A) {
+    var min = A[A.length -1];
+    var backMin = []
+    for (let index = A.length - 1; index > 0; index--) {
+        let element = A[index];
+        min = Math.min(min,element);
+        backMin.unshift(min);
+    }  
+    var max = A[0];
+    for (let index = 0; index < A.length; index++) {
+        max  = Math.max(max,A[index]) 
+        if(max<=backMin[index]){
+            return index+1;
+        }
+    }
+    return 0;
+};
 // 926.将字符串反转到单调递增  正反考虑
 /**
  * @param {string} S
