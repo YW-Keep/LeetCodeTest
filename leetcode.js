@@ -4844,6 +4844,28 @@ var dailyTemperatures = function(T) {
     return result;
 };
 
+// 754.到达终点数字 找规律计算 先全加 再找一个数字减 可以只考虑正数的情况
+/**
+ * @param {number} target
+ * @return {number}
+ */
+var reachNumber = function(target) {
+    if(target < 0) {target = -target}
+    var i = 0;
+    sum = 0;
+    while(sum < target) {
+        i++;
+        sum += i; 
+    }
+    if((sum - target)%2 == 0) {
+        return i;
+    }
+    if(i%2 == 0) {
+        return i+1;
+    }
+    return i+2;
+};
+
 // 769.最多能完成排序块  关键 左边最大 小于 右边最小 就可以分割 贪心算法
 /**
  * @param {number[]} arr
