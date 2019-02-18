@@ -4844,6 +4844,44 @@ var dailyTemperatures = function(T) {
     return result;
 };
 
+// 740. 删除与获得点数  其实就是打家劫舍的思想
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var deleteAndEarn = function(nums) {
+    if(nums.length == 0) {return 0};
+    var mapback = new Map();
+    var newNums = [];
+    for(let num of nums) {
+        if(mapback.get(num)) {
+            mapback.set(num,mapback.get(num)+num);
+        } else {
+            mapback.set(num,num);
+            newNums.push(num);
+        }
+    }
+    newNums.sort(compare);
+    var have  = mapback.get(newNums[0]);
+    var nohave = 0;
+    for (let index = 1; index < newNums.length; index++) {
+        var backnoHave = nohave;
+        nohave = Math.max(have,nohave);
+        if(newNums[index] - 1>newNums[index -1] ){
+            have = nohave + mapback.get(newNums[index])
+        } else {
+            have = Math.max(backnoHave+mapback.get(newNums[index]),have);
+        }
+    }
+    return Math.max(have, nohave);
+
+    function compare(x,y) {
+        return x - y;
+    }
+};
+
+deleteAndEarn([10,7,1]);
+
 // 754.到达终点数字 找规律计算 先全加 再找一个数字减 可以只考虑正数的情况
 /**
  * @param {number} target
