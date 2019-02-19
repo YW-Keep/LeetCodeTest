@@ -4880,7 +4880,43 @@ var deleteAndEarn = function(nums) {
     }
 };
 
-deleteAndEarn([10,7,1]);
+// 747.至少是其他数字两倍的最大数 循环一次记录
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var dominantIndex = function(nums) {
+    if(nums.length < 2) {
+        return 0;
+    }
+    var max1 = 0;
+    var max2 = 0;
+    var index1 = 0;
+    if(nums[0] > nums[1]) {
+        max1 = nums[0];
+        max2 = nums[1];
+    } else {
+        max1 = nums[1];
+        max2 = nums[0];
+        index1 = 1;
+    }
+    for (let index = 2; index < nums.length; index++) {
+        let num = nums[index];
+        if(num > max1) {
+            max2 = max1;
+            max1 = num;   
+            index1 =index
+        } else if(num > max2) {
+            max2 = num;
+        }
+    }
+    if(max1 >= max2*2) {
+        return index1;
+    } else {
+        return -1;
+    }
+};
+dominantIndex([0,0,0,1])
 
 // 754.到达终点数字 找规律计算 先全加 再找一个数字减 可以只考虑正数的情况
 /**
