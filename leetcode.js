@@ -4655,6 +4655,33 @@ var calPoints = function(ops) {
     return result;
 };
 
+// 714.买卖股票的最佳时机含手续费  贪心算法
+/**
+ * @param {number[]} prices
+ * @param {number} fee
+ * @return {number}
+ */
+var maxProfit = function(prices, fee) {
+    if(prices.length <2) {return 0;} 
+    var max = prices[0];
+    var min = prices[0];
+    var sum = 0;
+    var curSum =0;
+    for (let index = 1; index < prices.length; index++) {
+        const element = prices[index];
+        min = Math.min(min,element);
+        max = Math.max(max,element);
+        curSum = Math.max(curSum,element - min - fee);
+        if(max - element >= fee) {
+            sum +=curSum;
+            curSum = 0;
+            max = element;
+            min = element;
+        } 
+    }
+    return sum + curSum; 
+};
+
 // 717.1比特与2比特字符  逻辑题
 /**
  * @param {number[]} bits
@@ -4916,7 +4943,7 @@ var dominantIndex = function(nums) {
         return -1;
     }
 };
-dominantIndex([0,0,0,1])
+
 
 // 754.到达终点数字 找规律计算 先全加 再找一个数字减 可以只考虑正数的情况
 /**
