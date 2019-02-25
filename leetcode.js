@@ -5241,6 +5241,32 @@ var maxProfitAssignment = function(difficulty, profit, worker) {
     }
 };
 
+// 830. 较大分组的位置 基础逻辑
+/**
+ * @param {string} S
+ * @return {number[][]}
+ */
+var largeGroupPositions = function(S) {
+    var backChar = "";
+    var  backIndex = 0
+    var result = []
+    for (let index = 0; index < S.length; index++) {
+        let char  = S.substr(index,1);
+        if(backChar != char) {
+            if(index - backIndex > 2) {
+                result.push([backIndex,index -1])
+            }
+            backChar = char;
+            backIndex = index;
+        }
+    }
+    if(S.length - backIndex > 2 ){
+        result.push([backIndex,S.length -1])
+    }
+    return result;
+};
+
+
 // 844.比较含退格的字符串 正序得出结果对比 更快的是反向对比，然后如果是# 跳过前面的字符。
 /**
  * @param {string} S
@@ -5909,3 +5935,14 @@ var powerfulIntegers = function(x, y, bound) {
         } 
     }
 };
+
+//973. 最接近原点的 K 个点 基础逻辑题
+/**
+ * @param {number[][]} points
+ * @param {number} K
+ * @return {number[][]}
+ */
+var kClosest = (points, K) => {
+    const distance = (point) => Math.sqrt(Math.pow(point[0], 2) + Math.pow(point[1], 2))
+    return points.sort((a, b) => distance(a) - distance(b)).slice(0, K)
+}
