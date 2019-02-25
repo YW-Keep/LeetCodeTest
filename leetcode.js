@@ -4160,6 +4160,28 @@ var singleNonDuplicate = function(nums) {
     return nums[nums.length -1];
 };
 
+// 541. 反转字符串 II  基本逻辑题
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var reverseStr = function(s, k) {
+    var num = s.length;
+    var start = 0;
+    var result = "";
+    while(start < num) {
+        var str = s.substr(start,k);
+        if(start/k%2 == 0){
+            result = result + str.split('').reverse().join(''); 
+        } else {
+            result =  result + str;
+        }
+        start += k
+    } 
+    return result;
+};
+
 //543.二叉树的直径  递归
 /**
  * @param {TreeNode} root
