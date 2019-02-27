@@ -1358,8 +1358,40 @@ var uniquePaths = function(m, n) {
     return result;
 };
 
-// 64. 最小路径和  其实也是动态规划，一排一排算最小值。
+// 63.不同路径2  递归肯定是超出时间限制的 所以需要用动态规划 
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
+var uniquePathsWithObstacles = function(obstacleGrid) {
+    var backArray = [];
+    for (let index = 0; index < obstacleGrid[0].length; index++) {
+        if(obstacleGrid[0][index] == 1) {
+            backArray.push(0);
+        }else {
+            if (index != 0) {
+                backArray[index]= backArray[index - 1];
+            } else {
+                backArray.push(1);
+            }
+        }
+    }
+    for (let index = 1; index < obstacleGrid.length; index++) {
+        let inArray = obstacleGrid[index];
+        for (let i = 0; i < inArray.length; i++) {
+            if(inArray[i] == 1) {
+                backArray[i] = 0;
+            } else {
+                if (i != 0) {
+                    backArray[i]= backArray[i] + backArray[i-1];
+                } 
+            }
+        }
+    }
+    return backArray[backArray.length -1];
+};
 
+// 64. 最小路径和  其实也是动态规划，一排一排算最小值。
 /**
  * @param {number[][]} grid
  * @return {number}
@@ -5288,6 +5320,84 @@ var largeGroupPositions = function(S) {
     return result;
 };
 
+//870. 优势洗牌 先排序 后判断 再取出 还可以字典优化 加快
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number[]}
+ */
+var advantageCount = function(A, B) {
+    let backB = B.concat();
+    A.sort(compare);
+    B.sort(compare);
+    
+    var i = 0;
+    var j =0;
+    var arry1 = [];
+    var arry2 = [];
+
+    while(i < A.length) {
+        if(A[i] >B[j]) {
+            arry1.push(A[i]);
+            i++;
+            j++;
+        }else {
+            arry2.push(A[i]);
+            i++;
+        }
+    }
+    var newA = arry1.concat(arry2);
+    var result = [];
+    for(let num of backB) {
+        var index = B.indexOf(num);
+        result.push(newA[B.indexOf(num)])
+        B.splice(index,1);
+        newA.splice(index,1);
+    }
+    return result;
+
+    function compare(x,y) {
+        return x-y;
+    }
+};
+// 字典隐射
+var advantageCount = function(A, B) {
+    let sortedA = A.clone();
+    sortedA.sort((a, b)=>a-b);
+    let sortedB = B.clone();
+    sortedB.sort((a, b)=>a-b);
+    
+    let assigned = new Map();
+    B.forEach(b=> assigned.set(b, []))
+    
+    let remaining = [];
+    let j = 0;
+    
+    sortedA.forEach((a)=>{
+        if(a > sortedB[j]) {
+            assigned.get(sortedB[j++]).push(a)
+        } else {
+            remaining.push(a)
+        }
+    })
+    
+    let ans = new Array(B.length);
+    
+    for(let i=0; i<B.length; ++i){
+        if(assigned.get(B[i]).length >0) {
+            ans[i] = assigned.get(B[i]).pop()
+        } else {
+            ans[i] = remaining.pop();
+        }
+    }
+    return ans;
+};
+
+Array.prototype.clone = function(){
+    let newArr = JSON.parse(JSON.stringify(this));
+    return newArr;
+}
+
 
 // 844.比较含退格的字符串 正序得出结果对比 更快的是反向对比，然后如果是# 跳过前面的字符。
 /**
@@ -5698,6 +5808,22 @@ var rangeSumBST = function(root, L, R) {
     return result;
 };
 
+// 941.有效的山脉数组 基本逻辑判断 精简代码
+/**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+var validMountainArray = function(A) {
+    var len = A.length;
+    if(len<3) return false;
+    var i = 0;
+    while(i < len -1 && A[i] < A[i+1]){ i++;}
+    if(i===len-1 || i===0) return false;
+    while(i < len -1 && A[i] > A[i+1]) { i++;}
+    if(i!==len-1) return false;
+    return true;
+
+};
 // 946. 验证栈序列  逻辑处理
 /**
  * @param {number[]} pushed
