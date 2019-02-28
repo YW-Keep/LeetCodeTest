@@ -6094,3 +6094,51 @@ var kClosest = (points, K) => {
     const distance = (point) => Math.sqrt(Math.pow(point[0], 2) + Math.pow(point[1], 2))
     return points.sort((a, b) => distance(a) - distance(b)).slice(0, K)
 }
+
+//983.最低票价  动态规划
+/**
+ * @param {number[]} days
+ * @param {number[]} costs
+ * @return {number}
+ */
+var mincostTickets = function(days, costs) {
+    var memo = new Array(days.length);
+    var backArray = [1,7,30];
+    return dp(0);
+    function dp(i) {
+        if(i >= days.length) {
+            return 0;
+        }
+        if(memo[i] != undefined) {
+            return memo[i];
+        }
+        var ans = costs[2]*20;
+        var j = i;
+        for (let index = 0; index < 3; index++) {
+            while(j <days.length && days[j] < days[i] +backArray[index]) {
+                j++;
+                ans = Math.min(ans,dp(j)+ costs[index]);
+            }
+        }
+        memo[i] = ans;
+        return ans;
+    }
+};
+// 最直观的动态规划
+const mincostTickets = (days, costs) => {
+    const { length } = days;
+    const set = new Set(days);
+    const dp = Array(366).fill(0);
+    for (let i = 1; i < 366; i += 1) {
+      if (!set.has(i)) {
+        dp[i] = dp[i - 1];
+      } else {
+        dp[i] = Math.min(
+          dp[i - 1] + costs[0],
+          7 <= i ? dp[i - 7] + costs[1] : costs[1],
+          30 <= i ? dp[i - 30] + costs[2] : costs[2] 
+        );
+      }
+    }
+    return dp[days[length - 1]];
+  };
