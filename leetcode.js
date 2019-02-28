@@ -6125,7 +6125,7 @@ var mincostTickets = function(days, costs) {
     }
 };
 // 最直观的动态规划
-const mincostTickets = (days, costs) => {
+var mincostTickets = function(days, costs) {
     const { length } = days;
     const set = new Set(days);
     const dp = Array(366).fill(0);
@@ -6142,3 +6142,22 @@ const mincostTickets = (days, costs) => {
     }
     return dp[days[length - 1]];
   };
+
+  // 976. 三角形的最大周长  三角形组成方式 两小边之和要大于第三边  所以排序就可以了
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestPerimeter = function(A) {
+    A.sort((a,b)=> a-b);
+    var num = A.length -3;
+    while(num>=0) {
+        if(A[num] + A[num +1] > A[num + 2]) {
+            return A[num]+A[num +1]+A[num +2];
+        }
+        num--;
+    }
+    return 0;
+};
+
+
