@@ -6095,6 +6095,38 @@ var kClosest = (points, K) => {
     return points.sort((a, b) => distance(a) - distance(b)).slice(0, K)
 }
 
+//977. 有序数组的平方 双指针
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortedSquares = function(A) {
+    var j = 0;
+    while(j < A.length && A[j] < 0) {
+        j++;
+    }
+    var i = j - 1;
+    var result = []
+    while(i >= 0 && j<A.length) {
+        if(A[i]*A[i] < A[j]*A[j]) {
+            result.push(A[i]*A[i]);
+            i--;
+        }else {
+            result.push(A[j]*A[j]);
+            j++;
+        }
+    } 
+    while(i >= 0) {
+        result.push(A[i]*A[i]);
+        i--;
+    }
+    while(j < A.length) {
+        result.push(A[j]*A[j]);
+        j++;
+    }
+    return result;
+};
+
 //983.最低票价  动态规划
 /**
  * @param {number[]} days
