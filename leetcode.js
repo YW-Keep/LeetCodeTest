@@ -6192,4 +6192,29 @@ var largestPerimeter = function(A) {
     return 0;
 };
 
-
+// 989. 数组形式的整数加法  数组累加
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number[]}
+ */
+var addToArrayForm = function(A, K) {
+    var back = 0;
+    var index = A.length -1;
+    while(index >= 0 &&(back > 0 || K > 0)) {
+        var num = K%10 + back + A[index];
+        back = Math.floor(num/10);
+        num = num%10;
+        K = Math.floor(K/10);
+        A[index] = num;
+        index--;
+    }
+    while(K>0 || back > 0) {
+        var num = K%10 + back;
+        back = Math.floor(num/10);
+        num = num%10;
+        K = Math.floor(K/10);
+        A.unshift(num);
+    }
+    return A;
+};
