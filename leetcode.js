@@ -6055,6 +6055,34 @@ var maxWidthRamp = function(A) {
     return ans
   }
 
+// 969.煎饼排序 思路 每次把最后一个换到最后去
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var pancakeSort = function(A) {
+    var copyA = A.concat();
+    copyA.sort((a,b)=> a-b);
+    var result = [];
+    var index = copyA.length - 1;
+    while(index >= 0 ) {
+        for (let i = 0; i < A.length ; i++) {
+            if(copyA[index] == A[i]) {
+                if(index != i) {
+                    result.push(i+1);
+                    result.push(index+1);
+                    A = A.slice(0,i+1).reverse().concat(A.slice(i+1,A.length));
+                    A = A.slice(0,index+1).reverse().concat(A.slice(index+1,A.length));
+                }
+                index--;
+                break;
+            }
+        }
+    }
+    return result;
+};
+
+
   // 970. 强整数
   /**
  * @param {number} x
