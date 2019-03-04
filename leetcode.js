@@ -6155,6 +6155,23 @@ var sortedSquares = function(A) {
     return result;
 };
 
+  // 976. 三角形的最大周长  三角形组成方式 两小边之和要大于第三边  所以排序就可以了
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestPerimeter = function(A) {
+    A.sort((a,b)=> a-b);
+    var num = A.length -3;
+    while(num>=0) {
+        if(A[num] + A[num +1] > A[num + 2]) {
+            return A[num]+A[num +1]+A[num +2];
+        }
+        num--;
+    }
+    return 0;
+};
+
 //983.最低票价  动态规划
 /**
  * @param {number[]} days
@@ -6203,22 +6220,35 @@ var mincostTickets = function(days, costs) {
     return dp[days[length - 1]];
   };
 
-  // 976. 三角形的最大周长  三角形组成方式 两小边之和要大于第三边  所以排序就可以了
+  // 985. 查询后的偶数和  正常逻辑题 先全部加起来 在做增减
 /**
  * @param {number[]} A
- * @return {number}
+ * @param {number[][]} queries
+ * @return {number[]}
  */
-var largestPerimeter = function(A) {
-    A.sort((a,b)=> a-b);
-    var num = A.length -3;
-    while(num>=0) {
-        if(A[num] + A[num +1] > A[num + 2]) {
-            return A[num]+A[num +1]+A[num +2];
+var sumEvenAfterQueries = function(A, queries) {
+    var sum = 0;
+    for(let num of A) {
+        if(num%2 == 0) {
+            sum += num;
         }
-        num--;
     }
-    return 0;
+    var result = [];
+    for(let que of queries) {
+        var val = que[0];
+        var index = que[1];
+        if(A[index]%2 == 0) {
+            sum -= A[index];
+        }
+        A[index] = A[index] + val;
+        if(A[index]%2 == 0) {
+            sum += A[index];
+        }
+        result.push(sum);
+    }
+    return result;
 };
+sumEvenAfterQueries([1,2,3,4],[[1,0],[-3,1],[-4,0],[2,3]])
 
 // 989. 数组形式的整数加法  数组累加
 /**
