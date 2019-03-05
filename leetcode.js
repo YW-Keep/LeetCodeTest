@@ -6122,6 +6122,37 @@ var kClosest = (points, K) => {
     const distance = (point) => Math.sqrt(Math.pow(point[0], 2) + Math.pow(point[1], 2))
     return points.sort((a, b) => distance(a) - distance(b)).slice(0, K)
 }
+// 974. 和可被 K 整除的子数组  连续子数组 可以考虑累加 再处理
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var subarraysDivByK = function(A, K) {
+    var P = [0];
+    var sum = 0;
+    for(let num of A) {
+        sum += num;
+        P.push(sum);
+    }
+    var backMap = new Map();
+    for(let num of P) {
+        var index = num%K
+        if(index < 0) {
+            index += K
+        }
+        if(backMap.get(index) == undefined) {
+            backMap.set(index,1);
+        } else {
+            backMap.set(index,1+ backMap.get(index));
+        }
+    }
+    var result = 0;
+    for(let map of backMap){
+        result += map[1]*(map[1] -1)/2;
+    }
+    return result;
+};
 
 //977. 有序数组的平方 双指针
 /**
@@ -6248,7 +6279,6 @@ var sumEvenAfterQueries = function(A, queries) {
     }
     return result;
 };
-sumEvenAfterQueries([1,2,3,4],[[1,0],[-3,1],[-4,0],[2,3]])
 
 // 989. 数组形式的整数加法  数组累加
 /**
