@@ -6306,3 +6306,22 @@ var addToArrayForm = function(A, K) {
     }
     return A;
 };
+
+// 991. 坏了的计算器  贪心算法 多除 逆向计算
+/**
+ * @param {number} X
+ * @param {number} Y
+ * @return {number}
+ */
+var brokenCalc = function(X, Y) {
+    var result = 0;
+    while(Y>X) {
+        result++;
+        if(Y%2 == 1) {
+            Y++;
+        }else {
+            Y /= 2;
+        }
+    }
+    return result +X-Y;
+};
