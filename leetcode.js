@@ -6325,3 +6325,35 @@ var brokenCalc = function(X, Y) {
     }
     return result +X-Y;
 };
+
+// 997.找到小镇的法官  数组记录 然后判断一下就好了 N 表示人编号
+/**
+ * @param {number} N
+ * @param {number[][]} trust
+ * @return {number}
+ */
+var findJudge = function(N, trust) {
+    if(N == 1) {return 1}; 
+    var trustNum = new Array(N + 1);
+    var beTrust  = new Array(N +1);
+    for (let index = 0; index < trust.length; index++) {
+        trustNum[trust[index][0]] = 1;
+        if(beTrust[trust[index][1]] == undefined) {
+            beTrust[trust[index][1]] = 1;
+        }else {
+            beTrust[trust[index][1]] += 1;
+        }
+    }
+    for (let index = 1; index < N+1; index++) {
+        if(beTrust[index] == N-1) {
+            if(trustNum[index] == 1) {
+                return -1
+            } else {
+                return index;
+            }
+        }
+    }
+    return -1;
+};
+var txte1 =findJudge(4,[[1,2],[1,3],[2,1],[2,3],[1,4],[4,3],[4,1]])
+var txtccc2 ="1";
