@@ -6355,5 +6355,30 @@ var findJudge = function(N, trust) {
     }
     return -1;
 };
-var txte1 =findJudge(4,[[1,2],[1,3],[2,1],[2,3],[1,4],[4,3],[4,1]])
-var txtccc2 ="1";
+
+// 1004. 最大连续1的个数 III 双指针
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var longestOnes = function(A, K) {
+    var li = 0;
+    var lo = 0;
+    var zero = 0;
+    var res = 0;
+    while(li < A.length) {
+        if(A[li] ==0) {
+            zero++;
+        }
+        while (zero > K) {
+            if(A[lo] == 0) {
+                zero--;
+            }
+            lo++;
+        }
+        res = Math.max(res,li-lo+1);
+        li++;
+    }
+    return res;
+};
