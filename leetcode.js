@@ -5517,6 +5517,35 @@ var carFleet = function(target, position, speed) {
     }
 };
 
+// 860.柠檬水找零 基本逻辑题
+/**
+ * @param {number[]} bills
+ * @return {boolean}
+ */
+var lemonadeChange = function(bills) {
+    var five = 0;
+    var ten = 0;
+    for(let bill of bills) {
+        if(bill == 5) {
+            five++;
+        } else if(bill == 10) {
+            if(five == 0 ) {return false};
+            five--;
+            ten++;
+        } else {
+            if(ten == 0) {
+                if(five < 3) {return false};
+                five -=3;
+            } else {
+                if(five == 0) {return false};
+                five--;
+                ten--;
+            }
+        }
+    }
+    return true;
+};
+
 // 878.第N个神奇数字 给定一个数N,那么小于等于N的数字中，神奇数字的个数应该为N/A+N/B-N/AB的最小公倍数
 /**
  * @param {number} N
