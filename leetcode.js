@@ -6141,6 +6141,43 @@ var powerfulIntegers = function(x, y, bound) {
     }
 };
 
+// 971.反转二叉树以匹配先序遍历 二叉树的先序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number[]} voyage
+ * @return {number[]}
+ */
+var flipMatchVoyage = function(root, voyage) {
+    var backArray = [];
+    var index = 0;
+    dfs(root);
+    if(backArray.length > 0 && backArray[backArray.length-1] == -1) {
+        return [-1];
+    }
+    return backArray;
+    function dfs(node) {
+        if(node == null) {return};
+        if(node.val != voyage[index++]) {
+            backArray.push(-1);
+            return;
+        }
+        if(index <voyage.length &&node.left != null && node.left.val != voyage[index]) {
+            backArray.push(node.val);
+            dfs(node.right);
+            dfs(node.left);
+        } else {
+            dfs(node.left);
+            dfs(node.right);
+        }
+    }
+};
 //973. 最接近原点的 K 个点 基础逻辑题
 /**
  * @param {number[][]} points
@@ -6230,6 +6267,31 @@ var largestPerimeter = function(A) {
         num--;
     }
     return 0;
+};
+
+// 979.在二叉树中分配硬币 dfs 深度遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var distributeCoins = function(root) {
+    var num = 0;
+    dfs(root);
+    function dfs (node) {
+        if(node == null) {return 0};
+        var left = dfs(node.left);
+        var right = dfs(node.right);
+        num = num + Math.abs(left) + Math.abs(right)
+        return node.val + left + right - 1;
+    }
+    return num;
 };
 
 //983.最低票价  动态规划
