@@ -6417,6 +6417,44 @@ var brokenCalc = function(X, Y) {
     return result +X-Y;
 };
 
+// 993. 二叉树的堂兄弟节点  二叉树的遍历 如果多个比较可以用空间换时间
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+var isCousins = function(root, x, y) {
+
+    if(root == null || root.val == x || root.val == y)  {return false};
+    var backArray = [];
+    dfs(root,0);
+    return  backArray[0][0] != backArray[1][0] &&backArray[0][1] == backArray[1][1];
+    function dfs(node,deep) {
+        if(node !=null) {
+            if(node.left != null) {
+                if(node.left.val == x || node.left.val == y) {
+                    backArray.push([node.val,deep+1]);   
+                } 
+            }
+            if(node.right != null) {
+                if(node.right.val == x || node.right.val == y) {
+                    backArray.push([node.val,deep+1]);   
+                } 
+            }
+            dfs(node.left,deep+1);
+            dfs(node.right,deep+1);
+        }
+    }
+};
+
 // 997.找到小镇的法官  数组记录 然后判断一下就好了 N 表示人编号
 /**
  * @param {number} N
