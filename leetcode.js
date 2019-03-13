@@ -5680,6 +5680,22 @@ var totalFruit = function(tree) {
     }
     return result;
 };
+// 905. 按奇偶排序数组 基本逻辑
+var sortArrayByParity = function(A) {
+    var index = 0;
+    var end = A.length;
+    while(index < end) {
+        if(A[index]%2 == 0) {
+            index++;
+        } else {
+            A.push(A[index])
+            end--;
+            A.splice(index,1);
+        }
+    }
+    return A;
+};
+
 
 // 908. 最小差值 I  主要是题目难理解
 /**
