@@ -5546,6 +5546,16 @@ var lemonadeChange = function(bills) {
     return true;
 };
 
+// 877. 石子游戏 脑筋急转弯
+/**
+ * @param {number[]} piles
+ * @return {boolean}
+ */
+var stoneGame = function(piles) {
+    return true;
+};
+
+
 // 878.第N个神奇数字 给定一个数N,那么小于等于N的数字中，神奇数字的个数应该为N/A+N/B-N/AB的最小公倍数
 /**
  * @param {number} N
@@ -5644,6 +5654,29 @@ var uncommonFromSentences = function(A, B) {
         }
     }
     return result;
+};
+
+// 896. 单调数列   判断递增或者递减就好了
+/**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+var isMonotonic = function(A) {
+
+    return inscreassing() || decreasing()
+    function inscreassing() {
+        for (let index = 0; index < A.length - 1; index++) {
+            if(A[index] > A[index+1]) { return false};
+        }
+        return true;
+    }
+
+    function decreasing() {
+        for (let index = 0; index < A.length - 1; index++) {
+            if(A[index] < A[index+1]) { return false};
+        }
+        return true;
+    }
 };
 
 // 904.水果成篮   动态规划 记录之前的值
