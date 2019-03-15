@@ -6560,3 +6560,42 @@ var longestOnes = function(A, K) {
     }
     return res;
 };
+
+// 1005. K 次取反后最大化的数组和 逻辑判断题
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var largestSumAfterKNegations = function(A, K) {
+    A.sort((a,b)=> a-b);
+    var index = 0;
+    var backK = K;
+    while(backK > 0) {
+        if(A[index] < 0) {
+            A[index] = A[index]*-1;
+            index++;
+            backK--;
+            index = index == A.length ? index - 1 : index;
+        } else {
+            if(backK%2 != 0) {
+                if(index == 0) {
+                    A[index] = A[index]*-1;
+                } else {
+                    if(A[index -1] > A[index]){
+                        A[index] = A[index]*-1;
+                    } else {
+                        A[index - 1] = A[index - 1]*-1;
+                    }
+                }
+            } 
+            backK = 0;
+        }
+    }
+    var result = 0;
+    for(let num of A) {
+        result += num; 
+    }
+    return result;
+};
+
