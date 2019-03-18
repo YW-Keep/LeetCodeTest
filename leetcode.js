@@ -5546,6 +5546,66 @@ var lemonadeChange = function(bills) {
     return true;
 };
 
+// 872.叶子相似的树 遍历对比
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {boolean}
+ */
+var leafSimilar = function(root1, root2) {
+    var back1 = [];
+    var back2 = []
+    dfs(root1,back1);
+    dfs(root2,back2);
+    if(back1.length != back2.length) {return false};
+    var num = 0;
+    while(num <back1.length) {
+        if(back1[num] !=back2[num]) {
+            return false;
+        }
+        num++;
+    }
+    return true;
+    function dfs(node,backArray) {
+        if(!node) {return}
+        if(!node.left && !node.right) {
+            backArray.push(node.val);
+        }
+        dfs(node.left,backArray);
+        dfs(node.right,backArray);
+    }
+};
+
+// 876.链表的中间结点  快慢指针
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var middleNode = function(head) {
+    var fast = head;
+    var slow = head;
+    while(fast && fast.next) {
+        fast = fast.next;
+        fast = fast.next;
+        slow = slow.next;
+    }
+    return slow;
+};
+
 // 877. 石子游戏 脑筋急转弯
 /**
  * @param {number[]} piles
