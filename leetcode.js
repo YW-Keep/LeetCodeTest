@@ -5716,6 +5716,32 @@ var uncommonFromSentences = function(A, B) {
     return result;
 };
 
+// 888. 公平的糖果交换  可以空间换时间
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number[]}
+ */
+var fairCandySwap = function(A, B) {
+    var sumA = 0;
+    var sumB = 0;
+    var map = new Map()
+    for(let num of A) { sumA += num}
+    for(let num of B) { 
+        sumB += num
+        map.set(num,num);
+    }
+    var delta = (sumB - sumA)/2;
+
+    for(let num of A) {
+        if(map.get(delta + num)) {
+            return [num,delta + num];
+        }
+    }
+    return [];
+};
+fairCandySwap([1,1],[2,2]);
+
 // 896. 单调数列   判断递增或者递减就好了
 /**
  * @param {number[]} A
