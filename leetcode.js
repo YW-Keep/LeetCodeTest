@@ -5988,6 +5988,30 @@ var validMountainArray = function(A) {
     return true;
 
 };
+
+// 942. 增减字符串匹配 思考极限就好 
+/**
+ * @param {string} S
+ * @return {number[]}
+ */
+var diStringMatch = function(S) {
+    var start = 0;
+    var end = S.length;
+    var result = [];
+    for (let index = 0; index < S.length; index++) {
+        var str = S.substr(index,1);
+        if(str == "I") {
+            result.push(start);
+            start++;
+        }else {
+            result.push(end);
+            end--;
+        }
+    }
+    result.push(start);
+    return result;
+};
+
 // 946. 验证栈序列  逻辑处理
 /**
  * @param {number[]} pushed
