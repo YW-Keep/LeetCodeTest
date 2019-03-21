@@ -6709,3 +6709,35 @@ var largestSumAfterKNegations = function(A, K) {
     return result;
 };
 
+//  1008. 先序遍历构造二叉树 递归就可以了
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} preorder
+ * @return {TreeNode}
+ */
+var bstFromPreorder = function(preorder) {
+    if(preorder.length == 0) {
+        return null;
+    }
+    var root = new TreeNode(preorder[0]);
+    var left = [];
+    var right = [];
+    var index = 1;
+    while(index < preorder.length) {
+        if(preorder[index] < root.val) {
+            left.push(preorder[index])
+        } else {
+            right.push(preorder[index])
+        }
+        index++;
+    }
+    root.left = bstFromPreorder(left);
+    root.right = bstFromPreorder(right);
+    return root;
+};
