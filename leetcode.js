@@ -6741,3 +6741,25 @@ var bstFromPreorder = function(preorder) {
     root.right = bstFromPreorder(right);
     return root;
 };
+
+// 1013. 总持续时间可被 60 整除的歌曲 一个60的数组记录然后遍历一半统计就可以了
+/**
+ * @param {number[]} time
+ * @return {number}
+ */
+var numPairsDivisibleBy60 = function(time) {
+    var back = new Array(60).fill(0);
+    for(let num of time) {
+        var index = num%60;
+        back[index] += 1;
+    }
+    var sum =0;
+    for (let index = 1; index < 30; index++) {
+        sum += back[index]*back[60-index];
+    }
+    sum += back[0]*(back[0] - 1)/2;
+    sum += back[30]*(back[30] - 1)/2;
+    return sum;
+};
+
+
