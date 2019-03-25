@@ -5922,6 +5922,30 @@ var partitionDisjoint = function(A) {
     }
     return 0;
 };
+
+// 921. 使括号有效的最少添加  逻辑判断题
+/**
+ * @param {string} S
+ * @return {number}
+ */
+var minAddToMakeValid = function(S) {
+    var result = 0;
+    var back = 0;
+    for (let index = 0; index < S.length; index++) {
+        let char = S.substr(index,1);
+        if(char == "(") {
+            back++;
+        }else {
+            back--;
+        }
+        if(back < 0) {
+            back = 0;
+            result += 1;
+        }
+    }
+    return result +back;
+};
+
 // 926.将字符串反转到单调递增  正反考虑
 /**
  * @param {string} S
@@ -6121,6 +6145,31 @@ var deckRevealedIncreasing = function(deck) {
     function compare (x,y) {
         return x - y;
     }
+};
+
+// 951.反转等阶二叉树 逻辑判断
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {boolean}
+ */
+var flipEquiv = function(root1, root2) {
+    if(root1 == null && root2 == null) {
+        return true;
+    }
+    if(root1 ==null){return false};
+    if(root2 == null){return false};
+    if(root1.val != root2.val) {return false};
+    let bool1 = flipEquiv(root1.left,root2.left)  && flipEquiv(root1.right,root2.right)
+    let bool2 = flipEquiv(root1.right,root2.left)  && flipEquiv(root1.left,root2.right)
+    return  bool1 || bool2;
 };
 
 // 961.重复N次的元素 简单的题目
