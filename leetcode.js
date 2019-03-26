@@ -5946,6 +5946,27 @@ var minAddToMakeValid = function(S) {
     return result +back;
 };
 
+// 922. 按奇偶排序数组 II 基础逻辑
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortArrayByParityII = function(A) {
+    var result = new Array(A.length);
+    var odd = 1;
+    var even = 0;
+    for(let num of A) {
+        if(num%2 == 0) {
+            result[even] = num;
+            even +=2;
+        } else {
+            result[odd] = num;
+            odd +=2;
+        }
+    }
+    return result;
+};
+
 // 926.将字符串反转到单调递增  正反考虑
 /**
  * @param {string} S
@@ -5970,6 +5991,32 @@ var minFlipsMonoIncr = function(S) {
             num += 1;
         }
         min = Math.min(min,backArray[index] + num);
+    }
+    return min;
+};
+
+// 931.下降路径最小和 逐层计算
+/**
+ * @param {number[][]} A
+ * @return {number}
+ */
+var minFallingPathSum = function(A) {
+    var back = A[0];
+    for (let index = 1; index < A.length; index++) {
+        var inArray = A[index];
+        var newArray = new Array(back.length);
+        for (let i = 0; i < inArray.length; i++) {
+            var onI = i -1;
+            if(onI < 0 ) {onI = 0};
+            var inI = i +1;
+            if(inI > inArray.length - 1) {inI = inArray.length -1};
+            newArray[i] = Math.min(back[onI],back[i],back[inI]) + inArray[i];
+        }
+        back = newArray;
+    }
+    var min = back[0];
+    for(let num of back) {
+        min = Math.min(num,min);
     }
     return min;
 };
