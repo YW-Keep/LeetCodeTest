@@ -6219,6 +6219,35 @@ var flipEquiv = function(root1, root2) {
     return  bool1 || bool2;
 };
 
+// 958. 二叉树的完全性检验 层序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isCompleteTree = function(root) {
+    var backArray = [];
+    backArray.push(root);
+    while(backArray[0] != null) {
+        let node = backArray.shift();
+        backArray.push(node.left);
+        backArray.push(node.right);
+    }
+    while(backArray.length > 0) {
+        let node = backArray.shift();
+        if(node != null) {
+            return false;
+        }
+    }
+    return true;
+};
+
 // 961.重复N次的元素 简单的题目
 /**
  * @param {number[]} A
