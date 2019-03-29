@@ -5731,8 +5731,7 @@ var fairCandySwap = function(A, B) {
         sumB += num
         map.set(num,num);
     }
-    var delta = (sumB - sumA)/2;
-
+    var delta = (sumB - sumA)/2;  
     for(let num of A) {
         if(map.get(delta + num)) {
             return [num,delta + num];
@@ -5740,7 +5739,42 @@ var fairCandySwap = function(A, B) {
     }
     return [];
 };
-fairCandySwap([1,1],[2,2]);
+ 
+//  894. 所有可能的满二叉树 动态规划
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number} N
+ * @return {TreeNode[]}
+ */
+var allPossibleFBT = function(N) {
+    if(N%2 == 0) {return []; }
+    var backArray = [];
+    backArray.push([new TreeNode(0)]);
+    var num = 3;
+    while(num <= N) {
+        var inArray = [];
+        var backNum = (num - 1)/2;
+        for (let index = 0; index < backNum; index++) {
+            for (let nodeleft of backArray[index]) {
+                for(let noderight of backArray[backNum - index - 1]) {
+                    var node = new TreeNode(0);
+                    node.left = nodeleft;
+                    node.right = noderight;
+                    inArray.push(node);
+                }
+            }
+        }
+        backArray.push(inArray);
+        num += 2;
+    }
+    return backArray[backArray.length -1];
+};
 
 // 896. 单调数列   判断递增或者递减就好了
 /**
@@ -5763,6 +5797,25 @@ var isMonotonic = function(A) {
         }
         return true;
     }
+};
+
+// 897. 递增顺序查找树  递归遍历
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var increasingBST = function(root) {
+    var head = new TreeNode(0);
+    var next = head;
+    dfs(root);
+    function dfs(node) {
+        if(node == null) {return};
+        dfs(node.left);
+        next.right = new TreeNode(node.val);
+        next = next.right;
+        dfs(node.right); 
+    }
+    return head.right;
 };
 
 // 904.水果成篮   动态规划 记录之前的值
