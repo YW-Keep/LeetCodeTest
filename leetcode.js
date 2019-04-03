@@ -5488,6 +5488,25 @@ var isNStraightHand = function(hand, W) {
     }
 };
 
+// 852.山脉数组的峰顶索引  二分法
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var peakIndexInMountainArray = function(A) {
+    var start = 0; 
+    var end = A.length;
+    while(start + 1 < end) {
+        var mid = Math.floor( (end - start)/2) + start;
+        if(A[mid + 1] > A[mid]){
+            start = mid + 1;
+        } else {
+            end = mid;
+        }
+    }
+    return (start == A.length - 1 || A[start] > A[start +1]) ? start : end;
+};
+
 //853.车队 倒算 算时间
 /**
  * @param {number} target
@@ -6940,4 +6959,26 @@ var numPairsDivisibleBy60 = function(time) {
     return sum;
 };
 
-
+// 1019. 链表中的下一个更大节点 (用栈的思想)
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+var nextLargerNodes = function(head) {
+    var backArray = [];
+    var result = [];
+    var back = [];
+    var i = 0;
+    while(head) {
+        backArray.push(head.val);
+        result.push(0);
+        while(back.length !=0 && backArray[back[back.length -1]] < head.val) {
+            var num = back.pop();
+            result[num] =  head.val;
+        }
+        back.push(i);
+        i++;
+        head = head.next;
+    }
+    return result;
+};
