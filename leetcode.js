@@ -6959,6 +6959,39 @@ var numPairsDivisibleBy60 = function(time) {
     return sum;
 };
 
+// 1016. 子串能表示从 1 到 N 数字的二进制串  暴力解法
+/**
+ * @param {string} S
+ * @param {number} N
+ * @return {boolean}
+ */
+var queryString = function(S, N) {
+    for (let index = 0; index <= N; index++) {
+        if(S.indexOf(index.toString(2)) == -1) {
+            return false;
+        }
+    }
+    return true;
+};
+
+
+
+// 1018. 可被 5 整除的二进制前缀  只留余数防止越界
+/**
+ * @param {number[]} A
+ * @return {boolean[]}
+ */
+var prefixesDivBy5 = function(A) {
+    var num = 0;
+    var result = [];
+    for(let inNum of A) {
+        var num = num*2 + inNum;
+        result.push(num%5 == 0);
+        num = num%10;
+    }
+    return result;
+};
+
 // 1019. 链表中的下一个更大节点 (用栈的思想)
 /**
  * @param {ListNode} head
