@@ -5225,6 +5225,31 @@ var largestSumOfAverages = function(A, K) {
     return ave.pop()
 };
 
+// 814.二叉树剪枝 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var pruneTree = function(root) {
+    if(!root) {
+        return null;
+    }
+    root.left = pruneTree(root.left);
+    root.right = pruneTree(root.right);
+    if(root.left == null && root.right == null && root.val == 0) {
+        return null;
+    } else {
+        return root;
+    }
+};
+
 // 821.字符的最短距离  先找出目标的位置，然后位置相减得到距离
 /**
  * @param {string} S
@@ -5628,6 +5653,44 @@ var leafSimilar = function(root1, root2) {
         dfs(node.right,backArray);
     }
 };
+
+//875.爱吃香蕉的珂珂 二分法
+/**
+ * @param {number[]} piles
+ * @param {number} H
+ * @return {number}
+ */
+var minEatingSpeed = function(piles, H) {
+    var max = piles[0];
+    for(let num of piles) {
+        max = Math.max(max,num);
+    }
+    if(piles.length == H) {
+        return max;
+    }
+    var min = 1;
+    while(min < max) {
+       var mid = Math.floor((max - min)/2) + min
+       if(!check(mid)) {
+           min = mid + 1;
+       } else {
+           max = mid;
+       }
+    }
+    return min;
+
+    function check(K) {
+        var time = 0
+        for(let num of piles) {
+            time += Math.floor((num-1)/K) + 1;
+            if(time > H) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
 
 // 876.链表的中间结点  快慢指针
 /**
