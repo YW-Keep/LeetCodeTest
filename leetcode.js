@@ -5565,6 +5565,33 @@ var lemonadeChange = function(bills) {
     return true;
 };
 
+// 868 二进制间距  位运算
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var binaryGap = function(N) {
+    var k = N;
+    var ans = 0;
+    var  back = -1;
+    while(k != 0) {
+        if(k &1 == 1) {
+            if(back < 0) {
+                back = 1;
+            } else {
+                ans = Math.max(ans,back);
+                back = 1;
+            }
+        } else {
+            if(back > 0) {
+                back++;
+            }
+        }
+        k>>=1;
+    }
+    return ans;
+};
+
 // 872.叶子相似的树 遍历对比
 /**
  * Definition for a binary tree node.
@@ -6037,6 +6064,65 @@ var sortArrayByParityII = function(A) {
         }
     }
     return result;
+};
+
+// 925.长按键入 指针判断
+/**
+ * @param {string} name
+ * @param {string} typed
+ * @return {boolean}
+ */
+var isLongPressedName = function(name, typed) {
+    var l1 = name.length;
+    var l2 = typed.length;
+    if(l1 > l2) {return false};
+    var i = 0;
+    var j = 0;
+    var back = "";
+    while(i < l1 && j < l2) {
+        var char1 = name.substr(i,1);
+        var char2 = typed.substr(j,1);
+        if(char1 == char2){
+            i++;
+            j++;
+            back = char1;
+        } else {
+            if(char2 == back) {
+                j++;
+            } else {
+                return false;
+            }
+        }
+    }
+    if(i < l1) { return false};
+    if(j < l1) {
+        var char2 = typed.sub(j,1);
+        if(char2 != back) {
+            return false;
+        }
+        j++;
+    }
+    return true;
+};
+
+//   清爽的写法 
+var isLongPressedName = function(name, typed) {
+    let n = 0
+    let t = 0
+    while (n < name.length || t < typed.length) {
+        if (n < name.length && name[n] == typed[t]) {
+            n++;t++
+        }else if (name[n-1] == typed[t]) {
+            t++
+        }else {
+            break;
+        }
+    }
+    if (n == name.length && t == typed.length) {
+        return true
+    }else {
+        return false
+    }
 };
 
 // 926.将字符串反转到单调递增  正反考虑
