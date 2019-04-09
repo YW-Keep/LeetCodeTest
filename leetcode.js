@@ -5190,6 +5190,11 @@ var rotateString = function(A, B) {
     return (B + B).includes(A)
 };
 
+// 804. 唯一摩尔斯密码词 基础逻辑题 
+var uniqueMorseRepresentations = function (words) {
+    return new Set(words.map(wordsItem => Array.from(wordsItem).reduce((org, wordItem) => org + [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."][wordItem.charCodeAt() - 97], ""))).size
+};
+
 // 813.最大平均和的分组 首先要推出公示 dp[i][k] = dp[j][k-1] + sum(i-j)/(i-j)  也是规划递推
 /**
  * @param {number[]} A
@@ -5558,6 +5563,43 @@ var carFleet = function(target, position, speed) {
     return count;
     function compare (x,y) {
         return y - x;
+    }
+};
+
+// 859.亲密字符串 列举情况
+/**
+ * @param {string} A
+ * @param {string} B
+ * @return {boolean}
+ */
+var buddyStrings = function(A, B) {
+    if(A.length != B.length) {return false}
+    if(A == B) {
+        var backMap = new Map()
+        for (let index = 0; index < A.length; index++) {
+            var char  =  A.substr(index,1);
+            if(backMap.get(char) != null) {
+                return true;
+            } else {
+                backMap.set(char,1);
+            }
+        }
+        return false;
+    } else {
+        var first = -1;
+        var second = -1;
+        for (let index = 0; index < A.length; index++) {
+            if(A.substr(index,1)!=B.substr(index,1)) {
+                if(first == -1) {
+                    first = index;
+                } else if (second == -1) {
+                    second = index;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return second != -1 && A.substr(first,1) == B.substr(second,1) && B.substr(first,1) == A.substr(second,1)
     }
 };
 
@@ -6440,6 +6482,58 @@ var flipEquiv = function(root1, root2) {
     return  bool1 || bool2;
 };
 
+// 954.二倍数对数组 基础逻辑处理
+ /**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+var canReorderDoubled = function(A) {
+    A.sort((a,b)=> a-b);
+    while(A.length > 0) {
+        let num = A[0];
+        A.splice(0,1);
+        var checkNum =  num > 0 ?  2*num : num/2;
+        if(A.indexOf(checkNum) == -1) {
+            return false;
+        }
+        A.splice(A.indexOf(checkNum),1);
+    }
+    return true;
+};
+
+// 用字典提高转化效率
+var canReorderDoubled = function(A) {
+    //升序
+    A.sort(function(a,b){
+       return a-b; 
+    });
+    
+    var dictionary=new Map();
+    for(var key of A){
+        if(dictionary.has(key)){
+            dictionary.set(key,dictionary.get(key)+1);
+        }
+        else{
+            dictionary.set(key,1);
+        }
+    }
+    
+    for(var i=0;i<A.length;i++){
+        if(A[i]%2==0){
+            if(dictionary.has(A[i])&&dictionary.has(A[i]/2)){
+                dictionary.set(A[i],dictionary.get(A[i])-1);
+                dictionary.set(A[i]/2,dictionary.get(A[i]/2)-1);
+                if(dictionary.get(A[i])==0){
+                    dictionary.delete(A[i]);
+                }
+                if(dictionary.get(A[i]/2)==0){
+                    dictionary.delete(A[i]/2);
+                }
+            }
+        }
+    }
+    return [...dictionary].length==0;
+};
 // 958. 二叉树的完全性检验 层序遍历
 /**
  * Definition for a binary tree node.
