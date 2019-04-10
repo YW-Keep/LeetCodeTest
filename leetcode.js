@@ -7182,6 +7182,50 @@ var bstFromPreorder = function(preorder) {
     return root;
 };
 
+// 1011. 在 D 天内送达包裹的能力  确定区间二分搜索
+/**
+ * @param {number[]} weights
+ * @param {number} D
+ * @return {number}
+ */
+var shipWithinDays = function(weights, D) {
+    var end = 0;
+    var start = weights[0];
+    for(let weight of weights) {
+        start = Math.max(start,weight);
+        end += weight; 
+    }
+
+    while(start < end) {
+        var mid = Math.floor((end - start)/2) + start;
+        if(checkNum(mid)) {
+            end = mid;
+        } else {
+            start = mid +1;
+        }
+    }
+    return start;
+    
+    function checkNum(num) {
+        var sum = 0;
+        var date = 1;
+        for (let weight of weights) {
+            if(sum + weight > num ) {
+                date += 1;
+                sum = weight;
+            } else {
+                sum += weight;
+            }
+            if(date > D) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+};
+
+
 // 1013. 总持续时间可被 60 整除的歌曲 一个60的数组记录然后遍历一半统计就可以了
 /**
  * @param {number[]} time
