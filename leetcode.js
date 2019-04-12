@@ -3408,6 +3408,27 @@ var topKFrequent = function(nums, k) {
     return sortArray.slice(0,k);
 };
 
+// 349.两个数组的交集 基础逻辑 
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersection = function(nums1, nums2) {
+    var mapBack = new Map()
+    var result = [];
+    for(let num of nums1) {
+        mapBack.set(num,1); 
+    } 
+    for(let num of nums2) {
+        if(mapBack.get(num) != null) {
+            result.push(num);
+            mapBack.delete(num);
+        }
+    } 
+    return result;
+};
+
 // 365. 水壶问题 仔细考虑下 就是  z = ax +by;  这就是 求最大公约数 ，看看 z是不是 他们的倍数  所以问题就转化为求最大公约数了 最后考虑xy等于0以及z大于xy的特殊情况
 /**
  * @param {number} x
