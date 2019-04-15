@@ -3326,6 +3326,40 @@ var canWinNim = function(n) {
 var bulbSwitch = function(n) {
     return Math.floor(Math.sqrt(n));
 };
+// 328.奇偶链表基础逻辑
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var oddEvenList = function(head) {
+    var first = new ListNode(0);
+    var firstNext = first;
+    var second = new ListNode(0);
+    sendNext = second;
+    var  num = 1;
+    while(head) {
+        var node = head;
+        head = head.next;
+        node.next = null;
+        if(num%2 == 0) {
+            sendNext.next = node;
+            sendNext = sendNext.next;
+        } else {
+            firstNext.next = node;
+            firstNext = firstNext.next;
+        }
+        num++;
+    }
+    firstNext.next = second.next;
+    return first.next
+};
 
 // 334. 递增的三元子序列 递归思想 记录2个值 一个最小值 一个第二小的值
 /**
@@ -4561,6 +4595,39 @@ var findTarget = function(root, k) {
        }
     }
     return false;
+};
+
+// 654.最大二叉树 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var constructMaximumBinaryTree = function(nums) {
+    if(nums.length == 0) {
+        return null;
+    }
+    var max = nums[0];
+    var index = 0;
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i];
+        if(num > max) {
+            max = num;
+            index = i;
+        }
+    }
+    let root = new TreeNode(max);
+    var leftNums =  nums.slice(0,index)
+    var rightNums = nums.slice(index+1)
+    root.left = constructMaximumBinaryTree(leftNums);
+    root.right = constructMaximumBinaryTree(rightNums);
+    return root;
 };
 
 // 657. 机器人能否返回原点 逻辑题
