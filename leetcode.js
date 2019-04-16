@@ -1685,6 +1685,21 @@ var exist = function(board, word) {
     }
 };
 
+// 80.删除排序数组中的重复项 II 基础逻辑
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    for (let i = 0; i<nums.length; i++){
+       if (nums[i] == nums[i+2]){
+           nums.splice(i--,1)
+       }
+   }
+    return nums.length
+};
+
 // 82.删除列表中的重复元素 2 逻辑题
 /**
  * @param {ListNode} head
@@ -3770,6 +3785,33 @@ var reconstructQueue = function(people) {
             return y[0] - x[0];
         }
     }
+};
+
+// 409.最长回文字符串 逻辑判断
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestPalindrome = function(s) {
+    var mapBack = new Map()
+    for (let index = 0; index < s.length; index++) {
+        let char = s.substr(index,1)
+        mapBack.set(char,mapBack.get(char) == null ? 1 : mapBack.get(char) + 1)
+    }
+    var odd = 0;
+    var count = 0;
+    for(let kv of mapBack) {
+        if(kv[1]%2 == 0) {
+            count += kv[1];
+        } else {
+            odd = 1;
+            if(kv[1] > 1) {
+                count += kv[1] - 1;
+            }
+        }
+    }
+    count += odd;
+    return count;
 };
 
 // 412. Fizz Buzz 很简单 
