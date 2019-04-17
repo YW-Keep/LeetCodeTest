@@ -6191,7 +6191,25 @@ var smallestRangeI2 = function(A, K) {
     return max - K > min + K ? max - min - 2 * K : 0;
 };
 
-// 914. 卡牌分组 找数字因子
+// 910. 最小差值2 先排序 然后确定某个点之前的数全部加K 之后的数全部减少K  然后得出最大最小值做比较
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var smallestRangeII = function(A, K) {
+    A.sort((a,b)=> a-b);
+    let n = A.length;
+    var res = A[n-1] - A[0]
+    for (let index = 1; index < n; index++) {
+        let min = Math.min(A[0] + K,A[index] - K)
+        let max = Math.max(A[index- 1] + K,A[n -1] - K)
+        res = Math.min(max - min, res)
+    }
+    return res
+};
+
+// 914.卡牌分组 找数字因子
 /**
  * @param {number[]} deck
  * @return {boolean}
