@@ -959,10 +959,10 @@ var multiply = function(num1, num2) {
 };
 // 这种方式应该稍微快一点
 var multiply = function(num1, num2) {
-    var maxLenght  =  num1.length + num2.length; 
+    var maxLength  =  num1.length + num2.length; 
     var result = "";
     var carray = 0;
-    for (let i = 0; i < maxLenght - 1; i++) {
+    for (let i = 0; i < maxLength - 1; i++) {
         let min = Math.max(i - num2.length + 1,0);
         var max  = Math.min(i,num1.length - 1);
         var sum = 0;
@@ -1465,10 +1465,10 @@ var plusOne = function(digits) {
  * @return {string}
  */
 var addBinary = function(a, b) {
-    var maxLenght = Math.max(a.length,b.length);
+    var maxLength = Math.max(a.length,b.length);
     var result = "";
     var back = 0;
-    for (let index = 0; index < maxLenght; index++) {
+    for (let index = 0; index < maxLength; index++) {
         var num1 =  (a.length - 1 - index) >= 0 ? a.substr(a.length - 1 - index,1) : "0";
         var num2 = (b.length - 1 - index) >=0 ? b.substr(b.length - 1 - index,1) : "0";
         var num = parseInt(num1) + parseInt(num2) + back;
@@ -2597,7 +2597,7 @@ MinStack.prototype.push = function(x) {
  * @return {void}
  */
 MinStack.prototype.pop = function() {
-    if (this.listArray.lenght == 0) {
+    if (this.listArray.length == 0) {
         return;
     }
     if(this.minArray[this.minArray.length - 1] == this.listArray.length - 1) {
@@ -2610,7 +2610,7 @@ MinStack.prototype.pop = function() {
  * @return {number}
  */
 MinStack.prototype.top = function() {
-    if (this.listArray.lenght == 0) {
+    if (this.listArray.length == 0) {
         return nil;
     }
     return this.listArray[this.listArray.length - 1];
@@ -2620,7 +2620,7 @@ MinStack.prototype.top = function() {
  * @return {number}
  */
 MinStack.prototype.getMin = function() {
-    if (this.listArray.lenght == 0) {
+    if (this.listArray.length == 0) {
         return nil;
     }
     return this.listArray[this.minArray[this.minArray.length - 1]];
@@ -3328,6 +3328,39 @@ var numSquares = function(n) {
 var canWinNim = function(n) {
     return n%4 > 0 ;
 };
+// 300.最长上升子序列，堆栈加二分查找
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var lengthOfLIS = function(nums) {
+    if(nums.length < 2) {
+        return nums.length
+    }
+    var  backArray = [nums[0]];
+    for (let index = 1; index < nums.length; index++) {
+        let num = nums[index]
+        if(num > backArray[backArray.length - 1]) {
+            backArray.push(num)
+        } else if(num < backArray[0]) {
+            backArray[0] = num
+        } else {
+            var left = 0 ,right = backArray.length;
+            while(left < right) {
+                let mid = Math.floor((left + right)/2);
+                if(num > backArray[mid]) {
+                    left = mid +1;
+                } else {
+                    right =mid;
+                }
+            }
+            backArray[left] = num;
+        }
+    }
+    return backArray.length
+};
+
+lengthOfLIS([10,9,2,5,3,7,101,18])
 
 // 319. 灯泡开关 逻辑思考题
 //（1）第i轮时，被切换的灯泡位置是i的倍数。
