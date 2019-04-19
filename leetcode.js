@@ -4885,6 +4885,29 @@ var calPoints = function(ops) {
     return result;
 };
 
+// 704. 二分查找  如题
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    var start = 0;
+    var end = nums.length;
+    while(start <= end) {
+        let mid = Math.floor((end - start)/2) + start;
+        var num = nums[mid]
+        if(num == target) {
+            return mid
+        } else if (num < target) {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }
+    }
+    return -1;
+};
+
 // 714.买卖股票的最佳时机含手续费  贪心算法
 /**
  * @param {number[]} prices
