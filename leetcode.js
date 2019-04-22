@@ -3360,7 +3360,6 @@ var lengthOfLIS = function(nums) {
     return backArray.length
 };
 
-lengthOfLIS([10,9,2,5,3,7,101,18])
 
 // 319. 灯泡开关 逻辑思考题
 //（1）第i轮时，被切换的灯泡位置是i的倍数。
@@ -3948,6 +3947,18 @@ var canPartition = function(nums) {
     }
 };
 
+//434.字符串中的单词数 空格分割
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countSegments = function(s) {
+    // trim  去除头尾空字符串
+    if(!s.trim()) return 0;
+    // split 分割  filter 过滤(返回yes,no），这样写是过滤空字符串
+    return s.split(' ').filter(item => item).length;
+};
+
 // 437.路径总和3 递归
 /**
  * @param {TreeNode} root
@@ -4473,6 +4484,39 @@ var findUnsortedSubarray = function(nums) {
     }
     return  end - start + 1;
 };
+
+// 590. N叉树的后序遍历  递归
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {number[]}
+ */
+var postorder = function(root) {
+
+    var  result = [];
+    dfs(root);
+    return result;
+    
+    function dfs(node) {
+        if(node == null) {return}
+        if(node.children) {
+            for(let sun of node.children) {
+                dfs(sun)
+            }
+        }
+        result.push(node.val);
+    }
+};
+
+
+
+
 
 // 594.最长和谐子序列  先设置到map里 在做排序计算
 /**
