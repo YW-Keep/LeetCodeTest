@@ -3328,6 +3328,42 @@ var numSquares = function(n) {
 var canWinNim = function(n) {
     return n%4 > 0 ;
 };
+
+// 299.猜数字游戏 逻辑题，先匹配位置数字相同的，再匹配有多少个数字相同
+/**
+ * @param {string} secret
+ * @param {string} guess
+ * @return {string}
+ */
+var getHint = function(secret, guess) {
+    var backArray = [];
+    for (let index = 0; index < 10; index++) {
+        backArray.push(0);
+    }
+
+    var A = 0;
+    for (let index = 0; index < secret.length; index++) {
+        var schar = secret.substr(index,1);
+        var gchar  = guess.substr(index,1);
+        backArray[parseInt(schar)] += 1;
+        if(schar == gchar) {
+            A ++;
+        }
+        
+    }
+    var B = 0;
+    for (let index = 0; index < guess.length; index++) {
+        var gchar  = guess.substr(index,1);
+        gchar = parseInt(gchar);
+        if(backArray[gchar] > 0) {
+            B++;
+            backArray[gchar] -= 1;
+        }
+    }
+    B -= A;
+    return A.toString() + "A" + B.toString() + "B";
+};
+
 // 300.最长上升子序列，堆栈加二分查找
 /**
  * @param {number[]} nums
@@ -7560,6 +7596,31 @@ var nextLargerNodes = function(head) {
         back.push(i);
         i++;
         head = head.next;
+    }
+    return result;
+};
+
+// 1021. 删除最外层的括号 逻辑题
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeOuterParentheses = function(S) {
+    if(S.length < 4) {return ""}
+    var left  = 1;
+    var start = 0;
+    var result = "";
+    for (let index = 1; index < S.length; index++) {
+        let char  = S.substr(index,1);
+        if(char == "(") {
+            left++;
+        } else {
+            left--;
+        }
+        if(left == 0) {
+            result += S.substr(start+1,index - start - 1) 
+            start = index + 1;
+        }
     }
     return result;
 };
