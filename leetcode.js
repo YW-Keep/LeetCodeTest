@@ -2839,6 +2839,39 @@ var reverseList = function(head) {
     return newHead;
 };
 
+// 209. 长度最小的子数组 双指针
+ /**
+ * @param {number} s
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function(s, nums) {
+    var start = 0;
+    var min = nums.length +1;
+    var sum = 0;
+    var backStart =0;
+    for (let index = 0; index < nums.length; index++) {
+        sum  += nums[index];
+        if(sum >= s) {
+            while(start < index && sum - nums[start] >= s) {
+                sum -= nums[start];
+                start++;
+            }
+            if(index - start + 1 < min) {
+                min = index - start + 1;
+                backStart = start;
+            }
+            sum -= nums[start];
+            start++;
+        }
+    }
+    if(min == nums.length + 1 ) {
+        return 0
+    } else {
+        return  min
+    }
+};
+
 // 213.打家劫舍 2  分解成 不是一个圆 不打劫第一个 不打劫最后一个 两种情况
 /**
  * @param {number[]} nums
