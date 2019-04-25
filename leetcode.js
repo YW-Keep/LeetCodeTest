@@ -4746,6 +4746,24 @@ var averageOfLevels = function(root) {
 };
 
 
+// 646.最长数对链  先排序 贪心算法
+/**
+ * @param {number[][]} pairs
+ * @return {number}
+ */
+var findLongestChain = function(pairs) {
+    pairs.sort((a,b)=> a[1] - b[1])
+    var result = 1;
+    var lastNum = pairs[0][1]
+    for (let index = 1; index < pairs.length; index++) {
+        if(pairs[index][0] > lastNum) {
+            result++;
+            lastNum = pairs[index][1]
+        }
+    }
+    return result;
+};
+
 // 653. 两数之和 IV - 输入 BST 二叉树遍历
 /**
  * Definition for a binary tree node.
