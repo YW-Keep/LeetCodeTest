@@ -7675,3 +7675,21 @@ var removeOuterParentheses = function(S) {
     }
     return result;
 };
+
+// 1029.两地调度 贪心算法
+/**
+ * @param {number[][]} costs
+ * @return {number}
+ */
+var twoCitySchedCost = function(costs) {
+    costs.sort((a,b) => (a[0] - a[1]) - (b[0] - b[1]))
+    var result = 0;
+    for (let index = 0; index < costs.length; index++) {
+        if(index < costs.length/2) {
+            result += costs[index][0];
+        }else {
+            result += costs[index][1];
+        }
+    }
+    return result;
+};
