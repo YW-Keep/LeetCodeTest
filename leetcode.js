@@ -7675,6 +7675,26 @@ var removeOuterParentheses = function(S) {
     }
     return result;
 };
+// 1022. 从根到叶的二进制数之和 递归 当前节点的累加和 = 上层节点的累加和 * 2 + 当前节点值
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumRootToLeaf = function(root) {
+    var  result = 0;
+    getSum(root,0);
+
+    function getSum(node,val) {
+        if(node == null) {return }
+        if(node.left == null && node.right == null) {
+            result += val*2 + node.val; 
+        } 
+        getSum(node.left,val*2 + node.val) 
+        getSum(node.right,val*2 + node.val) 
+    }
+    return result;
+};
+
 // 1025. 除数博弈 逻辑题 因为先手为偶数的话，先手只需要让自己每步都保持偶数，那么他可以通过让对手得到的数为奇数，比如偶数-1就是奇数了，对手拿到奇数，那么能整除的只有奇数，奇数-奇数又回到了偶数，最后先手一定会得到最小的偶数2，然后-1让对手得到1，对手无解，必胜。
 
 /**
