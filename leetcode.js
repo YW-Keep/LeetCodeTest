@@ -3477,6 +3477,53 @@ var oddEvenList = function(head) {
     return first.next
 };
 
+// 322. 零钱兑换 动态规划
+/**
+ * @param {number[]} coins
+ * @param {number} amount
+ * @return {number}
+ */
+var coinChange = function(coins, amount) {
+    if(coins.length == 0 || amount <= 0) {
+        return  amount == 0 ? 0 : -1;
+    }
+    var backArray = Array(amount);
+    for (let index = 0; index < amount; index++) {
+        var  current = amount + 1;
+        for (let i = 0; i < coins.length; i++) {
+            var coin  = coins[i]
+            if (index + 1  < coin) {
+                continue
+            } else if (index + 1 == coin) {
+                current = 1
+                break
+            } else {
+                if (backArray[index - coin] != null) {
+                    current = Math.min(current,backArray[index - coin] + 1)
+                }
+            }
+        }
+        if(current < amount + 1) {
+            backArray[index] = current
+        }
+    }
+    return backArray[amount -1] != null ?  backArray[amount -1] : -1;
+};
+//更简便的写法
+var coinChange = function(coins, amount) {
+    // 动态规划 每个值最少的硬币数
+    r = [0]
+    for(let i=1;i<=amount;i++){
+        r[i] = amount + 1
+        for(let j=0;j<coins.length;j++){
+            if(coins[j]<=i){
+                r[i]=r[i]>(r[i-coins[j]]+1)?r[i-coins[j]]+1:r[i];
+            }
+        }
+    }
+    return (r[amount]>=amount + 1?-1:r[amount])
+};
+
 // 334. 递增的三元子序列 递归思想 记录2个值 一个最小值 一个第二小的值
 /**
  * @param {number[]} nums
