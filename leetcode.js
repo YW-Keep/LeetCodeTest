@@ -5727,6 +5727,30 @@ var largeGroupPositions = function(S) {
     return result;
 };
 
+// 849.到最近的人的最大距离 逻辑题
+/**
+ * @param {number[]} seats
+ * @return {number}
+ */
+var maxDistToClosest = function(seats) {
+    var start = -1;
+    var max = 0;
+    for (let index = 0; index < seats.length; index++) {
+        var num = seats[index];
+        if(num == 1) {
+            if(start == -1) {
+                start = index;
+                max = index;                
+            } else {
+                max = Math.max(max,Math.floor((index-start)/2));
+                start = index;
+            }
+        }
+    }
+    max = Math.max(seats.length - start - 1, max)
+    return max
+};
+
 //870. 优势洗牌 先排序 后判断 再取出 还可以字典优化 加快
 /**
  * @param {number[]} A
