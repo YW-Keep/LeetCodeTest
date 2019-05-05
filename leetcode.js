@@ -2320,6 +2320,24 @@ var generate = function(numRows) {
     return result;
 };
 
+// 119. 杨辉三角 II  基础逻辑题
+var getRow = function(rowIndex) {
+    if (rowIndex == 0) { return [1] };
+    if (rowIndex == 1) { return [1,1] };
+    var num = rowIndex - 1;
+    var result = [1,1];
+    while (num > 0 ) {
+        var newArray = [1];
+        for (let index = 1; index < result.length; index++) {
+            newArray.push(result[index -1] + result[index])
+        }
+        newArray.push(1);
+        result = newArray
+        num -- ;
+    }
+    return result
+};
+
 // 120.三角形最小路径和  动态规划 计算每层最小值
 /**
  * @param {number[][]} triangle
@@ -4387,6 +4405,28 @@ var fib = function(N) {
     }
 };
 
+// 518. 零钱兑换 II  动态规划
+/**
+ * @param {number} amount
+ * @param {number[]} coins
+ * @return {number}
+ */
+var change = function(amount, coins) {
+    if(coins.length == 0 || amount <= 0) {
+        return amount == 0 ? 1 : 0;
+    }
+    var backArray = Array(amount + 1).fill(0);
+    backArray[0] = 1;
+    for(let coin of coins) {
+        for (let j = 1; j < backArray.length; j++) {
+            if(j >= coin) {
+                backArray[j] = backArray[j] + backArray[j-coin];
+            }
+        }
+    }
+    return backArray[amount];
+};
+
 // 523. 连续的子数组和 记录每次加后的余数 余数相等则表示中间一段相加为目标值
 /**
  * @param {number[]} nums
@@ -5096,6 +5136,35 @@ var calPoints = function(ops) {
         result += num; 
     }
     return result;
+};
+
+// 692.前K个高频单词  字典排序
+/**
+ * @param {string[]} words
+ * @param {number} k
+ * @return {string[]}
+ */
+var topKFrequent = function(words, k) {
+    var mapBack = new Map();
+    var arrayBack = new Array();
+    for (let index = 0; index < words.length; index++) {
+        var key = words[index];
+        if(mapBack.get(key) == null) {
+            mapBack.set(key,1);
+            arrayBack.push(key);
+        } else {
+            mapBack.set(key,mapBack.get(key) + 1)
+        }
+    }
+    arrayBack.sort(compare)
+    return arrayBack.slice(0,k);
+    function compare (a,b) {
+        if(mapBack.get(a) == mapBack.get(b)) {
+            return a.localeCompare(b)
+        } else {
+            return  mapBack.get(b) - mapBack.get(a)
+        }
+    }
 };
 
 // 704. 二分查找  如题
