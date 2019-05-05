@@ -1790,6 +1790,32 @@ var maximalRectangle = function(matrix) {
     return max;
 };
 
+//86. 分隔链表 摘出大数再归并到数组末端
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function(head, x) {
+    var newHand = new ListNode(0);
+    var back = new ListNode(0);
+    var bNode = back;
+    newHand.next = head;
+    var node = newHand;
+    while(node.next != null) {
+        if(node.next.val >= x) {
+            bNode.next =  node.next;
+            node.next = node.next.next;
+            bNode = bNode.next;6
+            bNode.next = null;
+        } else {
+            node = node.next;
+        }
+    }
+    node.next = back.next;
+    return newHand.next;
+};
+
 // 88.合并2个有序数组 从尾部开始存放
 
 /**
@@ -4936,6 +4962,15 @@ var checkPossibility = function(nums) {
         
     }
     return true;
+};
+
+// 667. 优美的排列 II  找规律  贪心算法 先满足条件 最后直接按i补入就好
+var constructArray = function(n, k) {  
+    let arr = [1]
+    for (let i = 1; i < n; i++) {
+      arr[i] = k > 0 ? i%2 !== 0 ? arr[i-1] + k-- : arr[i-1] - k-- : i+1
+    }
+    return arr
 };
 
 // 670.最大交换  排序对比
