@@ -2530,6 +2530,46 @@ var detectCycle = function(head) {
     return slow;
 };
 
+// 143. 重排链表  快慢指针 找到后面的链表反转再拼接
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+var reorderList = function(head) {
+
+    if(!head) {return null}
+    var fast =  head.next;
+    var slow = head;
+    while(fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next;
+        fast = fast.next;
+    }
+    var newNode = slow.next;
+    slow.next = null;
+    newNode = reverse(newNode);
+    var fast = head;
+    while(newNode) {
+        var back = fast.next;
+        fast.next = newNode;
+        newNode = newNode.next;
+        fast.next.next = back;
+        fast = back;
+    }
+    return head;
+
+    function reverse(head) {
+        var newHead = null;
+        while(head) {
+            var stage = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = stage;
+        }
+        return newHead;
+    };
+};
+
 // 148. 排序链表 归并排序 先用快慢指针做拆分
 /**
  * @param {ListNode} head
