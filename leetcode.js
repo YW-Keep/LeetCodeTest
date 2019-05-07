@@ -5207,6 +5207,24 @@ var topKFrequent = function(words, k) {
     }
 };
 
+// 693. 交替位二进制数  简单逻辑题
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var hasAlternatingBits = function(n) {
+    if(n < 3) {return true}
+    var num = n%2;
+    var newN = Math.floor(n/2);
+    while(newN > 0) {
+        var newNum = newN%2;
+        if(newNum == num) { return false}
+        num = newNum;
+        newN = Math.floor(newN/2);
+    }
+    return true;
+};
+
 // 704. 二分查找  如题
 /**
  * @param {number[]} nums
