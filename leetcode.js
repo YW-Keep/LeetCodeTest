@@ -4278,6 +4278,23 @@ var hammingDistance = function(x, y) {
     }
     return count;
 };
+
+// 492. 构造矩形 开方找数字
+/**
+ * @param {number} area
+ * @return {number[]}
+ */
+var constructRectangle = function(area) {
+    var num = Math.floor(Math.sqrt(area))
+    while(num > 1) {
+        if(area%num == 0) {
+            return [area/num,num];
+        }
+        num --;
+    }
+    return [area,1]
+};
+
 // 494.目标和  一个数 肯定是正数或者负数， 那么我们可以加总和 即有  P(+) + P(-) = target 而 P(+) - p(-) = sum; 
 // 那么即有P(+) = (tagrget + sum)/2  也就是问题被转化成了 有个数组找出有多少个子集和为一个数  这就是一个背包问题
 // 背包问题的解法就是动态规划， 先用数组记录每个数能生成的次数，每次加一个数则遍历一遍比他大的数 减去这个数累加。如此计算
