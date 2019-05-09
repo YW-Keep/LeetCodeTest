@@ -7844,6 +7844,21 @@ var numPairsDivisibleBy60 = function(time) {
     return sum;
 };
 
+// 1014. 最佳观光组合 （A[i] + A[j] + i - j） 就是 A[i] + i  + A[j] -j
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var maxScoreSightseeingPair = function(A) {
+    var left  = A[0];
+    var result = 0;
+    for (let index = 1; index < A.length; index++) {
+        result = Math.max(result,left + A[index] - index);
+        left = Math.max(left,A[index] + index)
+    }
+    return result;
+};
+
 // 1016. 子串能表示从 1 到 N 数字的二进制串  暴力解法
 /**
  * @param {string} S
