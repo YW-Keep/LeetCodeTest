@@ -7989,3 +7989,26 @@ var twoCitySchedCost = function(costs) {
     }
     return result;
 };
+
+// 1033. 移动石子直到连续 基本逻辑题
+/**
+ * @param {number} a
+ * @param {number} b
+ * @param {number} c
+ * @return {number[]}
+ */
+var numMovesStones = function(a, b, c) {
+    var max = Math.max(a,b,c);
+    var min = Math.min(a,b,c);
+    var mid = a + b + c - max - min;
+    var result = max - min - 2;
+    if (result == 0) {
+        return [0,0]
+    } else {
+        if(max - mid < 3 || mid - min < 3) {
+            return [1,result];
+        } else {
+            return [2,result];
+        }
+    }
+};
