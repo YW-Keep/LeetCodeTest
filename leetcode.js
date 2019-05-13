@@ -5242,6 +5242,69 @@ var hasAlternatingBits = function(n) {
     return true;
 };
 
+// 697.数组的度 基本逻辑题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findShortestSubArray = function(nums) {
+    var backMap = new Map()
+    for (let index = 0; index < nums.length; index++) {
+        let num = nums[index];
+        backMap.set(num,backMap.get(num) == null ? 1 : backMap.get(num) + 1);
+    }
+    var max = 0;
+    var backArray = [];
+    for(let map of backMap) {
+        if(map[1] > max) {
+            backArray = [map[0]];
+            max = map[1];
+        } else if (map[1] == max) {
+            backArray.push(map[0])
+        }
+    }
+    if(max == 1) { return 1}
+    var min = nums.length;
+    for(let num of backArray) {
+        var start = 0;
+        while(nums[start] != num) {
+            start++;
+        }
+        var end = nums.length - 1;
+        while(nums[end] != num) {
+            end--;
+        }
+        min = Math.min(end - start + 1,min);
+    }
+    return min;
+};
+// 另外一种写法 少一次循环 用了对象内存开销大
+var findShortestSubArray = function(nums) {
+    let d = 0;
+    let cache = {};
+    nums.forEach((num, index) => {
+      if (cache[num]) {
+        cache[num].size++;
+        cache[num].end = index;
+      } else {
+        cache[num] = {
+          size: 1,
+          start: index,
+          end: index,
+        }
+      }
+      d = Math.max(d, cache[num].size);
+    });
+    let min = nums.length;
+    Object.keys(cache).forEach(item=>{
+          let { size, start, end } = cache[item], depth = end - start + 1;
+          if(size === d && depth < min){
+              min = depth;
+          }
+    })
+    return min;
+  };
+
 // 704. 二分查找  如题
 /**
  * @param {number[]} nums
