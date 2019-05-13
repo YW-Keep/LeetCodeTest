@@ -8090,3 +8090,22 @@ var isBoomerang = function(points) {
     let y3 = points[2][1];
     return (y2 - y1)*(x3 - x2) != (y3 - y2)*(x2 - x1);
 };
+
+// 1038. 从二叉搜索树到更大和树  递归二叉树的后续遍历
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var bstToGst = function(root) {
+    var sum = 0;
+    dfs(root);
+    function dfs(node) {
+        if(node == null) { return };
+        dfs(node.right);
+        sum += node.val;
+        node.val = sum;
+        dfs(node.left)
+    }
+    
+    return root;
+};
