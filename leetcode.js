@@ -2570,6 +2570,23 @@ var reorderList = function(head) {
     };
 };
 
+//144. 二叉树的前序遍历 递归遍历
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function(root) {
+    var result = [];
+    dfs(root)
+    function dfs(node) {
+        if(node == null) {return }
+        result.push(node.val);
+        dfs(node.left);
+        dfs(node.right);
+    }
+    return result;
+};
+
 // 148. 排序链表 归并排序 先用快慢指针做拆分
 /**
  * @param {ListNode} head
