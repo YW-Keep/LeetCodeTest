@@ -4644,6 +4644,35 @@ var diameterOfBinaryTree = function(root) {
     return max;
 };
 
+
+// 551. 学生出勤记录 I  基本逻辑题
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var checkRecord = function(s) {
+    var nA = 0;
+    var nL = 0;
+    for (let index = 0; index < s.length; index++) {
+        let char  =  s.substr(index,1);
+        if(char == "A") {
+            nA++;
+            if(nA > 1) {
+                return false;
+            }
+            nL = 0;
+        } else if(char == "L") {
+            nL++;
+            if(nL > 2) {
+                return false;
+            } 
+        } else {
+            nL = 0;
+        }
+    }
+    return true;
+};
+
 // 557.反转字符串中的单词3  循环就好了
 /**
  * @param {string} s
