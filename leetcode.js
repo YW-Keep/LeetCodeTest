@@ -6039,6 +6039,39 @@ var maxDistToClosest = function(seats) {
     return max
 };
 
+// 856. 括号的分数 堆栈
+/**
+ * @param {string} S
+ * @return {number}
+ */
+var scoreOfParentheses = function(S) {
+    var backArray = [];
+    for (let index = 0; index < S.length; index++) {
+        let char  = S.substr(index,1);
+        if(char == "(") {
+            backArray.push("(")
+        } else {
+          var node =  backArray.pop()
+          if(node == "(") {
+              backArray.push(1);
+          } else {
+              var num = 0;
+              while(node != "(") {
+                  num += node;
+                  node =  backArray.pop()
+              }
+              num = num*2;
+              backArray.push(num)
+          }
+        }
+    }
+    var result = 0;
+    for (let index = 0; index < backArray.length; index++) {
+        result += backArray[index];        
+    }
+    return result;
+};
+
 //870. 优势洗牌 先排序 后判断 再取出 还可以字典优化 加快
 /**
  * @param {number[]} A
