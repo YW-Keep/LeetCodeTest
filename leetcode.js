@@ -4164,6 +4164,30 @@ var canPartition = function(nums) {
     }
 };
 
+ // 429. N叉树的层序遍历 基本逻辑题
+ /**
+ * @param {Node} root
+ * @return {number[][]}
+ */
+var levelOrder = function(root) {
+    if(root == null) {return []}
+    var result = [];
+    var backArray = [root];
+    while(backArray.length > 0 ) {
+        var newBack = [];
+        var nodeVal = [];
+        for(let node of backArray) {
+            nodeVal.push(node.val);
+            if(node.children != null) {
+                newBack = newBack.concat(node.children);
+            }          
+        }
+        backArray = newBack;
+        result.push(nodeVal);
+    }
+    return result;
+};
+
 //434.字符串中的单词数 空格分割
 /**
  * @param {string} s
