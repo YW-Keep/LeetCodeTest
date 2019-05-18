@@ -8212,3 +8212,28 @@ var bstToGst = function(root) {
     
     return root;
 };
+
+// 1041.困余环中的机器人只有一次循环后 还向北 且不再远点 才能出去
+/**
+ * @param {string} instructions
+ * @return {boolean}
+ */
+var isRobotBounded = function(instructions) {
+    var x = 0,y = 0, dx = 0,dy = 1;
+    for (let index = 0; index < instructions.length; index++) {
+        var char = instructions.substr(index,1);
+        if(char == 'L') {
+            var bdy = dy;
+            dy = dx;
+            dx = -bdy;
+        } else if(char == 'R') {
+            var bdy = dy;
+            dy = -dx;
+            dx = bdy;
+        } else {
+            x = x + dx;
+            y = y + dy;
+        }
+    }
+    return (x == 0 && y == 0) || !(dx == 0 && dy == 1)
+};
