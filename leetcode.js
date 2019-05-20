@@ -3340,6 +3340,28 @@ var maxSlidingWindow = function(nums, k) {
     return result;
 };
 
+// 257. 二叉树的所有路径 基本逻辑题
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function(root) {
+    var result = [];
+    dfs(root,"");
+    function dfs(node, str) {
+        if(node == null) { return }
+        var newStr = str.length > 0 ? str + "->" + node.val.toString() : node.val.toString();
+        if(node.left == null && node.right == null) {
+            result.push(newStr)
+        } else {
+            dfs(node.left,newStr);
+            dfs(node.right,newStr);
+        }
+    }
+    return result;
+};
+
+
 // 260. 只出现一次的数字 III  map 消除
 /**
  * @param {number[]} nums
@@ -7946,6 +7968,26 @@ var bstFromPreorder = function(preorder) {
     return root;
 };
 
+// 1010. 总持续时间可被 60 整除的歌曲 一个60的数组记录然后遍历一半统计就可以了
+/**
+ * @param {number[]} time
+ * @return {number}
+ */
+var numPairsDivisibleBy60 = function(time) {
+    var back = new Array(60).fill(0);
+    for(let num of time) {
+        var index = num%60;
+        back[index] += 1;
+    }
+    var sum =0;
+    for (let index = 1; index < 30; index++) {
+        sum += back[index]*back[60-index];
+    }
+    sum += back[0]*(back[0] - 1)/2;
+    sum += back[30]*(back[30] - 1)/2;
+    return sum;
+};
+
 // 1011. 在 D 天内送达包裹的能力  确定区间二分搜索
 /**
  * @param {number[]} weights
@@ -7989,25 +8031,32 @@ var shipWithinDays = function(weights, D) {
 
 };
 
-
-// 1013. 总持续时间可被 60 整除的歌曲 一个60的数组记录然后遍历一半统计就可以了
+// 1013. 将数组分成和相等的三个部分 基本逻辑题
 /**
- * @param {number[]} time
- * @return {number}
+ * @param {number[]} A
+ * @return {boolean}
  */
-var numPairsDivisibleBy60 = function(time) {
-    var back = new Array(60).fill(0);
-    for(let num of time) {
-        var index = num%60;
-        back[index] += 1;
+var canThreePartsEqualSum = function(A) {
+    var sum = 0;
+    for (let index = 0; index < A.length; index++) {
+        sum += A[index];
     }
-    var sum =0;
-    for (let index = 1; index < 30; index++) {
-        sum += back[index]*back[60-index];
+    if(sum%3 != 0) {return false}
+    var score = sum/3;
+    var sum = 0;
+    // 记录到目标值的次数
+    var back = 0;
+    for (let index = 0; index < A.length; index++) {
+        if (sum == score) {
+            sum = 0;
+            back++;
+            if(back > 1) {
+                return true;
+            }
+        }  
+        sum += A[index];
     }
-    sum += back[0]*(back[0] - 1)/2;
-    sum += back[30]*(back[30] - 1)/2;
-    return sum;
+    return  false;
 };
 
 // 1014. 最佳观光组合 （A[i] + A[j] + i - j） 就是 A[i] + i  + A[j] -j
