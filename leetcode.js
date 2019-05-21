@@ -8262,6 +8262,36 @@ var bstToGst = function(root) {
     return root;
 };
 
+//  1040. 移动石子直到连续 II 逻辑思考题 
+/**
+ * @param {number[]} stones
+ * @return {number[]}
+ */
+var numMovesStonesII = function(stones) {
+    stones.sort((a,b)=> a - b)
+    var n = stones.length
+    var max = stones[n -1] - stones[0] + 1 - n;
+    max = max - Math.min(stones[n-1] - stones[n-2]-1,stones[1]-stones[0]-1);
+    var mi = max;
+    var j = 0;
+    for (let i = 0; i < n; i++) {
+        // 找一个区域能能放下所有子的最小的
+        while(j+1 < n && stones[j + 1] - stones[i] < n) {
+            j++;
+        }
+        // 看看有多少空点在这个区域
+        var cost = n -(j - i + 1);
+        // 排除一情况 一排连续 多出一个点 需要两步 所以加一
+        if(j - i === n - 2 && stones[j] - stones[i] === j - i) {
+            cost++;
+        }
+        mi = Math.min(mi,cost);
+    }
+    return [mi,max];
+
+};
+
+
 // 1041.困余环中的机器人只有一次循环后 还向北 且不再远点 才能出去
 /**
  * @param {string} instructions
