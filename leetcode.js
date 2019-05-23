@@ -8316,3 +8316,21 @@ var isRobotBounded = function(instructions) {
     }
     return (x == 0 && y == 0) || !(dx == 0 && dy == 1)
 };
+
+// 1043.分隔数组以得到最大和 动态规划
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var maxSumAfterPartitioning = function(A, K) {
+    var backArray =  new Array(A.length).fill(0);
+    for (let i = 0; i < A.length; i++) {
+        var max =  A[i];
+        for(let j = 1; j <= K &&  i - j + 1 >= 0;j++) {
+            max = Math.max(max,A[i - j + 1]);
+            backArray[i] = Math.max(backArray[i],(i-j<0 ? 0 : backArray[i-j]) + j*max);
+        }
+    }
+    return backArray[A.length -1];
+};
