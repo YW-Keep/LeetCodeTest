@@ -7967,6 +7967,19 @@ var bstFromPreorder = function(preorder) {
     root.right = bstFromPreorder(right);
     return root;
 };
+// 1009. 十进制整数的反码 2^n-N-1; 
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var bitwiseComplement = function(N) {
+    if(N == 0) {return 1};
+    var num = 1;
+    while (N >= num) {
+        num = num*2;
+    }
+    return num - N  -1;
+};
 
 // 1010. 总持续时间可被 60 整除的歌曲 一个60的数组记录然后遍历一半统计就可以了
 /**
@@ -8089,6 +8102,22 @@ var queryString = function(S, N) {
     return true;
 };
 
+// 1017.负二进制转换 辗转相除法 向上取整保证余数不会是负数
+/**
+ * @param {number} N
+ * @return {string}
+ */
+var baseNeg2 = function(N) {
+    result = "";
+    var n = N;
+    while (n != 0) {
+        result = (Math.abs(n%2)).toString() + result;
+        n = Math.ceil(n/-2.0);
+    }
+    return result;
+    
+};
+baseNeg2(2)
 
 
 // 1018. 可被 5 整除的二进制前缀  只留余数防止越界
