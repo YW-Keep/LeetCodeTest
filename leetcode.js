@@ -4504,6 +4504,38 @@ var findRelativeRanks = function(nums) {
     }
 };
 
+// 508. 出现次数最多的子树元素和 基础逻辑题 用map记录  然后再遍历找出最大
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var findFrequentTreeSum = function(root) {
+    var mapBack = new Map();
+    dfs(root);
+    var max = 0;
+    var result = [];
+    for(let node of mapBack) {
+        if(node[1] == max) {
+            result.push(node[0])
+        } else if(node[1] > max) {
+            max = node[1];
+            result = [node[0]]
+        }
+    }
+    return result;
+
+    function dfs(node) {
+        if(node == null) {
+            return 0;
+        }
+        var left = dfs(node.left);
+        var right = dfs(node.right);
+        let num = left + right + node.val;
+        mapBack.set(num,mapBack.get(num) != null ? mapBack.get(num) + 1 : 1);
+        return num;
+    }
+};
+
 // 509.斐波那契数 循环 
 /**
  * @param {number} N
@@ -8117,7 +8149,6 @@ var baseNeg2 = function(N) {
     return result;
     
 };
-baseNeg2(2)
 
 
 // 1018. 可被 5 整除的二进制前缀  只留余数防止越界
@@ -8362,4 +8393,33 @@ var maxSumAfterPartitioning = function(A, K) {
         }
     }
     return backArray[A.length -1];
+};
+
+// 1046. 最后一块石头的重量 最大堆 二分查找
+/**
+ * @param {number[]} stones
+ * @return {number}
+ */
+var lastStoneWeight = function(stones) {
+    stones.sort((a,b)=> b - a)
+    while (stones.length > 1) {
+        let num =  stones.shift() - stones.shift();
+        addNum(num)
+    }
+    function addNum(num) {
+        if(num == 0) {return} 
+        var left = 0;
+        var right = stones.length -1;
+        while(left <= right) {
+            let mid = Math.floor((right - left)/2)  + left;
+            if(stones[mid]  > num) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        stones.splice(left,0,num);
+    }
+    
+    return stones.length > 0 ? stones[0] : 0;
 };
