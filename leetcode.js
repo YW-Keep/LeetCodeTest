@@ -8423,3 +8423,44 @@ var lastStoneWeight = function(stones) {
     
     return stones.length > 0 ? stones[0] : 0;
 };
+
+// 1051. 高度检查器  基础逻辑题
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+var heightChecker = function(heights) {
+    var sortArray = heights.concat();
+    sortArray.sort((a,b) => a - b);
+    var result = 0;
+    for (let index = 0; index < heights.length; index++) {
+        if(sortArray[index] != heights[index]) {
+            result++;
+        }
+    }
+    return result;
+};
+
+//  1052. 爱生气的书店老板  窗口
+/**
+ * @param {number[]} customers
+ * @param {number[]} grumpy
+ * @param {number} X
+ * @return {number}
+ */
+var maxSatisfied = function(customers, grumpy, X) {
+    var sum = 0;
+    for (let index = 0; index < customers.length; index++) {
+        sum += customers[index]*(1-grumpy[index]);
+    }
+    var delt = 0;
+    for (let index = 0; index < X; index++) {
+        delt += customers[index]*grumpy[index];
+    }
+    var dt = delt;
+    for (let index = X; index < customers.length; index++) {
+        dt += customers[index]*grumpy[index] - customers[index -X]*grumpy[index -X];
+        delt = Math.max(dt,delt);
+    }
+    return sum + delt;
+};
