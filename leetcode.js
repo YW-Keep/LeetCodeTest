@@ -8424,6 +8424,26 @@ var lastStoneWeight = function(stones) {
     return stones.length > 0 ? stones[0] : 0;
 };
 
+// 1047. 删除字符串中的所有相邻重复项  基础逻辑题
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeDuplicates = function(S) {
+    var i = 0;
+    while (i < (S.length - 1)) {
+        if(S.substr(i,1) == S.substr(i+1,1)) {
+            S = S.substr(0,i) + S.substr(i+2,S.length - 2 - i)
+            if(i > 0) {
+                i -= 1;
+            }
+        } else {
+            i += 1;
+        }
+    }
+    return S;
+};
+
 // 1051. 高度检查器  基础逻辑题
 /**
  * @param {number[]} heights
