@@ -6093,6 +6093,32 @@ var largeGroupPositions = function(S) {
     return result;
 };
 
+// 841. 钥匙和房间
+/**
+ * @param {number[][]} rooms
+ * @return {boolean}
+ */
+var canVisitAllRooms = function(rooms) {
+    if(rooms.length == 0) {return true}
+    let backArray = new Array(rooms.length).fill(0);
+    backArray[0] = 1;
+    let keyArray = rooms[0];
+    while(keyArray.length > 0) {
+        var key = keyArray.pop();
+        if(backArray[key] == 0) {
+            keyArray =  keyArray.concat(rooms[key]);
+            backArray[key] = 1;
+        }
+    }
+    for (let num of backArray) {
+        if(num != 1) {
+            return false;
+        }
+    }
+    return true;
+};
+
+
 // 849.到最近的人的最大距离 逻辑题
 /**
  * @param {number[]} seats
