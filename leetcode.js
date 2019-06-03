@@ -6093,7 +6093,7 @@ var largeGroupPositions = function(S) {
     return result;
 };
 
-// 841. 钥匙和房间
+// 841. 钥匙和房间 数组记录
 /**
  * @param {number[][]} rooms
  * @return {boolean}
@@ -7810,6 +7810,31 @@ var sumEvenAfterQueries = function(A, queries) {
             sum += A[index];
         }
         result.push(sum);
+    }
+    return result;
+};
+
+// 986.区间列表的交集  基本逻辑题 
+/**
+ * @param {number[][]} A
+ * @param {number[][]} B
+ * @return {number[][]}
+ */
+var intervalIntersection = function(A, B) {
+    let i = 0; 
+    let j = 0;
+    let result = [];
+    while(i < A.length && j < B.length) {
+        let lo = Math.max(A[i][0],B[j][0]);
+        let hi = Math.min(A[i][1],B[j][1]);
+        if(lo <= hi) {
+            result.push([lo,hi]);
+        }
+        if(A[i][1] < B[j][1]) {
+            i++;
+        } else {
+            j++;
+        }
     }
     return result;
 };
