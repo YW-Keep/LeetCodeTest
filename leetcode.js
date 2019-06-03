@@ -5867,6 +5867,27 @@ var kthGrammar = function(N, K) {
     }
  };
 
+ // 783. 二叉搜索树结点最小距离 二叉树的中序遍历
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDiffInBST = function(root) {
+    var min = Number.MAX_VALUE;
+    var pre = null;
+    dfs(root);
+    function dfs(node) {
+        if(node ==null) return;
+        dfs(node.left);
+        if(pre) {
+            min = Math.min(min, node.val - pre);
+        }
+        pre = node.val;
+        dfs(node.right);
+    }    
+    return min;
+};
+
 // 788.旋转数字 简单的逻辑思考
 /**
  * @param {number} N
