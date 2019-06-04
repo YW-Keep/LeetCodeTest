@@ -7399,6 +7399,33 @@ var canReorderDoubled = function(A) {
     }
     return [...dictionary].length==0;
 };
+
+// 957.N天后的牢房  14天一个循环 规律
+/**
+ * @param {number[]} cells
+ * @param {number} N
+ * @return {number[]}
+ */
+var prisonAfterNDays = function(cells, N) {
+    var num = N%14;
+    num = num == 0? 14:num;
+    while(num > 0) {
+        cells = change(cells);
+        num--;
+    }
+    return cells;
+
+    function change(cells) {
+        var newcell = [0];
+        for (let index = 1; index < 7; index++) {
+            newcell.push(cells[index-1] == cells[index+1] ? 1:0);
+        }
+        newcell.push(0);
+        return newcell;
+    }
+  
+};
+
 // 958. 二叉树的完全性检验 层序遍历
 /**
  * Definition for a binary tree node.
@@ -8065,6 +8092,16 @@ var largestSumAfterKNegations = function(A, K) {
         result += num; 
     }
     return result;
+};
+
+// 1006.笨阶层 找规律 N+2>N*(N-1)/(N-2) > N+1;所以做地板除法时 N*(N-1)/(N-2) = N+1 （N>=4）；然后前后可以约掉。 
+/**
+ * @param {number} N
+ * @return {number}
+ */
+var clumsy = function(N) {
+    var backNum =[1,2,2,-1];
+    return N > 4 ? N + backNum[N%4]: (N>2 ? N+3:N)
 };
 
 //  1008. 先序遍历构造二叉树 递归就可以了
