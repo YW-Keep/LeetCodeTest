@@ -8640,3 +8640,22 @@ var maxSatisfied = function(customers, grumpy, X) {
     }
     return sum + delt;
 };
+
+
+// 1071. 字符串的最大公因子  相除法 
+var gcdOfStrings = function(str1, str2) {
+    let back = getSort(str1,str2);
+    while(back[0]!= back[1]) {
+        if(back[0].indexOf(back[1]) == -1) {
+            return ''
+        } else {
+            let temp = back[0].replace(back[1],'');
+            back = getSort(temp,back[1]);
+        }
+    }
+    return back[1];
+
+    function getSort(a,b) {
+        return [a,b].sort((a,b) => b.length -a.length);
+    }
+};
