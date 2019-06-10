@@ -4674,6 +4674,25 @@ var convertBST = function(root) {
     }
 };
 
+// 539. 最小时间差 先转化为分数，在排序判断
+/**
+ * @param {string[]} timePoints
+ * @return {number}
+ */
+var findMinDifference = function(timePoints) {
+    let numPoint = timePoints.map(function(item, index,array){
+        let numArray = item.split(':');
+        return parseInt(numArray[0])*60 + parseInt(numArray[1])
+    });
+    numPoint.sort((a,b)=> a - b)
+    let min = 24*60;
+    for (let index = 0; index < numPoint.length -1; index++) {
+        min = Math.min(min,numPoint[index + 1] - numPoint[index]);
+    }
+    min = Math.min(min,24*60-numPoint[numPoint.length -1] + numPoint[0]);
+    return min;
+};
+
 // 540. 有序数组中的单一元素 有序的，就是个判断了
 /**
  * @param {number[]} nums
