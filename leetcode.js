@@ -4360,6 +4360,23 @@ var hammingDistance = function(x, y) {
     return count;
 };
 
+// 462. 最少移动次数使数组元素相等 II 中位数
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minMoves2 = function(nums) {
+    nums.sort((a,b)=> a - b);
+    let move = 0;
+    let l = 0;
+    let r = nums.length - 1;
+    while (l < r) {
+        move = move + nums[r] - nums[l];
+        l++;
+        r--;  
+    }
+    return move;
+};
 // 492. 构造矩形 开方找数字
 /**
  * @param {number} area
