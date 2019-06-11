@@ -6706,6 +6706,41 @@ var nthMagicalNumber = function(N, A, B) {
     }
 };
 
+// 880. 索引处的解码字符串 先计算size 再倒叙查找
+/**
+ * @param {string} S
+ * @param {number} K
+ * @return {string}
+ */
+var decodeAtIndex = function(S, K) {
+    let numStr = '23456789';
+    let size = 0;
+    var backNum = S.length - 1;
+    for (let index = 0; index < S.length; index++) {
+        let char  = S.substr(index,1);
+        if(numStr.indexOf(char) != -1) {
+            size = size*parseInt(char);
+        } else {
+            size++;
+        }
+        if(size > K) {
+            backNum = index;
+            break;
+        }
+    }
+    for (let index = backNum; index > -1; index--) {
+        let char  = S.substr(index,1);
+        K = K%size;
+        if(K == 0 && numStr.indexOf(char) == -1) {
+            return char;
+        } 
+        if(numStr.indexOf(char) != -1) {
+            size = size/parseInt(char);
+        } else {
+            size = size -1;
+        }
+    }
+};
 // 881.救生艇
 /**
  * @param {number[]} people
