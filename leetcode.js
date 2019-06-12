@@ -4828,6 +4828,25 @@ var reverseWords = function(s) {
     return result;
 };
 
+// 559. N叉树的最大深度  N叉数遍历
+/**
+ * @param {Node} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    var max = 0;
+    dfs(root,0);
+    function dfs(node,num) {
+        if(node == null) {return };
+        num = num + 1;
+        max = Math.max(max,num);
+        for (let index = 0; index < node.children.length; index++) {
+            dfs(node.children[index],num);
+        }
+    }
+    return max;
+};
+
 // 560.和为K的子数组  题目中显示的是连续的子数组的个数。 所以可以用字典
 /**
  * @param {number[]} nums
@@ -8747,4 +8766,33 @@ var gcdOfStrings = function(str1, str2) {
     function getSort(a,b) {
         return [a,b].sort((a,b) => b.length -a.length);
     }
+};
+
+// 1078. Bigram 分词 基础逻辑
+/**
+ * @param {string} text
+ * @param {string} first
+ * @param {string} second
+ * @return {string[]}
+ */
+var findOcurrences = function(text, first, second) {
+    let textArray = text.split(' ');
+    let num = 0;
+    let result = [];
+
+    for (let index = 0; index < textArray.length; index++) {
+        let str = textArray[index];
+        if(num == 2 ) {
+            result.push(str);
+            num = 0;
+        } 
+        if(str == first) {
+            num = 1;
+        }  else if (str == second && num == 1) {
+            num = 2;
+        } else {
+            num = 0;
+        }
+    }
+    return result;
 };
