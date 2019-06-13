@@ -8708,6 +8708,29 @@ var removeDuplicates = function(S) {
     return S;
 };
 
+// 1049. 最后一块石头的重量 II  可以转化为背包问题，两堆数最接近的情况
+/**
+ * @param {number[]} stones
+ * @return {number}
+ */
+var lastStoneWeightII = function(stones) {
+    let sum = 0;
+    let len = stones.length;
+    for(let num of stones) {
+        sum +=num;
+    }
+    let maxCapacity = Math.floor(sum/2);
+    let back =  new Array(maxCapacity +1).fill(0);
+    for (let index = 0; index < len; index++) {
+        let num = stones[index];
+        for (let j = maxCapacity; j >= num; j--) {
+            back[j] = Math.max(back[j],back[j-num] + num);
+            
+        }       
+    }
+    return sum - back[maxCapacity]*2;
+};
+
 // 1051. 高度检查器  基础逻辑题
 /**
  * @param {number[]} heights
