@@ -2228,6 +2228,15 @@ var levelOrderBottom = function(root) {
     return result;
 };
 
+// 112. 路径总和  递归
+var hasPathSum = function(root, sum) {
+    if(root == null) {return false}
+    if(root.left == null && root.right == null) {
+        return root.val - sum == 0;
+    }
+    return hasPathSum(root.left,sum - root.val) || hasPathSum(root.right,sum - root.val)
+};
+
 // 113.路径总和 2  回朔算法 递归算法 都可以
 
 /**
