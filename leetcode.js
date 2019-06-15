@@ -8781,6 +8781,32 @@ var maxSatisfied = function(customers, grumpy, X) {
     return sum + delt;
 };
 
+// 1053. 交换一次的先前排列  逻辑题
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var prevPermOpt1 = function(A) {
+    for (let i = A.length -2 ; i > -1; i--) {
+        if(A[i+1]< A[i]) {
+            var back = i+1;
+            var max  = A[i+1];
+            for (let j = i+2; j < A.length; j++) {
+                if(A[i] > A[j] && A[j] > max) {
+                    back = j;
+                    max = A[j]
+                } else {
+                    break;
+                }
+            }
+            let num = A[back];
+            A[back] = A[i];
+            A[i] = num;
+            break;
+        }
+    }
+    return A;
+};
 
 // 1071. 字符串的最大公因子  相除法 
 var gcdOfStrings = function(str1, str2) {
@@ -8828,3 +8854,5 @@ var findOcurrences = function(text, first, second) {
     }
     return result;
 };
+
+
