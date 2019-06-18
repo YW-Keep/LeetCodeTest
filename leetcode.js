@@ -2228,6 +2228,20 @@ var levelOrderBottom = function(root) {
     return result;
 };
 
+// 108. 将有序数组转换为二叉搜索树 基础逻辑题 
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var sortedArrayToBST = function(nums) {
+    if(nums.length == 0 || nums == null) {return null};
+    let mid = Math.floor(nums.length/2);
+    let root = new TreeNode(nums[mid]);
+    root.left = sortedArrayToBST(nums.slice(0,mid))
+    root.right = sortedArrayToBST(nums.slice(mid+1,nums.length))
+    return root;
+};
+
 // 112. 路径总和  递归
 var hasPathSum = function(root, sum) {
     if(root == null) {return false}
@@ -3801,6 +3815,27 @@ var canMeasureWater = function(x, y, z) {
     }
 };
 
+// 367. 有效的完全平方数 基本逻辑题
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isPerfectSquare = function(num) {
+    if(num == 1) {return true}
+    let left = 0;
+    let right = Math.floor(num/2);
+    while(left <= right) {
+        let mid = Math.floor((left + right)/2)
+        if(mid*mid == num) {
+            return true
+        }else if(mid*mid <num) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return false;
+};
 
 // 386.字典序排序  找规律递归
 /**
