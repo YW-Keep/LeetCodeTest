@@ -2895,6 +2895,15 @@ var majorityElement = function(nums) {
     return major;
 };
 
+// 172. 阶乘后的零  因为0是5*2产生的，所以要数5 与2 的个数，明显5的个数远小于2 所以只要数下5出现的个数就好
+var trailingZeroes = function(n) {
+    let a=0;
+    while(n>=5){
+        n=parseInt(n/5)
+        a+=n
+    }return a;
+};
+
 // 189. 旋转数组 两个自带的方法搞定
 /**
  * @param {number[]} nums
