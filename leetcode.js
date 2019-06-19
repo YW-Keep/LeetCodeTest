@@ -6033,6 +6033,33 @@ var minDiffInBST = function(root) {
     return min;
 };
 
+// 784. 字母大小写全排列 基本逻辑
+/**
+ * @param {string} S
+ * @return {string[]}
+ */
+var letterCasePermutation = function(S) {
+    let result = [];
+    dfs(0,"")
+    function dfs(index,str) {
+        if(index == S.length) {
+            result.push(str);
+            return;
+        }
+        let char = S.substr(index,1);
+        let num = index +1
+        if("1234567890".indexOf(char) == -1) {
+            dfs(num,str + char.toLowerCase());
+            dfs(num,str + char.toUpperCase());
+        }else {
+            dfs(num,str + char);
+        }
+    }
+    return result;
+};
+
+
+
 // 788.旋转数字 简单的逻辑思考
 /**
  * @param {number} N
