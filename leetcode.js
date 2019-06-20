@@ -5118,6 +5118,35 @@ var leastInterval = function(tasks, n) {
     }
     return Math.max((max - 1)*(n+1) + count ,tasks.length)
 };
+
+// 628. 三个数的最大乘积  找三个最大值 和两个最小值 逻辑题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maximumProduct = function(nums) {
+    let max1 = -10000,max2 = -1000,max3 = -1000,min1 = 1000,min2 = 1000;
+    for(let num of nums) {
+        if (num > max1) {
+            max3 = max2;
+            max2 = max1;
+            max1 = num;
+        }  else if (num > max2) {
+            max3 = max2;
+            max2 = num;
+        } else if(num > max3) {
+            max3 = num;
+        }
+        if(num < min1) {
+            min2 = min1;
+            min1 = num;
+        } else if(num < min2) {
+            min2 = num;
+        }
+    }
+    return Math.max(max1*max2*max3,max1*min1*min2);
+};
+
 // 633.平方数之和 左右指针
 /**
  * @param {number} c
