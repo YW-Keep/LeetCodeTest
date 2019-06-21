@@ -5042,6 +5042,36 @@ var findLHS = function(nums) {
     }
 };
 
+// 599. 两个列表的最小索引总和  基础逻辑题 空间换时间
+/**
+ * @param {string[]} list1
+ * @param {string[]} list2
+ * @return {string[]}
+ */
+var findRestaurant = function(list1, list2) {
+    let backMap = new Map();
+    let newBack = new Map();
+    for (let index = 0; index < list1.length; index++) {
+        backMap.set(list1[index],index);
+    }
+    for (let index = 0; index < list2.length; index++) {
+        if(backMap.get(list2[index]) != null) {
+            newBack.set(list2[index],index + backMap.get(list2[index]));
+        }
+    }
+    let min = list1.length + list2.length ;
+    let result = [];
+    for(let node of newBack) {
+        if(node[1] < min) {
+            min = node[1];
+            result = [node[0]];
+        } else if(node[1] == min) {
+            result.push(node[0]);
+        }
+    }
+    return result;
+};
+
 // 605.种花问题   循环一次
 /**
  * @param {number[]} flowerbed
