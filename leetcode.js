@@ -4528,6 +4528,36 @@ var nextGreaterElement = function(nums1, nums2) {
     return reslut;
 };
 
+// 500. 键盘行  基础逻辑题
+/**
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var findWords = function(words) {
+    let result = [];
+    for (let word of words) {
+        let checkWord = word.toLowerCase();
+        let head = checkWord.substr(0,1);
+        let check = "zxcvbnm";
+        if("qwertyuiop".indexOf(head) != -1) {
+            check = "qwertyuiop";
+        } else if("asdfghjkl".indexOf(head) != -1) {
+            check = "asdfghjkl"
+        }
+        let isCan = true;
+        for (let i = 0; i < checkWord.length; i++) {
+            if(check.indexOf(checkWord.substr(i,1)) == -1) {
+                isCan = false;
+                break;
+            } 
+        }
+        if(isCan) {
+            result.push(word);
+        }
+    }
+    return result;
+};
+
 // 503.下一个更大元素2  这里都可以不用map记录了 用数组就可以了
 /**
  * @param {number[]} nums
