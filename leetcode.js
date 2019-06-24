@@ -4921,6 +4921,25 @@ var subarraySum = function(nums, k) {
     return result;
 };
 
+// 563. 二叉树的坡度 递归
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findTilt = function(root) {
+    let result = 0;
+    if(root == null) {return 0}
+    dfs(root);
+    function dfs(node) {
+      if(node  == null) {return  0};
+      let left  = dfs(node.left);
+      let right =  dfs(node.right);
+      result += Math.abs(left  - right);
+      return node.val + left + right;
+    }
+    return result;
+};
+
 // 572.另一个树的子树  对比2个树是否相同
 /**
  * @param {TreeNode} s
