@@ -9034,6 +9034,40 @@ var findOcurrences = function(text, first, second) {
     return result;
 };
 
+// 1079. 活字印刷 回朔算法
+/**
+ * @param {string} tiles
+ * @return {number}
+ */
+var numTilePossibilities = function(tiles) {
+    let backMap = new Map()
+    for (let i = 0; i < tiles.length; i++) {
+        if(backMap.get(tiles[i]) == null) {
+            backMap.set(tiles[i],1);
+        } else {
+            backMap.set(tiles[i],1 + backMap.get(tiles[i]));
+        }
+    }
+    let backArray = [];
+    for(let map of backMap) {
+        backArray.push(map[1])
+    }
+    let result = 0;
+    // 回朔算法
+    dfs();
+    function dfs(counter) {
+        for (let index = 0; index < backArray.length; index++) {
+            if(backArray[index] == 0) { continue}
+            result += 1;
+            backArray[index] = backArray[index] -1;
+            dfs();
+            // 返回原样
+            backArray[index] = backArray[index] +1;
+        }
+    }
+    return result;
+};
+
 //  1094. 拼车 基础逻辑，一个数组存在车上的人
 /**
  * @param {number[][]} trips
