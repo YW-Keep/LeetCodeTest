@@ -9034,4 +9034,33 @@ var findOcurrences = function(text, first, second) {
     return result;
 };
 
-
+//  1094. 拼车 基础逻辑，一个数组存在车上的人
+/**
+ * @param {number[][]} trips
+ * @param {number} capacity
+ * @return {boolean}
+ */
+var carPooling = function(trips, capacity) {
+    trips.sort((a,b)=>a[1] - b[1]);
+    let inCar = [];
+    let carNum = 0;
+    for (let trip of trips) {
+        let nowAdd = trip[1];
+        let  i = 0 ;
+        while(i < inCar.length) {
+            let inTrip = inCar[i];
+            if(inTrip[2] <= nowAdd) {
+                carNum = carNum - inTrip[0];
+                inCar.splice(i,1);
+            } else {
+                i++
+            }
+        }
+        carNum += trip[0];
+        if(carNum > capacity) {
+            return false;
+        }
+        inCar.push(trip);
+    }
+    return true;
+};
