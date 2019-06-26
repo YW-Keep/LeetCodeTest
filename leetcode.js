@@ -9067,6 +9067,26 @@ var numTilePossibilities = function(tiles) {
     }
     return result;
 };
+// 1081. 不同字符的最小子序列  栈加贪心算法
+/**
+ * @param {string} text
+ * @return {string}
+ */
+var smallestSubsequence = function(text) {
+    let stack = [];
+    for (let i = 0; i < text.length; i++) {
+        let char =  text[i];
+        if(stack.indexOf(char) != -1) {
+            continue;
+        }
+        let nextStr = text.substr(i+1)
+        while(stack.length > 0 && stack[stack.length -1] >= char  && text.substr(i).indexOf(stack[stack.length -1]) != -1) {
+            stack.pop();
+        }
+        stack.push(char);
+    }
+    return stack.join("");
+};
 
 //  1094. 拼车 基础逻辑，一个数组存在车上的人
 /**
