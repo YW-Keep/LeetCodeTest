@@ -9109,6 +9109,22 @@ var smallestSubsequence = function(text) {
     return stack.join("");
 };
 
+// 1089. 复写零 基础逻辑题
+/**
+ * @param {number[]} arr
+ * @return {void} Do not return anything, modify arr in-place instead.
+ */
+var duplicateZeros = function(arr) {
+    let num = arr.length;
+    for (let index = 0; index < num; index++) {
+        if(arr[index] == 0) {
+            arr.splice(index,0,0);
+            arr.length = num;
+            index++;
+        }
+    }
+};
+
 //  1094. 拼车 基础逻辑，一个数组存在车上的人
 /**
  * @param {number[][]} trips
