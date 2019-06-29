@@ -4654,6 +4654,11 @@ var findFrequentTreeSum = function(root) {
     }
 };
 
+// 507. 完美数 穷举法
+var checkPerfectNumber = function(num) {
+    return num == 6 || num == 28 || num == 496 || num == 8128 || num == 33550336;
+};
+
 // 509.斐波那契数 循环 
 /**
  * @param {number} N
