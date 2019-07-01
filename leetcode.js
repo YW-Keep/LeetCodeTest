@@ -4430,6 +4430,27 @@ var minMoves2 = function(nums) {
     }
     return move;
 };
+
+// 485. 最大连续1的个数  基本逻辑题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxConsecutiveOnes = function(nums) {
+    let max = 0;
+    let temp = 0;
+    for(let num of nums) {
+        if(num == 0) {
+            max = Math.max(max,temp);
+            temp = 0;
+        } else {
+            temp++;
+        }
+    }
+    return Math.max(max,temp);
+};
+
+
 // 492. 构造矩形 开方找数字
 /**
  * @param {number} area
