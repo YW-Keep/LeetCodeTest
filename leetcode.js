@@ -4431,6 +4431,28 @@ var minMoves2 = function(nums) {
     return move;
 };
 
+// 482. 密钥格式化 基本逻辑题
+/**
+ * @param {string} S
+ * @param {number} K
+ * @return {string}
+ */
+var licenseKeyFormatting = function(S, K) {
+    let result = "";
+    let num = K;
+    for (let index = S.length - 1; index > -1; index--) {
+        if(S[index] != '-') {
+            if(num == 0) {
+                result = '-' + result;
+                num = K;
+            }
+            result = S[index] + result;
+            num--;
+        }
+    }
+    return result.toUpperCase();
+};
+
 // 485. 最大连续1的个数  基本逻辑题
 /**
  * @param {number[]} nums
