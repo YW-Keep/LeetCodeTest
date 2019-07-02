@@ -6042,6 +6042,46 @@ var dominantIndex = function(nums) {
     }
 };
 
+// 748. 最短完整词  简单逻辑题
+/**
+ * @param {string} licensePlate
+ * @param {string[]} words
+ * @return {string}
+ */
+var shortestCompletingWord = function(licensePlate, words) {
+    licensePlate = licensePlate.toLowerCase();
+    let checkStr = "";
+    for (let index = 0; index < licensePlate.length; index++) {
+        let char = licensePlate[index];
+        if( 90< char.charCodeAt() && char.charCodeAt() < 123) {
+            checkStr += char;
+        }
+    }
+    // 十六位 当标兵 题目描述单词最长15位
+    let min = "xxxxxxxxxxxxxxxx";
+    for(let word  of words) {
+        if(word.length >= min.length) {
+            continue;
+        }
+        let ishave = true;
+        let checkWord = word;
+        for (let index = 0; index < checkStr.length; index++) {
+            let char = checkStr[index];
+            let num = checkWord.indexOf(char);
+            if(num == -1) {
+                ishave = false;
+                break;
+            }
+            checkWord = checkWord.substring(0,num) + checkWord.substring(num+1,checkWord.length);
+        }
+        if(ishave) {
+            min = word;
+        }
+    }
+    return min.length > 15 ? "" : min;
+};
+
+
 
 // 754.到达终点数字 找规律计算 先全加 再找一个数字减 可以只考虑正数的情况
 /**
