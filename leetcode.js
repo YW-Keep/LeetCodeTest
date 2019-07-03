@@ -4293,6 +4293,30 @@ var countSegments = function(s) {
     return s.split(' ').filter(item => item).length;
 };
 
+// 435.无重叠区域 排序 遍历
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var eraseOverlapIntervals = function(intervals) {
+    if(intervals.length < 2) {
+        return 0;
+    }
+    intervals.sort((a,b)=> a[1] -b[1]);
+    let end = intervals[0][1];
+    let result = 0;
+    for (let index = 1; index < intervals.length; index++) {
+        let node = intervals[index];
+        if(node[0] >= end) {
+            end = node[1];
+        } else {
+            end = Math.min(end,node[1]);
+            result++;
+        }
+    }
+    return result;
+};
+
 // 437.路径总和3 递归
 /**
  * @param {TreeNode} root
