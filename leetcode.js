@@ -3799,6 +3799,32 @@ var intersection = function(nums1, nums2) {
     return result;
 };
 
+// 350. 两个数组的交集 II  排序遍历
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersect = function(nums1, nums2) {
+    nums1.sort((a,b) => a - b);
+    nums2.sort((a,b) => a - b);
+    let node1 = 0;
+    let node2 = 0;
+    let result  = [];
+    while(node1 < nums1.length && node2 < nums2.length) {
+        if(nums1[node1] < nums2[node2]) {
+            node1++;
+        } else if (nums1[node1] == nums2[node2]) {
+            result.push(nums1[node1]);
+            node1++;
+            node2++;
+        } else {
+            node2++;
+        }
+    }
+    return result;
+};
+
 // 365. 水壶问题 仔细考虑下 就是  z = ax +by;  这就是 求最大公约数 ，看看 z是不是 他们的倍数  所以问题就转化为求最大公约数了 最后考虑xy等于0以及z大于xy的特殊情况
 /**
  * @param {number} x
