@@ -9293,3 +9293,29 @@ var carPooling = function(trips, capacity) {
     }
     return true;
 };
+
+// 1103. 分糖果 II 等差求和 逻辑题
+
+/**
+ * @param {number} candies
+ * @param {number} num_people
+ * @return {number[]}
+ */
+var distributeCandies = function(candies, num_people) {
+    let num = Math.floor(Math.sqrt(candies*2));
+    while(num*(num +1) > 2*candies) {
+        num--;
+    }
+    let turn =  Math.floor(num/num_people);
+    let result = [];
+    for (let index = 0; index < num_people; index++) {
+        let num = (index + 1 + num_people*(turn - 1) + index + 1)*turn/2;
+        result.push(num);     
+    }
+    let last = num%num_people;
+    for (let index = 0; index < last; index++) {
+        result[index] += index + 1 + turn*num_people;  
+    }
+    result[last] +=  (candies - num*(num +1)/2);
+    return result;
+};
