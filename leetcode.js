@@ -9436,3 +9436,11 @@ var parseBoolExpr = function(expression) {
     }
     return stack[0]=="t" ? true : false;
 }
+// 1108. IP 地址无效化 正则表达式
+/**
+ * @param {string} address
+ * @return {string}
+ */
+var defangIPaddr = function(address) {
+    return address.replace(/\./g,'[.]');
+};
