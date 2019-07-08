@@ -9295,7 +9295,6 @@ var carPooling = function(trips, capacity) {
 };
 
 // 1103. 分糖果 II 等差求和 逻辑题
-
 /**
  * @param {number} candies
  * @param {number} num_people
@@ -9317,5 +9316,27 @@ var distributeCandies = function(candies, num_people) {
         result[index] += index + 1 + turn*num_people;  
     }
     result[last] +=  (candies - num*(num +1)/2);
+    return result;
+};
+
+// 1104.二叉树寻路 基本逻辑题
+/**
+ * @param {number} label
+ * @return {number[]}
+ */
+var pathInZigZagTree = function(label) {
+    let result = [];
+    while(label > 0) {
+        result.unshift(label);
+        label = Math.floor(label/2);
+    }
+    let flg = result.length%2;
+    let base = 2;
+    for (let index = 1; index < result.length; index++) {
+        if(flg == index%2) {
+            result[index] = base*3 - 1 - result[index];
+        }
+        base = base*2;
+    }
     return result;
 };
