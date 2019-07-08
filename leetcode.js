@@ -9340,3 +9340,99 @@ var pathInZigZagTree = function(label) {
     }
     return result;
 };
+// 1106. 解析布尔表达式  递归 或者堆栈 都可以
+/**
+ * @param {string} expression
+ * @return {boolean}
+ */
+var parseBoolExpr = function(expression) {
+    if(expression.length < 3) {
+        return expression[0] == "t" ? true : false;
+    }
+    let step = expression[0];
+    let nums = getArray(expression.substr(2,expression.length - 3));
+    if(step == "!") {
+        return !nums[0];
+    } else {
+        for(let num of nums) {
+            if(step == "&" && num == false) {
+                return false;
+            }
+            if(step == "|" && num == true) {
+                return true;
+            }
+        }
+    }
+    return step == "&" ?  true : false;
+
+    function getArray(node) {
+        let result = [];
+        let i = 0;
+        while(i < node.length) {
+            let char  = node[i];
+            if(char == "t") {
+                result.push(true);
+            } else if (char == "f") {
+                result.push(false);
+            }else {
+                let newNode = char;
+                let num = 0;
+                while(!(node[i] ==")" && num == 0)){
+                    i++;
+                    newNode += node[i];
+                    if(node[i] == "(") {
+                        num++;
+                    } else if(node[i] ==")") {
+                        num--;
+                    }
+                }
+                result.push(parseBoolExpr(newNode));
+            }
+            i +=2;
+        }
+        return result;
+    }
+};
+
+var parseBoolExpr = function(expression) {
+    var stack = [];
+    var cache2;
+
+    for (var i=0; i<expression.length; i++) {
+        var medi2 = '';
+        if (expression[i]==")") {
+            var fSym = false;
+            var tSym = false;
+            var stop = stack.length-1;
+            while (stack[stop] != "(") {
+                var takon = stack.pop();
+                if (!fSym && takon == "f") {
+                    fSym = true;
+                }
+                if (!tSym && takon == "t") {
+                    tSym = true;
+                }
+                stop -= 1;
+            }
+            var calSym = stack[stop-1];
+            if (calSym == "!") {
+               medi2 = fSym ? "true" : "false";
+            } else {
+                if (calSym == "&") {
+                    medi2 = fSym ? "false" : "true";
+                }
+                if (calSym == "|") {
+                    medi2 = tSym ? "true" : "false";
+                }
+            }
+            stack.pop();
+            stack.pop();
+            stack.push(medi2=="true" ? "t" : "f");
+        } else {
+            if (expression[i]!=",") {
+                stack.push(expression[i]);
+            }
+        }
+    }
+    return stack[0]=="t" ? true : false;
+}
