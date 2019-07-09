@@ -9444,3 +9444,67 @@ var parseBoolExpr = function(expression) {
 var defangIPaddr = function(address) {
     return address.replace(/\./g,'[.]');
 };
+
+// 1110. 删点成林  二叉树的遍历，暴力解法
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number[]} to_delete
+ * @return {TreeNode[]}
+ */
+var delNodes = function(root, to_delete) {
+    if(root == null){return}
+    let result = [root];
+    for (let index = 0; index < to_delete.length; index++) {
+        dNodes(to_delete[index]);
+    }
+    return result;
+
+    function dNodes(num) {
+       for (let index = 0; index < result.length; index++) {
+           let node = result[index];
+           if(node.val == num) {
+               result.splice(index,1);
+               addNode(node);
+               return;
+           }
+           let stack = [node];
+           while(stack.length > 0) {
+               let inNode = stack.shift();
+               if(inNode.left) {
+                   if(inNode.left.val == num) {
+                        addNode(inNode.left);
+                        inNode.left = null;
+                        return;
+                   }
+                   stack.push(inNode.left);
+               }
+               if(inNode.right) {
+                    if(inNode.right.val == num) {
+                        addNode(inNode.right);
+                        inNode.right = null;
+                        return;
+                    }
+                    stack.push(inNode.right);
+               }               
+           }
+       } 
+    }
+
+    function addNode(node) {
+        if(node.left) {
+            result.push(node.left);
+        }
+        if(node.right) {
+            result.push(node.right);
+        }
+    }
+
+};
+
