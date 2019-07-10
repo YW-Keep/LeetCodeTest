@@ -9508,3 +9508,24 @@ var delNodes = function(root, to_delete) {
 
 };
 
+// 1109. 航班预订统计 扫描线法
+/**
+ * @param {number[][]} bookings
+ * @param {number} n
+ * @return {number[]}
+ */
+var corpFlightBookings = function(bookings, n) {
+    let backMap = new Map();
+    for (let booking of bookings) {
+        backMap.set(booking[0],booking[2] + (backMap.get(booking[0]) ? backMap.get(booking[0]): 0));
+        backMap.set(booking[1] + 1, -1*booking[2] + (backMap.get(booking[1] +1) ? backMap.get(booking[1] +1): 0));
+    }
+    let result = [];
+    let back = 0;
+    for (let index = 0; index < n; index++) {
+        back = back + (backMap.get(index+1) ? backMap.get(index+1) : 0);
+        result.push(back);
+    }
+    return result;
+};
+
