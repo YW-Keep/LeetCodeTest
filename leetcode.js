@@ -3411,6 +3411,15 @@ var binaryTreePaths = function(root) {
     return result;
 };
 
+// 258. 各位相加 逻辑题
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var addDigits = function(num) {
+    if(num >= 9 && num%9 == 0) return 9;
+    return num%9;
+};
 
 // 260. 只出现一次的数字 III  map 消除
 /**
