@@ -3113,6 +3113,27 @@ var containsDuplicate = function(nums) {
     }
     return false;
 };
+
+// 219. 存在重复元素 II map 暂存
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var containsNearbyDuplicate = function(nums, k) {
+    let backMap = new Map();
+    for (let index = 0; index < nums.length; index++) {
+        if(backMap.get(nums[index]) != null) {
+            if(index - backMap.get(nums[index]) <= k) {
+                return true
+            }
+        }
+        backMap.set(nums[index],index);
+    }
+    return false
+};
+
+
 //  222. 完全二叉树的节点个数  递归算法  当然也可以左右树判断 进行递归调用
 /**
  * Definition for a binary tree node.
