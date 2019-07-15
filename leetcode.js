@@ -2948,6 +2948,27 @@ var rob = function(nums) {
     return Math.max(have, noHave);
 };
 
+// 202. 快乐数 递归
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function(n) {
+    if(n == 1 || n == 7) {
+        return true;
+    }
+    if (n < 10) {
+        return false;
+    }
+    let sum = 0;
+    while(n >= 1) {
+        let num = n%10;
+        n = Math.floor(n/10);
+        sum += num*num;
+    }
+    return isHappy(sum);
+};
+
 // 203.移除链表元素
 /**
  * Definition for singly-linked list.
@@ -2973,6 +2994,53 @@ var removeElements = function(head, val) {
     }
     return head.val == val ? head.next : head;
 };
+
+// 204. 计数质数  采用厄拉多塞筛法
+var countPrimes = function(n) {
+    if(n < 3) {return 0};
+    let backNum = Array(n).fill(true);
+    backNum[0] = false;
+    backNum[1] = false;
+    for (let i = 2; i*i < backNum.length; i++) {
+        if(backNum[i]) {
+            for (let j = i*i; j < backNum.length; j+=i) {
+                backNum[j] = false;
+            }
+        }
+    }
+    let result = 0;
+    for(let isCount of backNum) {
+        if(isCount) {
+            result +=1;
+        }
+    }
+    return result;
+};
+// 205. 同构字符串 基础逻辑题
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isIsomorphic = function(s, t) {
+    return check(s,t) && check(t,s);
+    function check(a,b){
+        let backMap = new Map();
+        for (let i = 0; i < a.length; i++) {
+            let charA =  a.substr(i,1);
+            let charB =  b.substr(i,1);
+            if(backMap.get(charA)) {
+                if(backMap.get(charA) != charB) {
+                    return false;
+                } 
+            } else {
+                backMap.set(charA,charB);
+            }
+        }
+        return true;
+    }
+};
+
 
 // 206. 反转链表 循环 递归
 /**
