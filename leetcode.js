@@ -4475,6 +4475,44 @@ var arrangeCoins = function(n) {
     return Math.floor((Math.sqrt(8*n + 1) -1)/2);
 };
 
+// 445. 两数相加 II 堆栈 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    let stack1 = getNum(l1);
+    let stack2 = getNum(l2);
+    let backNum = 0;
+    let result = null;
+    while(stack1.length > 0 || stack2.length > 0 || backNum > 0)  {
+        let num = (stack1.length > 0 ? stack1.pop() : 0) + (stack2.length > 0 ? stack2.pop() : 0) + backNum;
+        backNum = Math.floor(num/10);
+        num = num%10
+        let node = new ListNode(num);
+        node.next = result;
+        result = node;
+    }
+    return result;
+
+    function getNum(node) {
+        let stack = [];
+        while(node) {
+            stack.push(node.val);
+            node = node.next;
+        }
+        return stack;
+    }
+};
+
 // 448.找到所有数组中消失的 因为是1-N的数 用正负记录是否存在
 /**
  * @param {number[]} nums
