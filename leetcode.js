@@ -9665,3 +9665,34 @@ var corpFlightBookings = function(bookings, n) {
     return result;
 };
 
+// 1122. 数组的相对排序  基础逻辑题
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number[]}
+ */
+var relativeSortArray = function(arr1, arr2) {
+
+    var backArray = Array(arr2.length).fill(0);
+    var noArray = [];
+    for(let num of  arr1)  {
+        let index = arr2.indexOf(num);
+        if(index > -1) {
+            backArray[index] += 1;
+        } else {
+            noArray.push(num);
+        }
+    }
+    let result = [];
+    for (let index = 0; index < arr2.length; index++) {
+        let num = arr2[index];
+        let sum = backArray[index];
+        while(sum > 0) {
+            result.push(num);
+            sum--;
+        }
+    }
+    noArray.sort((a,b) => a-b);
+    result = result.concat(noArray);
+    return result;
+};
