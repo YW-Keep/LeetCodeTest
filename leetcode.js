@@ -6476,6 +6476,34 @@ var rotatedDigits = function(N) {
     return count;
 };
 
+// 791. 自定义字符串排序  基础逻辑题
+/**
+ * @param {string} S
+ * @param {string} T
+ * @return {string}
+ */
+var customSortString = function(S, T) {
+    let result = "";
+    let backArray =  new Array(S.length).fill(0);
+    for (let index = 0; index < T.length; index++) {
+        let char  = T[index];
+        let num = S.indexOf(char);
+        if(num > -1) {
+            backArray[num] +=1;
+        } else {
+            result += char;
+        }
+    }
+    for (let index = 0; index < backArray.length; index++) {
+        let num = backArray[index];
+        while(num > 0) {
+            result += S[index];
+            num--;
+        }
+    }
+    return result;
+};
+
 // 795.区间子数数组个数
 var numSubarrayBoundedMax = function(A, L, R) {
     var c_length = 0;  // 遍历位置
