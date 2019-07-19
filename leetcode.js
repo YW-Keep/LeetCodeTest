@@ -7581,6 +7581,36 @@ var partitionDisjoint = function(A) {
     return 0;
 };
 
+
+// 917. 仅仅反转字母
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var reverseOnlyLetters = function(S) {
+    let start = 0;
+    let end = S.length -1;
+    while(start  < end) {
+        if(!checkEng(S[start])) {
+            start++;
+        } else if(!checkEng(S[end])) {
+            end--;
+        } else {
+            let char1 = S[start];
+            let char2 = S[end];
+            S = S.substr(0,start) + char2 + S.substr(start +1,end - start -1) + char1 + S.substr(end+1);
+            start++;
+            end--;
+        }
+    }
+    return S;
+
+    function checkEng(num) {
+        var reg = /^[A-Za-z]+$/;
+        return reg.test(num)
+    }
+};
+
 // 921. 使括号有效的最少添加  逻辑判断题
 /**
  * @param {string} S
