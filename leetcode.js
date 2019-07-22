@@ -4987,6 +4987,38 @@ var findMaxLength = function(nums) {
     return max;
 };
 
+//  530. 二叉搜索树的最小绝对差 二叉树的中序遍历
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var getMinimumDifference = function(root) {
+    let res = Infinity;
+    let back = null;
+    dfs(root);
+    function dfs(node) {
+        if(node == null) {return};
+        dfs(node.left);
+        if(back != null) {
+            res = Math.min(res,node.val - back.val);
+        }
+        back = node;
+        dfs(node.right);
+    }
+    return res;
+};
+
+
+
+
 //538.把二叉搜索树转换为累加树  递归调用
 /**
  * @param {TreeNode} root
@@ -5392,6 +5424,27 @@ var canPlaceFlowers = function(flowerbed, n) {
    return count == n;
 };
 
+// 611.有效三角形的个数  排序，双指针
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var triangleNumber = function(nums) {
+    nums.sort((a,b)=> a - b);
+    let result = 0;
+    for (let i = nums.length -1; i > 1; i--) {
+        let j = 0,k = i -1;
+        while(j < k) {
+            if(nums[j] + nums[k] > nums[i]) {
+                result += k -j;
+                k--;
+            } else {
+                j++;
+            }
+        }
+    }
+    return result;
+};
 // 617.合并二叉树
 /**
  * @param {TreeNode} t1
@@ -5524,6 +5577,28 @@ var findLongestChain = function(pairs) {
         }
     }
     return result;
+};
+
+// 650. 只有两个键的键盘 递归
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var minSteps = function(n) {
+    if(n == 1) {
+        return 0;
+    }
+    if (n%2 == 0) {
+        return minSteps(n/2) +2;
+    }
+    let i = 3;
+    while(i*i <= n) {
+        if(n%i == 0) {
+            return minSteps(n/i) +i;
+        }
+        i+= 2;
+    }
+    return n;
 };
 
 // 653. 两数之和 IV - 输入 BST 二叉树遍历
