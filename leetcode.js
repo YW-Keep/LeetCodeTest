@@ -9829,3 +9829,22 @@ var relativeSortArray = function(arr1, arr2) {
     result = result.concat(noArray);
     return result;
 };
+
+// 1128. 等价多米诺骨牌对的数量 map 记录
+/**
+ * @param {number[][]} dominoes
+ * @return {number}
+ */
+var numEquivDominoPairs = function(dominoes) {
+    let backMap =  new Map();
+    for (let index = 0; index < dominoes.length; index++) {
+        let num = dominoes[index];
+        let key  =  num[0] > num[1] ? num[1]*10 + num[0] : num[0]*10 + num[1];
+        backMap.set(key,backMap.get(key) ?  (backMap.get(key) + 1) : 1)
+    }
+    let result = 0;
+    for(let num of  backMap) {
+        result += (num[1] - 1)*num[1]/2;
+    }
+    return result;
+};
