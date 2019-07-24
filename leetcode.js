@@ -9848,3 +9848,30 @@ var numEquivDominoPairs = function(dominoes) {
     }
     return result;
 };
+
+// 1131. 绝对值表达式的最大值 数学式展开 
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number}
+ */
+var maxAbsValExpr = function(arr1, arr2) {
+    let a = [arr1[0] + arr2[0],arr1[0] + arr2[0]];
+    let b = [arr1[0] + arr2[0],arr1[0] + arr2[0]];
+    let c = [arr1[0] - arr2[0],arr1[0] - arr2[0]];
+    let d = [arr1[0] - arr2[0],arr1[0] - arr2[0]];
+    for (let i = 1; i < arr1.length; i++){
+        let x = arr1[i];
+        let y = arr2[i];
+        a[0] = Math.max(a[0],x+y+i);
+        a[1] = Math.min(a[1],x+y+i);
+        b[0] = Math.max(b[0],x+y-i);
+        b[1] = Math.min(b[1],x+y-i);
+        c[0] = Math.max(c[0],x-y+i);
+        c[1] = Math.min(c[1],x-y+i);
+        d[0] = Math.max(d[0],x-y-i);
+        d[1] = Math.min(d[1],x-y-i);
+    }
+    return Math.max(a[0] - a[1],b[0] - b[1],c[0] - c[1],d[0] - d[1]);
+
+};
