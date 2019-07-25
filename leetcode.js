@@ -4535,6 +4535,31 @@ var findDisappearedNumbers = function(nums) {
     return resultArray;
 };
 
+// 455.分发饼干  贪心算法
+/**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function(g, s) {
+    g.sort((a,b)=>a-b);
+    s.sort((a,b)=>a-b);
+    let si = 0;
+    let gi = 0;
+    let result = 0;
+
+    while(si < s.length && gi < g.length) {
+        if(s[si] >= g[gi]) {
+            result++;
+            si++;
+            gi++;
+        } else {
+            si++;
+        }
+    }
+
+    return result;
+};
 // 458. 可怜的小猪  数字表示最大意思问题
 /**
  * @param {number} buckets
