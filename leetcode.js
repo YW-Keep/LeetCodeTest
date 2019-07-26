@@ -4642,6 +4642,19 @@ var minMoves2 = function(nums) {
     return move;
 };
 
+// 476. 数字的补数  相加就是 2平方减一
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var findComplement = function(num) {
+    let start = 2;
+    while( start - 1 < num) {
+        start = start*2;
+    }
+    return start - 1 - num;
+};
+
 // 482. 密钥格式化 基本逻辑题
 /**
  * @param {string} S
