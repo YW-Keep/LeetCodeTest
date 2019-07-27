@@ -4535,6 +4535,24 @@ var findDisappearedNumbers = function(nums) {
     return resultArray;
 };
 
+// 453. 最小移动次数使数组元素相等  n-1个元素加一 等于一个元素减一，那么要都一样 只要找到最小值其他值减去最小值相加即可
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minMoves = function(nums) {
+    let min = nums[0];
+    for(let num of nums) {
+        min = Math.min(min,num);
+    }
+    let result = 0;
+    for(let num of nums) {
+        result += num -min;
+    }
+    return result;
+};
+
+
 // 455.分发饼干  贪心算法
 /**
  * @param {number[]} g
