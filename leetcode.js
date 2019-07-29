@@ -4138,6 +4138,20 @@ var firstUniqChar = function(s) {
     return first == s.length ? -1 : first;
 };
 
+// 389.找不同  转ASCII 加减 
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {character}
+ */
+var findTheDifference = function(s, t) {
+    let num = 0;
+    for (let index = 0; index < t.length - 1; index++) {
+        num = num + t[index].charCodeAt()  - s[index].charCodeAt();
+    }
+    num += t[t.length -1].charCodeAt();
+    return String.fromCharCode(num);
+};
 // 394.字符串解码 堆栈
 /**
  * @param {string} s
