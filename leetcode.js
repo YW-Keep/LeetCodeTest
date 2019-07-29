@@ -4071,6 +4071,34 @@ var integerReplacement = function(n) {
     return count;
 };
 
+// 383.赎金信 基本逻辑题
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function(ransomNote, magazine) {
+    let backMap = new Map();
+    for (let index = 0; index < magazine.length; index++) {
+        let char  = magazine[index];
+        backMap.set(char,(backMap.get(char) ? backMap.get(char) : 0) + 1);
+    }
+    for (let index = 0; index < ransomNote.length; index++) {
+        let char  = ransomNote[index];
+        let num = backMap.get(char);
+        if(!num) {
+            return false;
+        }
+        num = num -1;
+        if(num == 0) {
+            backMap.set(char,null);
+        } else {
+            backMap.set(char, num);
+        }
+    }
+    return true;
+};
+
 //387.字符串中的第一个唯一字符
 /**
  * @param {string} s
