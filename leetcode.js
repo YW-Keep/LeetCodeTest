@@ -4201,6 +4201,31 @@ var decodeString = function(s) {
     }
 };
 
+// 400. 第N个数字  逻辑题
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var findNthDigit = function(n) {
+    if(n < 9) { return n};
+    let count = 9;
+    let i = 1
+    while((count + (i+1)*9*Math.pow(10,i)) < n) {
+        count += (i+1)*9*Math.pow(10,i);
+        i++;
+    }
+    i++;
+    let remain = n - count;
+    let num1 = Math.floor(remain/i);
+    let num2 = remain%i;
+    let lastNum = 0;
+    if(num2 == 0) {
+        return (Math.pow(10,i-1) - 1 + num1)%10;
+    }
+    num1 +=  Math.pow(10,i-1);
+    return parseInt(num1.toString()[num2 -1]);
+};
+
 // 402.移掉K位数字 当后面的数大于等于前面的数时需要递归到最后，然后要考虑0的情况 K是一个移除循环次数
 /**
  * @param {string} num
