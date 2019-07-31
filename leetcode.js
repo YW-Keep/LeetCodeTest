@@ -9998,3 +9998,18 @@ var maxAbsValExpr = function(arr1, arr2) {
     return Math.max(a[0] - a[1],b[0] - b[1],c[0] - c[1],d[0] - d[1]);
 
 };
+
+
+ // 1137. 第 N 个泰波那契数 最基本的动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var tribonacci = function(n) {
+    let n1 = 0,n2 = 0, n3 = 1,d = n;
+    while((--n) > 0) {
+        d = n1 + n2 + n3;
+        n1 = n2; n2 = n3;n3 = d;
+    }
+    return d;
+};
