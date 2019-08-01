@@ -4781,6 +4781,24 @@ var findMaxConsecutiveOnes = function(nums) {
     return Math.max(max,temp);
 };
 
+// 486.预测赢家 动态规划， 定义 backArray[i][j]为ij先手多的量，那么我们可以想到  backArray[i][j] =   Math.max(nums[i] - backArray[i + 1][j], nums[j] - backArray[i][j - 1]) 那左边与拿右边之中的最大值
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var PredictTheWinner = function(nums) {
+    let n = nums.length;
+    let backArray = new Array(n).fill( new Array(n).fill(0));
+    for (let index = 0; index < n; index++) {
+        backArray[index][index] = nums[index];
+    }
+    for (let i = n - 1; i >= 0; i--) {
+        for (let j = i+1; j < n; j++) {
+            backArray[i][j] = Math.max(nums[i] - backArray[i + 1][j], nums[j] - backArray[i][j - 1])
+        }
+    }
+    return backArray[0][n - 1] >= 0;
+};
 
 // 492. 构造矩形 开方找数字
 /**
