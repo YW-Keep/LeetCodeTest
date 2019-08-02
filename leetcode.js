@@ -10031,3 +10031,34 @@ var tribonacci = function(n) {
     }
     return d;
 };
+
+// 1140. 石子游戏 II 动态规划 i表示现在的位置，j表示M的值
+/** 
+ * @param {number[]} piles
+ * @return {number}
+ */
+var stoneGameII = function(piles) {
+    let len = piles.length;
+    let sum = new Array(len);
+    sum[len -1] = piles[len -1];
+    for (let i = len - 2; i >= 0; i--) {
+        sum[i] = sum[i+1] + piles[i];   
+    }
+    let dp = new Array(len);
+    for (let i = 0; i < len; i++) {
+        dp[i] = new Array(len).fill(0);
+    }
+    for (let i = len - 1; i >= 0; i--) {
+        for (let j = 0; j < len; j++) {
+            let  m = j+1;
+            if(2*m >= len - i) {
+                dp[i][j] = sum[i]
+            } else {
+                for (let k = 1; k <= 2*m; k++) {
+                    dp[i][j] =  Math.max(dp[i][j],sum[i] - dp[i+k][Math.max(k,m) -1])
+                }
+            }
+        }   
+    }
+    return dp[0][0];
+};
