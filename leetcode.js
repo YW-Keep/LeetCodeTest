@@ -4619,6 +4619,34 @@ var minMoves = function(nums) {
     return result;
 };
 
+// 454.四数相加 II  map映射
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @param {number[]} C
+ * @param {number[]} D
+ * @return {number}
+ */
+var fourSumCount = function(A, B, C, D) {
+    let backMap = new Map();
+    for(let Anum of A) {
+        for (let Bnum of B) {
+            let num = Anum + Bnum;
+            backMap.set(num,(backMap.get(num) ? backMap.get(num) : 0)+1)
+        }
+    }
+    let sum = 0;
+    for(let Cnum of C) {
+        for(let Dnum of D) {
+            let num = -(Cnum + Dnum);
+            let count = backMap.get(num);
+            if(count) {
+                sum += count;
+            }
+        }
+    }
+    return sum;
+};
 
 // 455.分发饼干  贪心算法
 /**
@@ -4645,6 +4673,29 @@ var findContentChildren = function(g, s) {
 
     return result;
 };
+
+// 456. 132模式 堆栈找次大元素 倒序遍历
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var find132pattern = function(nums) {
+    if(nums.length < 3) {return  false};
+    let nextNum = Number.MIN_SAFE_INTEGER;
+    let heap = [nums[nums.length -1]];
+    for (let i = nums.length - 2; i >= 0; i--) {
+        let num = nums[i];
+        if(num < nextNum) {
+            return true;
+        }
+        while(heap.length > 0 && num > heap[heap.length - 1]) {
+            nextNum = Math.max(nextNum,heap.pop())
+        }
+        heap.push(num);
+    }
+    return false;
+};
+
 // 458. 可怜的小猪  数字表示最大意思问题
 /**
  * @param {number} buckets
@@ -4725,6 +4776,44 @@ var minMoves2 = function(nums) {
         r--;  
     }
     return move;
+};
+
+// 475. 供暖器 排序 基础逻辑
+/**
+ * @param {number[]} houses
+ * @param {number[]} heaters
+ * @return {number}
+ */
+var findRadius = function(houses, heaters) {
+    houses.sort((a,b) => a - b);
+    heaters.sort((a,b) => a - b);
+    let result = 0;
+    let [i,j] = [0,0];
+    while(i < houses.length) {
+        let house = houses[i];
+        let heater = heaters[j];
+        if(house <= heater) {
+            result = Math.max(result,heater - house);
+        } else {
+            while(j < heaters.length - 1 && heaters[j + 1] < house) {
+                j++;
+                heater = heaters[j];
+            }
+
+            if(j == heaters.length - 1) {
+                result = Math.max(result,house - heater);
+            } else {
+                if(heaters[j+1] - house >  house - heater) {
+                    result = Math.max(result,house - heater);
+                } else {
+                    j++;
+                    result = Math.max(result, heaters[j] - house);
+                }
+            }
+        }
+        i++;
+    }
+    return result;
 };
 
 // 476. 数字的补数  相加就是 2平方减一
