@@ -4602,6 +4602,33 @@ var findDisappearedNumbers = function(nums) {
     return resultArray;
 };
 
+// 451. 根据字符出现频率排序 map映射
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var frequencySort = function(s) {
+    let mapBackup = new Map();
+    for (let i = 0; i < s.length; i++) {
+        mapBackup.set(s[i],(mapBackup.get(s[i]) || 0) +1)
+    }
+    let arrayBackup = [];
+    for (let key  of mapBackup.keys()) {
+        arrayBackup.push(key);
+    }
+    arrayBackup.sort((a,b) => mapBackup.get(b) - mapBackup.get(a));
+    let result = "";
+    for (let char of arrayBackup) {
+        let num = mapBackup.get(char);
+        while(num > 0) {
+            result += char;
+            num--;
+        }
+    }
+    return result;
+};
+
 // 453. 最小移动次数使数组元素相等  n-1个元素加一 等于一个元素减一，那么要都一样 只要找到最小值其他值减去最小值相加即可
 /**
  * @param {number[]} nums
