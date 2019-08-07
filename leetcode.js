@@ -2242,6 +2242,27 @@ var sortedArrayToBST = function(nums) {
     return root;
 };
 
+// 110.平衡二叉树 深度遍历 递归
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function(root) {
+
+    return dfs(root) != -1;
+    function dfs(node) {
+        if(!node) { return 0} 
+        let left = dfs(node.left);
+        if(left == -1) {return -1};
+        let right = dfs(node.right);
+        if(right == -1) {return -1};
+        if(Math.abs(left - right) > 1) {
+            return -1;
+        }
+        return Math.max(left,right) + 1;
+    }
+};
+
 // 112. 路径总和  递归
 var hasPathSum = function(root, sum) {
     if(root == null) {return false}
@@ -4613,10 +4634,7 @@ var frequencySort = function(s) {
     for (let i = 0; i < s.length; i++) {
         mapBackup.set(s[i],(mapBackup.get(s[i]) || 0) +1)
     }
-    let arrayBackup = [];
-    for (let key  of mapBackup.keys()) {
-        arrayBackup.push(key);
-    }
+    let arrayBackup = [...mapBackup.keys()];
     arrayBackup.sort((a,b) => mapBackup.get(b) - mapBackup.get(a));
     let result = "";
     for (let char of arrayBackup) {
