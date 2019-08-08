@@ -2263,6 +2263,31 @@ var isBalanced = function(root) {
     }
 };
 
+// 111. 二叉树的最小深度 递归
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function(root) {
+    
+    if(!root) { return 0};
+    let minNum = Infinity;
+    dfs(root,1);
+    function dfs(node,num) {
+        if(node.left) {
+            dfs(node.left,num +1);
+        } 
+        if(node.right) {
+            dfs(node.right,num+1)
+        }
+        if(!node.left && !node.right) {
+            minNum = Math.min(minNum,num);
+        }
+    }
+    return minNum;
+};
+
+
 // 112. 路径总和  递归
 var hasPathSum = function(root, sum) {
     if(root == null) {return false}
