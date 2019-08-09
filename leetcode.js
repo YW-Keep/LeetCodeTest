@@ -2201,6 +2201,22 @@ var buildTree = function(preorder, inorder) {
     }
 };
 
+// 106.从中序与后序遍历序列构造二叉树 递归
+/**
+ * @param {number[]} inorder
+ * @param {number[]} postorder
+ * @return {TreeNode}
+ */
+var buildTree = function(inorder, postorder) {
+    if(postorder.length == 0) {return null};
+    let root =  new TreeNode(postorder[postorder.length -1]);
+    let num = inorder.indexOf(root.val);
+    let left = inorder.slice(0,num);
+    let right = inorder.slice(num+1);
+    root.left = buildTree(inorder.slice(0,num),postorder.slice(0,num));
+    root.right = buildTree(inorder.slice(num+1),postorder.slice(num,inorder.length-1))
+    return root;
+};
 // 107 二叉树的层序遍历2 遍历完成后反转
 var levelOrderBottom = function(root) {
     if (root == null) {
