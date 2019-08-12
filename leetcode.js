@@ -2448,6 +2448,29 @@ var connect = function(root) {
     return root;
 };
 
+// 117. 填充每个节点的下一个右侧节点指针 II 同116  层序遍历
+var connect = function(root) {
+    if(root == null) {return null};
+    let backup = [root];
+    while(backup.length > 0) {
+        let inArray = [];
+        for (let index = 0; index < backup.length; index++) {
+            let node = backup[index];
+            if(index < backup.length - 1) {
+                node.next = backup[index +1];
+            }
+            if(node.left) {
+                inArray.push(node.left);
+            }
+            if(node.right) {
+                inArray.push(node.right);
+            }
+        }
+        backup = inArray;
+    }
+    return root;
+};
+
 //  118. 杨辉三角 按照逻辑相加
 /**
  * @param {number} numRows
