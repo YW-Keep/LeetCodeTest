@@ -2258,6 +2258,28 @@ var sortedArrayToBST = function(nums) {
     return root;
 };
 
+//  109. 有序链表转换二叉搜索树  转数组 递归创建
+var sortedListToBST = function(head) {
+    let backup = [];
+    let node = head;
+    while(node != null) {
+        backup.push(node.val);
+        node = node.next;
+    }
+    return creatNode(backup);
+    function creatNode(nums) {
+        let length = nums.length;
+        if(length == 0) {
+            return null;
+        }
+        let num = Math.floor(length/2);
+        let root = new TreeNode(nums[num]);
+        root.left = creatNode(nums.slice(0,num));
+        root.right = creatNode(nums.slice(num+1));
+        return root;
+    }
+};
+
 // 110.平衡二叉树 深度遍历 递归
 /**
  * @param {TreeNode} root
