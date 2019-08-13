@@ -10309,3 +10309,28 @@ var stoneGameII = function(piles) {
     }
     return dp[0][0];
 };
+
+
+// 1154. 一年中的第几天  基础逻辑题
+/**
+ * @param {string} date
+ * @return {number}
+ */
+var dayOfYear = function(date) {
+    let month = [31,28,31,30,31,30,31,31,30,31,30,31];
+    let dateArray = date.split('-');
+    let year = Number.parseInt(dateArray[0]);
+    if(year%4 == 0) {
+        month[1] = 29;
+    }
+    if(year%100 == 0 && year%400 != 0) {
+        month[1] = 28;
+    }
+    let months = Number.parseInt(dateArray[1]);
+    let days = 0;
+    for (let index = 0; index < months -1; index++) {
+        days += month[index];
+    }
+    days +=  Number.parseInt(dateArray[2]);
+    return days;
+}
