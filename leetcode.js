@@ -10334,3 +10334,28 @@ var dayOfYear = function(date) {
     days +=  Number.parseInt(dateArray[2]);
     return days;
 }
+
+
+// 1155. 掷骰子的N种方法  动态规划
+/**
+ * @param {number} d
+ * @param {number} f
+ * @param {number} target
+ * @return {number}
+ */
+var numRollsToTarget = function(d, f, target) {
+    if(d*f < target) {return 0};
+    if(d*f == target || d == 1) {return 1};
+    let dp = Array(d).fill(0).map(x => Array(target+1).fill(0));
+    for (let index = 1; index < f+1; index++) {
+        dp[0][index] = 1;
+    }
+    for (let i = 1; i < d; i++) {
+        for (let j = i; j <= target; j++) {
+            for (let k = 1; j-k >=0 && k<= f ; k++) {
+                dp[i][j] = (dp[i][j] + dp[i - 1][j - k])%1000000007;
+            }
+        }
+    }
+    return dp[d-1][target];
+};
