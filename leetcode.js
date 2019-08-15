@@ -2844,6 +2844,31 @@ var maxProduct = function(nums) {
     return result;
 };
 
+// 153. 寻找旋转排序数组中的最小值 二分查找法
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMin = function(nums) {
+    return findNum(0,nums.length -1);
+    function findNum(start,end) {
+        if(start == end) { return nums[start]}
+        let startNum = nums[start];
+        let endNum = nums[end];
+        if (startNum < endNum) {
+            return nums[start];
+        }
+        let mid = Math.floor((end +start)/2 );
+        midNum = nums[mid];
+        if(startNum < midNum) {
+            return findNum(mid+1,end);
+        } else {
+            return findNum(start+1,mid);
+        }
+    }
+};
+
+
 // 155. 最小堆  在用一个堆去记录最小值
 /**
  * initialize your data structure here.
