@@ -2600,6 +2600,34 @@ var maxPathSum = function(root) {
     return maxNum;
 };
 
+// 125.验证回文串  双指针 
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function(s) {
+    s = s.toLowerCase()
+    let start = 0;
+    let end = s.length - 1;
+    let reg= /^[a-z0-9]+$/;
+    while(start < end) {
+        let startChar = s[start];
+        let endChar = s[end];
+        if(!reg.test(startChar)) {
+            start++;
+        } else if(!reg.test(endChar)) {
+            end--;
+        } else {
+            if(startChar != endChar) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+    }
+    return true;
+};
+
 // 128. 最长连续序列  空间换时间 用map
 /**
  * @param {number[]} nums
