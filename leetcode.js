@@ -4555,6 +4555,77 @@ let fizzBuzz = function(n) {
     return res;
 };
 
+// 414. 第三大的数  基础逻辑题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var thirdMax = function(nums) {
+    let first,second,third;
+    for(let num of nums) {
+        if(!first) {
+            first = num;
+        } else if(first <= num) {
+            if(first != num){
+                third = second;
+                second = first;
+                first = num;  
+            }
+        } else if(!second) {
+            second  = num;
+        } else if (second <= num) {
+            if(second != num) {
+                third = second;
+                second = num;
+            }
+        } else if(!third) {
+            third = num;
+        } else if(third <= num) {
+            third = num;
+        }
+    }
+    return third == undefined ?  first : third;
+};
+thirdMax([1,2])
+
+// 415. 字符串相加  基本逻辑题
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var addStrings = function(num1, num2) {
+    let l1 = num1.length - 1;
+    let l2 = num2.length - 1;
+    let result = "",addNum = 0;
+    while(l1 >= 0 && l2 >= 0) {
+        let num = Number.parseInt(num1[l1]) + Number.parseInt(num2[l2]) +addNum;
+        addNum = Math.floor(num/10);
+        num = num%10;
+        result = num.toString() + result;
+        l1--;
+        l2--;
+    }
+    while(l1 >= 0) {
+        let num = Number.parseInt(num1[l1]) + addNum;
+        addNum = Math.floor(num/10);
+        num = num%10;
+        result = num.toString() + result;
+        l1--;
+    }
+    while(l2 >= 0) {
+        let num =  Number.parseInt(num2[l2]) + addNum;
+        addNum = Math.floor(num/10);
+        num = num%10;
+        result = num.toString() + result;
+        l2--;
+    }
+    if(addNum >0) {
+        result = addNum.toString() +result;
+    }
+    return result;
+};
+
 // 416 分割子集 其实最后可以归到背包问题
 /**
  * @param {number[]} nums
@@ -6705,6 +6776,23 @@ var deleteAndEarn = function(nums) {
     function compare(x,y) {
         return x - y;
     }
+};
+
+//  746. 使用最小花费爬楼梯 动态规划
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function(cost) {
+    let last = cost[0];
+    let now = cost[1];
+    for (let index = 2; index < cost.length; index++) {
+        let num = cost[index];
+        num += Math.min(last,now);
+        last = now;
+        now = num;
+    }
+    return Math.min(last,now);
 };
 
 // 747.至少是其他数字两倍的最大数 循环一次记录
