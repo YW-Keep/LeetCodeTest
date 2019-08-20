@@ -4586,7 +4586,6 @@ var thirdMax = function(nums) {
     }
     return third == undefined ?  first : third;
 };
-thirdMax([1,2])
 
 // 415. 字符串相加  基本逻辑题
 /**
@@ -4798,6 +4797,45 @@ var pathSum = function(root, sum) {
  */
 var arrangeCoins = function(n) {
     return Math.floor((Math.sqrt(8*n + 1) -1)/2);
+};
+
+// 443. 压缩字符串 基础逻辑题
+/**
+ * @param {character[]} chars
+ * @return {number}
+ */
+var compress = function(chars) {
+    let [backup,num,start] = ["",0,0];
+    while(start < chars.length) {
+        let char =  chars[start];
+        if(char  == backup) {
+            chars.splice(start,1);
+            num++;
+            start--;
+        } else {
+            if(num > 1) {
+                let backArray = [];
+                while(num >0) {
+                    backArray.unshift((num%10).toString())
+                    num = Math.floor(num/10);
+                }
+                chars.splice(start,0,...backArray)
+                start += backArray.length;
+            } 
+            backup = char;
+            num = 1;
+        }
+        start++;
+    }
+    if(num > 1) {
+        let backArray = [];
+        while(num >0) {
+            backArray.unshift((num%10).toString())
+            num = Math.floor(num/10);
+        }
+        chars.splice(start,0,...backArray)
+    }
+    return chars.length;
 };
 
 // 445. 两数相加 II 堆栈 
