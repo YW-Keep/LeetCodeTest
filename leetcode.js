@@ -3982,6 +3982,19 @@ var coinChange = function(coins, amount) {
     return (r[amount]>=amount + 1?-1:r[amount])
 };
 
+// 326.3的幂  除3 看余数
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfThree = function(n) {
+    if(n < 1) {return false};
+    while(n%3 ==0) {
+        n = n/3
+    }  
+    return n == 1
+};
+
 // 334. 递增的三元子序列 递归思想 记录2个值 一个最小值 一个第二小的值
 /**
  * @param {number[]} nums
