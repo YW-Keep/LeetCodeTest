@@ -3811,6 +3811,39 @@ var numSquares = function(n) {
 };
 
 
+// 290. 单词规律  映射
+/**
+ * @param {string} pattern
+ * @param {string} str
+ * @return {boolean}
+ */
+var wordPattern = function(pattern, str) {
+    let backup = new Map();
+    let backupTwo = new Map();
+    let strArray = str.split(' ');
+    if(strArray.length != pattern.length) {
+        return false;
+    }
+    for (let index = 0; index < pattern.length; index++) {
+        let key = pattern[index];
+        let value = strArray[index];
+        let getValue = backup.get(key);
+        let getKey = backupTwo.get(value);
+        if((getValue == null && getKey != null) ||(getValue != null && getKey == null)) {
+            return false;
+        }
+        if(getValue == null) {
+            backup.set(key,value);
+            backupTwo.set(value,key);
+        }else {
+            if(getValue != value) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
 // 292.Nim游戏 其实4是一个基数 一定能达到的数（即最大值加最小值）
 /**
  * @param {number} n
