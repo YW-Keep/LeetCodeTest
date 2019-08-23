@@ -2660,6 +2660,25 @@ var singleNumber = function(nums) {
     return result;
 };
 
+// 137.只出现一次的数字  获取所有数的和以及单个数的和 再计算
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function(nums) {
+    let backup = new Map()
+    let oneSum = 0;
+    let sum = 0;
+    for(let num of nums) {
+        sum += num;
+        if(backup.get(num) == null) {
+            oneSum +=num;
+            backup.set(num,num);
+        }
+    }
+    return (oneSum*3 - sum)/2 
+};
+
 // 139. 单词拆分   这个题要思索下，其实要想到 前面一部分如果能被分割 增加一个能分割的元素肯定也能被分割 所以就想到了 记录之前值的 动态规划
 /**
  * @param {string} s
