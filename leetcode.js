@@ -2809,6 +2809,32 @@ var preorderTraversal = function(root) {
     return result;
 };
 
+// 145. 二叉树的后序遍历  递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function(root) {
+    let result = [];
+    dfs(root);
+    function dfs(node) {
+        if(node == null) {
+            return;
+        }
+        dfs(node.left);
+        dfs(node.right);
+        result.push(node.val);
+    }
+    return result;
+};
+
 // 148. 排序链表 归并排序 先用快慢指针做拆分
 /**
  * @param {ListNode} head
@@ -5402,6 +5428,44 @@ var findWords = function(words) {
     return result;
 };
 
+// 501.二叉搜索树中的众数 基础逻辑题
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var findMode = function(root) {
+    if(!root) {return []}
+    let result = [];
+    let sum = 0;
+    let num = 0;
+    let max = 0;
+    dfs(root);
+    if(sum > max) {
+        result = [num]
+        max = sum
+    } else if(sum == max) {
+        result.push(num);
+    }
+    function dfs(node) {
+        if(!node) {return};
+        dfs(node.left);
+        if(node.val == num) {
+            sum++;
+        } else {
+            if(sum > max) {
+                result = [num]
+                max = sum
+            } else if(sum == max) {
+                result.push(num);
+            }
+            num = node.val
+            sum = 1
+        } 
+        dfs(node.right);
+    }
+    return result;
+};
+
 // 503.下一个更大元素2  这里都可以不用map记录了 用数组就可以了
 /**
  * @param {number[]} nums
@@ -5544,6 +5608,21 @@ var change = function(amount, coins) {
         }
     }
     return backArray[amount];
+};
+
+// 520. 检测大写字母 基本逻辑题
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
+var detectCapitalUse = function(word) {
+    let upper = word.toLocaleUpperCase()
+    if(upper == word) { return true}
+    let lower = word.toLocaleLowerCase()
+    if(lower  == word) {return true}
+    let newWord =  upper.substr(0,1) + lower.substr(1)
+    if(newWord == word) {return true}
+    return false
 };
 
 // 523. 连续的子数组和 记录每次加后的余数 余数相等则表示中间一段相加为目标值
