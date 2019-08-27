@@ -10682,3 +10682,42 @@ var numRollsToTarget = function(d, f, target) {
     }
     return dp[d-1][target];
 };
+
+// 1171. 从链表中删去总和值为零的连续节点 转成数组判断和是否存在相等的点 然后再剔除
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var removeZeroSumSublists = function(head) {
+    if(!head) { return null}; 
+    let backup = [0];
+    let num = [0];
+    let next =  head;
+    while(next) {
+        let value = next.val;
+        let sum = backup[backup.length -1] + value;
+        num.push(value);
+        if(backup.indexOf(sum) != -1) {
+            let i = backup.indexOf(sum);
+            num = num.slice(0,i+1);
+            backup = backup.slice(0,i+1);
+        }else {
+            backup.push(sum);
+        }
+        next = next.next;
+    }
+    let newHead = new ListNode(0);
+    next = newHead;
+    for (let index = 1; index < num.length; index++) {
+        next.next = new ListNode(num[index]); 
+        next = next.next;
+    }
+    return newHead.next;
+};
+
+let root  = new ListNode(1);
+root.next = new ListNode(2);
+root.next.next = new ListNode(-3);
+root.next.next.next = new ListNode(3);
+root.next.next.next.next = new ListNode(1);
+removeZeroSumSublists(root);
