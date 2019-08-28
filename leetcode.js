@@ -986,6 +986,24 @@ var multiply = function(num1, num2) {
 }
 
 
+// 45. 跳跃游戏 II  顺藤摸瓜
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var jump = function(nums) {
+    let end = 0;
+    let maxPosition = 0;
+    let steps = 0;
+    for (let index = 0; index < nums.length -1; index++) {
+        maxPosition = Math.max(maxPosition, nums[index] + index); 
+        if(index == end) {
+            end = maxPosition;
+            steps++;
+        }
+    }
+    return steps;
+};
 //46. 全排列  2个思路，1深度遍历 2.动态规划
 /**
  * @param {number[]} nums
@@ -10714,10 +10732,3 @@ var removeZeroSumSublists = function(head) {
     }
     return newHead.next;
 };
-
-let root  = new ListNode(1);
-root.next = new ListNode(2);
-root.next.next = new ListNode(-3);
-root.next.next.next = new ListNode(3);
-root.next.next.next.next = new ListNode(1);
-removeZeroSumSublists(root);
