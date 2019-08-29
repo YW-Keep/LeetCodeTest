@@ -9823,6 +9823,49 @@ var sumRootToLeaf = function(root) {
     return result;
 };
 
+// 1024. 视频拼接  排序，动态规划
+/**
+ * @param {number[][]} clips
+ * @param {number} T
+ * @return {number}
+ */
+var videoStitching = function(clips, T) {
+    if(T== 0) {return 0}
+    if(clips.length == 0) {return  -1}
+    clips.sort(function (a, b) {
+        if(a[0] === b[0]) {
+            return b[1] - a[1];
+        } else {
+            return a[0] - b[0];
+        }
+      });
+    let backup = Array(T+1).fill(0);
+    let first = clips[0];
+    if(first[0] > 0 ) {
+        return -1;
+    }
+   
+    let inMax = first[1];
+    for (let index = 0; index <  inMax +1 && index < T+1; index++) {
+        backup[index] = 1;
+    }
+    for (let index = 1; index < clips.length && inMax < T; index++) {
+        let clip = clips[index];
+        if(clip[0] > inMax) {return -1};
+        if(clip[1] > inMax) {
+            let min = backup[clip[0]];
+            for (let index = clip[0] ; index <=  inMax; index++) {
+                min = Math.min(backup[index],min);
+            }
+            for (let index = inMax +1 ; index < clip[1]+1 && index < T+1; index++){
+                backup[index] = min + 1;
+            }
+            inMax = clip[1];
+        }
+    }
+    return backup[T] == 0 ? -1:backup[T];
+};
+
 // 1025. 除数博弈 逻辑题 因为先手为偶数的话，先手只需要让自己每步都保持偶数，那么他可以通过让对手得到的数为奇数，比如偶数-1就是奇数了，对手拿到奇数，那么能整除的只有奇数，奇数-奇数又回到了偶数，最后先手一定会得到最小的偶数2，然后-1让对手得到1，对手无解，必胜。
 
 /**
