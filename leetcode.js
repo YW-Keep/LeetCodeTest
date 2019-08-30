@@ -10744,6 +10744,62 @@ var numRollsToTarget = function(d, f, target) {
     return dp[d-1][target];
 };
 
+// 1170. 比较字符串最小字母出现频次 二分查找
+/**
+ * @param {string[]} queries
+ * @param {string[]} words
+ * @return {number[]}
+ */
+var numSmallerByFrequency = function(queries, words) {
+
+    let backup = []
+    for (let index = 0; index < words.length; index++) {
+        let num = minNum(words[index]);
+        backup.push(num);
+    }
+    backup.sort((a,b)=> a-b);
+    let result = [];
+    for (let index = 0; index < queries.length; index++) {
+        let num = minNum(queries[index]);
+        let maxNum = dfs(num);
+        result.push(maxNum);
+    }
+    return result;
+
+    function minNum (word) {
+        let num = word[0].charCodeAt();
+        let sum = 1;
+        for (let index = 1; index < word.length; index++) {
+            let char = word[index].charCodeAt();
+            if(char < num) {
+                num = char;
+                sum = 1;
+            } else if (char == num) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    function  dfs(num) {
+        let start = 0;
+        let end = backup.length -1;
+        while(start < end) {
+            let mid = Math.floor((start + end)/2);
+            if(backup[mid] <= num) {
+                start = mid +1;   
+            } else {
+                end = mid -1;
+            }
+        }
+        let sum = backup.length - start;
+        if(backup[start] <= num) {
+            sum --;
+        } 
+        return sum;
+    } 
+};
+
 // 1171. 从链表中删去总和值为零的连续节点 转成数组判断和是否存在相等的点 然后再剔除
 /**
  * @param {ListNode} head
