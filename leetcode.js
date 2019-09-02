@@ -10831,3 +10831,31 @@ var removeZeroSumSublists = function(head) {
     }
     return newHead.next;
 };
+
+// 1174. 健身计划评估 基础逻辑题
+/**
+ * @param {number[]} calories
+ * @param {number} k
+ * @param {number} lower
+ * @param {number} upper
+ * @return {number}
+ */
+var dietPlanPerformance = function(calories, k, lower, upper) {
+    let sum = 0;
+    let score = 0;
+    for (let index = 0; index < calories.length; index++) {
+        sum += calories[index];
+        if(index >= k) {
+            sum -= calories[index -k];
+        }
+        if(index >= k - 1) {
+            if(sum < lower) {
+                score--;
+            } else if(sum > upper) {
+                score++;
+            }
+        }
+    }
+    return score;
+    
+};
