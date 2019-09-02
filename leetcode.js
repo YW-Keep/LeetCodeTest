@@ -10774,6 +10774,39 @@ var countCharacters = function(words, chars) {
     }
 };
 
+// 1161. 最大层内元素和 二叉树循环
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxLevelSum = function(root) {
+    if(!root) {return 1};
+    let backup = [root];
+    let num = 0;
+    let max = root.val - 1;
+    let result = 0;
+    while(backup.length > 0) {
+        num++;
+        let sum = 0;
+        let newBackup = [];
+        for(let node of backup) {
+            sum += node.val;
+            if(node.left) {
+                newBackup.push(node.left);
+            }
+            if(node.right) {
+                newBackup.push(node.right);
+            }
+        }
+        if(sum > max) {
+            result = num;
+            max = sum;
+        }
+        backup = newBackup;
+    }
+    return result;
+};
+
 // 1170. 比较字符串最小字母出现频次 二分查找
 /**
  * @param {string[]} queries
