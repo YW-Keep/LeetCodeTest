@@ -10744,6 +10744,36 @@ var numRollsToTarget = function(d, f, target) {
     return dp[d-1][target];
 };
 
+// 1160. 拼写单词  转ascii 数组记录
+/**
+ * @param {string[]} words
+ * @param {string} chars
+ * @return {number}
+ */
+var countCharacters = function(words, chars) {
+    let backup = Array(26).fill(0);
+    for(let char of chars) {
+        backup[char.charCodeAt() - 97] += 1;
+    }
+    let result = 0;
+    for(let word of words) {
+        result += checkWord(word);
+    }
+    return result;
+
+    function checkWord (word) {
+        let inBackup = backup.concat();
+        for (let wChar of word) {
+            inBackup[wChar.charCodeAt() - 97] -= 1;
+            if(inBackup[wChar.charCodeAt() - 97] < 0) {
+                return 0;
+            }
+            
+        }
+        return word.length;
+    }
+};
+
 // 1170. 比较字符串最小字母出现频次 二分查找
 /**
  * @param {string[]} queries
