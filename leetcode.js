@@ -9876,7 +9876,28 @@ var divisorGame = function(N) {
     return N%2 == 0 ? true : false;
 };
 
-
+// 1026. 节点与其祖先之间的最大差值  二叉树的递归
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxAncestorDiff = function(root) {
+    let result = 0
+    dfs(root)
+    return result
+    function dfs(node) {
+        if (!node) {return null}
+        let left = dfs(node.left)
+        let right = dfs(node.right)
+        if(left == null && right == null) {
+            return [node.val,node.val]
+        }
+        let min = Math.min(left != null ? left[0] : right[0],right != null ? right[0]:left[0])
+        let max = Math.max(left != null ? left[1] : right[1],right != null ? right[1]:left[1])
+        result = Math.max(result,Math.abs(node.val-min),Math.abs(node.val-max))
+        return [Math.min(node.val,min),Math.max(node.val,max)]
+    }
+};
 
 // 1029.两地调度 贪心算法
 /**
