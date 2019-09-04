@@ -4131,6 +4131,22 @@ var isPowerOfFour = function(num) {
     return newNum == 1;
 };
 
+// 343. 整数拆分  动态规划 要么是之前的值乘以一个余数要么是只分成2个数相乘
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var integerBreak = function(n) {
+    let backup = Array(n+1).fill(0);
+    backup[2] = 1;
+    for (let i = 3; i < n+1; i++) {
+        for (let j = 1; j < i; j++) {
+            backup[i] = Math.max(backup[i],j*backup[i-j],j*(i-j))
+        }
+    }
+    return backup[n];
+};
+
 // 344.反转字符串 反向循环
 /**
  * @param {string} s
