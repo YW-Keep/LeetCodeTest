@@ -7541,6 +7541,33 @@ var canVisitAllRooms = function(rooms) {
     return true;
 };
 
+// 845. 数组中的最长山脉  逻辑题，增加标识位
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var longestMountain = function(A) {
+    let max = 1;
+    let isHill = true;
+    let length = 1;
+    for (let index = 1; index < A.length; index++) {
+        if(A[index] >A[index-1] && isHill) {
+            length++;
+        } else if (A[index] < A[index-1] && length > 1) {
+            isHill = false;
+            length++;
+            max = Math.max(length,max);
+        } else {
+            if(!isHill) {
+                index--;
+            }
+            isHill = true;
+            length = 1;
+        }
+    }
+    return max > 2 ? max : 0;
+};
+
 
 // 849.到最近的人的最大距离 逻辑题
 /**
