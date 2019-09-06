@@ -7361,6 +7361,27 @@ var uniqueMorseRepresentations = function (words) {
     return new Set(words.map(wordsItem => Array.from(wordsItem).reduce((org, wordItem) => org + [".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."][wordItem.charCodeAt() - 97], ""))).size
 };
 
+// 806.写字符串需要的行数 基础逻辑
+/**
+ * @param {number[]} widths
+ * @param {string} S
+ * @return {number[]}
+ */
+var numberOfLines = function(widths, S) {
+    let len = 1;
+    let sum = 0;
+    for(let node of S) {
+        let num = widths[node.charCodeAt() - 97];
+        if(sum + num > 100) {
+            len++;
+            sum = num;
+        } else {
+            sum += num;
+        }
+    }
+    return [len,sum];
+};
+
 // 813.最大平均和的分组 首先要推出公示 dp[i][k] = dp[j][k-1] + sum(i-j)/(i-j)  也是规划递推
 /**
  * @param {number[]} A
