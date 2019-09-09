@@ -5334,6 +5334,33 @@ var PredictTheWinner = function(nums) {
     return backArray[0][n - 1] >= 0;
 };
 
+// 491. 递增子序列 动态规划
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var findSubsequences = function(nums) {
+    let backMap = new Map();
+    for (let num of nums) {
+        let addKey = [[num]];
+        for (let [key,value] of backMap) {
+            if(num >= value[value.length -1]) {
+                addKey.push(value.concat([num]));
+            }
+        }
+        for (let key of addKey) {
+            backMap.set(key.toString(),key);        
+        }
+    }
+    let result = [];
+    for (let [key,value] of backMap) {
+        if(value.length > 1) {
+            result.push(value);
+        }
+    }
+    return result;
+};
+
 // 492. 构造矩形 开方找数字
 /**
  * @param {number} area
