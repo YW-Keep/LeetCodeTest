@@ -11025,5 +11025,47 @@ var dietPlanPerformance = function(calories, k, lower, upper) {
         }
     }
     return score;
-    
+};
+
+// 1175. 质数排列  先判断质数，再做全排列
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numPrimeArrangements = function(n) {
+    let MOD = Math.pow(10,9) + 7;
+    let p = 0;
+    let np = 0;
+
+    for (let index = 1; index <= n; index++) {
+        if(isPrimeNumber(index)) {
+            p++;
+        } else {
+            np++;
+        }
+    }
+    let result = calculateNum(p,np);
+    return result;
+
+    function isPrimeNumber(num) {
+        if(num < 2) return false;
+        let checkNum = Math.floor(Math.sqrt(num)) + 1
+        for (let i = 2; i < checkNum; i++) {
+            if(num%i == 0) {return false}
+        }
+        return true;
+    }
+
+    function calculateNum (num,num2) {
+        let result = 1;
+        for (let index = 1; index <= num; index++) {
+            result *=index;
+            result = result%MOD;
+        }
+        for (let index = 1; index <= num2; index++) {
+            result *=index;
+            result = result%MOD;
+        }
+        return result;
+    }
 };
