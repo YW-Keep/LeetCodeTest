@@ -11096,3 +11096,26 @@ var numPrimeArrangements = function(n) {
         return result;
     }
 };
+ 
+// 1184. 公交站间的距离  基础逻辑题 
+/**
+ * @param {number[]} distance
+ * @param {number} start
+ * @param {number} destination
+ * @return {number}
+ */
+var distanceBetweenBusStops = function(distance, start, destination) {
+    if(start ==  destination) {return 0};
+    if(start > destination) {return distanceBetweenBusStops(distance,destination,start)}
+    var num1 = 0;
+    var num2 = 0;
+
+    for (let index = 0; index < distance.length; index++) {
+        if(index >= start && index < destination) {
+            num1 += distance[index];
+        } else {
+            num2 += distance[index];
+        }
+    }
+    return Math.min(num1,num2);
+};
