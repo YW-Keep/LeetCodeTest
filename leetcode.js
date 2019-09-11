@@ -11119,3 +11119,34 @@ var distanceBetweenBusStops = function(distance, start, destination) {
     }
     return Math.min(num1,num2);
 };
+
+// 1185. 一周中的第几天  逻辑计算题 
+/**
+ * @param {number} day
+ * @param {number} month
+ * @param {number} year
+ * @return {string}
+ */
+var dayOfTheWeek = function(day, month, year) {
+    let weeks = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let month_days = [31,28,31,30,31,30,31,31,30,31,30,31];
+    let sum = 4;
+    for (let i = 1971; i < year; i++) {
+        if((i%4 == 0 && i%100 != 0) || (i%400==0)) {
+            sum +=366
+        } else {
+            sum +=365
+        }
+    }
+    for (let i = 0; i < month -1; i++) {
+        sum += month_days[i];
+        if(i==1 && ((year%4 == 0 && year%100 != 0) || (year%400==0))) {
+            sum +=1;
+        }
+    }
+    sum += day;
+    return weeks[sum%7];
+};
+
+
+
