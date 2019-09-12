@@ -7523,6 +7523,31 @@ var shortestToChar = function(S, C) {
     return result;
 };
 
+// 824.山羊拉丁文  基础逻辑题
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var toGoatLatin = function(S) {
+    let backup = S.split(' ')
+    let check = 'AaEeIiOoUu'
+    let result = "";
+    for (let index = 0; index < backup.length; index++) {
+        let char = backup[index];
+        if(check.indexOf(char[0]) == -1) {
+            char  =  char.slice(1) + char[0]
+        }
+        let num = index;
+        char += 'ma';
+        while(num >= 0) {
+            char += 'a';
+            num--;
+        }
+        result = result + ' ' + char;
+    }
+    return result.slice(1);
+};
+
 // 826.安排工作以达到最大收益 贪心算法 工作隐射
 /**
  * @param {number[]} difficulty
