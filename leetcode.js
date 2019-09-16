@@ -2669,6 +2669,26 @@ var longestConsecutive = function(nums) {
     return max;
 };
 
+// 134. 加油站 基础逻辑题 
+/**
+ * @param {number[]} gas
+ * @param {number[]} cost
+ * @return {number}
+ */
+var canCompleteCircuit = function(gas, cost) {
+    let sum = 0, run = 0,  start = 0;
+    for (let i = 0; i < gas.length; i++) {
+        let num = gas[i] - cost[i];
+        sum += num;
+        run += num;
+        if(run < 0) {
+            start = i +1;
+            run = 0;
+        }
+    }
+    return  sum < 0 ? -1 : start;
+};
+
 // 136. 只出现一次的数字 想到运算符 就很简单 与运算 2个一样的数就被抵消了 留下来的就是只出现一次的
 var singleNumber = function(nums) {
     var result = 0;
