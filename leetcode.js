@@ -3198,6 +3198,38 @@ var rob = function(nums) {
     return Math.max(have, noHave);
 };
 
+// 199. 二叉树的右视图  递归二叉树的层序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function(root) {
+    if(!root) {return []}
+    let result = []
+    let backup =[root]
+    while(backup.length > 0) {
+        result.push(backup[backup.length -1].val);
+        let newBackup =[];
+        for(let node of backup) {
+            if(node.left) {
+                newBackup.push(node.left)
+            } 
+            if(node.right) {
+                newBackup.push(node.right)
+            }
+        }
+        backup = newBackup
+    }
+    return result
+};
+
 // 202. 快乐数 递归
 /**
  * @param {number} n
