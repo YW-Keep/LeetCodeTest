@@ -4231,6 +4231,39 @@ var reverseString = function(s) {
     return result;
 };
 
+// 345. 反转字符串中的元音字母 双指针
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseVowels = function(s) {
+    let check = "aoeiuAOEIU";
+    let start = 0;
+    let end = s.length -1;
+    let isHave = false;
+    s =s.split('')
+    while(start < end) {
+        if(isHave) {
+            if(check.indexOf(s[end]) == -1) {
+                end--;
+            }else {
+                [s[start], s[end]] = [s[end], s[start]];
+                start++;
+                end--;
+                isHave = false;
+            }
+        } else {
+            if(check.indexOf(s[start]) == -1) {
+                start++;
+            } else {
+                isHave = true;
+            }
+        }
+    }
+    return s.join('');
+};
+
+
 // 347.前K个高频元素  映射成map再排序
 /**
  * @param {number[]} nums
