@@ -3081,6 +3081,25 @@ var getIntersectionNode = function(headA, headB) {
     }
 };
 
+// 162. 寻找峰值 二分查找大的一侧肯定有峰值 因为nums[-1] = nums[n] = -∞
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findPeakElement = function(nums) {
+    let left = 0;
+    let right = nums.length -1;
+    while(left <right) {
+        let mid = Math.floor((left + right)/2)
+        if(nums[mid] > nums[mid +1]) {
+            right = mid;
+        } else {
+            left = mid +1;
+        }
+    }
+    return left;
+};
+
 // 164. 最大间距
 /**
  * @param {number[]} nums
