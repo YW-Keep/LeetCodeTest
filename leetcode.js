@@ -6992,6 +6992,50 @@ var pivotIndex = function(nums) {
     return -1;
 };
 
+// 725.分隔链表  基础逻辑题
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} root
+ * @param {number} k
+ * @return {ListNode[]}
+ */
+var splitListToParts = function(root, k) {
+    let length = 0;
+    let node = root;
+    while(node) {
+        length++;
+        node = node.next;
+    }
+    let num  =  Math.floor(length/k);
+    if(num == 0) { num++};
+    let result = [];
+    node = root;
+    for (let index = 0; index < k; index++) {
+        if(!node) {
+            result.push(null);
+        }else {
+            let run = length - num*k - index > 0 ? num : num - 1;
+            let head = node;
+            while(run > 0) {
+                run--;
+                node = node.next;
+            } 
+            let stap = node.next;
+            node.next = null;
+            node = stap;
+            result.push(head);
+
+        }
+    }
+    return result;
+};
+
 
 // 728.自除数  逻辑题
 /**
