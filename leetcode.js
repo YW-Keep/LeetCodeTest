@@ -11321,5 +11321,37 @@ var dayOfTheWeek = function(day, month, year) {
     return weeks[sum%7];
 };
 
+// 1189. “气球” 的最大数量 基础逻辑
+/**
+ * @param {string} text
+ * @return {number}
+ */
+var maxNumberOfBalloons = function(text) {
+    let backup =[0,0,0,0,0];
+    for (let index = 0; index < text.length; index++) {
+        let char = text[index];
+        switch (char) {
+            case 'a':
+                backup[0] +=1;
+                break;
+            case 'b':
+                    backup[1] +=1;
+                    break;
+            case 'n':
+                    backup[2] +=1;
+                    break;
+            case 'l':
+                    backup[3] +=1;
+                    break;
+            case 'o':
+                    backup[4] +=1;
+                    break;
+            default:
+                break;
+        }
+    }
+    return Math.min(backup[0],backup[1],backup[2],Math.floor(backup[3]/2),Math.floor(backup[4]/2))
+};
+
 
 
