@@ -11353,5 +11353,23 @@ var maxNumberOfBalloons = function(text) {
     return Math.min(backup[0],backup[1],backup[2],Math.floor(backup[3]/2),Math.floor(backup[4]/2))
 };
 
-
+// 1190. 反转每对括号间的子串 堆栈
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseParentheses = function(s) {
+    let backup = [''];
+    for (let char of s) {
+        if(char == '(') {
+            backup.push('');
+        } else if(char ==')') {
+            let last = backup.pop();
+            backup[backup.length -1] = backup[backup.length -1] + last.split("").reverse().join("");
+        } else {
+            backup[backup.length -1] = backup[backup.length -1] + char;
+        }
+    }
+    return backup[0];
+};
 
