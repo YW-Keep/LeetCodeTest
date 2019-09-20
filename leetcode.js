@@ -7306,6 +7306,27 @@ var reachNumber = function(target) {
     return i+2;
 };
 
+// 762. 二进制表示中质数个计算置位 基础逻辑题 看1一共几个
+/**
+ * @param {number} L
+ * @param {number} R
+ * @return {number}
+ */
+var countPrimeSetBits = function(L, R) {
+    let result = 0;
+    let backup = [0,0,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0];
+    for (let i = L; i <= R; i++) {
+        let checkNum = i
+        let cnt = 0;
+        while (checkNum != 0) {
+            cnt++;
+            checkNum &= (checkNum - 1)
+        }
+        result += backup[cnt]
+    }
+    return result
+};
+
 // 769.最多能完成排序块  关键 左边最大 小于 右边最小 就可以分割 贪心算法
 /**
  * @param {number[]} arr
