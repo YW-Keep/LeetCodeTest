@@ -6732,6 +6732,29 @@ var findSecondMinimumValue = function(root) {
     return left == -1 ? right : left;
 };
 
+// 674. 最长连续递增序列 基本逻辑遍历
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLengthOfLCIS = function(nums) {
+    if(nums.length == 0) { return  0} 
+    let sum = 1;
+    let num = nums[0];
+    let result = 1;
+    for (let index = 1; index < nums.length; index++) {
+        let newNum = nums[index];
+        if(newNum > num) {
+            sum++;
+        } else {
+            result = Math.max(sum,result);
+            sum =1;
+        }
+        num = newNum;
+    }
+    return Math.max(sum,result);
+};
+
 // 682. 棒球比赛  堆栈
 
 /**
