@@ -6713,6 +6713,25 @@ var validPalindrome = function(s) {
     }
 };
 
+// 671. 二叉树中第二小的节点 递归
+var findSecondMinimumValue = function(root) {
+    if(root == null || root.left == null) {
+        return -1;
+    }
+    let left = root.left.val;
+    let right = root.right.val;
+    if(left == root.val) {
+        left  =  findSecondMinimumValue(root.left);
+    }
+    if(right == root.val) {
+        right  =  findSecondMinimumValue(root.right);
+    }
+    if(left != -1 && right != -1) {
+        return Math.min(left,right);
+    }
+    return left == -1 ? right : left;
+};
+
 // 682. 棒球比赛  堆栈
 
 /**
