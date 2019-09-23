@@ -6575,6 +6575,37 @@ var judgeCircle = function(moves) {
     return RL == 0 && UD == 0;  
 };
 
+// 662. 二叉树最大宽度  层序遍历 记录位置
+var widthOfBinaryTree = function(root) {
+    if(root == null) {return 0};
+    let result = 1;
+    let nodes = [root];
+    let nums = [0];
+    while(nodes.length >0) {
+        let newNodes = [];
+        let newNums = [];
+        for (let index = 0; index < nodes.length; index++) {
+            let node = nodes[index];
+            let num = nums[index];
+            if(node.left) {
+                newNodes.push(node.left);
+                newNums.push(num*2+1);
+            }
+            if(node.right) {
+                newNodes.push(node.right);
+                newNums.push(num*2+2);
+            }
+        }
+        nodes = newNodes;
+        nums = newNums;
+        if(nums.length > 1) {
+            result = Math.max(result,nums[nums.length -1] - nums[0] +1);
+        }
+    }
+    return result;
+};
+
+
 // 665.非递减数列 一次递归 记录
 /**
  * @param {number[]} nums
