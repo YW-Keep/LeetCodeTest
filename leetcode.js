@@ -6282,6 +6282,20 @@ var canPlaceFlowers = function(flowerbed, n) {
    }
    return count == n;
 };
+// 606. 根据二叉树创建字符串  递归
+var tree2str = function(t) {
+    if (t == null) {return ""}
+    let str = t.val.toString()
+    let left = tree2str(t.left)
+    let right = tree2str(t.right)
+    if(left.length > 0 || right.length > 0) {
+        str += "(" + left +")"
+    }
+    if( right.length > 0) {
+        str += "(" + right +")"
+    } 
+    return str;
+};
 
 // 611.有效三角形的个数  排序，双指针
 /**
