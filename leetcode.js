@@ -6076,6 +6076,20 @@ var subarraySum = function(nums, k) {
     return result;
 };
 
+// 561. 数组拆分 I  基础逻辑题 先排序再处理
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var arrayPairSum = function(nums) {
+    nums.sort((a,b) => a -b)
+    let result = 0;
+    for (let index = 0; index < nums.length; index +=2) {
+        result += nums[index];   
+    }
+    return result;
+};
+
 // 563. 二叉树的坡度 递归
 /**
  * @param {TreeNode} root
