@@ -6162,6 +6162,31 @@ var findUnsortedSubarray = function(nums) {
     return  end - start + 1;
 };
 
+// 583.两个字符串的删除操作  动态规划
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var minDistance = function(word1, word2) {
+    let m = word1.length
+    let n = word2.length
+    let backup = [];
+    for (let index = 0; index <= m; index++) {
+        backup.push(Array(n+1).fill(0))
+    }
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            if(word1[i -1] == word2[j-1]) {
+                backup[i][j] = backup[i -1][j -1] + 1;
+            } else {
+                backup[i][j] = Math.max(backup[i-1][j],backup[i][j-1]);
+            }
+        }
+    }
+    return m + n - 2*backup[m][n];
+};
+
 // 590. N叉树的后序遍历  递归
 /**
  * // Definition for a Node.
