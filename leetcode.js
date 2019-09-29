@@ -4386,6 +4386,21 @@ var isPerfectSquare = function(num) {
     return false;
 };
 
+// 371.两整数之和 逻辑题
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+var getSum = function(a, b) {
+    while(b != 0) {
+        let res = (a&b) <<1;
+        a = a^b;
+        b = res;
+    }
+    return a;
+};
+
 // 386.字典序排序  找规律递归
 /**
  * @param {number} n
@@ -5665,6 +5680,28 @@ var nextGreaterElements = function(nums) {
         reslut.push(map.get(index))
     }
     return reslut;
+};
+
+// 504. 七进制数 基本逻辑 
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var convertToBase7 = function(num) {
+    let isNegative = num < 0 ?  true : false
+    num = Math.abs(num)
+    let result = ''
+    if(num == 0) {
+        result = '0'
+    }
+    while(num != 0) {
+      result = (num%7).toString() + result;
+       num = Math.floor(num/7)
+    }
+    if(isNegative) {
+       result = '-' + result;
+    }
+    return result;
 };
 
 // 506.相对名次 排序遍历最简单 还有种方式就是占坑法 比较快 但是会耗费空间
