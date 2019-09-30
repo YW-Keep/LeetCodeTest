@@ -4339,6 +4339,35 @@ var intersect = function(nums1, nums2) {
     return result;
 };
 
+// 357. 计算各个位数不同的数字个数 穷举
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countNumbersWithUniqueDigits = function(n) {
+    if(n > 10) {
+        n = 10;
+    }
+    let backup = [1,10,91,739,5275,32491,168571,712891,2345851,5611771,8877691]
+    return backup[n];
+};
+
+// 动态规划
+var countNumbersWithUniqueDigits2 = function(n) {
+    if(n == 0) {return 1};
+    if(n == 1) {return 10};
+    var backup = 10,
+    temp = 9;
+    for(let i = 2; i<= n; i++){
+        temp = temp*(11-i);
+        backup += temp;
+    }
+    return backup;
+};
+
+
+
+
 // 365. 水壶问题 仔细考虑下 就是  z = ax +by;  这就是 求最大公约数 ，看看 z是不是 他们的倍数  所以问题就转化为求最大公约数了 最后考虑xy等于0以及z大于xy的特殊情况
 /**
  * @param {number} x
