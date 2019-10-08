@@ -11597,3 +11597,85 @@ var reverseParentheses = function(s) {
     return backup[0];
 };
 
+// 5079. 三个有序数组的交集 基本逻辑题
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @param {number[]} arr3
+ * @return {number[]}
+ */
+var arraysIntersection = function(arr1, arr2, arr3) {
+    let i = 0,j = 0,k = 0;
+    let result = [];
+    while(i < arr1.length && j < arr2.length && k < arr3.length) {
+        let num1 = arr1[i], num2 = arr2[j],num3 = arr3[k];
+        if(num1 == num2 && num2 == num3) {
+            result.push(num1)
+            i++
+            j++
+            k++
+        } else {
+            let max = Math.max(num1,num2,num3)
+            max == num1 ? i:i++;
+            max == num2 ? j:j++;
+            max == num3 ? k:k++;
+        }
+    }
+    return result;
+};
+ 
+// 5080. 查找两棵二叉搜索树之和  递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @param {number} target
+ * @return {boolean}
+ */
+var twoSumBSTs = function(root1, root2, target) {
+
+    if (root1 == null) {
+        return false;
+    }
+    return find(root2,target-root1.val) || twoSumBSTs(root1.left,root2,target) || twoSumBSTs(root1.right,root2,target)
+
+    function find(node,value) {
+        if(node ==null) {
+            return false;
+        }
+        if(node.val == value) {
+            return true;
+        } else if(node.val < value) {
+            return find(node.right,value);
+        }else {
+            return find(node.left,value);
+        }
+    }
+};
+
+// 5205. 独一无二的出现次数 基本逻辑题
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var uniqueOccurrences = function(arr) {
+    let backMap = new Map()
+    for (let num of arr) {
+        backMap.get(num) == null ?  backMap.set(num,1) : backMap.set(num,backMap.get(num) + 1);
+    }
+    let backMap2 = new Map();
+    for(let item of backMap) {
+        if(backMap2.get(item[1]) != null) {
+            return false;
+        } else {
+            backMap2.set(item[1],1)
+        }
+    }
+    return true;
+};
