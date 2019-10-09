@@ -11679,3 +11679,60 @@ var uniqueOccurrences = function(arr) {
     }
     return true;
 };
+//  5206. 删除字符串中的所有相邻重复项 II  基础逻辑
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {string}
+ */
+var removeDuplicates = function(s, k) {
+    let num = 0, i = 0, backup = '',result = s
+    while(i < result.length) {
+        let char = result[i]
+        if(backup == char) {
+            num++;
+        } else {
+            num = 1;
+            backup = char;
+        }
+        if(num == k) {
+            result = result.substring(0,i - k + 1) + result.substring(i+1)
+            i = (i - 2*k + 1) < 0 ?  0 : i - 2*k + 1 
+            num = 0
+            backup = ''
+        } else {
+            i++
+        }
+    }
+    return result
+};
+
+// 5213. 玩筹码  逻辑题 其实就是求奇偶小的那个数
+var minCostToMoveChips = function(chips) {
+    let i = 0,j = 0
+    for(let chip of chips) {
+        if(chip%2 == 0) {
+            i++;
+        }else {
+            j++;
+        }
+    }
+    return Math.min(i,j);
+};
+
+
+// LCP 1.猜数字 基础逻辑题
+/**
+ * @param {number[]} guess
+ * @param {number[]} answer
+ * @return {number}
+ */
+var game = function(guess, answer) {
+    let count = 0
+    for (let index = 0; index < guess.length; index++) {
+        if(guess[index] == answer[index]) {
+            count++
+        }
+    }
+    return count
+};
