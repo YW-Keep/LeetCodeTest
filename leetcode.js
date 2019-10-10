@@ -11099,6 +11099,37 @@ var corpFlightBookings = function(bookings, n) {
     return result;
 };
 
+// 1111. 有效括号的嵌套深度  贪心算法
+/**
+ * @param {string} seq
+ * @return {number[]}
+ */
+var maxDepthAfterSplit = function(seq) {
+    let A = 0;
+    let B = 0;
+    let result = [];
+    for (let index = 0; index < seq.length; index++) {
+        if(seq[index] == "(") {
+            if(A > B) {
+                B++;
+                result.push(1);
+            } else {
+                A++;
+                result.push(0);
+            }
+        } else {
+            if(A<B) {
+                B--;
+                result.push(1);
+            } else {
+                A--;
+                result.push(0);
+            }
+        }
+    }
+    return result;
+};
+
 // 1122. 数组的相对排序  基础逻辑题
 /**
  * @param {number[]} arr1
@@ -11597,7 +11628,7 @@ var reverseParentheses = function(s) {
     return backup[0];
 };
 
-// 5079. 三个有序数组的交集 基本逻辑题
+// 1213. 三个有序数组的交集 基本逻辑题
 /**
  * @param {number[]} arr1
  * @param {number[]} arr2
@@ -11624,7 +11655,7 @@ var arraysIntersection = function(arr1, arr2, arr3) {
     return result;
 };
  
-// 5080. 查找两棵二叉搜索树之和  递归
+// 1214. 查找两棵二叉搜索树之和  递归
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -11659,7 +11690,7 @@ var twoSumBSTs = function(root1, root2, target) {
     }
 };
 
-// 5205. 独一无二的出现次数 基本逻辑题
+// 1207. 独一无二的出现次数 基本逻辑题
 /**
  * @param {number[]} arr
  * @return {boolean}
@@ -11679,7 +11710,7 @@ var uniqueOccurrences = function(arr) {
     }
     return true;
 };
-//  5206. 删除字符串中的所有相邻重复项 II  基础逻辑
+//  1209. 删除字符串中的所有相邻重复项 II  基础逻辑
 /**
  * @param {string} s
  * @param {number} k
@@ -11707,7 +11738,7 @@ var removeDuplicates = function(s, k) {
     return result
 };
 
-// 5213. 玩筹码  逻辑题 其实就是求奇偶小的那个数
+// 1217. 玩筹码  逻辑题 其实就是求奇偶小的那个数
 var minCostToMoveChips = function(chips) {
     let i = 0,j = 0
     for(let chip of chips) {
@@ -11720,6 +11751,42 @@ var minCostToMoveChips = function(chips) {
     return Math.min(i,j);
 };
 
+// 1218.最长定差子序列  map记录
+/**
+ * @param {number[]} arr
+ * @param {number} difference
+ * @return {number}
+ */
+var longestSubsequence = function(arr, difference) {
+    let map = new Map();
+    let sum =0;
+    for(let num of arr) {
+        let count = map.get(num-difference) == null ? 1 : 1+map.get(num-difference);
+        map.set(num,count);
+        sum = Math.max(sum,count);
+    }
+    return sum;
+}
+
+// 1220. 统计元音字母序列的数目  动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countVowelPermutation = function(n) {
+    let back = [1,1,1,1,1]
+    let check = 1000000007
+    for (let index = 1; index < n; index++) {
+        let newBack = [];
+        newBack.push((back[1] + back[2] + back[4])%check)
+        newBack.push((back[0] + back[2])%check)
+        newBack.push((back[1] + back[3])%check)
+        newBack.push(back[2])
+        newBack.push((back[2] + back[3])%check)
+        back = newBack;
+    }
+    return (back[0] + back[1] + back[2] + back[3] + back[4])%check;
+};
 
 // LCP 1.猜数字 基础逻辑题
 /**
