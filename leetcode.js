@@ -7095,6 +7095,14 @@ var search = function(nums, target) {
     }
     return -1;
 };
+// 709. 转换成小写字母  可以使用ASCII
+/**
+ * @param {string} str
+ * @return {string}
+ */
+var toLowerCase = function(str) {
+    return str.toLowerCase()
+};
 
 // 714.买卖股票的最佳时机含手续费  贪心算法
 /**
@@ -9306,6 +9314,38 @@ var flipEquiv = function(root1, root2) {
     return  bool1 || bool2;
 };
 
+// 953. 验证外星语词典  基础逻辑题
+/**
+ * @param {string[]} words
+ * @param {string} order
+ * @return {boolean}
+ */
+var isAlienSorted = function(words, order) {
+    let backMap = new Map()
+    for (let index = 0; index < order.length; index++) {
+        backMap.set(order[index],index);
+    }
+    for (let index = 1; index < words.length; index++) {
+        let began = words[index-1];
+        let now = words[index];
+        let i = 0;
+        let min = Math.min(began.length,now.length);
+        let isCheck = false;
+        while( i< min && !isCheck) {
+            if(backMap.get(began[i]) < backMap.get(now[i])) {
+                isCheck = true;
+            } else if(backMap.get(began[i]) == backMap.get(now[i])) {
+                i++;
+            } else {
+                return false;
+            }
+        }
+        if(!isCheck && now.length < began.length) {
+            return false;
+        }
+    }
+    return true;
+};
 // 954.二倍数对数组 基础逻辑处理
  /**
  * @param {number[]} A
