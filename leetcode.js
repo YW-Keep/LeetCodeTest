@@ -3800,6 +3800,33 @@ var maxSlidingWindow = function(nums, k) {
     return result;
 };
 
+// 242. 有效的字母异位词 基础逻辑 
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function(s, t) {
+    if(s.length != t.length) {return false};
+    let backup = new Map();
+    for (let index = 0; index < s.length; index++) {
+        let key  = s[index];
+        backup.set(key,backup.get(key)== null ? 1: backup.get(key) + 1)
+    }
+    for (let index = 0; index < t.length; index++) {
+        let key  = t[index];
+        let num = backup.get(key)
+        if(num == null) {
+            return false;
+        } else if( num == 1) {
+            backup.delete(key);
+        }else {
+            backup.set(key,num - 1);
+        }
+    }
+    return true;
+};
+
 // 257. 二叉树的所有路径 基本逻辑题
 /**
  * @param {TreeNode} root
