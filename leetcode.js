@@ -4639,6 +4639,25 @@ var findTheDifference = function(s, t) {
     num += t[t.length -1].charCodeAt();
     return String.fromCharCode(num);
 };
+// 392. 判断子序列 基础逻辑题
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function(s, t) {
+    if(s.length == 0) return true;
+    let num = 0;
+    for (let index = 0; index < t.length; index++) {
+        if(s[num] == t[index]) {
+            num++;
+            if(num == s.length) {
+                return true
+            }
+        }        
+    }
+    return false
+};
 // 394.字符串解码 堆栈
 /**
  * @param {string} s
@@ -7425,6 +7444,34 @@ var deleteAndEarn = function(nums) {
     function compare(x,y) {
         return x - y;
     }
+};
+
+// 744. 寻找比目标字母大的最小字母 基础逻辑
+/**
+ * @param {character[]} letters
+ * @param {character} target
+ * @return {character}
+ */
+var nextGreatestLetter = function(letters, target) {
+    let min = letters[0].charCodeAt();
+    let tnum = target.charCodeAt();
+    let isC = min <= tnum; 
+    for (let index = 1; index < letters.length; index++) {
+        let inNum = letters[index].charCodeAt();
+        if(inNum > tnum) {
+            if(isC) {
+                min = inNum;
+                isC = false;
+            } else {
+                min = Math.min(min,inNum);
+            }
+        } else {
+            if(isC) {
+                min = Math.min(min,inNum)
+            } 
+        }
+    }
+    return String.fromCharCode(min)
 };
 
 //  746. 使用最小花费爬楼梯 动态规划
