@@ -7612,6 +7612,37 @@ var countPrimeSetBits = function(L, R) {
     return result
 };
 
+// 767. 重构字符串 最大堆 贪心算法
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var reorganizeString = function(S) {
+    let backup = Array(26).fill(0);
+    for (let index = 0; index < S.length; index++) {
+        backup[S[index].charCodeAt() -97]++;
+    }
+    let fort ='#'
+    let result ='';
+    for(i = 0;i< S.length;i++) {
+        let max = 0;
+        let index = -1;
+        for (let j = 0; j < 26; j++) {
+            if(String.fromCharCode(j+ 97) != fort && backup[j] > max) {
+                index = j;
+                max =  backup[index];
+            }
+        }
+        if(index == -1) {
+            return '';
+        } 
+        fort = String.fromCharCode(index+ 97);
+        backup[index]--;
+        result +=fort; 
+    }
+    return result;
+};
+
 // 769.最多能完成排序块  关键 左边最大 小于 右边最小 就可以分割 贪心算法
 /**
  * @param {number[]} arr
