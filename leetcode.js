@@ -11933,6 +11933,28 @@ var countVowelPermutation = function(n) {
     return (back[0] + back[1] + back[2] + back[3] + back[4])%check;
 };
 
+ // 1221. 分割平衡字符串  贪心算法
+ /**
+ * @param {string} s
+ * @return {number}
+ */
+var balancedStringSplit = function(s) {
+    let num = 0
+    let result = 0
+    for (let index = 0; index < s.length; index++) {
+        let char = s[index];
+        if(char == 'R') {
+            num++
+        } else {
+            num--
+        }
+        if(num == 0) {
+            result++;
+        }
+    }
+    return result;
+};
+
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
