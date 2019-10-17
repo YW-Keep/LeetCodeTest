@@ -11773,6 +11773,28 @@ var reverseParentheses = function(s) {
     return backup[0];
 };
 
+// 1200. 最小绝对差 排序基本逻辑
+/**
+ * @param {number[]} arr
+ * @return {number[][]}
+ */
+var minimumAbsDifference = function(arr) {
+    let backup = arr.sort((a,b) => a -b);
+    let result = [];
+    let min = backup[1] - backup[0] + 1;
+    for (let index = 1; index < backup.length; index++) {
+        let num = backup[index];
+        let bnum = backup[index -1];
+        if(num -bnum < min) {
+            min = num -bnum;
+            result = [[bnum,num]]
+        } else if (num -bnum == min) {
+            result.push([bnum,num])
+        }
+    }
+    return result;
+};
+
 // 1213. 三个有序数组的交集 基本逻辑题
 /**
  * @param {number[]} arr1
