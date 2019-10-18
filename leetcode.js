@@ -11399,6 +11399,32 @@ var stoneGameII = function(piles) {
     return dp[0][0];
 };
 
+// 1143.最长公共子序列 动态规划
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ */
+var longestCommonSubsequence = function(text1, text2) {
+    let num1 = text1.length
+    let num2 = text2.length
+    let backup = []
+    for (let index = 0; index < num1 + 1; index++) {
+        backup.push(Array(num2+1).fill(0))        
+    }
+    for (let i = 1; i < num1 + 1; i++) {
+        for (let j = 1; j < num2 + 1; j++) {
+            if(text1[i -1] == text2[j-1]) {
+                backup[i][j] = backup[i-1][j-1] + 1;
+            } else {
+                backup[i][j] = Math.max(backup[i-1][j],backup[i][j-1])
+            }
+            
+        }
+    }
+    return backup[num1][num2]
+};
+
 
 // 1154. 一年中的第几天  基础逻辑题
 /**
