@@ -12003,6 +12003,27 @@ var balancedStringSplit = function(s) {
     return result;
 };
 
+// 5088. 等差数列中缺失的数字 基础逻辑
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var missingNumber = function(arr) {
+
+    let sum = arr[1] - arr[0];
+    for (let index = 2; index < arr.length; index++) {
+        let newSum = arr[index] - arr[index -1]
+        if(sum != newSum) {
+            if(newSum*2  ==  sum) {
+                return arr[0] + newSum;
+            } else {
+                return arr[index -1] + sum;
+            }
+        }
+    }
+    return arr[0];
+};
+
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
