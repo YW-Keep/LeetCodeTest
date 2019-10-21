@@ -12024,6 +12024,45 @@ var missingNumber = function(arr) {
     return arr[0];
 };
 
+// 5230. 缀点成线 精度问题用乘法代替除法
+/**
+ * @param {number[][]} coordinates
+ * @return {boolean}
+ */
+var checkStraightLine = function(coordinates) {
+    let x1 = coordinates[1][0] -  coordinates[0][0] 
+    let y1 = coordinates[1][1] -  coordinates[0][1] 
+    for (let index = 2; index < coordinates.length; index++) {
+        let x2 = coordinates[index][0] -  coordinates[index-1][0] 
+        let y2 = coordinates[index][1] -  coordinates[index-1][1] 
+        if(x1*y2 != x2*y1) {
+            return false;
+        }
+    } 
+
+    return true;
+};
+// 5090.抛掷硬币 动态规划
+/**
+ * @param {number[]} prob
+ * @param {number} target
+ * @return {number}
+ */
+var probabilityOfHeads = function(prob, target) {
+    let backup = [1-prob[0],prob[0]];
+    for (let index = 1; index < prob.length; index++) {
+        let num = prob[index];
+        let newBackup = [backup[0]*(1-num)]
+        for (let i = 1; i <= Math.min(target,index); i++) {
+            let newNum = backup[i-1]*num + backup[i]*(1-num);
+            newBackup.push(newNum);
+        }
+        newBackup.push(backup[backup.length-1]*num);
+        backup = newBackup;
+    }
+    return backup[target];
+};
+
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
