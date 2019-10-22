@@ -12003,7 +12003,7 @@ var balancedStringSplit = function(s) {
     return result;
 };
 
-// 5088. 等差数列中缺失的数字 基础逻辑
+// 1228. 等差数列中缺失的数字 基础逻辑
 /**
  * @param {number[]} arr
  * @return {number}
@@ -12024,25 +12024,7 @@ var missingNumber = function(arr) {
     return arr[0];
 };
 
-// 5230. 缀点成线 精度问题用乘法代替除法
-/**
- * @param {number[][]} coordinates
- * @return {boolean}
- */
-var checkStraightLine = function(coordinates) {
-    let x1 = coordinates[1][0] -  coordinates[0][0] 
-    let y1 = coordinates[1][1] -  coordinates[0][1] 
-    for (let index = 2; index < coordinates.length; index++) {
-        let x2 = coordinates[index][0] -  coordinates[index-1][0] 
-        let y2 = coordinates[index][1] -  coordinates[index-1][1] 
-        if(x1*y2 != x2*y1) {
-            return false;
-        }
-    } 
-
-    return true;
-};
-// 5090.抛掷硬币 动态规划
+// 1230.抛掷硬币 动态规划
 /**
  * @param {number[]} prob
  * @param {number} target
@@ -12061,6 +12043,46 @@ var probabilityOfHeads = function(prob, target) {
         backup = newBackup;
     }
     return backup[target];
+};
+
+// 1232. 缀点成线 精度问题用乘法代替除法
+/**
+ * @param {number[][]} coordinates
+ * @return {boolean}
+ */
+var checkStraightLine = function(coordinates) {
+    let x1 = coordinates[1][0] -  coordinates[0][0] 
+    let y1 = coordinates[1][1] -  coordinates[0][1] 
+    for (let index = 2; index < coordinates.length; index++) {
+        let x2 = coordinates[index][0] -  coordinates[index-1][0] 
+        let y2 = coordinates[index][1] -  coordinates[index-1][1] 
+        if(x1*y2 != x2*y1) {
+            return false;
+        }
+    } 
+
+    return true;
+};
+
+//  1233. 删除子文件夹 排序 判断
+/**
+ * @param {string[]} folder
+ * @return {string[]}
+ */
+var removeSubfolders = function(folder) {
+    folder.sort()
+    let result = [];
+    let root = folder[0];
+    result.push(root)
+    root = root +'/'
+    for (let index = 1; index < folder.length; index++) {
+        let char  = folder[index];
+        if(!char.startsWith(root)) {
+            result.push(char);
+            root = char + '/'
+        }
+    }
+    return result;
 };
 
 // LCP 1.猜数字 基础逻辑题
