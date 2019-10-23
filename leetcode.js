@@ -12085,6 +12085,42 @@ var removeSubfolders = function(folder) {
     return result;
 };
 
+// 1235. 规划兼职工作  动态规划 下面一个添加可以用二分法优化
+/**
+ * @param {number[]} startTime
+ * @param {number[]} endTime
+ * @param {number[]} profit
+ * @return {number}
+ */
+var jobScheduling = function(startTime, endTime, profit) {
+    let res = 0;
+    let data =[]
+    for (let index = 0; index < startTime.length; index++) {
+        data.push([startTime[index],endTime[index],profit[index]])
+    }
+    data.sort((a,b) => a[0] - b[0]);
+    let backup = [[data[0][1],data[0][2]]];
+
+    for (let index = 1; index < data.length; index++) {
+        while(backup.length > 0 && backup[0][0] <= data[index][0]) {
+            res = Math.max(res,backup[0][1]);
+            backup.shift();
+        }
+        addNum([data[index][1],res+data[index][2]]);
+    }
+    for(let node of backup) {
+        res = Math.max(node[1],res);
+    }
+    return res;
+    // 添加元素
+    function addNum(node) {
+        let i = 0;
+        while(i < backup.length && node[0] > backup[i][0]) {
+            i++;
+        }
+        backup.splice(i,0,node)
+    }
+};
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
