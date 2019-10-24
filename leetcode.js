@@ -11821,6 +11821,45 @@ var minimumAbsDifference = function(arr) {
     return result;
 };
 
+// 1023. 驼峰式匹配  单个匹配 正则分割
+/**
+ * @param {string[]} queries
+ * @param {string} pattern
+ * @return {boolean[]}
+ */
+var camelMatch = function(queries, pattern) {
+    let pBackup = ("T" + pattern).match(/[A-Z][a-z]{0,}/g)
+
+    let result = []
+    for (let node of queries) {
+        result.push(checkString(node))
+    }
+    return result;
+    function checkString (node){
+        let nBackup = ("T" + node).match(/[A-Z][a-z]{0,}/g)
+        if(pBackup.length != nBackup.length) {
+            return false;
+        }
+        for (let index = 0; index < pBackup.length; index++) {
+            let p = pBackup[index];
+            let n = nBackup[index];
+            let i = 0;j= 0;
+            while(i < p.length && j < n.length) {
+                if(p[i] == n[j]) {
+                    i++
+                    j++
+                } else {
+                    j++
+                }
+            }
+            if(i <p.length) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
 // 1213. 三个有序数组的交集 基本逻辑题
 /**
  * @param {number[]} arr1
