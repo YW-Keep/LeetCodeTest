@@ -7036,6 +7036,26 @@ var hasAlternatingBits = function(n) {
     }
     return true;
 };
+// 696.计数二进制子串 基础逻辑题
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countBinarySubstrings = function(s) {
+    let begain = 0,now = 1, start = s[0],result =0;
+    for (let index = 1; index < s.length; index++) {
+        if (start == s[index]) {
+            now++;
+        } else {
+            start = s[index]
+            result += Math.min(begain,now)
+            begain = now
+            now = 1
+        }
+    }
+    result += Math.min(begain,now)
+    return result;
+};
 
 // 697.数组的度 基本逻辑题
 /**
