@@ -8114,6 +8114,19 @@ var largeGroupPositions = function(S) {
     return result;
 };
 
+// 836. 矩形重叠 基础逻辑
+/**
+ * @param {number[]} rec1
+ * @param {number[]} rec2
+ * @return {boolean}
+ */
+var isRectangleOverlap = function(rec1, rec2) {
+    return !(rec1[2] <= rec2[0] ||   // left
+        rec1[3] <= rec2[1] ||   // bottom
+        rec1[0] >= rec2[2] ||   // right
+        rec1[1] >= rec2[3]);    // top
+};
+
 // 841. 钥匙和房间 数组记录
 /**
  * @param {number[][]} rooms
@@ -9300,6 +9313,24 @@ var diStringMatch = function(S) {
         }
     }
     result.push(start);
+    return result;
+};
+
+// 944.删列造序 贪心算法
+/**
+ * @param {string[]} A
+ * @return {number}
+ */
+var minDeletionSize = function(A) {
+    let result =0;
+    for (let i = 0; i < A[0].length; i++) {
+        for (let j = 0; j < A.length -1; j++) {
+            if(A[j][i] > A[j+1][i]) {
+                result++;
+                break;
+            }
+        }    
+    }
     return result;
 };
 
@@ -12180,6 +12211,27 @@ var jobScheduling = function(startTime, endTime, profit) {
         backup.splice(i,0,node)
     }
 };
+// 5238. 找出给定方程的正整数解 双指针
+/**
+ * @param {CustomFunction} customfunction
+ * @param {integer} z
+ * @return {integer[][]}
+ */
+var findSolution = function(customfunction, z) {
+    let result = [],x = 1,y =1000
+    while(x<=1000 && 1<= y) {
+        if(customfunction.f(x,y) == z) {
+            result.push([x,y])
+            x++;
+        } else if(customfunction.f(x,y) > z) {
+            y--;
+        } else {
+            x++;
+        }
+    }
+    return result;
+};
+
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
