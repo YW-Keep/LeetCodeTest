@@ -9334,6 +9334,27 @@ var minDeletionSize = function(A) {
     return result;
 };
 
+// 945. 使数组唯一的最小增量 排序阶梯计算
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var minIncrementForUnique = function(A) {
+    if(A.length <=1) {return 0}
+    let result = 0;
+    A.sort((a,b)=>a-b)
+    let step = A[0];
+    for (let index = 1; index < A.length; index++) {
+        let num = A[index]
+        if(num > step) {
+            step = num;
+        } else {
+            result = result + step - num + 1;
+            step++;
+        }
+    }
+    return result;
+}
 // 946. 验证栈序列  逻辑处理
 /**
  * @param {number[]} pushed
