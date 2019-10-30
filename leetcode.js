@@ -7766,6 +7766,33 @@ var kthGrammar = function(N, K) {
     }
  };
 
+ // 781. 森林中的兔子  字典记录然后计算
+/**
+ * @param {number[]} answers
+ * @return {number}
+ */
+var numRabbits = function(answers) {
+    let backMap = new Map()
+    for (let answer of answers) {
+        backMap.set(answer, (backMap.get(answer) || 0) +1);
+    }
+    let result = 0;
+    for (let sum of backMap) {
+        let key = sum[0];
+        let value = sum[1];
+        if(key == 0) {
+            result += value;
+        } else {
+            let num = Math.floor(value/(key+1));
+            if(value%(key+1)!= 0) {
+                num++;
+            }
+            result += num*(key+1);
+        }
+    }
+    return result;
+};
+
  // 783. 二叉搜索树结点最小距离 二叉树的中序遍历
 /**
  * @param {TreeNode} root
