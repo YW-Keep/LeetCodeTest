@@ -6990,6 +6990,32 @@ var calPoints = function(ops) {
     return result;
 };
 
+// 687. 最长同值路径 递归
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var longestUnivaluePath = function(root) {
+    let ans = 0
+    dfs(root)
+    return ans
+
+    function dfs(node) {
+        if(node == null) return 0
+        let left = dfs(node.left)
+        let right = dfs(node.right)
+        let arrowLeft = 0,arrowRight = 0
+        if(node.left != null && node.left.val == node.val) {
+            arrowLeft = left + 1
+        }
+        if(node.right != null && node.right.val == node.val) {
+            arrowRight = right + 1
+        }
+        ans = Math.max(ans,arrowLeft + arrowRight)
+        return Math.max(arrowLeft,arrowRight)
+    }
+};
+
 // 692.前K个高频单词  字典排序
 /**
  * @param {string[]} words
