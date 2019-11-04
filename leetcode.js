@@ -12285,6 +12285,61 @@ var jobScheduling = function(startTime, endTime, profit) {
         backup.splice(i,0,node)
     }
 };
+
+// 1243. 数组变换 基础逻辑
+/**
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+var transformArray = function(arr) {
+    if(arr.length < 3) {
+        return;
+    }
+    let check = true
+    while(check) {
+        check = false;
+        let newArray = [arr[0]]
+        for (let index = 1; index < arr.length - 1; index++) {
+            let num = arr[index];
+            if(num < arr[index - 1] && num < arr[index + 1]) {
+                num++
+                check = true
+            }
+            if(num> arr[index - 1] && num > arr[index + 1]) {
+               num--
+               check = true
+            }
+            newArray.push(num)
+        }
+        newArray.push(arr[arr.length -1])
+        arr = newArray
+    }
+    return arr;
+};
+
+// 1247. 交换字符使得字符串相同 基础逻辑
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @return {number}
+ */
+var minimumSwap = function(s1, s2) {
+    if(s1.length != s2.length) {return false}
+    let xy = 0,yx =0
+    for (let index = 0; index < s1.length; index++) {
+        if(s1[index] !=s2[index]) {
+            if(s1[index] == 'x') {
+                xy++
+            } else {
+                yx++;
+            }
+        }
+    }
+    return (xy + yx)%2 != 0 ? -1 : ((xy+yx)/2 + xy%2)
+};
+ let text1 = minimumSwap("xy","yx");
+ console.log(text1)
+
 // 5238. 找出给定方程的正整数解 双指针
 /**
  * @param {CustomFunction} customfunction
