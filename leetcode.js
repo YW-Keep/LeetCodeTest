@@ -12337,8 +12337,81 @@ var minimumSwap = function(s1, s2) {
     }
     return (xy + yx)%2 != 0 ? -1 : ((xy+yx)/2 + xy%2)
 };
- let text1 = minimumSwap("xy","yx");
- console.log(text1)
+
+// 1248.统计「优美子数组 计算
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var numberOfSubarrays = function(nums, k) {
+    let pre = -1;
+    let backup = []
+    for (let i = 0; i < nums.length; i++) {
+        if(nums[i]%2 == 1) {
+            backup.push(i-pre)
+            pre = i 
+        }
+    }
+    backup.push(nums.length-pre)
+    let num = 0;
+    for (let i = 0; i + k < backup.length; i++) {
+        num += backup[i]*backup[i+k]
+    }
+    return num
+};
+
+// 1249. 移除无效的括号 堆栈
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var minRemoveToMakeValid = function(s) {
+    let result = '';
+    let backStr = [];
+    let delNum = 0
+    for (let i = 0; i < s.length; i++) {
+        let char =s[i]
+        if(char == '(') {
+            backStr.push(i -delNum);
+        } else if(char == ')') {
+            if(backStr.length > 0) {
+                backStr.pop()
+            } else {
+                delNum++
+                continue;
+            }
+        }
+        result += char;
+    }
+
+    while(backStr.length > 0) {
+        let i = backStr.pop();
+        result = result.substr(0,i) + result.substr(i+1);
+    }
+    return result;
+};
+
+// 1250. 检查「好数组」 计算最大公约数 如果不为1则肯定无法实现好数组 否则可以
+
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var isGoodArray = function(nums) {
+    let result = nums[0];
+    for (let index = 1; index < nums.length; index++) {
+        result = gcd(result,nums[index]);
+    }
+    return result == 1
+    
+    function gcd(a,b) {
+        return b == 0 ? a : gcd(b,a%b);
+    }
+};
+
+
+
 
 // 5238. 找出给定方程的正整数解 双指针
 /**
@@ -12375,4 +12448,16 @@ var game = function(guess, answer) {
         }
     }
     return count
+};
+
+//LCP 2. 分式化简 找规律
+var fraction = function(cont) {
+    let up = cont.pop(),down = 1
+    while(cont.length > 0 ) {
+        let num = cont.pop()
+        let newD = num*up + down
+        down = up
+        up = newD
+    }
+    return [up,down];
 };
