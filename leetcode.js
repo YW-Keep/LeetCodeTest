@@ -12145,6 +12145,16 @@ var countVowelPermutation = function(n) {
     return (back[0] + back[1] + back[2] + back[3] + back[4])%check;
 };
 
+// 1227. 飞机座位分配概率 逻辑思考题
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthPersonGetsNthSeat = function(n) {
+    return  n == 1 ? 1 : 0.5
+    
+};
+
  // 1221. 分割平衡字符串  贪心算法
  /**
  * @param {string} s
