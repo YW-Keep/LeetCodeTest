@@ -10695,6 +10695,45 @@ var twoCitySchedCost = function(costs) {
     return result;
 };
 
+// 1031. 两个非重叠子数组的最大和  动态规划+窗口
+/**
+ * @param {number[]} A
+ * @param {number} L
+ * @param {number} M
+ * @return {number}
+ */
+var maxSumTwoNoOverlap = function(A, L, M) {
+    let backup = [0],sum = 0, leftL = [], leftM = [],leftLMax = 0,leftMMax = 0;
+    for (let index = 0; index < A.length; index++) {
+        sum += A[index];
+        backup.push(sum);
+        if(index >= L -1) {
+            leftLMax = Math.max(leftLMax,backup[index+1] - backup[index +1 -L]);
+            leftL.push(leftLMax);
+        }
+        if(index >= M -1) {
+            leftMMax = Math.max(leftMMax,backup[index+1] - backup[index +1 -M]);
+            leftM.push(leftMMax);
+        }
+    }
+    let result = 0;
+    sum =0
+    leftLMax = 0
+    leftMMax = 0
+    for (let index = A.length -1; index >= 0; index--) {
+        if(A.length - index >= L && index >= M) {
+            leftLMax = Math.max(leftLMax,backup[index + L] - backup[index])
+            result = Math.max(result,leftLMax + leftM[index - M]);
+        }
+        if(A.length - index >= M && index >= L) {
+            leftMMax = Math.max(leftMMax,backup[index + M] - backup[index])
+            result = Math.max(result,leftMMax + leftL[index - L]);
+        }
+    }
+
+    return result;
+};
+
 // 1033. 移动石子直到连续 基本逻辑题
 /**
  * @param {number} a
