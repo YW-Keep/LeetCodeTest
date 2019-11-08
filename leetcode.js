@@ -8047,6 +8047,36 @@ var pruneTree = function(root) {
     }
 };
 
+// 819. 最常见的单词  基础逻辑，正则筛选
+/**
+ * @param {string} paragraph
+ * @param {string[]} banned
+ * @return {string}
+ */
+var mostCommonWord = function(paragraph, banned) {
+    const Objbanned = {}
+    for(let i = 0;i<banned.length;i++){
+        Objbanned[banned[i]]=0
+    }
+    const arr = paragraph.toLowerCase().replace(/\W/g,' ').split(' ').filter(x=> !Objbanned.hasOwnProperty(x) && x !=='')
+    const obj = {}
+    let max = 0
+    let revl = ''
+    for(let i=0;i<arr.length;i++){
+        if(!obj.hasOwnProperty(arr[i])) {
+            obj[arr[i]] = 1
+        } else {
+            obj[arr[i]]++
+        }
+        if(max<obj[arr[i]]){
+           max = obj[arr[i]]
+           revl = arr[i]
+        }
+        
+    }
+    return revl
+};
+
 // 821.字符的最短距离  先找出目标的位置，然后位置相减得到距离
 /**
  * @param {string} S
