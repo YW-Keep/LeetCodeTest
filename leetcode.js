@@ -6623,6 +6623,32 @@ var findLongestChain = function(pairs) {
     return result;
 };
 
+// 648. 单词替换 基础逻辑
+/**
+ * @param {string[]} dict
+ * @param {string} sentence
+ * @return {string}
+ */
+var replaceWords = function(dict, sentence) {
+    let Objbanned = {}
+    for(let i = 0;i<dict.length;i++){
+        Objbanned[dict[i]]=0
+    }
+    let arr = sentence.split(' ')
+    for (let i = 0; i < arr.length; i++) {
+        let str = arr[i];
+        for (let j = 0; j < str.length -1; j++) {
+            let instr = str.substring(0,j+1);
+            if(Objbanned.hasOwnProperty(instr)) {
+                arr[i] = instr;
+                break;
+            }
+        }
+    }
+    return arr.join(' ');
+
+};
+
 // 650. 只有两个键的键盘 递归
 /**
  * @param {number} n
@@ -10787,6 +10813,30 @@ var numMovesStones = function(a, b, c) {
     }
 };
 
+// 1035. 不相交的线 动态规划
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number}
+ */
+var maxUncrossedLines = function(A, B) {
+    let backup= []
+    for (let index = 0; index <= A.length; index++) {
+        let inArray = Array(B.length +1).fill(0);
+        backup.push(inArray)
+    }
+    for (let i = 0; i < A.length; i++) {
+        for (let j = 0; j < B.length; j++) {
+            if(A[i] == B[j]) {
+                backup[i+1][j+1] = backup[i][j] +1
+            } else {
+                backup[i+1][j+1] = Math.max(backup[i+1][j],backup[i][j+1]);
+            }
+        }
+    }
+    return backup[A.length][B.length];
+};
+
 //  1037. 有效的回旋镖 算斜率
 /**
  * @param {number[][]} points
@@ -12508,6 +12558,30 @@ var findSolution = function(customfunction, z) {
             y--;
         } else {
             x++;
+        }
+    }
+    return result;
+};
+
+// 5255.奇数值单元格的数目 基础逻辑 
+/**
+ * @param {number} n
+ * @param {number} m
+ * @param {number[][]} indices
+ * @return {number}
+ */
+var oddCells = function(n, m, indices) {
+    let nBackup = Array(n).fill(0);
+    let mBackup = Array(m).fill(0);
+    for (let index = 0; index < indices.length; index++) {
+        let nums = indices[index];
+        nBackup[nums[0]]++;
+        mBackup[nums[1]]++;
+    }
+    let result = 0
+    for (let i = 0; i < nBackup.length; i++) {
+        for (let j = 0; j < mBackup.length; j++) {
+            result += (nBackup[i] +mBackup[j])%2
         }
     }
     return result;
