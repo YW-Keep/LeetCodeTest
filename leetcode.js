@@ -3555,6 +3555,37 @@ var invertTree = function(root) {
     return root;
 };
 
+// 228. 汇总区间 双指针
+var summaryRanges = function(nums) {
+    
+    let  start = 0
+    let end = 0
+    let result = []
+    while(end < nums.length) {
+        if(nums[end] - nums[start] == end  - start) {
+            end++;
+        } else {
+            if(start == end -1) {
+                result.push(String(nums[start]))
+            } else {
+                let str = String(nums[start]) + '->' + String(nums[end-1])
+                result.push(str)
+            }
+            start = end
+        }
+    }
+    if(end > 0) {
+        if(start == end -1) {
+            result.push(String(nums[start]))
+        } else {
+            let str = String(nums[start]) + '->' + String(nums[end-1])
+            result.push(str)
+        }
+    }
+
+    return result
+};
+
 // 229.求众数2  先找到那2个出现最多次的数，然后再做统计。 摩尔投票法
 /**
  * @param {number[]} nums
