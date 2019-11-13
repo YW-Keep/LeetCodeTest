@@ -3152,6 +3152,36 @@ var maximumGap = function(nums) {
     }
     return ans;
 };
+// 165. 比较版本号  逻辑判断
+var compareVersion = function(version1, version2) {
+    let v1 = version1.split('.')
+    let v2 = version2.split('.')
+    let index = 0;
+    let min = Math.min(v1.length,v2.length)
+    while(index < min) {
+        let num1 = parseInt(v1[index])
+        let num2 = parseInt(v2[index])
+        if(num1 >num2) {
+            return 1
+        } else if(num1 < num2) {
+            return -1
+        } else {
+            index++;
+        }
+    }
+    if(v1.length != v2.length) {
+        let back = v1.length > v2.length ? 1 : -1;
+        let array =  back == 1 ? v1 : v2;
+        while(index < array.length) {
+            if(array[index] != 0) {
+                return back
+            } else {
+                index++;
+            }
+        }
+    }
+    return 0;
+};
 
 // 168. Excel表列名称  10进制转26进制 辗转相除法
 /**
