@@ -1797,6 +1797,27 @@ var largestRectangleArea = function(heights) {
     return max;
 };
 
+// 83. 删除排序链表中的重复元素  map记录，逻辑题
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+    let tob = new ListNode(0);
+    tob.next = head;
+    let backup = new Map()
+    let next = tob;
+    while (next.next) {
+        if(backup.get(next.next.val)) {
+            next.next =  next.next.next;
+        } else {
+            backup.set(next.next.val,true);
+            next = next.next;
+        }
+    }
+    return tob.next;
+};
+
 //  85. 最大矩形  首先把问题变为1维问题 然后其实就是单调栈问题了  其实就变成了问题 84 这里偷懒直接调用了84 的方法
 
 /**
