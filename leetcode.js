@@ -4935,6 +4935,38 @@ var longestPalindrome = function(s) {
     return count;
 };
 
+// 410. 分割数组的最大值  二分查找
+/**
+ * @param {number[]} nums
+ * @param {number} m
+ * @return {number}
+ */
+var splitArray = function(nums, m) {
+    let l = nums[0],h = 0
+    for(let num of nums) {
+        h += num
+        l = Math.max(l,num)
+    }
+    while(l < h) {
+        let mid = Math.floor((l+h)/2);
+        let temp = 0
+        let cnt = 1
+        for(let num of nums) {
+            temp += num
+            if(temp > mid) {
+                temp = num
+                cnt++
+            }
+        }
+        if(cnt > m) {
+            l = mid +1
+        } else {
+            h = mid
+        }
+    }
+    return l
+};
+
 // 412. Fizz Buzz 很简单 
 /**
  * @param {number} n
