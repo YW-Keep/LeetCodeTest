@@ -12701,6 +12701,87 @@ var oddCells = function(n, m, indices) {
     return result;
 };
 
+// 5108. 加密数字 找规律
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var encode = function(num) {
+    return   (num +1).toString(2).substring(1);
+};
+
+//  5263. 二维网格迁移 找到初始的点 开始重新排序
+
+/**
+ * @param {number[][]} grid
+ * @param {number} k
+ * @return {number[][]}
+ */
+var shiftGrid = function(grid, k) {
+    let y = grid.length;
+    let x = grid[0].length;
+    let nums = x*y;
+    let tk = k%nums;
+    if(tk == 0) { return grid; }
+    tk = nums - tk +1;
+    let starty = Math.floor((tk -1)/x); 
+    let startx = (tk -1)%x;
+    let result = [];
+    for (let i = 0; i < y; i++) {
+        let  inArray = [];
+        for (let j = 0; j < x; j++) {
+            inArray.push(grid[starty][startx]) 
+            startx++;
+            if(startx == x) {
+                starty++;
+                startx = 0;
+                if(starty == y) {
+                    starty = 0;
+                }
+            }
+        }
+        result.push(inArray);
+    }
+    return result;
+};
+
+// 5265. 可被三整除的最大和 贪心算法
+var maxSumDivThree = function(nums) {
+    let backup1 = [];
+    let backup2 = [];
+    let result = 0;
+    nums.sort((a,b) => a - b);
+    for(let num of nums) {
+        let index = num%3;
+        result += num;
+        if (index == 1) {
+            backup1.push(num);
+        } else if(index == 2) {
+            backup2.push(num);
+        }
+    }
+    if(result%3 == 1) {
+        if(backup1.length > 0 && backup2.length > 1) {
+            result = Math.max(result - backup1[0],result - backup2[0] -backup2[1]);
+        } else if(backup1.length > 0) {
+            result = result - backup1[0];
+        } else {
+            result = result -backup2[0] -backup2[1];
+        }
+    }
+
+    if(result%3 == 2) {
+        if(backup1.length > 1 && backup2.length > 0) {
+            result = Math.max(result - backup2[0],result - backup1[0] -backup1[1]);
+        } else if(backup2.length >0) {
+            result = result - backup2[0];
+        } else {
+            result = result -backup1[0] -backup1[1];
+        }
+    }
+
+    return result;
+};
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
