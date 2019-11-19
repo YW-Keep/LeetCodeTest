@@ -642,6 +642,27 @@ function compare(value1, value2) {
     return value1 - value2;
 }
 
+// 24. 两两交换链表中的节点 递归 非递归思考比较繁琐
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+    if(head == null || head.next == null) {
+        return head;
+    } 
+    let next = head.next;
+    head.next = swapPairs(next.next);
+    next.next = head;
+    return next;
+};
 // 26.删除排序数组中的重复项 注意是排序数组所以使用快慢指针就可以了
 /**
  * @param {number[]} nums
