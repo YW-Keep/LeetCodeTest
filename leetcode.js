@@ -682,6 +682,22 @@ var removeDuplicates = function(nums) {
     return mark + 1;
 };
 
+// 27. 移除元素 基础逻辑题
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+var removeElement = function(nums, val) {
+    let i = 0;
+    for(let num of nums) {
+        if(num != val) {
+            nums[i] = num;
+            i++
+        }
+    }    
+    return i;
+};
 
 // 32. 最长有效括号 记录（ 的位置，到数组，然后进行安全计算
 /**
