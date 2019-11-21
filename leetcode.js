@@ -663,6 +663,41 @@ var swapPairs = function(head) {
     next.next = head;
     return next;
 };
+// 25. K 个一组翻转链表 递归
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var reverseKGroup = function(head, k) {
+    let node = new  ListNode(0);
+    node.next = head;
+    let next = node;
+    let i = k
+
+    while(next.next && k > 0) {
+        next = next.next;
+        k--;
+    }
+
+    if(k > 0) {
+        return head;
+    } 
+
+    let newNext = reverseKGroup(next.next,i);
+    next.next = null;
+    next = head.next;
+    let stash = head;
+    stash.next = newNext;
+    while (next) {
+        let backup = next.next;
+        next.next = stash;
+        stash = next;
+        next = backup
+    }
+    return stash;
+};
+
 // 26.删除排序数组中的重复项 注意是排序数组所以使用快慢指针就可以了
 /**
  * @param {number[]} nums
