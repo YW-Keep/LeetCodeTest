@@ -2762,6 +2762,28 @@ var longestConsecutive = function(nums) {
     return max;
 };
 
+// 129. 求根到叶子节点数字之和  二叉树递归遍历
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumNumbers = function(root) {
+    let sum = 0;
+    dfs(root,0)
+    return sum;
+    function dfs(node,num) {
+        if(node == null) {return}
+        let newNum = num*10 + node.val
+        if(node.left == null && node.right == null) {
+            sum += newNum;
+        } else {
+            dfs(node.left ,newNum);
+            dfs(node.right,newNum)
+        }
+    }
+    
+};
+
 // 134. 加油站 基础逻辑题 
 /**
  * @param {number[]} gas
