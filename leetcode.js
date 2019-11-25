@@ -12747,8 +12747,72 @@ var isGoodArray = function(nums) {
     }
 };
 
+// 1266. 访问所有点的最小时间  xx 与yy中的绝对值相对大的那个就好了 因为要按照顺序执行
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var minTimeToVisitAllPoints = function(points) {
+    if(points.length < 2) {
+        return 0;
+    }
+    let x = points[0][0],y = points[0][1],result = 0
+    for (let index = 1; index < points.length; index++) {
+        let point = points[index];
+        result += Math.max(Math.abs(x - point[0]),Math.abs(y - point[1]))
+        x = point[0],y = point[1]
+    }
+    return result;
+};
 
+// 1267. 统计参与通信的服务器  简单的计数法
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var countServers = function(grid) {
+    if(grid.length == 0){return}
+    let x = Array (grid.length).fill(0);
+    let y = Array (grid[0].length).fill(0);
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] == 1) {
+                x[i] ++;
+                y[j]++;
+            }
+        }
+    }
+    let result = 0;
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] == 1 &&(x[i] > 1 || y[j] > 1)) {
+                result++;
+            }
+        }
+    }
+    return result;
+};
 
+// 1268. 搜索推荐系统  先排序 后处理
+var suggestedProducts = function(products, searchWord) {
+     let checkList = products.sort(),index = 0,result =[]
+     while(checkList.length > 0 && index < searchWord.length) {
+         let newList =[];
+         for (let product of checkList) {
+             if(product.substr(index,1) == searchWord.substr(index,1)) {
+                 newList.push(product);
+             }
+         }
+         result.push(newList.length > 3 ? [newList[0],newList[1],newList[2]] : newList);
+         checkList = newList;
+         index++;
+     }
+     while(index < searchWord.length) {
+         result.push([]);
+         index++;
+     }
+     return result;
+};
 
 // 5238. 找出给定方程的正整数解 双指针
 /**
