@@ -734,6 +734,11 @@ var removeElement = function(nums, val) {
     return i;
 };
 
+// 28. 实现 strStr() ...
+var strStr = function(haystack, needle) {
+    return haystack.indexOf(needle)
+};
+
 // 32. 最长有效括号 记录（ 的位置，到数组，然后进行安全计算
 /**
  * @param {string} s
