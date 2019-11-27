@@ -1329,6 +1329,15 @@ var merge = function(intervals) {
     return result;
 };
 
+// 58. 最后一个单词的长度 基本逻辑
+var lengthOfLastWord = function(s) {
+    let sArray = s.split(' ') 
+    while(sArray.length > 0 && !sArray[sArray.length -1]) {
+        sArray.pop();
+    } 
+    return sArray.length > 0 ?  sArray[sArray.length -1].length : 0
+};
+
 // 59 螺旋矩形2
 /**
  * @param {number} n
