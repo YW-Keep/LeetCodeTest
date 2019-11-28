@@ -1733,6 +1733,29 @@ var minWindow = function(s, t) {
     return  (begain == -1) ? "": s.slice(begain, end+1);
 };
 
+// 77. 组合 回朔算法
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function(n, k) {
+    let result = []
+    dfs(1,[]);
+    return result;
+    function dfs(first,curr) {
+        if(curr.length == k) {
+            result.push([...curr])
+            return
+        }
+        for (let i = first; i <= n; i++) {
+            curr.push(i)
+            dfs(i+1,curr)
+            curr.pop()
+        }
+    }
+};
+
 // 78. 子集
 /**
  * @param {number[]} nums
