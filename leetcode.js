@@ -2039,6 +2039,37 @@ var grayCode = function(n) {
     return result;
 };
 
+// 92. 反转链表 II  递归 加回朔 
+/**
+ * @param {ListNode} head
+ * @param {number} m
+ * @param {number} n
+ * @return {ListNode}
+ */
+var reverseBetween = function(head, m, n) {
+    let left = head;
+    let stop = false;
+    backAction(head,m,n);
+    return head;
+    function backAction(right,m,n) {
+        if(n == 1) {return};
+        right = right.next;
+        if(m > 1) {
+            left = left.next;
+        }
+        backAction(right,m-1,n-1);
+        if(left == right || right.next == left) {
+            stop = true;
+        }
+        if(!stop) {
+            let t = left.val;
+            left.val = right.val;
+            right.val = t;
+            left = left.next;
+        }
+    }
+};
+
 //93.复原IP地址 可以看成插入三个点 分割成4个地址，但是要校验地址的正确性，1.首位不为0 2. 小于255 可以用回溯算法
 /**
  * @param {string} s
