@@ -12881,6 +12881,72 @@ var suggestedProducts = function(products, searchWord) {
      }
      return result;
 };
+//  1271. 十六进制魔术数字 基础逻辑
+/**
+ * @param {string} num
+ * @return {string}
+ */
+var toHexspeak = function(num) {
+    let chekNum = Number.parseInt(num) 
+    let result = ""
+    while (chekNum > 0) {
+        let mod = chekNum%16
+        if(mod == 0) {
+            result = "O" + result
+        } else if(mod == 1) {
+            result = "I" + result
+        } else if(mod >= 10) {
+            result = String.fromCharCode(65 + mod -10) +result
+        } else {
+            return "ERROR"
+        }
+        chekNum = Math.floor(chekNum/16)
+    }
+    return result
+};
+
+// 1272. 删除区间 基础逻辑
+/**
+ * @param {number[][]} intervals
+ * @param {number[]} toBeRemoved
+ * @return {number[][]}
+ */
+var removeInterval = function(intervals, toBeRemoved) {
+    let result = [];
+    for (let i = 0; i < intervals.length; i++) {
+        let interval = intervals[i];
+        if(interval[0] >= toBeRemoved[1] || interval[1] <= toBeRemoved[0]) {
+            result.push(interval);
+        } else if (interval[0] < toBeRemoved[0] && interval[1] > toBeRemoved[1]) {
+            result.push([interval[0],toBeRemoved[0]])
+            result.push([toBeRemoved[1],interval[1]])   
+        } else if (interval[0]< toBeRemoved[0]) {
+            result.push([interval[0],toBeRemoved[0]])
+        } else if(interval[1] > toBeRemoved[1]) {
+            result.push([toBeRemoved[1],interval[1]])  
+        }
+    }
+    return result;
+};
+
+// 1276. 不浪费原料的汉堡制作方案 二元一次方程求解
+/**
+ * @param {number} tomatoSlices
+ * @param {number} cheeseSlices
+ * @return {number[]}
+ */
+var numOfBurgers = function(tomatoSlices, cheeseSlices) {
+    let num =  tomatoSlices - 2*cheeseSlices
+    let result = []
+    if(num % 2 == 0) {
+        let x =  num/2
+        let y =  cheeseSlices - x
+        if(x >=0 && y>= 0) {
+            result = [x,y]
+        }
+    }
+    return result;
+};
 
 // 5238. 找出给定方程的正整数解 双指针
 /**
