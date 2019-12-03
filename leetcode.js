@@ -12929,6 +12929,52 @@ var removeInterval = function(intervals, toBeRemoved) {
     return result;
 };
 
+// 1275. 找出井字棋的获胜者 逻辑题
+/**
+ * @param {number[][]} moves
+ * @return {string}
+ */
+var tictactoe = function(moves) {
+    let backup = []
+    for (let i = 0; i < 3; i++) {
+        backup.push([0,0,0])
+    }
+
+    if(moves.length < 5) {
+        return "Pending"
+    }
+    for (let i = 0; i < moves.length; i++) {
+        let num =  i%2 +1;
+        backup[moves[i][0]][moves[i][1]] = num;
+        let win = checkWin();
+        if(win == 1) {
+            return "A"
+        } else if(win == 2) {
+            return "B"
+        }
+    }
+    return moves.length > 8 ? "Draw" : "Pending"
+
+    function checkWin() {
+        for (let i = 0; i < 3; i++) {
+            if(backup[0][i] > 0 && backup[0][i] == backup[1][i] && backup[2][i] == backup[1][i]) {
+                return backup[0][i]
+            }
+            if(backup[i][0] > 0 && backup[i][0] == backup[i][1] && backup[i][2] == backup[i][1]) {
+                return backup[i][0] 
+            }
+        }
+        if(backup[0][0] > 0 && backup[0][0] == backup[1][1] && backup[2][2] == backup[1][1]) {
+            return backup[0][0];
+        }
+        if(backup[0][2] > 0 && backup[0][2] == backup[1][1] && backup[2][0] == backup[1][1]) {
+            return backup[0][2];
+        }
+        return 0;
+    }
+};
+
+
 // 1276. 不浪费原料的汉堡制作方案 二元一次方程求解
 /**
  * @param {number} tomatoSlices
