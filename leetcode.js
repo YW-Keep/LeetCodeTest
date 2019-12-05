@@ -3406,6 +3406,26 @@ var trailingZeroes = function(n) {
     }return a;
 };
 
+/// 179. 最大数 排序
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+var largestNumber = function(nums) {
+    nums.sort(compare)
+    let result = ""
+    for(let num of nums) {
+        result += String(num); 
+    }
+    return parseInt(result)
+
+
+    function compare (a,b) {
+        let num1 = parseInt(String(a) + String(b)) 
+        let num2 = parseInt(String(b) + String(a)) 
+        return num2 - num1
+    }
+};
 // 189. 旋转数组 两个自带的方法搞定
 /**
  * @param {number[]} nums
@@ -4636,9 +4656,6 @@ var countNumbersWithUniqueDigits2 = function(n) {
     return backup;
 };
 
-
-
-
 // 365. 水壶问题 仔细考虑下 就是  z = ax +by;  这就是 求最大公约数 ，看看 z是不是 他们的倍数  所以问题就转化为求最大公约数了 最后考虑xy等于0以及z大于xy的特殊情况
 /**
  * @param {number} x
@@ -4768,6 +4785,15 @@ var kthSmallest = function(matrix, k) {
         }
         return backArray;
     }
+};
+
+// 390. 消除游戏 找规律
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var lastRemaining = function(n) {
+    return n == 1 ? 1 : 2*(Math.floor(n/2) +1  -lastRemaining(Math.floor(n/2)))
 };
 
 // 397.整数替换 递归最简单的思路
