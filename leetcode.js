@@ -6167,6 +6167,26 @@ var fib = function(N) {
     }
 };
 
+// 513. 找树左下角的值 二叉树的层序遍历
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var findBottomLeftValue = function(root) {
+    let num = root.val;
+    let backup =[root];
+    while(backup.length > 0) {
+        num = backup[0].val;
+        let newBackup = [];
+        for(let node of backup) {
+            if(node.left) { newBackup.push(node.left)}
+            if(node.right) {newBackup.push(node.right)}
+        }
+        backup = newBackup;
+    }
+    return num;
+};
+
 // 518. 零钱兑换 II  动态规划
 /**
  * @param {number} amount
