@@ -13040,6 +13040,76 @@ var numOfBurgers = function(tomatoSlices, cheeseSlices) {
     return result;
 };
 
+// 1281. 整数的各位积和之差 基本逻辑
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var subtractProductAndSum = function(n) {
+    let product = 1;
+    let sum = 0;
+    let num = n;
+    while(num > 0) {
+        let node = num%10;
+        sum += node
+        product *= node
+        num = Math.floor(num/10)
+    }
+    return product - sum;
+};
+
+// 1282. 用户分组 字典记录备份
+/**
+ * @param {number[]} groupSizes
+ * @return {number[][]}
+ */
+var groupThePeople = function(groupSizes) {
+    let backup = new Map();
+    let result = [];
+    for (let index = 0; index < groupSizes.length; index++) {
+        let key  = groupSizes[index];
+        let backArray = backup.get(key)
+        if(backArray) {
+            backArray.push(index)
+        } else {
+            backArray = [index];
+        }
+        if(backArray.length == key) {
+            result.push(backArray);
+            backArray = []
+        }
+        backup.set(key,backArray);
+    }
+    return result;
+};
+
+// 1283. 使结果不超过阈值的最小除数  二分查找 
+/**
+ * @param {number[]} nums
+ * @param {number} threshold
+ * @return {number}
+ */
+var smallestDivisor = function(nums, threshold) {
+    let maxNum = nums[0];
+    for (let i = 1; i < nums.length; i++) {
+        maxNum = Math.max(maxNum,nums[i]);
+    }
+    let left = 1,right =maxNum;
+    while(left  < right) {
+        let mid = Math.floor((left + right)/2)
+        let sum = 0;
+        for(let num of nums) {
+            sum += Math.ceil(num/mid);
+        }
+        if(sum > threshold) {
+            left = mid + 1;
+        }  else  {
+            right = mid;
+        }
+    }
+    return right;
+};
+
 // 5238. 找出给定方程的正整数解 双指针
 /**
  * @param {CustomFunction} customfunction
