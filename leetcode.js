@@ -3502,6 +3502,25 @@ var rightSideView = function(root) {
     return result
 };
 
+
+
+// 201. 数字范围按位与  其实就是低位变零高位不变 位运算
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var rangeBitwiseAnd = function(m, n) {
+    let count = 0;
+    while(m != n) {
+        m >>= 1
+        n >>= 1
+        count++
+    }
+    n <<= count
+    return n;
+};
+
 // 202. 快乐数 递归
 /**
  * @param {number} n
