@@ -3502,8 +3502,6 @@ var rightSideView = function(root) {
     return result
 };
 
-
-
 // 201. 数字范围按位与  其实就是低位变零高位不变 位运算
 /**
  * @param {number} m
@@ -4735,6 +4733,28 @@ var getSum = function(a, b) {
         b = res;
     }
     return a;
+};
+
+//  375. 猜数字大小 II 动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var getMoneyAmount = function(n) {
+    let dp = [];
+    for (let index = 0; index < n+1; index++) {
+        dp.push(Array(n+1).fill(0))
+    }
+    for (let len = 2; len <= n; len++) {
+        for (let i = 0; i+ len -1 <= n ; i++) {
+            let j = i +len -1;
+            dp[i][j] = Math.min(i+dp[i +1][j],j+dp[i][j-1])
+            for (let k = i+1; k < j; k++) {
+                dp[i][j] = Math.min(dp[i][j],k + Math.max(dp[i][k-1],dp[k+1][j]))
+            }
+        }
+    }
+    return dp[1][n];
 };
 
 // 386.字典序排序  找规律递归
