@@ -5459,6 +5459,26 @@ var arrangeCoins = function(n) {
     return Math.floor((Math.sqrt(8*n + 1) -1)/2);
 };
 
+// 442. 数组中重复的数据 位置记录
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findDuplicates = function(nums) {
+    let n = nums.length;
+    for (let index = 0; index < n; index++) {
+        let num = (nums[index] -1)%n;
+        nums[num]+= n
+    }
+    let result = [];
+    for (let index = 0; index < n; index++) {
+        if(nums[index] > 2*n) {
+            result.push(index +1);
+        }
+    }
+    return result;
+};
+
 // 443. 压缩字符串 基础逻辑题
 /**
  * @param {character[]} chars
