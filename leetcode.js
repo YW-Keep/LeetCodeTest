@@ -5365,6 +5365,38 @@ var canPartition = function(nums) {
     }
 };
 
+// 423. 从英文中重建数字 找规律加遍历
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var originalDigits = function(s) {
+    let backup = new Map();
+    for(let char of s) {
+        backup.set(char,(backup.get(char) || 0) + 1)
+    }
+    let out = Array(10).fill(0);
+    out[0] = backup.get('z') || 0
+    out[2] = backup.get('w') || 0
+    out[4] = backup.get('u') || 0
+    out[6] = backup.get('x') || 0
+    out[8] = backup.get('g') || 0
+    out[3] = (backup.get('h') || 0) - out[8]
+    out[5] = (backup.get('f') || 0) - out[4]
+    out[7] = (backup.get('s') || 0) - out[6]
+    out[9] = (backup.get('i') || 0) - out[5] - out[6] - out[8]
+    out[1] = backup.get('n') - out[7] - 2*out[9]
+    let output = ''
+    for (let i = 0; i < out.length; i++) {
+        let num = out[i];
+        while(num > 0) {
+            num--;
+            output += i;
+        }
+    }
+    return output;
+};
+
  // 429. N叉树的层序遍历 基本逻辑题
  /**
  * @param {Node} root
