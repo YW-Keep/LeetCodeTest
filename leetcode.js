@@ -12952,6 +12952,112 @@ var isGoodArray = function(nums) {
     }
 };
 
+// 1252.奇数值单元格的数目 基础逻辑 
+/**
+ * @param {number} n
+ * @param {number} m
+ * @param {number[][]} indices
+ * @return {number}
+ */
+var oddCells = function(n, m, indices) {
+    let nBackup = Array(n).fill(0);
+    let mBackup = Array(m).fill(0);
+    for (let index = 0; index < indices.length; index++) {
+        let nums = indices[index];
+        nBackup[nums[0]]++;
+        mBackup[nums[1]]++;
+    }
+    let result = 0
+    for (let i = 0; i < nBackup.length; i++) {
+        for (let j = 0; j < mBackup.length; j++) {
+            result += (nBackup[i] +mBackup[j])%2
+        }
+    }
+    return result;
+};
+
+// 1256. 加密数字 找规律
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var encode = function(num) {
+    return   (num +1).toString(2).substring(1);
+};
+
+//  1260. 二维网格迁移 找到初始的点 开始重新排序
+
+/**
+ * @param {number[][]} grid
+ * @param {number} k
+ * @return {number[][]}
+ */
+var shiftGrid = function(grid, k) {
+    let y = grid.length;
+    let x = grid[0].length;
+    let nums = x*y;
+    let tk = k%nums;
+    if(tk == 0) { return grid; }
+    tk = nums - tk +1;
+    let starty = Math.floor((tk -1)/x); 
+    let startx = (tk -1)%x;
+    let result = [];
+    for (let i = 0; i < y; i++) {
+        let  inArray = [];
+        for (let j = 0; j < x; j++) {
+            inArray.push(grid[starty][startx]) 
+            startx++;
+            if(startx == x) {
+                starty++;
+                startx = 0;
+                if(starty == y) {
+                    starty = 0;
+                }
+            }
+        }
+        result.push(inArray);
+    }
+    return result;
+};
+
+// 1262. 可被三整除的最大和 贪心算法
+var maxSumDivThree = function(nums) {
+    let backup1 = [];
+    let backup2 = [];
+    let result = 0;
+    nums.sort((a,b) => a - b);
+    for(let num of nums) {
+        let index = num%3;
+        result += num;
+        if (index == 1) {
+            backup1.push(num);
+        } else if(index == 2) {
+            backup2.push(num);
+        }
+    }
+    if(result%3 == 1) {
+        if(backup1.length > 0 && backup2.length > 1) {
+            result = Math.max(result - backup1[0],result - backup2[0] -backup2[1]);
+        } else if(backup1.length > 0) {
+            result = result - backup1[0];
+        } else {
+            result = result -backup2[0] -backup2[1];
+        }
+    }
+
+    if(result%3 == 2) {
+        if(backup1.length > 1 && backup2.length > 0) {
+            result = Math.max(result - backup2[0],result - backup1[0] -backup1[1]);
+        } else if(backup2.length >0) {
+            result = result - backup2[0];
+        } else {
+            result = result -backup1[0] -backup1[1];
+        }
+    }
+
+    return result;
+};
+
 // 1266. 访问所有点的最小时间  xx 与yy中的绝对值相对大的那个就好了 因为要按照顺序执行
 /**
  * @param {number[][]} points
@@ -13222,111 +13328,75 @@ var findSolution = function(customfunction, z) {
     return result;
 };
 
-// 5255.奇数值单元格的数目 基础逻辑 
+// 5126. 有序数组中出现次数超过25%的元素 基础逻辑
 /**
- * @param {number} n
- * @param {number} m
- * @param {number[][]} indices
+ * @param {number[]} arr
  * @return {number}
  */
-var oddCells = function(n, m, indices) {
-    let nBackup = Array(n).fill(0);
-    let mBackup = Array(m).fill(0);
-    for (let index = 0; index < indices.length; index++) {
-        let nums = indices[index];
-        nBackup[nums[0]]++;
-        mBackup[nums[1]]++;
+var findSpecialInteger = function(arr) {
+    let length = Math.floor(arr.length/4)+1;
+    if(arr.length < 4) {
+        return arr[0]
     }
-    let result = 0
-    for (let i = 0; i < nBackup.length; i++) {
-        for (let j = 0; j < mBackup.length; j++) {
-            result += (nBackup[i] +mBackup[j])%2
-        }
-    }
-    return result;
-};
-
-// 5108. 加密数字 找规律
-/**
- * @param {number} num
- * @return {string}
- */
-var encode = function(num) {
-    return   (num +1).toString(2).substring(1);
-};
-
-//  5263. 二维网格迁移 找到初始的点 开始重新排序
-
-/**
- * @param {number[][]} grid
- * @param {number} k
- * @return {number[][]}
- */
-var shiftGrid = function(grid, k) {
-    let y = grid.length;
-    let x = grid[0].length;
-    let nums = x*y;
-    let tk = k%nums;
-    if(tk == 0) { return grid; }
-    tk = nums - tk +1;
-    let starty = Math.floor((tk -1)/x); 
-    let startx = (tk -1)%x;
-    let result = [];
-    for (let i = 0; i < y; i++) {
-        let  inArray = [];
-        for (let j = 0; j < x; j++) {
-            inArray.push(grid[starty][startx]) 
-            startx++;
-            if(startx == x) {
-                starty++;
-                startx = 0;
-                if(starty == y) {
-                    starty = 0;
-                }
+    let num = arr[0]
+    let sum = 1;
+    for (let i = 1; i < arr.length; i++) {
+        let inNum = arr[i];
+        if(inNum == num) {
+            sum++
+            if(sum == length) {
+                return num
             }
+        } else {
+            num = inNum
+            sum = 1
         }
-        result.push(inArray);
     }
-    return result;
+    return 0
+};
+ 
+// 5127. 删除被覆盖区间 排序判断
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var removeCoveredIntervals = function(intervals) {
+    intervals.sort((a,b) => {
+        if(a[0] == b[0]) {
+            return a[1] - b[1]
+        } else {
+            return a[0] -b[0]
+        }
+    })
+    let backup = intervals[0]
+    let num = 1;
+    for (let i = 1; i < intervals.length; i++) {
+        let interval = intervals[i];
+        if(!(backup[0] <= interval[0] && backup[1] >= interval[1])) {
+            num++;
+            backup = interval;
+        }
+
+    }
+    return num;
+}
+
+
+// 5283. 二进制链表转整数 基础逻辑
+/**
+ * @param {ListNode} head
+ * @return {number}
+ */
+var getDecimalValue = function(head) {
+    let str = ''
+    let next = head
+    while(next) {
+        str += next.val
+        next = next.next
+    }
+    return parseInt(str,2);
 };
 
-// 5265. 可被三整除的最大和 贪心算法
-var maxSumDivThree = function(nums) {
-    let backup1 = [];
-    let backup2 = [];
-    let result = 0;
-    nums.sort((a,b) => a - b);
-    for(let num of nums) {
-        let index = num%3;
-        result += num;
-        if (index == 1) {
-            backup1.push(num);
-        } else if(index == 2) {
-            backup2.push(num);
-        }
-    }
-    if(result%3 == 1) {
-        if(backup1.length > 0 && backup2.length > 1) {
-            result = Math.max(result - backup1[0],result - backup2[0] -backup2[1]);
-        } else if(backup1.length > 0) {
-            result = result - backup1[0];
-        } else {
-            result = result -backup2[0] -backup2[1];
-        }
-    }
-
-    if(result%3 == 2) {
-        if(backup1.length > 1 && backup2.length > 0) {
-            result = Math.max(result - backup2[0],result - backup1[0] -backup1[1]);
-        } else if(backup2.length >0) {
-            result = result - backup2[0];
-        } else {
-            result = result -backup1[0] -backup1[1];
-        }
-    }
-
-    return result;
-};
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
