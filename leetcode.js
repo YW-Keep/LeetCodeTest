@@ -13307,28 +13307,7 @@ var smallestDivisor = function(nums, threshold) {
     return right;
 };
 
-// 5238. 找出给定方程的正整数解 双指针
-/**
- * @param {CustomFunction} customfunction
- * @param {integer} z
- * @return {integer[][]}
- */
-var findSolution = function(customfunction, z) {
-    let result = [],x = 1,y =1000
-    while(x<=1000 && 1<= y) {
-        if(customfunction.f(x,y) == z) {
-            result.push([x,y])
-            x++;
-        } else if(customfunction.f(x,y) > z) {
-            y--;
-        } else {
-            x++;
-        }
-    }
-    return result;
-};
-
-// 5126. 有序数组中出现次数超过25%的元素 基础逻辑
+// 1287. 有序数组中出现次数超过25%的元素 基础逻辑
 /**
  * @param {number[]} arr
  * @return {number}
@@ -13354,8 +13333,8 @@ var findSpecialInteger = function(arr) {
     }
     return 0
 };
- 
-// 5127. 删除被覆盖区间 排序判断
+
+// 1288. 删除被覆盖区间 排序判断
 /**
  * @param {number[][]} intervals
  * @return {number}
@@ -13381,8 +13360,7 @@ var removeCoveredIntervals = function(intervals) {
     return num;
 }
 
-
-// 5283. 二进制链表转整数 基础逻辑
+// 1290. 二进制链表转整数 基础逻辑
 /**
  * @param {ListNode} head
  * @return {number}
@@ -13395,6 +13373,52 @@ var getDecimalValue = function(head) {
         next = next.next
     }
     return parseInt(str,2);
+};
+
+// 1291. 顺次数 穷举法
+/**
+ * @param {number} low
+ * @param {number} high
+ * @return {number[]}
+ */
+var sequentialDigits = function(low, high) {
+    let backup = [12, 23, 34, 45, 56, 67, 78, 89,
+        123, 234, 345, 456, 567, 678, 789,
+        1234, 2345, 3456, 4567, 5678, 6789,
+        12345, 23456, 34567, 45678, 56789,
+        123456, 234567, 345678, 456789,
+        1234567, 2345678, 3456789,
+        12345678, 23456789,
+        123456789]
+    let result = []
+    for (let i = 0; i < backup.length; i++) {
+        let num = backup[i]
+        if(num >= low && num <= high) {
+            result.push(num);
+        }
+    }
+    return result;
+};
+
+// 5238. 找出给定方程的正整数解 双指针
+/**
+ * @param {CustomFunction} customfunction
+ * @param {integer} z
+ * @return {integer[][]}
+ */
+var findSolution = function(customfunction, z) {
+    let result = [],x = 1,y =1000
+    while(x<=1000 && 1<= y) {
+        if(customfunction.f(x,y) == z) {
+            result.push([x,y])
+            x++;
+        } else if(customfunction.f(x,y) > z) {
+            y--;
+        } else {
+            x++;
+        }
+    }
+    return result;
 };
 
 // LCP 1.猜数字 基础逻辑题
