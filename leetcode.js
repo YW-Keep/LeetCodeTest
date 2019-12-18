@@ -13360,6 +13360,38 @@ var removeCoveredIntervals = function(intervals) {
     return num;
 }
 
+// 1289. 下降路径最小和  II  动态规划 主要是找到转移方程
+/**
+ * @param {number[][]} arr
+ * @return {number}
+ */
+var minFallingPathSum = function(arr) {
+    let backup = arr[0];
+    for (let i = 1; i < arr.length; i++) {
+        let inArr = arr[i];
+        let min1 = Math.min(backup[0],backup[1])
+        let min2 = Math.max(backup[0],backup[1]) 
+        for (let index = 2; index < backup.length; index++) {
+            let num = backup[index];        
+            if(num < min1) {
+                min2 = min1
+                min1 = num
+            } else if(num < min2) {
+                min2 = num
+            }
+        }
+        for (let index = 0; index < inArr.length; index++) {
+            inArr[index] += backup[index] == min1 ? min2 : min1
+        }
+        backup = inArr;
+    }
+    let result = backup[0];
+    for (let num of backup) {
+        result = Math.min(result,num)
+    }
+    return result;
+};
+
 // 1290. 二进制链表转整数 基础逻辑
 /**
  * @param {ListNode} head
