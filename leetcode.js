@@ -9510,6 +9510,15 @@ var smallestRangeII = function(A, K) {
     return res
 };
 
+// 912. 排序数组   排序
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortArray = function(nums) {
+    return nums.sort((a,b) =>  a - b)
+};
+
 // 914.卡牌分组 找数字因子
 /**
  * @param {number[]} deck
