@@ -8097,6 +8097,28 @@ var countPrimeSetBits = function(L, R) {
     return result
 };
 
+// 763. 划分字母区间 贪心算法 数组记录
+/**
+ * @param {string} S
+ * @return {number[]}
+ */
+var partitionLabels = function(S) {
+    let backup = new Array(26).fill(0);
+    for (let i = 0; i < S.length; i++) {
+        let char =  S[i];
+        backup[char.charCodeAt() - 97] = i;
+    }
+    let start = 0,end = 0,ans = [];
+    for (let i = 0; i < S.length; i++) {
+        end = Math.max(end,backup[S[i].charCodeAt() -97])
+        if(end == i) {
+            ans.push(end - start + 1);
+            start = i +1;
+        }
+    }
+    return ans;
+};
+
 // 767. 重构字符串 最大堆 贪心算法
 /**
  * @param {string} S
