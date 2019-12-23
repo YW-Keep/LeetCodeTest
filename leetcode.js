@@ -13484,6 +13484,89 @@ var findSolution = function(customfunction, z) {
     return result;
 };
 
+// 5291.统计位数为偶数的数字 转string 判断长度
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findNumbers = function(nums) {
+    let result = 0
+    for(let num of nums) {
+        if(String(num).length%2 == 0) {
+            result++
+        }
+    }
+    return result;
+};
+
+// 5292.划分数组为连续数字的集合 map 计数
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var isPossibleDivide = function(nums, k) {
+    if(nums.length%k != 0) {
+        return false
+    }
+    nums.sort((a,b) => a - b)
+    let backup = new Map()
+    for(let num of nums) {
+        backup.set(num, (backup.get(num)|| 0) + 1)
+    }
+    for(let num of nums) {
+        let count = backup.get(num)
+        if(count != 0) {
+            for (let i = 0; i < k; i++) {
+                let inCount = backup.get(num + i) || 0;
+                if(inCount == 0) {
+                    return false
+                };
+                backup.set(num+i,inCount -1)
+            }
+        }
+    }
+    return true;
+};
+
+// 5293. 子串的最大出现次数 窗口
+/**
+ * @param {string} s
+ * @param {number} maxLetters
+ * @param {number} minSize
+ * @param {number} maxSize
+ * @return {number}
+ */
+var maxFreq = function(s, maxLetters, minSize, maxSize) {
+    let backup = Array(26).fill(0),count = 0;
+    let backupMap = new Map()
+    for (let i = 0; i < s.length; i++) {
+        let num = s[i].charCodeAt() - 97;
+        if(backup[num] == 0) {
+            count++
+        }
+        backup[num] +=1
+        if(i >= minSize) {
+            num = s[i - minSize].charCodeAt() - 97;
+            if(backup[num] == 1) {
+                count--
+            }
+            backup[num] -=1
+        }
+        if(i >= minSize - 1) {
+            if(count <=maxLetters) {
+                let key = s.substr(i -minSize +1 ,minSize) 
+                backupMap.set(key,(backupMap.get(key) || 0) +1)
+            }
+        }
+    }
+    let result = 0
+    for (let item of backupMap) {
+        result = Math.max(result,item[1])    
+    }
+    return result;
+};
+
 // LCP 1.猜数字 基础逻辑题
 /**
  * @param {number[]} guess
