@@ -6509,6 +6509,62 @@ var diameterOfBinaryTree = function(root) {
     return max;
 };
 
+// 547.朋友圈 Union-Find 算法
+/**
+ * @param {number[][]} M
+ * @return {number}
+ */
+var findCircleNum = function(M) {
+    class UF {
+        constructor(num) {
+            this.count = num;
+            this.size = Array(num)
+            this.parent = Array(num)
+            for (let i = 0; i < num; i++) {
+                this.parent[i] = i;
+                this.size[i] = 1;
+            }
+        }
+        union(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            if(rootP == rootQ) {
+                return
+            }
+            if (this.size[rootP] > this.size[rootQ]) {
+                this.parent[rootQ] = rootP;
+                this.size[rootP] += this.size[rootQ];
+            } else {
+                this.parent[rootP] = rootQ;
+                this.size[rootQ] += this.size[rootP];
+            }
+            this.count--
+        }
+        connected(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            return rootP == rootQ
+        }
+        find(x) {
+            while(this.parent[x] != x) {
+                // 进行路径压缩
+                this.parent[x] = this.parent[this.parent[x]];
+                x = this.parent[x];
+            }
+            return x;
+        }
+    }
+    let n = M.length
+    let uf = new UF(n);
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < i; j++) {
+            if (M[i][j] == 1)
+                uf.union(i, j);
+        }
+    }
+    return uf.count;
+};
+findCircleNum([[1,0,0,1],[0,1,1,0],[0,1,1,1],[1,0,1,1]])
 
 // 551. 学生出勤记录 I  基本逻辑题
 /**
@@ -13463,28 +13519,7 @@ var sequentialDigits = function(low, high) {
     return result;
 };
 
-// 5238. 找出给定方程的正整数解 双指针
-/**
- * @param {CustomFunction} customfunction
- * @param {integer} z
- * @return {integer[][]}
- */
-var findSolution = function(customfunction, z) {
-    let result = [],x = 1,y =1000
-    while(x<=1000 && 1<= y) {
-        if(customfunction.f(x,y) == z) {
-            result.push([x,y])
-            x++;
-        } else if(customfunction.f(x,y) > z) {
-            y--;
-        } else {
-            x++;
-        }
-    }
-    return result;
-};
-
-// 5291.统计位数为偶数的数字 转string 判断长度
+// 1295.统计位数为偶数的数字 转string 判断长度
 /**
  * @param {number[]} nums
  * @return {number}
@@ -13499,7 +13534,7 @@ var findNumbers = function(nums) {
     return result;
 };
 
-// 5292.划分数组为连续数字的集合 map 计数
+// 1296.划分数组为连续数字的集合 map 计数
 /**
  * @param {number[]} nums
  * @param {number} k
@@ -13529,7 +13564,7 @@ var isPossibleDivide = function(nums, k) {
     return true;
 };
 
-// 5293. 子串的最大出现次数 窗口
+// 1297. 子串的最大出现次数 窗口
 /**
  * @param {string} s
  * @param {number} maxLetters
@@ -13563,6 +13598,28 @@ var maxFreq = function(s, maxLetters, minSize, maxSize) {
     let result = 0
     for (let item of backupMap) {
         result = Math.max(result,item[1])    
+    }
+    return result;
+};
+
+
+// 5238. 找出给定方程的正整数解 双指针
+/**
+ * @param {CustomFunction} customfunction
+ * @param {integer} z
+ * @return {integer[][]}
+ */
+var findSolution = function(customfunction, z) {
+    let result = [],x = 1,y =1000
+    while(x<=1000 && 1<= y) {
+        if(customfunction.f(x,y) == z) {
+            result.push([x,y])
+            x++;
+        } else if(customfunction.f(x,y) > z) {
+            y--;
+        } else {
+            x++;
+        }
     }
     return result;
 };
