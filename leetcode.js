@@ -6564,8 +6564,6 @@ var findCircleNum = function(M) {
     }
     return uf.count;
 };
-findCircleNum([[1,0,0,1],[0,1,1,0],[0,1,1,1],[1,0,1,1]])
-
 // 551. 学生出勤记录 I  基本逻辑题
 /**
  * @param {string} s
@@ -10697,6 +10695,67 @@ var addToArrayForm = function(A, K) {
         A.unshift(num);
     }
     return A;
+};
+
+// 990. 等式方程的可满足性 Union-Find 算法
+/**
+ * @param {string[]} equations
+ * @return {boolean}
+ */
+var equationsPossible = function(equations) {
+    class UF {
+        constructor(num) {
+            this.count = num;
+            this.size = Array(num)
+            this.parent = Array(num)
+            for (let i = 0; i < num; i++) {
+                this.parent[i] = i;
+                this.size[i] = 1;
+            }
+        }
+        union(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            if(rootP == rootQ) {
+                return
+            }
+            if (this.size[rootP] > this.size[rootQ]) {
+                this.parent[rootQ] = rootP;
+                this.size[rootP] += this.size[rootQ];
+            } else {
+                this.parent[rootP] = rootQ;
+                this.size[rootQ] += this.size[rootP];
+            }
+            this.count--
+        }
+        connected(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            return rootP == rootQ
+        }
+        find(x) {
+            while(this.parent[x] != x) {
+                // 进行路径压缩
+                this.parent[x] = this.parent[this.parent[x]];
+                x = this.parent[x];
+            }
+            return x;
+        }
+    }
+    let uf = new UF(26)
+    for (let i = 0; i < equations.length; i++) {
+        let equation = equations[i];
+        if(equation['1'] == '=') {
+            uf.union(equation[0].charCodeAt() - 97,equation[3].charCodeAt() - 97)
+        }
+    }
+    for (let i = 0; i < equations.length; i++) {
+        let equation = equations[i];
+        if(equation['1'] == '!' && uf.connected(equation[0].charCodeAt() - 97,equation[3].charCodeAt() - 97)) {
+            return false
+        }
+    }
+    return true
 };
 
 // 991. 坏了的计算器  贪心算法 多除 逆向计算
