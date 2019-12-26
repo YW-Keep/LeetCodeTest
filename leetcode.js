@@ -2851,7 +2851,93 @@ var sumNumbers = function(root) {
     }
     
 };
-
+// 130. 被围绕的区域 Union-Find 算法
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var solve = function(board) {
+    class UF {
+        constructor(num) {
+            this.count = num;
+            this.size = Array(num)
+            this.parent = Array(num)
+            for (let i = 0; i < num; i++) {
+                this.parent[i] = i;
+                this.size[i] = 1;
+            }
+        }
+        union(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            if(rootP == rootQ) {
+                return
+            }
+            if (this.size[rootP] > this.size[rootQ]) {
+                this.parent[rootQ] = rootP;
+                this.size[rootP] += this.size[rootQ];
+            } else {
+                this.parent[rootP] = rootQ;
+                this.size[rootQ] += this.size[rootP];
+            }
+            this.count--
+        }
+        connected(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            return rootP == rootQ
+        }
+        find(x) {
+            while(this.parent[x] != x) {
+                // 进行路径压缩
+                this.parent[x] = this.parent[this.parent[x]];
+                x = this.parent[x];
+            }
+            return x;
+        }
+    }
+    if(board.length == 0) {return}
+    let m = board.length,n = board[0].length
+    let uf = new UF(m*n+1),dummy = m*n
+    for (let i = 0; i < m; i++) {
+        if(board[i][0] == 'O') {
+            uf.union(i*n,dummy)
+        }
+        if(board[i][n-1] == 'O') {
+            uf.union(i*n + n-1,dummy)
+        }
+    }
+    for (let i = 0; i < n; i++) {
+        if(board[0][i]== 'O') {
+            uf.union(i,dummy)
+        }
+        if(board[m-1][i]== 'O') {
+            uf.union(n * (m - 1) + i,dummy)
+        }
+    }
+    let d = [[1,0],[0,1],[0,-1],[-1,0]]
+    for (let i = 1; i < m-1; i++) {
+        for (let j = 1; j < n-1; j++) {
+            if(board[i][j] == 'O') {
+                for (let k = 0; k < 4; k++) {
+                    let x = i + d[k][0],y = j + d[k][1]
+                    if(board[x][y] == 'O') {
+                        uf.union(x * n + y, i * n + j);
+                    }
+                }
+            }
+            
+        }
+    }
+    for (let i = 1; i < m-1; i++) {
+        for (let j = 0; j < n-1; j++) {
+            if (!uf.connected(dummy, i * n + j)) {
+                board[i][j] = 'X'
+            }
+        }
+    }
+    return board;
+};
 // 134. 加油站 基础逻辑题 
 /**
  * @param {number[]} gas
