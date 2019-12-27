@@ -13060,6 +13060,36 @@ var jobScheduling = function(startTime, endTime, profit) {
     }
 };
 
+// 1239. 串联字符串的最大长度 回朔算法
+/**
+ * @param {string[]} arr
+ * @return {number}
+ */
+var maxLength = function(arr) {
+    let max = 0,backup = Array(26).fill(0)
+    dfs(0,'',backup)
+    function dfs(index,str,backup) {
+        let char  = arr[index];
+        if(index < arr.length - 1) {
+            dfs(index+1,str,backup.concat())
+        }
+        let nstr = arr[index];
+        for (let i = 0; i < nstr.length; i++) {
+            let num = nstr[i].charCodeAt() - 97
+            if(backup[num] == 1) {
+                return
+            } else {
+                backup[num] = 1
+            }
+        }
+        max = Math.max(max,(str + nstr).length)
+        if(index < arr.length - 1) {
+            dfs(index+1,str + nstr,backup.concat())
+        }
+    }
+    return max
+};
+
 // 1243. 数组变换 基础逻辑
 /**
  * @param {number[]} arr
