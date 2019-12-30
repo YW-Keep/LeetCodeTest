@@ -13777,6 +13777,90 @@ var maxFreq = function(s, maxLetters, minSize, maxSize) {
     return result;
 };
 
+// 5295.和为零的N个唯一整数 基本逻辑
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var sumZero = function(n) {
+    let num = Math.floor(n/2),ans = []
+    for (let i = 1; i <= num; i++) {
+        ans.push(i)
+        ans.push(-i)
+    }
+    if(n%2 == 1) {
+        ans.push(0)
+    }
+    return ans
+};
+
+// 5296.两棵二叉搜索树中的所有元素 二叉树的遍历与排序
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {number[]}
+ */
+var getAllElements = function(root1, root2) {
+
+    let list1 = [],list2 = []
+    dfs(root1,list1)
+    dfs(root2,list2)
+    let i =0,j = 0,ans =[];
+    while(i< list1.length && j < list2.length) {
+        if(list1[i] < list2[j]) {
+            ans.push(list1[i]) 
+            i++
+        } else {
+            ans.push(list2[j])
+            j++
+        }
+    }
+    while(i< list1.length) {
+        ans.push(list1[i]) 
+        i++
+    }
+    while(j < list2.length) {
+        ans.push(list2[j])
+        j++
+    }
+    return ans
+
+    function dfs(node,list) {
+        if(!node) {return}
+        dfs(node.left,list);
+        list.push(node.val)
+        dfs(node.right,list);
+    }
+
+};
+
+// 5297. 跳跃游戏 III  dfs backup记录走过的点
+/**
+ * @param {number[]} arr
+ * @param {number} start
+ * @return {boolean}
+ */
+var canReach = function(arr, start) {
+    let backup = Array(arr.length).fill(0)
+    let length = arr.length
+    let ans = false;
+    dfs(start)
+    function dfs(index) {
+        let num =  arr[index];
+        if(num == 0) {
+            ans = true
+            return
+        }
+        backup[index] = 1;
+        if(index + num < length && backup[index + num] == 0) {
+            dfs(index + num);
+        } 
+        if(-1 < index - num && backup[index - num] == 0) {
+            dfs(index -num)
+        }
+    }
+    return ans;
+};
 
 // 5238. 找出给定方程的正整数解 双指针
 /**
