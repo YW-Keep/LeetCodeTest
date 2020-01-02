@@ -11867,6 +11867,89 @@ var duplicateZeros = function(arr) {
     }
 };
 
+// 1090. 受标签影响的最大值  贪心算法
+ /**
+ * @param {number[]} values
+ * @param {number[]} labels
+ * @param {number} num_wanted
+ * @param {number} use_limit
+ * @return {number}
+ */
+var largestValsFromLabels = function(values, labels, num_wanted, use_limit) {
+    if(num_wanted == 0) {return 0}
+    class LItem  {
+        constructor(value,label) {
+            this.value = value
+            this.label = label
+        }
+    }
+    let backArray = []
+    for (let i = 0; i < values.length; i++) {
+        let item = new LItem(values[i],labels[i])
+        backArray.push(item)
+    }
+    backArray.sort((a,b)=> b.value - a.value)
+    let num = 0,backMap = new Map(),ans = 0
+    for (let i = 0; i < backArray.length; i++) {
+        let item = backArray[i]
+        let limit = backMap.get(item.label) || 0
+        if(limit < use_limit) {
+            ans += item.value
+            num++
+            backMap.set(item.label,limit+1)
+            if(num ==  num_wanted) {
+                return ans
+            }
+        
+        }
+    }
+    return ans
+};
+
+// 1093.大样本统计 基础逻辑中位数求解麻烦
+/**
+ * @param {number[]} count
+ * @return {number[]}
+ */
+var sampleStats = function(count) {
+    let max = -1, min = -1,num = 0,maxNum = -1, sum = 0, sumNum = 0
+    for (let i = 0; i < count.length; i++) {
+        let inNum = count[i];
+        if(inNum > 0) {
+            if(min == -1) {
+                min = i
+            }
+            max = i
+            if(inNum > num) {
+                maxNum = i
+                num = inNum
+            }
+            sum += inNum; 
+            sumNum += i*inNum;
+        }
+    }
+    let num1 = -1,num2 = -1
+    let checkNum1 = 0,checkNum2 = 0;
+    if(sum%2 ==1) {
+        checkNum1 = Math.floor(sum/2) +1
+        checkNum2 = checkNum1;
+    } else {
+        checkNum1 = Math.floor(sum/2)
+        checkNum2 = checkNum1 +1;
+    }
+    let newSum = 0;
+    for (let i = 0; i < count.length; i++) {
+        newSum += count[i];
+        if(newSum >= checkNum1 && num1 == -1) {
+            num1 = i;
+        } 
+        if(newSum >= checkNum2) {
+            num2 = i;
+            break;
+        } 
+    }
+    return [min,max,sumNum/sum,(num1+num2)/2,maxNum];
+};
 //  1094. 拼车 基础逻辑，一个数组存在车上的人
 /**
  * @param {number[][]} trips
