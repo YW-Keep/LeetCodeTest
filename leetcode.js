@@ -11729,6 +11729,49 @@ var prevPermOpt1 = function(A) {
     return A;
 };
 
+// 1054. 距离相等的条形码 排序+贪心算法
+/**
+ * @param {number[]} barcodes
+ * @return {number[]}
+ */
+var rearrangeBarcodes = function(barcodes) {
+    let backup = new Map();
+    let backupArray = [];
+    for(let num of barcodes) {
+        let count = backup.get(num)
+        if(count) {
+            backup.set(num,count+1)
+        } else {
+            backupArray.push(num);
+            backup.set(num,1)
+        }
+    }
+    backupArray.sort((a,b)=>backup.get(b) - backup.get(a)) 
+    let ans = Array(barcodes.length)
+    let index = 0
+    for (let i = 0; i < barcodes.length; i= i+2) {
+        let key = backupArray[index]
+        ans[i] = key
+        let num = backup.get(key);
+        if(num == 1) {
+            index++;
+        } else {
+            backup.set(key,num-1)
+        }
+    }
+    for (let i = 1; i < barcodes.length; i= i+2) {
+        let key = backupArray[index]
+        ans[i] = key
+        let num = backup.get(key);
+        if(num == 1) {
+            index++;
+        } else {
+            backup.set(key,num-1)
+        }
+    }
+    return ans
+};
+
 // 1071. 字符串的最大公因子  相除法 
 var gcdOfStrings = function(str1, str2) {
     let back = getSort(str1,str2);
