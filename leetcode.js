@@ -6132,6 +6132,35 @@ var nextGreaterElement = function(nums1, nums2) {
     return reslut;
 };
 
+// 498. 对角线遍历 找规律
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var findDiagonalOrder = function(matrix) {
+    if(matrix.length == 0) {return []}
+    let m = matrix.length,n = matrix[0].length,i=0,ans = []
+    while(i < m + n) {
+        let x = 0, y = 0,add = 0
+        if(i%2 == 0) {
+            x = i < m ?i : m - 1;
+            y = i - x
+            add = -1
+        } else {
+            y = i < n ?  i : n -1;
+            x = i -y
+            add = 1
+        }
+        while(x >= 0 && x < m && y >= 0 && y< n) {
+            ans.push(matrix[x][y])
+            x +=  add
+            y -= add
+        }
+        i++
+    }
+    return ans;
+};
+
 // 500. 键盘行  基础逻辑题
 /**
  * @param {string[]} words
