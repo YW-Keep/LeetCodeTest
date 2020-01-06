@@ -14040,6 +14040,47 @@ var canReach = function(arr, start) {
     return ans;
 };
 
+// 5303. 解码字母到整数映射 基本逻辑
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var freqAlphabets = function(s) {
+    let ans = '';
+    for (let i = 0; i < s.length; i++) {
+        let str = s[i]
+        if (s[i + 2] == '#') {
+            str += s[i+1]
+            i += 2
+        }
+        ans += String.fromCharCode(Number.parseInt(str) +96)
+    }
+    return ans
+};
+
+// 5304. 子数组异或查询   a^a = 0 a^b^c^a = b^c
+/**
+ * @param {number[]} arr
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+var xorQueries = function(arr, queries) {
+    let backup = [];
+    let num = 0;
+    for (let i = 0; i < arr.length; i++) {
+        num =  num ^ arr[i];
+        backup.push(num);
+    }
+    let ans = []
+    for (let i = 0; i < queries.length; i++) {
+        let que = queries[i];
+        let start = que[0] == 0 ?  0 : backup[que[0] -1]
+        let end = backup[que[1]];
+        ans.push(start^end)
+    }
+    return ans;
+};
+
 // 5238. 找出给定方程的正整数解 双指针
 /**
  * @param {CustomFunction} customfunction
