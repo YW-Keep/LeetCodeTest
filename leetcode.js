@@ -14040,7 +14040,7 @@ var canReach = function(arr, start) {
     return ans;
 };
 
-// 5303. 解码字母到整数映射 基本逻辑
+// 1309. 解码字母到整数映射 基本逻辑
 /**
  * @param {string} s
  * @return {string}
@@ -14058,7 +14058,7 @@ var freqAlphabets = function(s) {
     return ans
 };
 
-// 5304. 子数组异或查询   a^a = 0 a^b^c^a = b^c
+// 1310. 子数组异或查询   a^a = 0 a^b^c^a = b^c
 /**
  * @param {number[]} arr
  * @param {number[][]} queries
@@ -14100,6 +14100,73 @@ var findSolution = function(customfunction, z) {
         }
     }
     return result;
+};
+
+// 1311.获取你好友已观看的视频 先深度遍历找好友，再找视频排序输出
+/**
+ * @param {string[][]} watchedVideos
+ * @param {number[][]} friends
+ * @param {number} id
+ * @param {number} level
+ * @return {string[]}
+ */
+var watchedVideosByFriends = function(watchedVideos, friends, id, level) {
+    let backup = new Array(friends.length).fill(0)
+    backup[id] = -1;
+    for (let i = 0; i < watchedVideos.length; i++) {
+        let watchedVideo = watchedVideos[i] 
+        for(let video of watchedVideo) {
+            if (video == 'aahqw') {
+                console.log(i)
+            }
+        }
+        
+    }
+    dfs(id,0)
+    function dfs(num,nlevel) {
+        if (nlevel >= level) {
+            return 
+        }
+        let friend = friends[num]
+        for (let index of friend) {
+            if (backup[index] == 0) {
+                backup[index] = nlevel +1;
+            }
+        }
+        for (let index of friend) {
+            if (backup[index] == nlevel +1) {
+                dfs(index,nlevel +1)
+            }
+        }
+    }
+    let bMap = new Map()
+    let ans = []
+    for (let index = 0; index < backup.length; index++) {
+        if (backup[index] == level) {
+            let watchedVideo = watchedVideos[index];
+            for(let video of watchedVideo) {
+                let value = bMap.get(video)
+                if (value) {
+                    value++
+                } else {
+                    value = 1
+                    ans.push(video)
+                }
+                bMap.set(video,value)
+            }
+        }
+        
+    }
+    ans.sort((a,b)=>{
+        let numa = bMap.get(a)
+        let numb = bMap.get(b)
+        if (numa == numb) {
+            return a.localeCompare(b)
+        } else {
+            return numa - numb
+        }
+    })
+    return ans;
 };
 
 // LCP 1.猜数字 基础逻辑题
