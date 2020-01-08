@@ -9950,6 +9950,38 @@ var minFlipsMonoIncr = function(S) {
     return min;
 };
 
+// 929. 独特的电子邮件地址  基础逻辑题
+/**
+ * @param {string[]} emails
+ * @return {number}
+ */
+var numUniqueEmails = function(emails) {
+    let backup = new Map(),count = 0
+    for (let i = 0; i < emails.length; i++) {
+        let ans = '',email = emails[i],isA = false,isB = false
+        for(let char of email) {
+            if (isB) {
+                ans += char
+            } else {
+                if (char == '@') {
+                    isB = true
+                    ans += char
+                } else if (char == '+') {
+                    isA = true
+                } else if (char != '.') {
+                    if (!isA) {
+                        ans += char
+                    }
+                }
+            }
+        }
+        if (!backup.get(ans) ) {
+            backup.set(ans,1)
+            count++
+        }
+    }
+    return count
+};
 // 931.下降路径最小和 逐层计算
 /**
  * @param {number[][]} A
