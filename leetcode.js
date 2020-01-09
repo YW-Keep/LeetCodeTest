@@ -11439,6 +11439,46 @@ var maxAncestorDiff = function(root) {
     }
 };
 
+// 1027. 最长等差数列 map记录 遍历找寻
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var longestArithSeqLength = function(A) {
+    let backup = new Map(),ans = 2
+    for (let i = 0; i < A.length; i++) {
+        let key = A[i]
+        let value = backup.get(key)
+        if(value) {
+            value.push(i)
+        } else {
+            value = [i]
+        }
+        backup.set(key,value)
+    }
+    for (let i = 0; i < A.length; i++) {
+        for (let j = i+1; j < A.length + 1 - ans; j++) {
+            let num = A[j]
+            let dvalue = num -A[i];
+            let nowCount = 2,nowI = j,isHave = true
+            while(isHave && backup.get(dvalue + num)) {
+                let iList = backup.get(dvalue + num)
+                isHave = false
+                for (let index of iList) {
+                    if(index > nowI){
+                        isHave = true
+                        nowCount++
+                        nowI = index
+                        num += dvalue
+                        break
+                    }
+                }
+            }
+            ans = Math.max(nowCount,ans)
+        }
+    }
+    return ans;
+};
 // 1029.两地调度 贪心算法
 /**
  * @param {number[][]} costs
