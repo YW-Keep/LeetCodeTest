@@ -10817,6 +10817,64 @@ var intervalIntersection = function(A, B) {
     return result;
 };
 
+// 987. 二叉树的垂序遍历  二叉树层序遍历，在排序输出
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var verticalTraversal = function(root) {
+    if(!root) {return []}
+    let backup = new Map(),backArray = [],ans = []
+    let nodes = [root],nums = [0]
+    while(nodes.length > 0) {
+        let newNodes = [],newNums =[],newBackup = new Map()
+        for (let i = 0; i < nodes.length; i++) {
+            let key = nums[i],node = nodes[i]
+            let value = newBackup.get(key);
+            if (value) {
+                value.push(node.val)
+            } else {
+                value = [node.val]
+            }
+            newBackup.set(key,value)
+            if (node.left) {
+                newNodes.push(node.left)
+                newNums.push(key-1)
+            }
+            if (node.right) {
+                newNodes.push(node.right)
+                newNums.push(key+1)
+            }
+        }
+        nodes = newNodes
+        nums = newNums
+        for (let item of newBackup) {
+            let key = item[0]
+            let newValue = item[1].sort((a,b) => a - b)
+            let value = backup.get(key);
+            if (value) {
+                value = value.concat(newValue)
+            } else {
+                value = newValue
+                backArray.push(key)
+            }
+            backup.set(key,value)
+        }
+    }
+    backArray.sort((a,b)=> a - b)
+    for(let num of backArray) {
+        ans.push(backup.get(num))
+    }
+    return ans
+};
+
+let root = new TreeNode(3)
+root.left = new TreeNode(9)
+let right =  new TreeNode(20)
+right.left = new TreeNode(15)
+right.right = new TreeNode(7)
+root.right = right
+verticalTraversal(root)
 // 989. 数组形式的整数加法  数组累加
 /**
  * @param {number[]} A
