@@ -10867,14 +10867,6 @@ var verticalTraversal = function(root) {
     }
     return ans
 };
-
-let root = new TreeNode(3)
-root.left = new TreeNode(9)
-let right =  new TreeNode(20)
-right.left = new TreeNode(15)
-right.right = new TreeNode(7)
-root.right = right
-verticalTraversal(root)
 // 989. 数组形式的整数加法  数组累加
 /**
  * @param {number[]} A
@@ -14297,6 +14289,121 @@ var watchedVideosByFriends = function(watchedVideos, friends, id, level) {
         }
     })
     return ans;
+};
+
+// 5307. 将整数转换为两个无零整数的和  退位逻辑题 
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var getNoZeroIntegers = function(n) {
+    let a = 0, b = n,p = 1
+    while(b > 0) {
+        if (b%10 == 0) {
+            a += p
+            b -= 10
+        } else if(b%10 == 1) {
+            if (Math.floor(b/10)) {
+                a += p*2
+                b -=10
+            } else {
+                a += p
+            }
+        } else {
+            a +=p
+        }
+        b = Math.floor(b/10)
+        p = p*10
+    }
+    return [a, n-a]
+};
+
+// 5308. 或运算的最小翻转次数  每位位运算
+/**
+ * @param {number} a
+ * @param {number} b
+ * @param {number} c
+ * @return {number}
+ */
+var minFlips = function(a, b, c) {
+    let ans = 0
+    while (c != 0 || a != 0 || b != 0) {
+        let va = a & 1,vb = b & 1,vc = c & 1
+        a >>=1
+        b >>=1
+        c >>=1
+        if ((va| vb) == vc) {
+            continue
+        }
+        if (vc == 1) {
+            ans +=1;
+        } else {
+            ans += va
+            ans += vb
+        }
+    }
+    return ans;
+};
+
+//  5309. 连通网络的操作次数 Union-Find 算法
+/**
+ * @param {number} n
+ * @param {number[][]} connections
+ * @return {number}
+ */
+var makeConnected = function(n, connections) {
+    if (n > connections.length + 1) {
+        return -1
+    }
+    class UF {
+        constructor(num) {
+            this.count = num;
+            this.size = Array(num)
+            this.parent = Array(num)
+            for (let i = 0; i < num; i++) {
+                this.parent[i] = i;
+                this.size[i] = 1;
+            }
+        }
+        union(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            if(rootP == rootQ) {
+                return
+            }
+            if (this.size[rootP] > this.size[rootQ]) {
+                this.parent[rootQ] = rootP;
+                this.size[rootP] += this.size[rootQ];
+            } else {
+                this.parent[rootP] = rootQ;
+                this.size[rootQ] += this.size[rootP];
+            }
+            this.count--
+        }
+        connected(p,q) {
+            let rootP = this.find(p)
+            let rootQ = this.find(q)
+            return rootP == rootQ
+        }
+        find(x) {
+            while(this.parent[x] != x) {
+                // 进行路径压缩
+                this.parent[x] = this.parent[this.parent[x]];
+                x = this.parent[x];
+            }
+            return x;
+        }
+    }
+    let uf = new UF(n)
+    for (let index = 0; index < connections.length; index++) {
+        connection = connections[index];
+        uf.union(connection[0],connection[1])
+        if (uf.count == 1) {
+            return 0
+        }
+    }
+    return uf.count -1
+    
 };
 
 // LCP 1.猜数字 基础逻辑题
