@@ -5896,6 +5896,18 @@ var minMoves2 = function(nums) {
     return move;
 };
 
+// 470.用 Rand7() 实现 Rand10()  基本逻辑题
+
+var rand10 = function() {
+    let r1 = 0, r2 = 0,num = 41
+    do {
+        r1 = rand7()
+        r2 = rand7()
+        num = r1 + (r2-1)*7
+    } while (num > 40)
+    return num%10 +1
+};
+
 // 475. 供暖器 排序 基础逻辑
 /**
  * @param {number[]} houses
