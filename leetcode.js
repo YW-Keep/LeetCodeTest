@@ -4843,6 +4843,28 @@ var getMoneyAmount = function(n) {
     return dp[1][n];
 };
 
+// 377. 组合总和 Ⅳ  动态规划
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var combinationSum4 = function(nums, target) {
+    let backup = Array(target +1).fill(0);
+    nums.sort((a,b) => a-b)
+    backup[0] = 1;
+    for (let i = 0; i < target; i++) {
+        for(let num of nums) {
+            if (i + num <= target) {
+                backup[i +num] += backup[i];
+            } else {
+                break;
+            }
+        }
+    }
+    return backup[target];
+};
+
 // 386.字典序排序  找规律递归
 /**
  * @param {number} n
