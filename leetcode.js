@@ -4310,6 +4310,20 @@ var missingNumber = function(nums) {
     return (nums.length)*(nums.length + 1)/2  - sum;
 };
 
+// 274. H指数 排序判断
+/**
+ * @param {number[]} citations
+ * @return {number}
+ */
+var hIndex = function(citations) {
+    citations.sort((a,b) => b - a)
+    for (let i = 0; i < citations.length; i++) {
+        if (i > citations[i] -1) {
+            return i
+        }
+    }
+    return citations.length;
+};
 // 279.完全平方数 可以用动态规划做 当然 还有种方式就是： 四平方定理： 任何一个正整数都可以表示成不超过四个整数的平方之和。满足四数平方和定理的数n（这里要满足由四个数构成，小于四个不行），必定满足 n=4a(8b+7)
 /**
  * @param {number} n
