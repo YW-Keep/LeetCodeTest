@@ -14354,7 +14354,7 @@ var watchedVideosByFriends = function(watchedVideos, friends, id, level) {
     return ans;
 };
 
-// 5307. 将整数转换为两个无零整数的和  退位逻辑题 
+// 1317. 将整数转换为两个无零整数的和  退位逻辑题 
 /**
  * @param {number} n
  * @return {number[]}
@@ -14381,7 +14381,7 @@ var getNoZeroIntegers = function(n) {
     return [a, n-a]
 };
 
-// 5308. 或运算的最小翻转次数  每位位运算
+// 1318. 或运算的最小翻转次数  每位位运算
 /**
  * @param {number} a
  * @param {number} b
@@ -14408,7 +14408,7 @@ var minFlips = function(a, b, c) {
     return ans;
 };
 
-//  5309. 连通网络的操作次数 Union-Find 算法
+//  1319. 连通网络的操作次数 Union-Find 算法
 /**
  * @param {number} n
  * @param {number[][]} connections
@@ -14467,6 +14467,57 @@ var makeConnected = function(n, connections) {
     }
     return uf.count -1
     
+};
+
+// 5315. 6 和 9 组成的最大数字  基本逻辑
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var maximum69Number  = function(num) {
+    return parseInt(String(num).replace('6','9'))
+};
+
+// 5316. 竖直打印单词 基本逻辑
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var printVertically = function(s) {
+    let listArray = s.split(' ')
+    let max = 0,ans = []
+    for (let str of listArray) {
+        max = Math.max(max,str.length)
+    }
+    for (let i = 0; i < max; i++) {
+        let item = '', sItem = ''
+        for (let str of listArray) {
+            let char =  str[i] || ' '
+            sItem += char
+            if(char !=  ' ') {
+                item += sItem
+                sItem = ''
+            }   
+        }
+        ans.push(item)
+    }
+    return ans
+};
+
+// 1325.删除给定值的叶子节点  递归
+/**
+ * @param {TreeNode} root
+ * @param {number} target
+ * @return {TreeNode}
+ */
+var removeLeafNodes = function(root, target) {
+    if(!root) {return null}
+    root.left = removeLeafNodes(root.left,target)
+    root.right = removeLeafNodes(root.right,target)
+    if(root.left == null && root.right == null && root.val == target) {
+        return null
+    }
+    return root
 };
 
 // LCP 1.猜数字 基础逻辑题
