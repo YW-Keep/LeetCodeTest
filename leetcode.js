@@ -14469,7 +14469,7 @@ var makeConnected = function(n, connections) {
     
 };
 
-// 5315. 6 和 9 组成的最大数字  基本逻辑
+// 1323. 6 和 9 组成的最大数字  基本逻辑
 /**
  * @param {number} num
  * @return {number}
@@ -14478,7 +14478,7 @@ var maximum69Number  = function(num) {
     return parseInt(String(num).replace('6','9'))
 };
 
-// 5316. 竖直打印单词 基本逻辑
+// 1324. 竖直打印单词 基本逻辑
 /**
  * @param {string} s
  * @return {string[]}
@@ -14518,6 +14518,31 @@ var removeLeafNodes = function(root, target) {
         return null
     }
     return root
+};
+//  1326. 灌溉花园的最少水龙头数目 贪心算法，找出每个点能到的最远点 
+/**
+ * @param {number} n
+ * @param {number[]} ranges
+ * @return {number}
+ */
+var minTaps = function(n, ranges) {
+    let backup = new Array(n).fill(0);
+    for (let i = 0; i < ranges.length; i++) {
+        let l = Math.max(i-ranges[i],0)
+        let r = Math.min(i+ranges[i],n)
+        for (let j = l; j< r;j++) {
+            backup[j] = Math.max(backup[j],r);
+        }
+    }
+    let ans = 0,i = 0
+    while(i < n) {
+        if(backup[i] == 0) {
+            return -1
+        }
+        i = backup[i]
+        ans++
+    }
+    return ans
 };
 
 // LCP 1.猜数字 基础逻辑题
