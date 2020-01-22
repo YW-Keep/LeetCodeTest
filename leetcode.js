@@ -5865,6 +5865,49 @@ var find132pattern = function(nums) {
     return false;
 };
 
+// 457. 环形数组循环 循环问题 快慢指针  代码还可以精简
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var circularArrayLoop = function(nums) {
+    if(nums.length < 2) {
+        return false
+    }
+    let count = nums.length
+    for (let i = 0; i < count; i++) {
+        if(nums[i] == 0) {continue}
+        let startNum = nums[i]
+        let slow = i,fast = i
+        while(true) {
+            if(nums[fast]*startNum <= 0) {
+                break;
+            }
+            let nextNode = next(fast);
+            if(nextNode == fast) {
+                break;
+            }
+            fast = nextNode;
+            if(nums[fast]*startNum <= 0) {
+                break;
+            }
+            nextNode = next(fast)
+            if(nextNode == fast) {
+                break;
+            }
+            fast = nextNode
+            slow = next(slow)
+            if(fast == slow) {
+                return true;
+            }
+        }
+    }
+    return false;
+    function next(index) {
+
+        return (index + nums[index] + 1000*count) %count
+    } 
+};
 // 458. 可怜的小猪  数字表示最大意思问题
 /**
  * @param {number} buckets
