@@ -7423,7 +7423,6 @@ var constructMaximumBinaryTree = function(nums) {
     root.right = constructMaximumBinaryTree(rightNums);
     return root;
 };
-
 // 655. 输出二叉树  在找到最大深度 在递归
 /**
  * @param {TreeNode} root
