@@ -7400,13 +7400,6 @@ var findTarget = function(root, k) {
 
 // 654.最大二叉树 递归
 /**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
  * @param {number[]} nums
  * @return {TreeNode}
  */
@@ -7431,6 +7424,34 @@ var constructMaximumBinaryTree = function(nums) {
     return root;
 };
 
+// 655. 输出二叉树  在找到最大深度 在递归
+/**
+ * @param {TreeNode} root
+ * @return {string[][]}
+ */
+var printTree = function(root) {
+    let depth = maxDepth(root);
+    let ans = []
+    for (let i = 0; i < depth; i++) {
+
+        ans.push(Array(Math.pow(2,depth) -1).fill(''))        
+    }
+    addNum(root,0,(ans[0].length -1)/2)
+    return ans;
+    function addNum(node,i,j) {
+        if(!node) {
+            return
+        }
+        ans[i][j] = node.val.toString()
+        let num = Math.pow(2,depth - i-2)
+        addNum(node.left,i+1,j-num)
+        addNum(node.right,i+1,j+num)
+    }
+    function maxDepth(node) {
+        if(!node) { return 0}
+        return 1+ Math.max(maxDepth(node.left),maxDepth(node.right))
+    }
+ };
 // 657. 机器人能否返回原点 逻辑题
 /**
  * @param {string} moves
