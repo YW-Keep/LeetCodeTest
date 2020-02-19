@@ -40,3 +40,17 @@ var CheckPermutation = function(s1, s2) {
     }
     return true
 };
+ 
+// 面试题 01.03. URL化 基本逻辑
+/**
+ * @param {string} S
+ * @param {number} length
+ * @return {string}
+ */
+var replaceSpaces = function(S, length) {
+    let result = '';
+    for (let index = 0; index < length; index++) {
+        result += S[index] == ' ' ?  '%20' : S[index]
+    }  
+    return result
+};
