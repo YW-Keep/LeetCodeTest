@@ -54,3 +54,29 @@ var replaceSpaces = function(S, length) {
     }  
     return result
 };
+
+// 面试题 01.04. 回文排列 map记录
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var canPermutePalindrome = function(s) {
+    let backMap = new Map();
+    let single = 0
+    for (let index = 0; index < s.length; index++) {
+        let key = s[index]
+        backMap.set(key,(backMap.get(key) || 0)+1)
+    }
+    let isFirst = false;
+    for(let item of backMap) {
+        if(item[1]%2  == 1) {
+            if(!isFirst) {
+                isFirst = true
+            } else {
+                return false
+            }
+        }
+    }
+    return true
+
+};
