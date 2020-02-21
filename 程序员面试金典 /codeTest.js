@@ -80,3 +80,41 @@ var canPermutePalindrome = function(s) {
     return true
 
 };
+// 01.05. 一次编辑 逻辑题
+/**
+ * @param {string} first
+ * @param {string} second
+ * @return {boolean}
+ */
+var oneEditAway = function(first, second) {
+    let fNum = first.length ,sNum = second.length;
+    if(fNum < sNum) {
+        return oneEditAway(second,first)
+    }
+    if(fNum - sNum >= 2) {
+        return false
+    }
+    let isSame = true
+    if(fNum -sNum == 1) {
+        isSame = false
+    }
+    let isDif = false,i = 0 ,j =0
+    while(i < fNum,j<sNum) {
+        if(first[i] != second[j]) {
+            if(isDif) {return false}
+            isDif =  true
+            if(isSame) {
+                i++
+                j++
+            } else {
+                i++
+            }
+        } else {
+            i++
+            j++
+        }
+    }
+
+    return true
+};
+oneEditAway("pales", "pal")
