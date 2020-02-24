@@ -117,4 +117,85 @@ var oneEditAway = function(first, second) {
 
     return true
 };
-oneEditAway("pales", "pal")
+// 面试题 01.06. 字符串压缩 基础逻辑题
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var compressString = function(S) {
+    if(S.length == 0) { return ''}
+    let back = S[0],num =1,result =''
+    for (let index = 1; index < S.length; index++) {
+        let char = S[index]
+        if(char  == back) {
+            num++
+        } else {
+            result = result + back + num.toString()
+            back = char 
+            num = 1
+        }
+    }
+    result = result + back + num.toString()
+    return result.length >= S.length ? S : result
+};
+// 面试题 01.07. 旋转矩阵 先对称变换  再反转
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var rotate = function(matrix) {
+    let size = matrix.length
+    for (let i = 1; i < size; i++) {        
+        let back = []
+        for(j = 0;j <i;j++) {
+            let swap = matrix[i][j];
+            matrix[i][j] = matrix[j][i]
+            matrix[j][i] = swap
+        }
+    }
+    for(let i = 0; i< Math.floor(size/2);i++) {
+        for(j = 0;j< size ;j++) {
+            let swap = matrix[j][i];
+            matrix[j][i] = matrix[j][size - i - 1];
+            matrix[j][size - i - 1] = swap;
+        }
+    }
+};
+
+// 面试题 01.08. 零矩阵  map记录要替换的行列 统一替换
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var setZeroes = function(matrix) {
+    if(matrix.length == 0) {
+        return
+    }
+    if(matrix[0].length == 0) {
+        return
+    }
+    let iBack = new Map()
+    let jBack = new Map()
+    for (let i = 0; i < matrix.length; i++) {        
+        for(j = 0;j <matrix[i].length;j++) {
+            if(matrix[i][j] == 0) {
+                iBack.set(i,1)
+                jBack.set(j,1)
+            } 
+        }
+    }
+    for(let i = 0;i < matrix.length; i++) {
+        if(iBack.get(i) != null) {
+            for(j = 0;j <matrix[i].length;j++) {
+                matrix[i][j] = 0
+            }
+        }
+    }
+    for(let j = 0;j < matrix[0].length; j++) {
+        if(jBack.get(j) != null) {
+            for(i = 0;i <matrix.length;i++) {
+                matrix[i][j] = 0
+            }
+        }
+    }
+};
