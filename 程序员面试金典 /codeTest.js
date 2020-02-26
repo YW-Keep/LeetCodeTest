@@ -209,3 +209,30 @@ var setZeroes = function(matrix) {
 var isFlipedString = function(s1, s2) {
     return s1.length == s2.length &&  (s1+s1).indexOf(s2) != -1;
 };
+
+// 面试题 02.01. 移除重复节点 map记录
+
+function ListNode(val) {
+    this.val = val;
+    this.next = null;
+}
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var removeDuplicateNodes = function(head) {
+    if(!head) {return head}
+    let backup = new Map()
+    backup.set(head.val,true)
+    let next = head;
+    while(next.next) {
+        if(backup.get(next.next.val)) {
+            next.next = next.next.next
+        } else {
+            backup.set(next.next.val,true)
+            next = next.next
+        }
+    }
+    return head;
+};
