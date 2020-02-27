@@ -236,3 +236,23 @@ var removeDuplicateNodes = function(head) {
     }
     return head;
 };
+
+// 面试题 02.02. 返回倒数第 k 个节点 快慢指针
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {number}
+ */
+var kthToLast = function(head, k) {
+    let fast = head;
+    let slow = head;
+    while(k > 0) {
+        fast = fast.next
+        k--
+    }
+    while(fast) {
+        fast = fast.next
+        slow = slow.next
+    }
+    return slow.val
+};
