@@ -256,3 +256,13 @@ var kthToLast = function(head, k) {
     }
     return slow.val
 };
+
+// 面试题 02.03. 删除中间节点 把该节点设置为下个节点 剔除下个节点
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+var deleteNode = function(node) {
+    node.val = node.next.val
+    node.next =  node.next.next
+};
