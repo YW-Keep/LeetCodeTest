@@ -266,3 +266,75 @@ var deleteNode = function(node) {
     node.val = node.next.val
     node.next =  node.next.next
 };
+
+// 面试题 02.04. 分割链表  双指针合并
+/** 
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function(head, x) {
+    let last = new ListNode(0)
+    let first = new ListNode(0)
+    first.next =head
+    let next = first
+    let next2 = last
+    while(next.next) {
+        if(next.next.val < x) {
+            next = next.next
+        } else {
+            next2.next =  next.next
+            next2 = next2.next
+            next.next = next.next.next
+            next2.next = null
+        }
+    }
+    next.next = last.next
+    return first.next;
+};
+
+// 面试题 02.05. 链表求和 遍历
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    
+    let head = new ListNode(0);
+    let next1 = l1
+    let next2 = l2
+    let next3 = head;
+    let back = 0
+    while(next1 || next2 || back > 0) {
+
+        let sum = (next1 ? next1.val : 0) + (next2 ? next2.val : 0) + back;
+        next3.next = new ListNode(sum%10)
+        back = Math.floor(sum/10)
+        next1 = next1 ? next1.next : null
+        next2 = next2 ? next2.next : null
+        next3 = next3.next;
+    }
+    return head.next;
+};
+
+// 面试题 02.06. 回文链表 堆栈
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function(head) {
+    let fast = head,slow = head,backup = []
+    while(fast && fast.next) {
+        backup.push(slow.val)
+        slow = slow.next
+        fast = fast.next.next
+    }
+    if(fast) { slow = slow.next} 
+    while(slow) {
+        let num =  backup.pop()
+        if(num != slow.val) {return false} 
+        slow = slow.next
+    }
+    return true
+};
