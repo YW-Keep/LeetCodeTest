@@ -338,3 +338,28 @@ var isPalindrome = function(head) {
     }
     return true
 };
+
+// 面试题 02.07. 链表相交 双指针
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+    let a1 = headA
+    let a2 = headB 
+    while(a1 != a2) {
+        if(a1) {
+            a1 = a1.next
+        } else {
+            a1 = headB
+        }
+        if(a2) {
+            a2 = a2.next
+        } else {
+            a2 = headA
+        }
+    }
+    return a1
+};
