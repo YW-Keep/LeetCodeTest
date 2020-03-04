@@ -363,3 +363,27 @@ var getIntersectionNode = function(headA, headB) {
     }
     return a1
 };
+
+// 面试题 02.08. 环路检测 快慢指针
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function(head) {
+    if(!head || !head.next) { return null}
+    let fast = head.next.next;
+    let slow = head.next;
+    while(fast != slow && fast && fast.next) {
+        fast = fast.next.next
+        slow = slow.next
+    }
+    if(slow == fast) {
+        slow = head
+        while(slow != fast) {
+            slow = slow.next
+            fast = fast.next
+        }
+        return slow
+    }
+    return null
+};
