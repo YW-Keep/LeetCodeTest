@@ -387,3 +387,71 @@ var detectCycle = function(head) {
     }
     return null
 };
+// 面试题 03.01. 三合一   一个数组分成三个堆栈
+
+/**
+ * @param {number} stackSize
+ */
+var TripleInOne = function(stackSize) {
+    this.top = [0,0,0]
+    this.data = new Array(3*stackSize)
+    this.stackSize = stackSize
+};
+
+/** 
+ * @param {number} stackNum 
+ * @param {number} value
+ * @return {void}
+ */
+TripleInOne.prototype.push = function(stackNum, value) {
+    let num = this.top[stackNum]
+    if(num < this.stackSize) {
+        this.data[this.stackSize*stackNum + num] = value
+        this.top[stackNum] =  num +1
+    }
+};
+
+/** 
+ * @param {number} stackNum
+ * @return {number}
+ */
+TripleInOne.prototype.pop = function(stackNum) {
+    let num = this.top[stackNum]
+    if(num <= 0) {
+        return -1
+    } else {
+        this.top[stackNum] =  num -1
+        return this.data[this.stackSize*stackNum + num-1]
+    }
+};
+
+/** 
+ * @param {number} stackNum
+ * @return {number}
+ */
+TripleInOne.prototype.peek = function(stackNum) {
+    let num = this.top[stackNum]
+    if(num <= 0) {
+        return -1
+    } else {
+        return this.data[this.stackSize*stackNum + num-1]
+    }
+
+};
+
+/** 
+ * @param {number} stackNum
+ * @return {boolean}
+ */
+TripleInOne.prototype.isEmpty = function(stackNum) {
+    return this.top[stackNum]==0;
+};
+
+/**
+ * Your TripleInOne object will be instantiated and called as such:
+ * var obj = new TripleInOne(stackSize)
+ * obj.push(stackNum,value)
+ * var param_2 = obj.pop(stackNum)
+ * var param_3 = obj.peek(stackNum)
+ * var param_4 = obj.isEmpty(stackNum)
+ */
