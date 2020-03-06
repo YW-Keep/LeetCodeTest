@@ -455,3 +455,56 @@ TripleInOne.prototype.isEmpty = function(stackNum) {
  * var param_3 = obj.peek(stackNum)
  * var param_4 = obj.isEmpty(stackNum)
  */
+
+ // 面试题 03.02. 栈的最小值 辅助栈
+ /**
+ * initialize your data structure here.
+ */
+var MinStack = function() {
+    this.data = []
+    this.minDate = []
+};
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+MinStack.prototype.push = function(x) {
+    this.data.push(x);
+    if(this.minDate.length == 0 || this.minDate[this.minDate.length -1]  >= x) {
+        this.minDate.push(x);
+    }
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+    let x = this.data.pop()
+    if(this.minDate[this.minDate.length -1]  == x) {
+        this.minDate.pop()
+    }
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+    return  this.data.length > 0 ? this.data[this.data.length -1] : null
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+    return  this.minDate.length > 0 ? this.minDate[this.minDate.length -1] : null
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * var obj = new MinStack()
+ * obj.push(x)
+ * obj.pop()
+ * var param_3 = obj.top()
+ * var param_4 = obj.getMin()
+ */
