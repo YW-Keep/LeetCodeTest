@@ -508,3 +508,183 @@ MinStack.prototype.getMin = function() {
  * var param_3 = obj.top()
  * var param_4 = obj.getMin()
  */
+
+// 面试题 03.03. 堆盘子 基础逻辑判断 注意特殊情况
+/**
+ * @param {number} cap
+ */
+var StackOfPlates = function(cap) {
+    this.stacks = []
+    this.maxNum = cap 
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+StackOfPlates.prototype.push = function(val) {
+    if(this.maxNum <= 0) {return}
+    let length = this.stacks.length
+    if(length == 0) {
+        this.stacks = [[val]]
+    } else {
+        let son = this.stacks[length -1] 
+        if(son.length == this.maxNum) {
+            this.stacks.push([val])
+        } else {
+            son.push(val)
+        }
+    }
+}; 
+
+/**
+ * @return {number}
+ */
+StackOfPlates.prototype.pop = function() {
+    if(this.maxNum <= 0) {return -1}
+    let length = this.stacks.length
+    if(length > 0) {
+        let son = this.stacks[length -1] 
+        let value = son.pop()
+        if(son.length == 0) {
+            this.stacks.pop()
+        }
+        return value
+    }
+    return -1
+};
+
+/** 
+ * @param {number} index
+ * @return {number}
+ */
+StackOfPlates.prototype.popAt = function(index) {
+    if(this.maxNum <= 0) {return -1}
+    let length = this.stacks.length
+    if(index < length) {
+        let son = this.stacks[index]
+        let value = son.pop()
+        if(son.length == 0) {
+            this.stacks.splice(index,1)
+        }
+        return value
+    }
+    return -1
+};
+
+/**
+ * Your StackOfPlates object will be instantiated and called as such:
+ * var obj = new StackOfPlates(cap)
+ * obj.push(val)
+ * var param_2 = obj.pop()
+ * var param_3 = obj.popAt(index)
+ */
+// 面试题 03.04. 化栈为队 两个栈来回倒腾 我这里用了数组
+/**
+ * Initialize your data structure here.
+ */
+var MyQueue = function() {
+    this.data = []
+};
+
+/**
+ * Push element x to the back of queue. 
+ * @param {number} x
+ * @return {void}
+ */
+MyQueue.prototype.push = function(x) {
+    this.data.push(x)
+};
+
+/**
+ * Removes the element from in front of queue and returns that element.
+ * @return {number}
+ */
+MyQueue.prototype.pop = function() {
+    if(this.data.length > 0) {
+        let value = this.data[0]
+        this.data.splice(0,1)
+        return value
+
+    } else {
+        return null
+    }
+};
+
+/**
+ * Get the front element.
+ * @return {number}
+ */
+MyQueue.prototype.peek = function() {
+    return this.data.length == 0 ?  null : this.data[0]
+};
+
+/**
+ * Returns whether the queue is empty.
+ * @return {boolean}
+ */
+MyQueue.prototype.empty = function() {
+    return this.data.length == 0 
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * var obj = new MyQueue()
+ * obj.push(x)
+ * var param_2 = obj.pop()
+ * var param_3 = obj.peek()
+ * var param_4 = obj.empty()
+ */
+
+ // 面试题 03.05. 栈排序
+ var SortedStack = function() {
+     this.data = []
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+SortedStack.prototype.push = function(val) {
+    let sData = [];
+    while(this.data.length > 0 && this.data[this.data.length -1] < val) {
+        sData.push(this.data.pop())
+    }
+    this.data.push(val);
+    while(sData.length > 0) {
+        this.data.push(sData.pop())
+    }
+};
+
+/**
+ * @return {void}
+ */
+SortedStack.prototype.pop = function() {
+    if(this.data.length > 0) {
+        this.data.pop()
+    }
+};
+
+/**
+ * @return {number}
+ */
+SortedStack.prototype.peek = function() {
+    let length  = this.data.length
+    return length == 0 ?  -1 : this.data[length -1]
+};
+
+/**
+ * @return {boolean}
+ */
+SortedStack.prototype.isEmpty = function() {
+    return this.data.length == 0 
+};
+
+/**
+ * Your SortedStack object will be instantiated and called as such:
+ * var obj = new SortedStack()
+ * obj.push(val)
+ * obj.pop()
+ * var param_3 = obj.peek()
+ * var param_4 = obj.isEmpty()
+ */
