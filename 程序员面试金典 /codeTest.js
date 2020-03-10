@@ -688,3 +688,65 @@ SortedStack.prototype.isEmpty = function() {
  * var param_3 = obj.peek()
  * var param_4 = obj.isEmpty()
  */
+
+ // 面试题 03.06. 动物收容所 有编号 双栈
+ var AnimalShelf = function() {
+     this.cat = []
+     this.dog = []
+};
+
+/** 
+ * @param {number[]} animal
+ * @return {void}
+ */
+AnimalShelf.prototype.enqueue = function(animal) {
+    if(animal[1] == 0) {
+        this.cat.push(animal[0])
+    } else {
+        this.dog.push(animal[0])
+    }
+};
+
+/**
+ * @return {number[]}
+ */
+AnimalShelf.prototype.dequeueAny = function() {
+    if(this.dog.length > 0 && this.cat.length > 0) {
+        if(this.dog[0] >this.cat[0]) {
+            return this.dequeueCat()
+        } else {
+            return this.dequeueDog()
+        }
+    }
+    if(this.dog.length > 0) {
+        return this.dequeueDog()
+    } 
+    if(this.cat.length > 0) {
+        return this.dequeueCat()
+    } 
+    return [-1,-1]
+};
+
+/**
+ * @return {number[]}
+ */
+AnimalShelf.prototype.dequeueDog = function() {
+    if(this.dog.length > 0) {
+        let num = this.dog[0];
+        this.dog.splice(0,1)
+        return [num,1]
+    }
+    return [-1,-1]
+};
+
+/**
+ * @return {number[]}
+ */
+AnimalShelf.prototype.dequeueCat = function() {
+    if(this.cat.length > 0) {
+        let num = this.cat[0];
+        this.cat.splice(0,1)
+        return [num,0]
+    }
+    return [-1,-1]
+};
