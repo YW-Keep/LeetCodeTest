@@ -750,3 +750,52 @@ AnimalShelf.prototype.dequeueCat = function() {
     }
     return [-1,-1]
 };
+
+// 面试题 04.01. 节点间通路  有向的 深度遍历待优化
+/**
+ * @param {number} n
+ * @param {number[][]} graph
+ * @param {number} start
+ * @param {number} target
+ * @return {boolean}
+ */
+var findWhetherExistsPath = function(n, graph, start, target) {
+    let backup = []
+    for (let index = 0; index < n; index++) {
+        backup.push([])
+    }
+    for (let item of  graph) {
+        backup[item[0]].push(item[1]);
+    }
+    let isDo = new Array(n).fill(false);
+    let doNum  = [start];
+    while(doNum.length > 0) {
+        let checkNum = doNum.pop();
+        isDo[start] = true;
+        for(let num of backup[checkNum]) {
+            if(num == target) {
+                return true
+            } 
+            if(!isDo[num]) {
+                doNum.push(num)
+            }
+        }
+    }
+    return false
+};
+
+
+// 面试题 04.02. 最小高度树  递归
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var sortedArrayToBST = function(nums) {
+    let num = nums.length;
+    if(num == 0) { return null}
+    let mid = Math.floor(num/2);
+    let root = new TreeNode(nums[mid]);
+    root.left = sortedArrayToBST(nums.slice(0,mid));
+    root.right = sortedArrayToBST(nums.slice(mid+1));
+    return root;
+};
