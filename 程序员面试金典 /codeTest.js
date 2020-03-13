@@ -799,3 +799,40 @@ var sortedArrayToBST = function(nums) {
     root.right = sortedArrayToBST(nums.slice(mid+1));
     return root;
 };
+
+// 面试题 04.03. 特定深度节点链表 二叉树层序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {TreeNode} tree
+ * @return {ListNode[]}
+ */
+var listOfDepth = function(tree) {
+    let result = [];
+    if(!tree) {return result};
+    let backup = [tree]
+    while(backup.length > 0) {
+        let head = new TreeNode(0),next = head,newBackup = []
+        for(let node of backup) {
+            next.next = new ListNode(node.val)
+            next = next.next
+            if(node.left) {newBackup.push(node.left)}
+            if(node.right) {newBackup.push(node.right)}
+        }
+        backup = newBackup
+        result.push(head.next)
+    }
+    return result
+};
