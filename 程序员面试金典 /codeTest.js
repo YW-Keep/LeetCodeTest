@@ -836,3 +836,32 @@ var listOfDepth = function(tree) {
     }
     return result
 };
+
+// 面试题 04.04. 检查平衡性  递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function(root) {
+    let isBalanced = true
+    getDeep(root)
+    return isBalanced
+    function getDeep(node) {
+        if(!isBalanced || !node) {
+            return 0
+        }
+        let leftDeep = getDeep(node.left)
+        let rightDeep = getDeep(node.right)
+        if(Math.abs(leftDeep-rightDeep)>1){
+            isBalanced = false;
+        }
+        return Math.max(leftDeep,rightDeep)+1;
+    }
+};
