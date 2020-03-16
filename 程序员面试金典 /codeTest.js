@@ -865,3 +865,74 @@ var isBalanced = function(root) {
         return Math.max(leftDeep,rightDeep)+1;
     }
 };
+
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
+
+// 面试题 04.05. 合法二叉搜索树  非递归二叉树的中序遍历
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    let backup = []
+    let pre = -Number.MAX_VALUE
+    let next = root
+    while(next != null) {
+        backup.push(next);
+        next = next.left
+    }
+    while(backup.length > 0) {
+        let node  = backup.pop()
+        if(node.val <= pre) {
+            return false
+        }
+        pre = node.val
+        let r = node.right 
+        while(r != null) {
+            backup.push(r);
+            r = r.left
+        }
+    }
+    return true
+};
+
+// 面试题 04.06. 后继者 非递归二叉树的中序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @return {TreeNode}
+ */
+var inorderSuccessor = function(root, p) {
+    let backup = []
+    let pre = false
+    let next = root
+    while(next != null) {
+        backup.push(next);
+        next = next.left
+    }
+    while(backup.length > 0) {
+        let node  = backup.pop()
+        if(pre) {
+            return node
+        }
+        if(node == p) {
+            pre = true
+        }
+        let r = node.right 
+        while(r != null) {
+            backup.push(r);
+            r = r.left
+        }
+    }
+    return null
+};
