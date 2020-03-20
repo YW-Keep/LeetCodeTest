@@ -987,3 +987,49 @@ var checkSubTree = function(t1, t2) {
         return t1.val == t2.val && isSame(t1.left,t2.left) && isSame(t1.right,t2.right)
     }
 };
+
+// 面试题 04.12. 求和路径
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {number}
+ */
+var pathSum = function(root, sum) {
+    let result = 0
+    solve(root,sum)
+    return result
+    function solve(root,sum) {
+        if(root == null) {return }
+        dfs(root,sum)
+        solve(root.left,sum)
+        solve(root.right,sum)
+    }
+    function dfs(root,target) {
+        if(root == null) {return}
+        let newNum = target - root.val
+        if (newNum == 0) {
+            result++
+        }
+        dfs(root.left,newNum)
+        dfs(root.right,newNum)
+
+    }
+};
+
+// 面试题 05.01. 插入
+var insertBits = function(N, M, i, j) {
+    for(let k =i; k<=j;k++) {
+        if(N & (1<<k)) {
+            N -= 1<<k
+        }
+    }
+    N +=M<<i
+    return N
+};
