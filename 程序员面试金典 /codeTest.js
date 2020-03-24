@@ -1033,3 +1033,83 @@ var insertBits = function(N, M, i, j) {
     N +=M<<i
     return N
 };
+
+// 面试题 05.02. 二进制数转字符串  基础逻辑题   需要了解小数二进制转化
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var printBin = function(num) {
+    let result = '0.'
+    for (let i = 0; i < 30; i++) {
+        num = num*2
+        if(num>=1) {
+            result += '1'
+            num -= 1 
+        } else {
+            result += '0'
+        }
+        if(num == 0) {
+            return result
+        }
+    }
+    return "ERROR"
+};
+// 面试题 05.03. 翻转数位 动态规划
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var reverseBits = function(num) {
+    let nChange = 0,change  = 0,max = 0
+    while(num != 0) {
+        if(num & 1 > 0) {
+            nChange += 1
+            change += 1
+        } else {
+            change = nChange + 1
+            nChange = 0
+        }
+        max = Math.max(max,change)
+        num = num >> 1
+    }
+    max = Math.max(max,nChange +1)
+    return max
+};
+
+// 面试题 05.04. 下一个数
+/**
+ * @param {number} num
+ * @return {number[]}
+ */
+var findClosedNumbers = function(num) {
+    let find = 0
+    while(num > 0) {
+
+    }
+};
+
+// 面试题 05.06. 整数转换  先异或 找出不同的位置 在通过 num&(num -1)去掉最右边的一个1 这样统计不同位置数 
+/**
+ * @param {number} A
+ * @param {number} B
+ * @return {number}
+ */
+var convertInteger = function(A, B) {
+    let  num =  A ^ B
+    let result = 0
+    while (num != 0) {
+        num &= (num -1) 
+        result++
+    }
+    return result;
+};
+
+// 面试题 05.07. 配对交换 基本位运算
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var exchangeBits = function(num) {
+    return (num<<1 & 0xAAAAAAAA) | (num>>1 & 0x55555555);
+};
