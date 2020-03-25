@@ -1077,17 +1077,51 @@ var reverseBits = function(num) {
     return max
 };
 
-// 面试题 05.04. 下一个数
+// 面试题 05.04. 下一个数 找第一个01 与10
 /**
  * @param {number} num
  * @return {number[]}
  */
 var findClosedNumbers = function(num) {
-    let find = 0
-    while(num > 0) {
-
+    let numStr = ('0' + num.toString(2)).split(''),max = -1, min = -1
+    let length = numStr.length,count = 0
+    for (let i = 1; i < length; i++) {
+        if(numStr[length -i] == '1' && numStr[length -i - 1] == '0') {
+            let maxAr = numStr.concat()
+            maxAr[length -i -1] = '1'
+            maxAr[length -i] = '0'
+            count = i - count - 1
+            for (let index = i -1; index > 0; index--) {
+                maxAr[length -index] = count > 0 ?  '0' : '1'
+                count--;
+            }
+            max = Number.parseInt(maxAr.join(''),2)
+            break;
+        } 
+        if(numStr[length -i] == '1') {
+            count++
+        }
     }
+    count = 0
+    for (let i = 1; i < length; i++) {
+        if(numStr[length -i] == '0' && numStr[length -i - 1] == '1') {
+            let minAr = numStr.concat()
+            minAr[length -i -1] = '0'
+            minAr[length -i] = '1'
+            for (let index = i -1; index > 0; index--) {
+                minAr[length -index] = count > 0 ?  '1' : '0'
+                count--;
+            }
+            min = Number.parseInt(minAr.join(''),2)
+            break;
+        } 
+        if(numStr[length -i] == '1') {
+            count++
+        }
+    }
+    return [max,min]
 };
+findClosedNumbers(23)
 
 // 面试题 05.06. 整数转换  先异或 找出不同的位置 在通过 num&(num -1)去掉最右边的一个1 这样统计不同位置数 
 /**
