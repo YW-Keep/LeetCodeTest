@@ -1147,3 +1147,12 @@ var convertInteger = function(A, B) {
 var exchangeBits = function(num) {
     return (num<<1 & 0xAAAAAAAA) | (num>>1 & 0x55555555);
 };
+
+// 面试题 05.08. 绘制直线  基本位运算
+var drawLine = function(length, w, x1, x2, y) {
+    let result = Array(length).fill(0)
+    for (let i = x1; i <= x2; i++) {
+        result[Math.floor((y*w + i)/32)] |= (1<<(31-i%32))      
+    }
+    return result;
+};
