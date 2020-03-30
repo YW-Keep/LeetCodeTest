@@ -1156,3 +1156,89 @@ var drawLine = function(length, w, x1, x2, y) {
     }
     return result;
 };
+
+// 面试题 08.01. 三步问题  动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var waysToStep = function(n) {
+    let num1  = 1, num2 = 2, num3 = 4
+    if(n <3) {
+        return n == 2 ? 2 : 1
+    }
+    n = n -3;
+    while(n > 0) {
+        let newNum = (num1 + num2 + num3)%1000000007 
+        num1 = num2
+        num2 = num3
+        num3 = newNum
+        n--
+    }
+    return num3;
+
+};
+
+// 面试题 08.02. 迷路的机器人 回朔算法 需要做记录不然超时
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number[][]}
+ */
+var pathWithObstacles = function(obstacleGrid) {
+    if(obstacleGrid.length == 0){return}
+    let result = [],backup = [],m = obstacleGrid.length,n = obstacleGrid[0].length
+    for (let i = 0; i < m; i++) {
+        backup.push(new Array(n).fill(false))
+    }
+    dfs(0,0)
+    return result
+    function dfs(i,j) {
+        if(i >= m || j >= n || backup[i][j] || obstacleGrid[i][j] == '1') {
+            return false
+        }
+        result.push([i,j])
+        if(i == m - 1 && j == n - 1) {
+            return true
+        }
+        backup[i][j] = true;
+        if(dfs(i+1,j) || dfs(i,j+1)) {
+            return true
+        }
+        result.pop()
+        return false
+    } 
+}
+// 面试题 08.03 魔术索引 这里用了取巧的方法，也可以用二分法做
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMagicIndex = function(nums) {
+    for (let i = 0; i < nums.length; i++) {
+        if(nums[i] == i) {
+            return i
+        } else if(nums[i] > i) {
+            i = nums[i] - 1
+        }
+    }
+    return -1
+};
+
+// 面试题 08.04. 幂集 在上次的基础上 加数，再加上上次
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function(nums) {
+    let result = [[]]
+    for (let num of  nums) {
+        let newRult = []
+        for (let i = 0; i < result.length; i++) {
+            newRult.push(result[i].concat())
+            newRult[i].push(num)
+        }
+        result = result.concat(newRult)
+    }
+    return result;
+};
+
