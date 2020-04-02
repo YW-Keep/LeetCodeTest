@@ -1242,3 +1242,61 @@ var subsets = function(nums) {
     return result;
 };
 
+// 面试题 08.05. 递归乘法  位运算
+/**
+ * @param {number} A
+ * @param {number} B
+ * @return {number}
+ */
+var multiply = function(A, B) {
+    if(B > A) { return multiply(B,A)}
+    if(B == 1) {return A}
+    if(B == 0)  { return 0}
+    if(B & 1 == 1) {
+        return multiply(A<<1,B>>1) + A
+    } else {
+        return  multiply(A<<1,B>>1)
+    }
+};
+
+// 面试题 08.06. 汉诺塔问题  经典递归问题
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @param {number[]} C
+ * @return {void} Do not return anything, modify C in-place instead.
+ */
+var hanota = function(A, B, C) {
+    move(A.length,A,B,C)
+    console.log('xxx');
+    function move(n,a,b,c) {
+        if(n == 1) {
+            c.push(a.pop())
+            return
+        }
+        move(n-1,a,c,b)
+        c.push(a.pop())
+        move(n-1,b,a,c)
+    }
+};
+ 
+// 面试题 08.07	无重复字符串的排列组合  深度遍历递归
+/**
+ * @param {string} S
+ * @return {string[]}
+ */
+var permutation = function(S) {
+    let result = []
+    dfs(S,'')
+    return result;
+    function dfs(lastS,node) {
+        if(lastS.length == 0) {
+            result.push(node)
+            return
+        } 
+        for (let index = 0; index < lastS.length; index++) {
+            dfs(lastS.substring(0,index) + lastS.substring(index+1),node + lastS[index])
+        }
+    }
+
+};
