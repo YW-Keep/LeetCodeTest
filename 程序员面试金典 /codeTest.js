@@ -1300,3 +1300,25 @@ var permutation = function(S) {
     }
 
 };
+
+// 面试题 08.08. 有重复字符串的排列组合  深度遍历递归 去重
+/**
+ * @param {string} S
+ * @return {string[]}
+ */
+var permutation = function(S) {
+    let result = []
+    let newS = S.split('').sort(function(a,b){return b.localeCompare(a)}).join('')
+    dfs(newS,'')
+    return result;
+    function dfs(lastS,node) {
+        if(lastS.length == 0) {
+            result.push(node)
+            return
+        } 
+        for (let index = 0; index < lastS.length; index++) {
+            if(index + 1 < lastS.length && lastS[index] == lastS[index+1]) { continue}
+            dfs(lastS.substring(0,index) + lastS.substring(index+1),node + lastS[index])
+        }
+    }
+};
