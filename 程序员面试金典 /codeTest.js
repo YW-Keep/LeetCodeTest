@@ -1322,3 +1322,122 @@ var permutation = function(S) {
         }
     }
 };
+
+// 面试题 08.09. 括号 递归
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+    let result = []
+    dfs(n,n,'')
+    return result;
+    function dfs(i,j,ans) {
+        if(i == 0 && j == 0) {
+            result.push(ans)
+            return
+        } 
+        if(i > 0) {
+            dfs(i-1,j,ans +'(')
+        } 
+        if(i <j && j > 0) {
+            dfs(i,j-1,ans +')')
+        }
+    }
+};
+
+// 面试题 08.10. 颜色填充 递归
+/**
+ * @param {number[][]} image
+ * @param {number} sr
+ * @param {number} sc
+ * @param {number} newColor
+ * @return {number[][]}
+ */
+var floodFill = function(image, sr, sc, newColor) {
+    let oldColor = image[sr][sc]
+    let maxi = image.length
+    let maxj = image[0].length
+    if(oldColor != newColor) {
+        dfs(sr,sc)
+    }
+    return image;
+
+    function dfs(i,j) {
+        if(i >=0 && i<maxi && j >=0 && j<maxj &&image[i][j] == oldColor) {
+            image[i][j] = newColor
+            dfs(i+1,j)
+            dfs(i-1,j)
+            dfs(i,j+1)
+            dfs(i,j-1)
+        }
+    }
+};
+
+// 面试题 08.11. 硬币 动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var waysToChange = function(n) {
+    let coins = [1,5,10,25]
+    let dp = Array(n+1).fill(1);
+    for (let i = 1; i < 4; i++) {
+        for (let j = 5; j <= n; j++) {
+            if(j >= coins[i]) {
+                dp[j] = (dp[j] + dp[j -coins[i]])%1000000007
+            }
+        }
+    }
+    return dp[n]
+};
+
+// 面试题 10.01. 合并排序的数组  倒序存入
+/**
+ * @param {number[]} A
+ * @param {number} m
+ * @param {number[]} B
+ * @param {number} n
+ * @return {void} Do not return anything, modify A in-place instead.
+ */
+var merge = function(A, m, B, n) {
+    let  i = m -1, j = n -1
+    for (let index = A.length -1; index >= 0; index--) {
+        if(i < 0) {
+            A[index] = B[j]
+            j--
+        } else if(j < 0) {
+            break
+        } else {
+            if(A[i] > B[j]) {
+                A[index] = A[i]
+                i--
+            } else {
+                A[index] = B[j]
+                j--;
+            }
+        }
+    }
+};
+// 面试题 10.02. 变位词组 主要是要找合适的key 降低算法复杂度
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+    let bp = new Map()
+    for (let index = 0; index < strs.length; index++) {
+        let str  = strs[index]
+        let key = str.split('').sort(function(a,b){return b.localeCompare(a)}).join('')
+        if(bp.get(key)) {
+            bp.get(key).push(str)
+        } else {
+            bp.set(key,[str])
+        }
+    }
+    let result = []
+    for (let item of bp) {
+        result.push(item[1])      
+    }
+    return result;
+};
