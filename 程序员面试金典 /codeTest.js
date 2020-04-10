@@ -1391,6 +1391,40 @@ var waysToChange = function(n) {
     }
     return dp[n]
 };
+// 面试题 08.12. 八皇后   回朔算法
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+var solveNQueens = function(n) {
+    let bp1 = new Map(), bp2 =  new Map() ,bp3 = new Map()
+    let str = Array(n).fill('.')
+    let result = [],ts = []
+    dfs(0)
+    return result
+    function dfs(plies) {
+        if(plies == n) {
+            result.push(ts.concat())
+            return 
+        }
+        for (let index = 0; index < n; index++) {
+            // 说明可以占据
+            if(!(bp1.get(index) || bp2.get(plies + index) || bp3.get(n-1 -index + plies))) {
+                bp1.set(index,1)
+                bp2.set(plies + index,1)
+                bp3.set(n-1 -index + plies,1)
+                str[index] = 'Q'
+                ts.push(str.join(''))
+                str[index] = '.'
+                dfs(plies+1)
+                ts.pop()
+                bp1.delete(index)
+                bp2.delete(plies + index)
+                bp3.delete(n-1 -index + plies)
+            } 
+        }
+    }
+};
 
 // 面试题 10.01. 合并排序的数组  倒序存入
 /**
@@ -1441,3 +1475,33 @@ var groupAnagrams = function(strs) {
     }
     return result;
 };
+
+
+// 面试题 10.05. 稀疏数组搜索 二分查找法
+/**
+ * @param {string[]} words
+ * @param {string} s
+ * @return {number}
+ */
+var findString = function(words, s) {
+    let left = 0,right = words.length
+    while(left < right) {
+        let mid = Math.floor((right + left)/2)
+        while(words[mid] == '' && mid < right) {
+            mid++
+        }
+        if(mid == right) {
+            right = Math.floor((right + left)/2)
+            continue
+        }
+        if(words[mid] == s) {
+            return mid
+        } else if(words[mid] > s) {
+            right = mid
+        } else {
+            left = mid +1
+        }
+    }
+    return -1
+};
+
