@@ -1476,6 +1476,38 @@ var groupAnagrams = function(strs) {
     return result;
 };
 
+// 面试题 10.03. 搜索旋转数组  二分法
+/**
+ * @param {number[]} arr
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(arr, target) {
+    let left  = 0, right = arr.length;
+    while(left < right) {
+        let mid = Math.floor((left + right)/2)
+        if(arr[left] < arr[mid]) {
+            if(arr[left] <= target && target <= arr[mid]) {
+                right = mid
+            } else {
+                left = mid +1;
+            }
+        } else if(arr[left] > arr[mid]) {
+            if (arr[left] <= target || target <= arr[mid]) {
+                right = mid
+            } else {
+                left = mid +1;
+            }
+        } else {
+            if(arr[left] == target) {
+                right = left
+            } else {
+                left++
+            }
+        }
+    }
+    return  arr[left] == target ? left : -1
+};
 
 // 面试题 10.05. 稀疏数组搜索 二分查找法
 /**
@@ -1505,3 +1537,72 @@ var findString = function(words, s) {
     return -1
 };
 
+
+// 面试题 17.08. 马戏团人塔  首先排序，然后 最长上升子序列解题方法
+/**
+ * @param {number[]} height
+ * @param {number[]} weight
+ * @return {number}
+ */
+var bestSeqAtIndex = function(height, weight) {
+    let bp = []
+    for (let i = 0; i < height.length; i++) {
+        bp.push([height[i],weight[i]])
+    }
+    bp.sort((a,b) => { 
+        if(a[0] == b[0]) {
+            return b[1] - a[1]
+        } else {
+            return a[0] - b[0]
+        }
+    })
+    let backup = [bp[0][1]]
+    for (let index = 1; index < bp.length; index++) {
+        let num =  bp[index][1]
+        if(num > backup[backup.length -1]) {
+            backup.push(num)
+        } else if (num < backup[0]) {
+            backup[0] = num
+        } else {
+            var left = 0 ,right = backup.length;
+            while(left < right) {
+                let mid = Math.floor((left + right)/2);
+                if(num > backup[mid]) {
+                    left = mid +1;
+                } else {
+                    right =mid;
+                }
+            }
+            backup[left] = num;
+        }
+    }
+    return backup.length;
+};
+// 面试题 17.10. 主要元素 摩尔投票
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    let count = 0, bp = 0
+    for(let num of nums) {
+        if(count == 0) {
+            bp = num
+            count++
+        } else {
+            if(bp == num) {
+                count++
+            } else {
+                count--
+            }
+        }
+    }
+     count = 0
+    for (let num of nums) {
+        if(bp == num) {
+            count++
+        } 
+    }
+
+    return count > nums.length/2 ? bp : -1
+};
