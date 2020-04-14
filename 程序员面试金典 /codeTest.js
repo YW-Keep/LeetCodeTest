@@ -1426,6 +1426,31 @@ var solveNQueens = function(n) {
     }
 };
 
+// 面试题 08.13. 堆箱子 动态规划，当前的最大值就是 上一个能承受这个人的最大值加当前值
+/**
+ * @param {number[][]} box
+ * @return {number}
+ */
+var pileBox = function(box) {
+    if(box.length == 0) {return 0}
+    box.sort((a,b) => {
+        return a[0] == b[0] ? (a[1] == b[1] ? b[2] -a[2] : b[1] - a[1] ) : (a[0] - b[0])
+    })
+    let bp = new Array(box.length).fill(0), res = 0
+    bp[0] = box[0][2]
+    res = box[0][2]
+    for (let i = 1; i < box.length; i++) {
+        let max = 0,base_depth = box[i][1],base_height = box[i][2]
+        for( let j = 0;j<i ;j++) {
+            if(base_depth> box[j][1] && base_height > box[j][2]) {
+                max = Math.max(max,bp[j])
+            }
+            bp[i] = max + base_height
+            res = Math.max(res,bp[i])
+        }
+    }
+    return res;
+};
 // 面试题 10.01. 合并排序的数组  倒序存入
 /**
  * @param {number[]} A
