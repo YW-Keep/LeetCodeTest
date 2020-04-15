@@ -1561,7 +1561,28 @@ var findString = function(words, s) {
     }
     return -1
 };
-
+// 面试题 10.09. 排序矩阵查找 中位数移动
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function(matrix, target) {
+    let m = matrix.length;
+    if(m == 0){return false}
+    let n = matrix[0].length;
+    let i = 0,j = n -1;
+    while(i < m && j > -1) {
+        if(matrix[i][j] > target) {
+            j--
+        } else if(matrix[i][j] < target) {
+            i++
+        } else {
+            return true
+        }
+    }
+    return false
+};
 
 // 面试题 17.08. 马戏团人塔  首先排序，然后 最长上升子序列解题方法
 /**
