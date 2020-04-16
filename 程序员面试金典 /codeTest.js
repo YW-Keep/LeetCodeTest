@@ -1652,3 +1652,22 @@ var majorityElement = function(nums) {
 
     return count > nums.length/2 ? bp : -1
 };
+
+// 面试题 10.11. 峰与谷 错位交换  一次遍历 直接跟前位判断交换
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var wiggleSort = function(nums) {
+    if(nums.length < 3) {
+        return 
+    }
+    for (let i = 1; i < nums.length; i++) {
+        let parity =  i%2 == 1
+        if(parity && nums[i] > nums[i -1] || !parity && nums[i] < nums[i-1]) {
+            let pb = nums[i-1]
+            nums[i-1] = nums[i];
+            nums[i] = pb
+        }
+    }
+};
