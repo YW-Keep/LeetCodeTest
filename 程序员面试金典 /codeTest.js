@@ -1671,3 +1671,14 @@ var wiggleSort = function(nums) {
         }
     }
 };
+//  面试题 16.01. 交换数字 相加再减
+/**
+ * @param {number[]} numbers
+ * @return {number[]}
+ */
+var swapNumbers = function(numbers) {
+    numbers[1] = numbers[1] + numbers[0]
+    numbers[0] = numbers[1] - numbers[0]
+    numbers[1] = numbers[1] - numbers[0] 
+    return numbers
+};
