@@ -1682,3 +1682,145 @@ var swapNumbers = function(numbers) {
     numbers[1] = numbers[1] - numbers[0] 
     return numbers
 };
+
+// 面试题 10.10. 数字流的秩  二分查找加速
+var StreamRank = function() {
+    this.bp = []   
+};
+
+/** 
+ * @param {number} x
+ * @return {void}
+ */
+StreamRank.prototype.track = function(x) {
+    let start = 0, end = this.bp.length
+    while(start < end) {
+        let mid = Math.floor((start + end)/2)
+        if(this.bp[mid] == x) {
+            start = mid
+            end = mid
+        } else if (this.bp[mid] < x) {
+            start = mid + 1
+        } else {
+            end = mid
+        }
+    } 
+    this.bp.splice(start,0,x)
+};
+
+/** 
+ * @param {number} x
+ * @return {number}
+ */
+StreamRank.prototype.getRankOfNumber = function(x) {
+    let start = 0, end = this.bp.length
+    while(start < end) {
+        let mid = Math.floor((start + end)/2)
+        if(this.bp[mid] <= x) {
+            start = mid + 1 
+        } else {
+            end = mid
+        }
+    }
+    return start
+};
+
+/**
+ * Your StreamRank object will be instantiated and called as such:
+ * var obj = new StreamRank()
+ * obj.track(x)
+ * var param_2 = obj.getRankOfNumber(x)
+ */
+
+ // 面试题 16.02. 单词频率 map记录
+/**
+ * @param {string[]} book
+ */
+var WordsFrequency = function(book) {
+    this.bp = new Map()
+    for(let item of book) {
+        this.bp.set(item,(this.bp.get(item) || 0)+1)
+    }
+};
+
+/** 
+ * @param {string} word
+ * @return {number}
+ */
+WordsFrequency.prototype.get = function(word) {
+    return this.bp.get(word) || 0
+};
+
+/**
+ * Your WordsFrequency object will be instantiated and called as such:
+ * var obj = new WordsFrequency(book)
+ * var param_1 = obj.get(word)
+ */
+
+ // 面试题 16.04. 井字游戏 穷举
+ /**
+ * @param {string[]} board
+ * @return {string}
+ */
+var tictactoe = function(board) {
+    let length = board.length;
+
+    if(check('X')) {
+        return 'X'
+    }
+    if(check('O')) {
+        return 'O'
+    }
+    for (let i = 0; i < length; i++) {
+        for (let j = 0; j < length; j++) {
+            if(board[i][j] == ' ') {
+                return 'Pending'
+            }
+        }        
+    }
+
+    return 'Draw'
+
+    function check(str) {
+        // 横
+        for(i = 0; i < length; i++) {
+            let isAll = true
+            for(j = 0;j< length;j++) {
+               if(board[i][j] != str) {
+                   isAll = false
+                   break;
+               }
+            }
+            if(isAll) { return true}
+        }
+        // 竖
+        for(i = 0; i < length; i++) {
+            let isAll = true
+            for(j = 0;j< length;j++) {
+               if(board[j][i] != str) {
+                   isAll = false
+                   break;
+               }
+            }
+            if(isAll) { return true}
+        }
+        
+        // 对角线
+        let result = true
+        for (let i = 0; i < length; i++) {
+            if(board[i][i] != str) {
+                result =  false;
+                break
+            }           
+        }
+        if(result) { return true}
+        result = true
+        for (let i = 0; i < length; i++) {
+            if(board[i][length -1 - i] != str) {
+                result =  false;
+                break
+            }           
+        }
+        return result
+    }
+};
