@@ -1838,3 +1838,26 @@ var trailingZeroes = function(n) {
     }
     return result;
 };
+
+// 面试题 16.06. 最小差  排序 双指针逼近
+/**
+ * @param {number[]} a
+ * @param {number[]} b
+ * @return {number}
+ */
+var smallestDifference = function(a, b) {
+    a.sort((a,b) => a - b)
+    b.sort((a,b) => a - b)
+    let min =  Math.abs(a[0] - b[0]),i = 0,j =0
+    while(i < a.length && j < b.length && min != 0) {
+        min = Math.min(min,  Math.abs(a[i] - b[j])) 
+        if(a[i] < b[j]) {
+            i++ 
+        } else {
+            j++
+        }
+    }
+    return min
+};
+
+
