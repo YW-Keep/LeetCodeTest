@@ -1860,4 +1860,15 @@ var smallestDifference = function(a, b) {
     return min
 };
 
+// 面试题 16.07. 最大数值   取平均值abs一下加差距
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+var maximum = function(a, b) {
+    let k = (a + b)/2
+    return k + Math.abs(a - k)
+};
+
 
