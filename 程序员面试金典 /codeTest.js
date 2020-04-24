@@ -1872,3 +1872,34 @@ var maximum = function(a, b) {
 };
 
 
+
+// 面试题 16.08. 整数的英语表示 逻辑题 没有特殊的算法
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var numberToWords = function(num) {
+    var  N = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30, 40, 50, 60, 70, 80, 90, 
+        100, 1000, 1000000, 1000000000]
+    var S = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", 
+    "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen",
+    "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety",
+    "Hundred", "Thousand", "Million", "Billion"]
+    if(num == 0) {
+        return "Zero"
+    }
+    let i = 30,res =''
+    while(i >= 0 && N[i] > num) {
+        i--
+    }
+    if(N[i] <= 90) {
+        res += S[i]
+    } else {
+        res += numberToWords(Math.floor(num/N[i])) + ' ' + S[i]
+    }
+    if(num%N[i] > 0) {
+        res += ' ' + numberToWords(num%N[i])
+    }
+    return res
+};
+
