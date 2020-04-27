@@ -1948,3 +1948,32 @@ var divingBoard = function(shorter, longer, k) {
     }
     return result
 };
+
+// 面试题 16.15. 珠玑妙算 逻辑题
+/**
+ * @param {string} solution
+ * @param {string} guess
+ * @return {number[]}
+ */
+var masterMind = function(solution, guess) {
+    let backup1 = [0,0,0,0],backup2 = [0,0,0,0],num = 0
+    let map = new Map();
+    map.set('R',0)
+    map.set('Y',1)
+    map.set('G',2)
+    map.set('B',3)
+    for (let i = 0; i < solution.length; i++) {
+        let key1 = solution[i]
+        let key2 = guess[i]
+        if(key1 == key2) {
+            num++
+        }
+        backup1[map.get(key1)] += 1
+        backup2[map.get(key2)] += 1
+    }
+    let res = 0
+    for (let i = 0; i < backup1.length; i++) {
+        res +=  Math.min(backup1[i],backup2[i])
+    }
+    return [num,res-num];
+};
