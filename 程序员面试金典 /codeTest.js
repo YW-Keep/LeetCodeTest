@@ -2002,3 +2002,22 @@ var subSort = function(array) {
     }
     return [l,r];
 };
+
+// 面试题 16.17. 连续数列
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    if(nums.length == 0) {return 0}
+    let res = nums[0],bd = -1;
+    for (let i = 0; i < nums.length; i++) {
+        if(bd < 0) {
+            bd = nums[i]
+        } else {
+            bd += nums[i]
+        }
+        res = Math.max(bd,res)
+    }
+    return res
+};
