@@ -2021,3 +2021,80 @@ var maxSubArray = function(nums) {
     }
     return res
 };
+
+// 面试题 16.18. 模式匹配  不知道说什么 感觉题目有点问题
+/**
+ * @param {string} pattern
+ * @param {string} value
+ * @return {boolean}
+ */
+var patternMatching = function(pattern, value) {
+    let aN = 0,bN = 0,length = value.length;
+    for (let i = 0; i < pattern.length; i++) {
+        if(pattern[i] == 'a') {
+            aN++
+        } else {
+            bN++
+        }
+    }
+    if(aN == 0 && bN == 0) {
+        return value.length == 0
+    }
+    if(value.length == 0) {
+        return! (aN && bN)
+    }
+    if(aN == 0) {
+        if(length%bN == 0) {
+            if(check(0,length/bN)) {
+                return true
+            }
+        }
+    } else if(bN == 0){
+        if(length%aN == 0) {
+            if(check(length/aN,0)) {
+                return true
+            }
+        }
+    } else {
+        if(aN == 1 || bN == 1) {
+            return true
+        }
+        for (let i = 0; i < length/aN; i++) {
+            if((length - i*aN)%bN == 0) {
+                if(check(i,(length - i*aN)/bN)){
+                    return true
+                }
+            }
+        }
+    }
+    return false;
+    function check(a,b) {
+        let countA  = 0, countB = 0,checkA = '',checkB = ''
+        for (let i = 0; i < pattern.length; i++) {
+            if(pattern[i] == 'a') {
+                let str  = value.substr(countA*a + countB*b,a)
+                if(countA == 0) {
+                    checkA = str
+                } else {
+                    if(checkA != str) {
+                        return false
+                    }
+                }
+                countA++
+            } else {
+                let str  = value.substr(countA*a + countB*b,b)
+                if(countB == 0) {
+                    checkB = str
+                } else {
+                    if(checkB != str) {
+                        return false
+                    }
+                }
+                countB++
+            }
+        }
+        return true
+    }
+};
+patternMatching('abba',"dogcatcatdog")
+
