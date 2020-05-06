@@ -2096,5 +2096,58 @@ var patternMatching = function(pattern, value) {
         return true
     }
 };
-patternMatching('abba',"dogcatcatdog")
+// 面试题 16.19. 水域大小  dfs遍历
+/**
+ * @param {number[][]} land
+ * @return {number[]}
+ */
+var pondSizes = function(land) {
+    let area = 0, length1 = land.length, length2 = land[0].length, result = [];
+    for (let i = 0; i < length1; i++) {
+        for (let j = 0; j < length2; j++) {
+            if(land[i][j] == 0) {
+                area = 0
+                dfs(i,j)
+                result.push(area)
+            }
+        }
+    }
+    return result.sort((a, b) => a - b)
 
+    function dfs(i,j) {
+        if(i < 0 || j < 0 || i>= length1 || j >= length2 ) { return}
+        if(land[i][j] ==0) {
+            land[i][j] = 1
+            area++
+            let backup = [[0,1],[1,0],[0,-1],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]]
+            for (let index = 0; index < backup.length; index++) {
+                dfs(i+ backup[index][0],j+ backup[index][1])
+            }
+        }
+    }
+};
+
+// 面试题 16.20. T9键盘 映射加判断
+/**
+ * @param {string} num
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var getValidT9Words = function(num, words) {
+    let backStr = '22233344455566677778889999',result = [],length = num.length
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i]
+        if(word.length == length) {
+            let isReal = true
+            for (let j = 0; j < length; j++) {
+                let count = Number.parseInt( word[j].charCodeAt()) - 97
+                if(backStr[count] !=  num[j]) {
+                    isReal = false
+                    break;
+                }
+            }
+            if(isReal) {result.push(word)}
+        }
+    }
+    return result;
+};
