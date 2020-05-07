@@ -2151,3 +2151,54 @@ var getValidT9Words = function(num, words) {
     }
     return result;
 };
+
+// 面试题 16.21. 交换和  算差值 map记录
+/**
+ * @param {number[]} array1
+ * @param {number[]} array2
+ * @return {number[]}
+ */
+var findSwapValues = function(array1, array2) {
+    let backup = new Map(),sum1 =0 ,sum2 = 0
+    for (let i = 0; i < array1.length; i++) {
+        sum1 += array1[i]    
+    }
+    for (let i = 0; i < array2.length; i++) {
+        sum2 += array2[i] 
+        backup.set(array2[i],true)   
+    }
+    if(Math.abs(sum1 -sum2)%2  == 1) {
+        return []
+    }
+    let short = (sum1 - sum2)/2
+    for (let i = 0; i < array1.length; i++) {
+        let num =  array1[i]
+        if(backup.get(num - short)) {
+            return [num, num - short]
+        }
+    }
+    return []
+};
+
+// 面试题 16.24. 数对和 map记录 也可以排序快慢指针
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+var pairSums = function(nums, target) {
+    let backup = new Map(),result = []
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i];
+        backup.set(num,(backup.get(num) || 0) + 1)
+    }
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i];
+        backup.set(num,backup.get(num) - 1)
+        if(backup.get(num) >= 0 && (backup.get(target - num) || 0) > 0) {
+            backup.set(target - num,backup.get(target - num) - 1)
+            result.push([num,target - num])
+        }
+    }
+    return result;
+};
