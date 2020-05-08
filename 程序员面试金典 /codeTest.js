@@ -2202,3 +2202,34 @@ var pairSums = function(nums, target) {
     }
     return result;
 };
+
+// 面试题 17.01. 不用加号的加法  位运算 一位一位算
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+var add = function(a, b) {
+    let sum = 0,backup = 0
+    while(b != 0) {
+        sum = a^b
+        backup =  (a&b) <<1;
+        a = sum
+        b = backup
+    }
+    return a
+};
+
+// 面试题 17.04. 消失的数字
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function(nums) {
+    let length = nums.length,sum = (1 + length)*length/2
+    for (let i = 0; i < nums.length; i++) {
+        sum -=  nums[i]
+    }
+    return sum;
+};
+
