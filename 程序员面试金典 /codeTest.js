@@ -2233,3 +2233,49 @@ var missingNumber = function(nums) {
     return sum;
 };
 
+// 面试题 17.05.  字母与数字 记录 检查
+/**
+ * @param {string[]} array
+ * @return {string[]}
+ */
+var findLongestSubarray = function(array) {
+    let num = 0,start = 0,end = 0,backup  =  new Map()
+    backup.set(0,-1)
+    for (let i = 0; i < array.length; i++) {
+      num += checkNum(array[i]) ? 1 : -1
+       let before = backup.get(num)
+       if(before != null) {
+           if(i -before > end - start)  {
+               start = before
+               end = i
+           }
+       } else {
+           backup.set(num,i)
+       }
+    }
+    return array.slice(start +1 ,end +1)
+    function checkNum (num) {
+        let backup = '0123456789'
+        for (let i = 0; i < num.length; i++) {
+           if(backup.indexOf(num[i]) == -1) {
+               return false
+           }
+        }
+        return true
+    }
+};
+
+// 面试题 17.16. 按摩师 就是打家劫舍
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var massage = function(nums) {
+    let a = 0,b = 0
+    for (let i = 0; i < nums.length; i++) {
+        let c = Math.max(b,a+nums)
+        a = b
+        b = c
+    }
+    return b
+};
