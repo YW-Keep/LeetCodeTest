@@ -2265,6 +2265,52 @@ var findLongestSubarray = function(array) {
     }
 };
 
+// 面试题 17.06. 2出现的次数 按位判断计算
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numberOf2sInRange = function(n) {
+    let s = n.toString(),check = 2,result = 0,length = s.length
+    for (let i = 0; i < length; i++) {
+        let num = Number.parseInt(s[i])
+        let left = i == 0? 0 : Number.parseInt(s.substr(0,i)) 
+        if(num > check) {
+            result +=  (left+1)*(10**(length - i-1))
+        } else if(num < check) {
+            result += (left)*(10**(length-i-1))
+        }else {
+            let right = s.substr(i+1)
+            result += (left)*(10**(length-i-1)) + (right == '' ? 0: Number.parseInt(right)) + 1
+        }
+    }
+    return result;
+};
+
+
+// 面试题 17.14. 最小K个数  最小堆
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number[]}
+ */
+var smallestK = function(arr, k) {
+    let result = Array(k).fill(100001)
+    for (let i = 0; i < arr.length; i++) {
+        let num = arr[i];
+        if(num < result[k-1]) {
+            let j = 0
+            // 这里用二分查找会快很多
+            while(result[j] < num) {
+                j++
+            }
+            result.pop()
+            result.splice(j, 0, num); 
+        } 
+    }
+    return result;
+};
+
 // 面试题 17.16. 按摩师 就是打家劫舍
 /**
  * @param {number[]} nums
