@@ -2287,6 +2287,101 @@ var numberOf2sInRange = function(n) {
     return result;
 };
 
+// 面试题 17.07. 婴儿名字 连通原理
+/**
+ * @param {string[]} names
+ * @param {string[]} synonyms
+ * @return {string[]}
+ */
+var trulyMostPopular = function(names, synonyms) {
+    let backup = new Map(),nameBack = new Map()
+    for (let i = 0; i < names.length; i++) {
+        addInfo(names[i])
+    }
+    
+    for (let i = 0; i < synonyms.length; i++) {
+        mergeInfo(synonyms[i])
+    }
+
+    let res = []
+    for (let item of backup) {
+        res.push(item[0] + '(' + item[1].toString() +')')
+    }
+    return res;
+
+    function addInfo(string) {
+        let key ='',num ='',numStart = false
+        for (let i = 0; i < string.length; i++) {
+            let char = string[i];
+            if(char == '(' || char == ')') {
+                numStart = true
+            } else {
+                if(numStart) {
+                    num += char 
+                } else {
+                    key += char
+                }
+            }
+        }
+        backup.set(key,Number.parseInt(num))
+        nameBack.set(key,key)
+    }
+
+    function mergeInfo(string) {
+        let arr = string.substr(1,string.length -2).split(',')
+        let root1 = getroot(arr[0]),root2 = getroot(arr[1])
+        if(root1 == null || root2 == null) { return}
+        if(root1 != root2) {
+            if(root1 < root2) {
+                backup.set(root1,backup.get(root1)+ backup.get(root2))
+                backup.delete(root2)
+                nameBack.set(root2,root1)
+            } else {
+                backup.set(root2,backup.get(root1)+ backup.get(root2))
+                backup.delete(root1)
+                nameBack.set(root1,root2)
+            }
+        }
+    }
+
+    function getroot(key) {
+        let res = nameBack.get(key)
+        if(res == null) {return null}
+        if(res == key) {
+            return key
+        } else {
+            nameBack.set(key, nameBack.get(res))
+            return getroot(res)
+        }
+    }
+};
+
+// 面试题 17.11. 单词距离  遍历赋值判断
+/**
+ * @param {string[]} words
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var findClosest = function(words, word1, word2) {
+    let num1 = -1,num2 = -1, min = Number.MAX_VALUE
+
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i]
+        if(word == words1) {
+            num1 = i
+            if(num1 > 0 && num2 > 0) {
+                min = Math.min(Math.abs(num1-num2),min)
+            }
+        } else if(word == words2) {
+            num2 = i
+            if(num1 > 0 && num2 > 0) {
+                min = Math.min(Math.abs(num1-num2),min)
+            }
+        }
+    }
+    return min
+};
 
 // 面试题 17.14. 最小K个数  最小堆
 /**
