@@ -2356,6 +2356,23 @@ var trulyMostPopular = function(names, synonyms) {
     }
 };
 
+// 面试题 17.09. 第 k 个数 逻辑题 记录备份
+/**
+ * @param {number} k
+ * @return {number}
+ */
+var getKthMagicNumber = function(k) {
+    let res = [1], p3 = 0,p5 = 0,p7 = 0
+    while(res.length < k) {
+        let min = Math.min(res[p3]*3,res[p5]*5,res[p7]*7)
+        res.push(min)
+        if(res[p3]*3 == min) { p3++}
+        if(res[p5]*5 == min) { p5++}
+        if(res[p7]*7 == min) { p7++}
+    }
+    return res[res.length -1]
+};
+
 // 面试题 17.11. 单词距离  遍历赋值判断
 /**
  * @param {string[]} words
