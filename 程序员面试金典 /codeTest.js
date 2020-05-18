@@ -2203,6 +2203,56 @@ var pairSums = function(nums, target) {
     return result;
 };
 
+// 面试题 16.26. 计算器 乘法合并成数据处理
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var calculate = function(s) {
+    s.replace(/\s+/g,"");
+    s = s + '+'
+    let res = 0,isAdd = true,backStr = ''
+    for (let i = 0; i < s.length; i++) {
+        let inStr = s[i]
+        if(inStr == '+' || inStr == '-') {
+            let num = getNum(backStr) 
+            if(isAdd) {
+                res += num
+            } else {
+                res -= num
+            }
+            isAdd = inStr == '+'
+            backStr = ''
+        } else {
+            backStr += inStr
+        }
+    }
+    return res
+
+    function getNum(str) {
+        str = str + '*'
+        let numBack = 1, isProduct = true,backStr = ''
+        for (let i = 0; i < str.length; i++) {
+            let inStr = str[i]
+            if(inStr == '*' || inStr == '/') {
+                let num = Number.parseInt(backStr)
+                if(isProduct) {
+                    numBack =  numBack*num
+                } else {
+                    numBack =  Math.floor(numBack/num)
+                }
+                isProduct = inStr == '*'
+                backStr = ''
+            } else {
+                backStr += inStr
+            }
+        }
+        return numBack
+    }
+
+};
+calculate(" 3+5 / 2 ")
+
 // 面试题 17.01. 不用加号的加法  位运算 一位一位算
 /**
  * @param {number} a
@@ -2400,6 +2450,38 @@ var findClosest = function(words, word1, word2) {
     return min
 };
 
+// 面试题 17.12. BiNode 二叉树的中序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBiNode = function(root) {
+    if(root == null) {
+        return root
+    }
+    let left = convertBiNode(root.left)
+    if(left == null) {
+        left = root
+    } else {
+        let leftTmp = left
+        while(left.right !=null) {
+            left = left.right
+        }
+        left.right = root
+        left = leftTmp
+    }
+    root.left = null
+    root.right =  convertBiNode(root.right)
+    return left;
+};
+
 // 面试题 17.14. 最小K个数  最小堆
 /**
  * @param {number[]} arr
@@ -2436,4 +2518,54 @@ var massage = function(nums) {
         b = c
     }
     return b
+};
+
+
+// 面试题 17.17. 多次搜索  单个判断
+/**
+ * @param {string} big
+ * @param {string[]} smalls
+ * @return {number[][]}
+ */
+var multiSearch = function(big, smalls) {
+    let result= []
+
+    for (let index = 0; index < smalls.length; index++) {
+        result.push(chek(smalls[index]))
+    }
+    return result;
+     
+    function chek(str) {
+        if(str.length == 0) { return []}
+        let j = 0
+        let res = []
+        for (let i = 0; i < big.length; i++) {
+            if(big.substr(i,str.length) == str) {
+                res.push(i)
+            }
+        }
+        
+        return res;
+    }
+};
+
+
+// 面试题 17.19. 消失的两个数字  获取两个数的和 取得平均数，然后问题就变成在平均数下找到一个缺失的数
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var missingTwo = function(nums) {
+    let sum = (nums.length +2 +1)*(nums.length +2)/2
+    for (let i = 0; i < nums.length; i++) {
+        sum -= nums[i];        
+    }
+    let mid = Math.floor(sum/2),numSum = mid *(mid +1)/2
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i]
+        if(num <= mid) {
+            numSum -= num
+        }      
+    }
+    return [numSum,sum  - numSum]
 };
