@@ -2548,6 +2548,57 @@ var multiSearch = function(big, smalls) {
         return res;
     }
 };
+// 面试题 17.18. 最短超串  窗口
+/**
+ * @param {number[]} big
+ * @param {number[]} small
+ * @return {number[]}
+ */
+var shortestSeq = function(big, small) {
+    let backMap = new Map(),count = small.length
+    for (let i = 0; i < small.length; i++) {
+        backMap.set(small[i],(backMap.get(small[i]) || 0) +1)
+    }
+    let left = 0,right = 0,res = [-1,big.length];
+    while(right < big.length) {
+        if(count > 0) {
+            let key =  big[right],value = backMap.get(key)
+            if(value != null) {
+                if(value > 0) {
+                    count--;
+                }
+                backMap.set(key,value -1);
+            } 
+            if(count != 0) {
+                right++
+            }
+
+        } else {
+            let key =  big[left],value = backMap.get(key)
+            if((res[1] -res[0]) > (right - left)) {
+                res = [left,right]
+            } 
+            if(value != null) {
+                backMap.set(key,value +1);
+                if(value >= 0) {
+                    count++;
+                    right++;
+                }
+            } 
+            left++
+        }
+    }
+    if(count == 0) {
+        if((res[1] -res[0]) > (right - left)) {
+            res = [left,right]
+        } 
+    }
+    if(res[0] == -1) {
+        return []
+    }
+    return res;
+};
+
 
 
 // 面试题 17.19. 消失的两个数字  获取两个数的和 取得平均数，然后问题就变成在平均数下找到一个缺失的数
@@ -2569,3 +2620,48 @@ var missingTwo = function(nums) {
     }
     return [numSum,sum  - numSum]
 };
+
+// 面试题 17.20. 连续中值  这里用了排序 其实可以用双堆
+/**
+ * initialize your data structure here.
+ */
+var MedianFinder = function() {
+    this.backNum = []
+};
+
+/** 
+ * @param {number} num
+ * @return {void}
+ */
+MedianFinder.prototype.addNum = function(num) {
+    this.backNum.push(num)
+};
+
+/**
+ * @return {number}
+ */
+MedianFinder.prototype.findMedian = function() {
+    this.backNum.sort((a,b) =>a-b) 
+    let length = this.backNum.length
+    let mid =  Math.floor(length/2)
+    if(length%2 ==1) {
+        return  this.backNum[mid]
+    } else {
+        return (this.backNum[mid-1] + this.backNum[mid])/2
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * var obj = new MedianFinder()
+ * obj.addNum(num)
+ * var param_2 = obj.findMedian()
+ */
+
+
+let  test = new MedianFinder()
+test.addNum(1)
+test.addNum(2)
+test.findMedian()
+test.addNum(3)
+test.findMedian()
