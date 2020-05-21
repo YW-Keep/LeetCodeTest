@@ -2659,9 +2659,21 @@ MedianFinder.prototype.findMedian = function() {
  */
 
 
-let  test = new MedianFinder()
-test.addNum(1)
-test.addNum(2)
-test.findMedian()
-test.addNum(3)
-test.findMedian()
+// 面试题 17.21. 直方图的水量 双指针
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    let res = 0,left = 0,right = height.length -1,maxLeft = height[left],maxRight = height[right]
+    while(left < right) {
+        if(maxLeft < maxRight) {
+            res += maxLeft -  height[left++]
+            maxLeft = Math.max(maxLeft,height[left])
+        } else {
+            res += maxRight - height[right--]
+            maxRight = Math.max(maxRight,height[right])
+        }
+    }
+    return res
+};
