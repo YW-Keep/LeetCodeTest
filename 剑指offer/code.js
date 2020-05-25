@@ -37,3 +37,25 @@ var findNumberIn2DArray = function(matrix, target) {
     }
     return false
 };
+// 面试题05. 替换空格 遍历
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var replaceSpace = function(s) {
+    return s.replace(/ /g,'%20')
+};
+// 面试题06. 从尾到头打印链表 基础题
+/**
+ * @param {ListNode} head
+ * @return {number[]}
+ */
+var reversePrint = function(head) {
+    let res = []
+    let next = head;
+    while(next) {
+        res.unshift(next.val)
+        next = next.next
+    }
+    return res
+};
