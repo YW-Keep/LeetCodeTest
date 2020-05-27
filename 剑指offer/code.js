@@ -84,3 +84,21 @@ var buildTree = function(preorder, inorder) {
     node.right = buildTree(preorder.slice(i+1), inorder.slice(i+1))
     return node
 };
+// 面试题09. 用两个栈实现队列 把1数据导到2中 2边都存数据
+var CQueue = function() {
+    this.stack1 = []
+    this.stack2 = []
+};
+CQueue.prototype.appendTail = function(value) {
+    this.stack1.push(value)
+};
+CQueue.prototype.deleteHead = function() {
+    if(this.stack2.length) {
+        return this.stack2.pop()
+    }
+    if(!this.stack1.length) return -1
+    while(this.stack1.length) {
+        this.stack2.push(this.stack1.pop())
+    }
+    return this.stack2.pop()
+};
