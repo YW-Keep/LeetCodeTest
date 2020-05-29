@@ -102,3 +102,36 @@ CQueue.prototype.deleteHead = function() {
     }
     return this.stack2.pop()
 };
+
+// 面试题10- I. 斐波那契数列
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var fib = function(n) {
+    if(n == 0) { return 0}
+    let a = 0, b = 1
+    while(n > 1) {
+        let TS = b
+        b =  (a + b)%1000000007
+        a = TS
+        n--
+    }
+    return b%1000000007
+};
+
+// 面试题10- II. 青蛙跳台阶问题 基础题
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numWays = function(n) {
+    let a = 0,b =1
+    while(n > 0) {
+        let TS = b
+        b =  (a + b)%1000000007
+        a = TS
+        n--
+    }
+    return b
+};
