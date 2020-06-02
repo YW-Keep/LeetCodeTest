@@ -135,3 +135,91 @@ var numWays = function(n) {
     }
     return b
 };
+
+// 面试题11. 旋转数组的最小数字 二分查找
+/**
+ * @param {number[]} numbers
+ * @return {number}
+ */
+var minArray = function(numbers) {
+    let i = 0,j = numbers.length - 1
+    while(i < j) {
+        let mid = Math.floor((i + j)/2)
+        if(numbers[mid] < numbers[j]) {
+            j = mid
+        } else if(numbers[mid] > numbers[j]) {
+            i = mid + 1
+        }  else {
+            j--
+        }
+    }
+    return numbers[i]
+};
+
+// 面试题12. 矩阵中的路径
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+var exist = function(board, word) {
+
+};
+
+// 面试题14- I. 剪绳子  总结
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var cuttingRope = function(n) {
+    if(n < 4) { return n - 1}
+    let a = Math.floor(n/3) 
+    let b = n%3;
+    if(b == 0) {
+        return Math.pow(3,a)
+    } else if(b == 1) {
+        return Math.pow(3,a-1)*4
+    } else {
+        return Math.pow(3,a)*2
+    }
+};
+
+// 面试题14- II. 剪绳子 II
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var cuttingRope = function(n) {
+    if(n < 4) { return n - 1}
+    let a = Math.floor(n/3) 
+    let b = n%3;
+    let res = 0
+    if(b == 0) {
+        res = 3
+    } else if(b == 1) {
+        res = 4
+    } else {
+        res = 6
+    }
+    a--
+    while(a > 0) {
+        res = res*3%1000000007
+        a--
+    }
+    return res
+};
+
+// 面试题15. 二进制中1的个数 位运算 最右边的数据变为1
+/**
+ * @param {number} n - a positive integer
+ * @return {number}
+ */
+var hammingWeight = function(n) {
+    let res = 0;
+    while(n !== 0) {
+        res++
+        n &= (n - 1)
+    }
+    return res
+};
