@@ -156,14 +156,35 @@ var minArray = function(numbers) {
     return numbers[i]
 };
 
-// 面试题12. 矩阵中的路径
+// 面试题12. 矩阵中的路径 回朔算法
 /**
  * @param {character[][]} board
  * @param {string} word
  * @return {boolean}
  */
 var exist = function(board, word) {
+    
+    let ts = []
+    for (let i = 0; i < board.length; i++) {
+        ts.push(Array(board[0].length).fill(false))
+    }
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[0].length; j++) {
+            if(dfs(i,j,0)) {
+                return true
+            }
+        }
+    }
+    function dfs(i,j,k) {
+        if(i >= board.length || i < 0 || j >= board[0].length || j < 0 || board[i][j] != word[k] || ts[i][j]) return false;
+        if(k == word.length -1) return true;
+        ts[i][j] = true
+        let res = dfs(i+1,j,k+1) || dfs(i-1,j,k+1) || dfs(i,j+1,k+1) || dfs(i,j-1,k+1) 
+        ts[i][j] = false
+        return res
+    }
 
+    return false
 };
 
 // 面试题14- I. 剪绳子  总结
