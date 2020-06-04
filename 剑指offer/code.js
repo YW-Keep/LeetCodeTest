@@ -187,6 +187,48 @@ var exist = function(board, word) {
     return false
 };
 
+// 面试题13. 机器人的运动范围  遍历判断是否可行
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+var movingCount = function(m, n, k) {
+    let backup = []
+    for (let i = 0; i < m; i++) {
+        backup.push(Array(n).fill(0))
+    }
+    let ans = 1
+    backup[0][0] = 1
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if( (i== 0 && j ==0) || get(i) + get(j) > k) {
+                continue
+            }
+            if(i -1 >= 0 &&backup[i-1][j] == 1) {
+                backup[i][j] = 1
+            }
+            if(j -1 >= 0 &&backup[i][j -1] == 1) {
+                backup[i][j] = 1
+            }
+            ans += backup[i][j]
+        }
+    }
+    return ans
+
+
+    function get(num) {
+        let res = 0;
+        while(num > 0) {
+            res += num%10
+            num = Math.floor(num/10)
+        }
+        return res
+    }
+};
+
+
 // 面试题14- I. 剪绳子  总结
 
 /**
