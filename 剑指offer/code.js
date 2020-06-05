@@ -286,3 +286,32 @@ var hammingWeight = function(n) {
     }
     return res
 };
+
+// 面试题18. 删除链表的节点 基础题
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+var deleteNode = function(head, val) {
+    let newHead =  new ListNode(0)
+    newHead.next = head;
+    let node = newHead;
+    while(node && node.next) {
+        if(node.next.val == val) {
+            let next = node.next;
+            node.next = node.next.next;
+            next.next = null;
+            break;   
+        }
+        node = node.next
+    }
+    return newHead.next
+};
