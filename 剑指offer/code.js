@@ -315,3 +315,64 @@ var deleteNode = function(head, val) {
     }
     return newHead.next
 };
+
+
+// 面试题21. 调整数组顺序使奇数位于偶数前面 双指针
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var exchange = function(nums) {
+    let i = 0,j = nums.length -1
+    while(i < j) {
+        if((nums[i] & 1) == 1) {
+            i++
+            continue
+        }
+        if((nums[j] & 1) == 0) {
+            j--
+            continue
+        }
+        let tp  = nums[i]
+        nums[i] = nums[j]
+        nums[j] = tp;
+    }
+    return nums;
+};
+
+
+// 面试题22. 链表中倒数第k个节点 快慢指针
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+var getKthFromEnd = function(head, k) {
+    let fast = head,slow = head;
+    while(k > 1) {
+        fast = fast.next;
+        k--;
+    }
+    while(fast.next) {
+        fast = fast.next
+        slow = slow.next
+    }
+    return slow
+};
+
+// 面试题24. 反转链表 遍历
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    let  before = null
+    let last = head;
+    while(last) {
+        let node = last;
+        last = last.next;
+        node.next = before;
+        before = node;
+    }
+    return before;
+};
