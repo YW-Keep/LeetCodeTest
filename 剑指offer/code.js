@@ -412,3 +412,26 @@ var mergeTwoLists = function(l1, l2) {
     }
     return head.next
 };
+
+// 面试题27. 二叉树的镜像 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var mirrorTree = function(root) {
+    if(!root) { return root}
+    let tp =  root.left;
+    root.left = root.right;
+    root.right = tp;
+    mirrorTree(root.left)
+    mirrorTree(root.right)
+    return root
+
+};
