@@ -435,3 +435,29 @@ var mirrorTree = function(root) {
     return root
 
 };
+
+// 面试题28. 对称的二叉树 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+    if(!root) { return true}
+    return checkInfo(root.left,root.right)
+    function checkInfo(left,right) {
+        if(!left && !right) {return true}
+        if(!left || !right) {return false}
+        if(left.val == right.val) {
+            return checkInfo(left.left,right.right) && checkInfo(left.right,right.left)
+        } else {
+            return false
+        }
+    }
+};
