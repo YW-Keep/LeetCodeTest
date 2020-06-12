@@ -461,3 +461,37 @@ var isSymmetric = function(root) {
         }
     }
 };
+
+// 面试题32 - I. 从上到下打印二叉树 遍历
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var levelOrder = function(root) {
+    if(!root) {return []}
+    let backup = [root];
+    let res = []
+    while(backup.length > 0) {
+        let newBackup = []
+        for (let i = 0; i < backup.length; i++) {
+            let node = backup[i]
+            res.push(node.val)
+            if(node.left) {
+                newBackup.push(node.left)
+            }
+            if(node.right) {
+                newBackup.push(node.right)
+            }
+        }
+        backup = newBackup
+    }
+    return res;
+};
