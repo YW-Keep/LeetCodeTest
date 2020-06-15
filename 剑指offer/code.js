@@ -495,3 +495,88 @@ var levelOrder = function(root) {
     }
     return res;
 };
+
+// 面试题32 - II. 从上到下打印二叉树 II 遍历
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var levelOrder = function(root) {
+    if(!root) {return []}
+    let backup = [root];
+    let res = []
+    while(backup.length > 0) {
+        let newBackup = []
+        let newTier = []
+        for (let i = 0; i < backup.length; i++) {
+            let node = backup[i]
+            newTier.push(node.val)
+            if(node.left) {
+                newBackup.push(node.left)
+            }
+            if(node.right) {
+                newBackup.push(node.right)
+            }
+        }
+        backup = newBackup
+        res.push(newTier)
+    }
+    return res;
+};
+// 面试题32 - III. 从上到下打印二叉树 III 遍历
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var levelOrder = function(root) {
+    if(!root) {return []}
+    let backup = [root];
+    let res = []
+    i = 1;
+    while(backup.length > 0) {
+        let newBackup = []
+        let newTier = []
+        let isPush = i%2 == 1
+        for (let i = 0; i < backup.length; i++) {
+            let node = backup[i]
+            if(isPush) {
+                newTier.push(node.val)
+            } else {
+                newTier.unshift(node.val)
+            }
+            if(node.left) {
+                newBackup.push(node.left)
+            }
+            if(node.right) {
+                newBackup.push(node.right)
+            }
+        }
+        backup = newBackup
+        res.push(newTier)
+        i++
+    }
+    return res;
+};
+
+// 面试题39. 数组中出现次数超过一半的数字 摩尔投票法
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+    let num = nums[0]
+    let count = 1
+    for (let i = 1; i < nums.length; i++) {
+        let inNum = nums[i]
+        if(inNum == num){
+            count++
+        } else {
+            count--
+        }
+        if(count < 0) {
+            num = inNum
+            count = 1
+        }
+    }
+    return num
+};
