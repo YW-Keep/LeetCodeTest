@@ -413,6 +413,33 @@ var mergeTwoLists = function(l1, l2) {
     return head.next
 };
 
+// 面试题26. 树的子结构  递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} A
+ * @param {TreeNode} B
+ * @return {boolean}
+ */
+var isSubStructure = function(A, B) {
+    if(A == null || B == null) {
+        return false;
+    }
+    return  check(A,B) || isSubStructure(A.left,B) || isSubStructure(A.right,B) 
+    function check(a,b) {
+        if(b == null) {return true}
+        if(a == null) {return false}
+        if(a.val != b.val) {return false}
+        return check(a.left,b.left) && check(a.right,b.right)
+    }
+};
+
+
 // 面试题27. 二叉树的镜像 递归
 /**
  * Definition for a binary tree node.
