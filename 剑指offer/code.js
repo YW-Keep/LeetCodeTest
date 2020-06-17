@@ -607,3 +607,23 @@ var majorityElement = function(nums) {
     }
     return num
 };
+
+// 面试题42. 连续子数组的最大和 动态规划
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    let max = nums[0]
+    for (let i = 1; i < nums.length; i++) {
+        let num = nums[i]
+        if(nums[i-1] > 0) {
+            num += nums[i-1]
+        }
+        if(num > max) {
+            max = num;
+        }
+        nums[i] = num
+    }
+    return max;
+};
