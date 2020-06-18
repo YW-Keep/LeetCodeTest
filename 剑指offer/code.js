@@ -627,3 +627,26 @@ var maxSubArray = function(nums) {
     }
     return max;
 };
+
+// 面试题47. 礼物的最大价值 动态规划
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var maxValue = function(grid) {
+    let backup = new Array(grid[0].length).fill(0)
+    
+    for (let i = 0; i < grid.length; i++) {
+        let newBackup = [];
+        let item =grid[i]
+        for (let j = 0; j < item.length; j++) {
+            if(j == 0) {
+                newBackup.push(backup[j] + item[j])
+            }  else {
+                newBackup.push(Math.max(newBackup[j-1],backup[j]) + item[j])
+            }        
+        }
+        backup = newBackup
+    }
+    return backup[backup.length - 1]
+};
