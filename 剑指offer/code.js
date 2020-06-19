@@ -585,6 +585,37 @@ var levelOrder = function(root) {
     return res;
 };
 
+// 面试题34. 二叉树中和为某一值的路径  递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {number[][]}
+ */
+var pathSum = function(root, sum) {
+    let result = [],backup = [],tep = 0;
+    dfs(root)
+    return result
+    function dfs(node) {
+        if(!node) {return}
+        backup.push(node.val)
+        tep += node.val
+        if(!node.left && !node.right && tep == sum) {
+            result.push(backup.concat())
+        }
+        dfs(node.left)
+        dfs(node.right)
+        backup.pop()
+        tep -= node.val
+    }
+};
+
 // 面试题39. 数组中出现次数超过一半的数字 摩尔投票法
 /**
  * @param {number[]} nums
