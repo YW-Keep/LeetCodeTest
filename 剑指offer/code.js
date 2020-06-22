@@ -659,6 +659,23 @@ var maxSubArray = function(nums) {
     return max;
 };
 
+// 剑指 Offer 45. 把数组排成最小的数 排序拼接
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+var minNumber = function(nums) {
+    nums.sort((a,b) =>{
+        let num1 = Number.parseInt(a.toString() + b.toString())
+        let num2 = Number.parseInt(b.toString() + a.toString())
+        return num1 - num2
+    })
+    let res = ''
+    for (let i = 0; i < nums.length; i++) {
+        res += nums[i].toString()
+    }
+    return res
+};
 // 面试题47. 礼物的最大价值 动态规划
 /**
  * @param {number[][]} grid
@@ -680,4 +697,41 @@ var maxValue = function(grid) {
         backup = newBackup
     }
     return backup[backup.length - 1]
+};
+
+
+// 剑指 Offer 49. 丑数 动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthUglyNumber = function(n) {
+    let i = 0,j = 0,k = 0,backup = [1]
+    while(backup.length < n) {
+        let num = Math.min(backup[i]*2,backup[j]*3,backup[k]*5)
+        backup.push(num)
+        if(backup[i]*2 == num){i++}
+        if(backup[j]*3 == num){j++}
+        if(backup[k]*5 == num){k++}
+    }
+    return backup[n-1];
+};
+
+// 剑指 Offer 50. 第一个只出现一次的字符 记录 遍历
+/**
+ * @param {string} s
+ * @return {character}
+ */
+var firstUniqChar = function(s) {
+    let backup = new Map ()
+    for (let i = 0; i < s.length; i++) {
+        backup.set(s[i],(backup.get(s[i])||0) + 1)
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        if(backup.get(s[i]) == 1) {
+            return s[i]
+        }       
+    }
+    return ' '
 };
