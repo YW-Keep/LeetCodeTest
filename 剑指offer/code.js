@@ -659,6 +659,30 @@ var maxSubArray = function(nums) {
     return max;
 };
 
+// 剑指 Offer 43. 1～n整数中1出现的次数  分情况处理
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var countDigitOne = function(n) {
+    let  digit = 1,res = 0
+    let hight = Math.floor(n/10),cur = n%10,low = 0
+    while(hight != 0 || cur != 0) {
+        if(cur == 0) {
+            res += hight*digit
+        } else if(cur == 1) {
+            res += hight*digit + low +1
+        } else {
+            res += (hight +1) *digit
+        }
+        low += cur*digit
+        cur = hight%10
+        hight = Math.floor(hight/10)
+        digit = digit*10
+    }
+    return res
+};
+
 // 剑指 Offer 45. 把数组排成最小的数 排序拼接
 /**
  * @param {number[]} nums
