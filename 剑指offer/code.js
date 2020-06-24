@@ -616,6 +616,45 @@ var pathSum = function(root, sum) {
     }
 };
 
+// 剑指 Offer 35. 复杂链表的复制 map记录
+/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var copyRandomList = function(head) {
+    let root = new Node(1),next = root,oldNext = head;
+    let backUp = new Map()
+    while(oldNext) {
+        let item = backUp.get(oldNext)
+        if(!item) {
+            item = new  Node(oldNext.val)
+            backUp.set(oldNext,item)
+        }
+        next.next = item
+        if(oldNext.random) {
+            let random = backUp.get(oldNext.random)
+            if(!random) {
+                random = new  Node(oldNext.random.val)
+                backUp.set(oldNext.random,random)
+            }
+            item.random = random
+        }
+        next = next.next
+        oldNext = oldNext.next
+    }
+    return root.next;
+};
+
+
+
 // 面试题39. 数组中出现次数超过一半的数字 摩尔投票法
 /**
  * @param {number[]} nums
