@@ -739,6 +739,31 @@ var minNumber = function(nums) {
     }
     return res
 };
+
+// 剑指 Offer 46. 把数字翻译成字符串 动态规划
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var translateNum = function(num) {
+    if(num < 10) {return 1}
+    let back = 1,now = 1
+    let numStr = num.toString()
+    for (let i = 1; i < numStr.length; i++) {    
+        let newNow = 0
+        let inNum = Number.parseInt( numStr[i - 1] + numStr[i])  
+        if(inNum > 9  && inNum < 26) {
+            newNow = back + now
+        } else {
+            newNow =  now
+        }
+        back = now
+        now  = newNow
+    }
+    return now;
+};
+
+
 // 面试题47. 礼物的最大价值 动态规划
 /**
  * @param {number[][]} grid
@@ -797,4 +822,64 @@ var firstUniqChar = function(s) {
         }       
     }
     return ' '
+};
+
+// 剑指 Offer 52. 两个链表的第一个公共节点  双指针
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+    let node1 = headA ,node2 = headB
+    while(node1 != node2) {
+        node1 = node1 ? node1.next : headB
+        node2 = node2 ? node2.next : headA
+    }
+    return node1
+};
+
+// 剑指 Offer 53 - I. 在排序数组中查找数字 I  二分法
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function(nums, target) {
+    return search(target) - search(target -1)
+    function search(num) {
+        let left = 0, right = nums.length - 1
+        while(left <= right) {
+            let mid = Math.floor((left+right)/2)
+            if(nums[mid] <= num) {
+                left = mid + 1
+            } else {
+                right = mid - 1
+            }
+
+        }
+        return left;
+    }
+};
+
+// 剑指 Offer 53 - II. 0～n-1中缺失的数字 基础题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var missingNumber = function(nums) {
+    let length = nums.length
+    let sum = (length +1)*length/2
+    for (let i = 0; i < nums.length; i++) {
+        sum -= nums[i]
+    }
+    return sum
 };
