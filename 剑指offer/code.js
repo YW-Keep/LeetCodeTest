@@ -883,3 +883,28 @@ var missingNumber = function(nums) {
     }
     return sum
 };
+
+// 剑指 Offer 54. 二叉搜索树的第k大节点 倒中序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthLargest = function(root, k) {
+    let result = []
+    dfs(root)
+    return result[k-1];
+    function dfs(node) {
+        if(!node || result.length >= k) {return}
+        dfs(node.right)
+        result.push(node.val)
+        dfs(node.left) 
+    }
+};
