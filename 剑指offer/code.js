@@ -908,3 +908,61 @@ var kthLargest = function(root, k) {
         dfs(node.left) 
     }
 };
+
+// 剑指 Offer 55 - I. 二叉树的深度 二叉树层序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    let res = 0
+    let backup = []
+    if(root) { backup.push(root)}
+    while(backup.length > 0) {
+        res++
+        let newBackup =[] 
+        for (let i = 0; i < backup.length; i++) {
+            let item =  backup[i]
+            if(item.left) {newBackup.push(item.left)}
+            if(item.right) {newBackup.push(item.right)}
+        }
+        backup = newBackup;
+    }
+    return res;
+
+};
+
+// 剑指 Offer 55 - II. 平衡二叉树  递归判断
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function(root) {
+    let num = getDeep(root)
+    return num >= 0 
+    function getDeep(node) {
+        if(!node) return 0;
+        let left = getDeep(node.left)
+        if(left < 0) { return -1}
+        let right = getDeep(node.right)
+        if(right < 0) { return -1}
+        if(Math.abs(left-right) > 1) {
+            return -1
+        }
+        return  Math.max(left,right) + 1
+    }
+};
