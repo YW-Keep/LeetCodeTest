@@ -966,3 +966,29 @@ var isBalanced = function(root) {
         return  Math.max(left,right) + 1
     }
 };
+
+// 剑指 Offer 56 - I. 数组中数字出现的次数  位运算
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var singleNumbers = function(nums) {
+    let ret = 0
+    for (let i = 0; i < nums.length; i++) {
+        ret ^= nums[i]
+    }
+    let div = 1
+    while((div & ret) == 0) {
+        div <<=1;
+    }
+    let a = 0,b = 0
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i]
+        if((num & div) == 0) {
+            a ^= num
+        } else {
+            b ^= num
+        }
+    }
+    return [a,b]
+};
