@@ -992,3 +992,18 @@ var singleNumbers = function(nums) {
     }
     return [a,b]
 };
+
+// 剑指 Offer 56 - II. 数组中数字出现的次数 II 位运算
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function(nums) {
+    let ones = 0,twos = 0
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i]
+        ones = ones ^ num & ~twos
+        twos = twos ^ num & ~ones
+    }
+    return ones;
+};
