@@ -1007,3 +1007,58 @@ var singleNumber = function(nums) {
     }
     return ones;
 };
+// 剑指 Offer 57. 和为s的两个数字  双指针
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    let i = 0, j =  nums.length - 1
+    while(i < j) {
+        let num1 = nums[i],num2 = nums[j]
+        if(num1 + num2 > target) {
+            j--
+        } else if(num1 + num2 < target) {
+            i++
+        } else {
+            return [num1,num2]
+        }
+    }
+    return []
+};
+// 剑指 Offer 57 - II. 和为s的连续正数序列  滑动窗口
+/**
+ * @param {number} target
+ * @return {number[][]}
+ */
+var findContinuousSequence = function(target) {
+    let maxRight = Math.floor((target+1)/2),i = 1,j = 1,sum= 0,res = []
+    while(i < maxRight) {
+        if(sum <target) {
+            sum += j
+            j++
+        } else if(sum > target) {
+            sum -= i
+            i++;
+        } else {
+            let arr = []
+            for (let num = i; num < j; num++) {
+                arr.push(num)
+            }
+            res.push(arr)
+            sum -= i
+            i++; 
+        }
+    }
+    return res;
+};
+
+// 剑指 Offer 58 - I. 翻转单词顺序 基本方法使用
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+    return s.trim().split(' ').filter(item => item!='').reverse().join(' ')
+};
