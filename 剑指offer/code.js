@@ -1062,3 +1062,13 @@ var findContinuousSequence = function(target) {
 var reverseWords = function(s) {
     return s.trim().split(' ').filter(item => item!='').reverse().join(' ')
 };
+
+// 剑指 Offer 58 - II. 左旋转字符串 基础题
+/**
+ * @param {string} s
+ * @param {number} n
+ * @return {string}
+ */
+var reverseLeftWords = function(s, n) {
+    return s.substring(n) + s.substring(0,n)
+};
