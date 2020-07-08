@@ -1072,3 +1072,38 @@ var reverseWords = function(s) {
 var reverseLeftWords = function(s, n) {
     return s.substring(n) + s.substring(0,n)
 };
+
+// 剑指 Offer 59 - I. 滑动窗口的最大值
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function(nums, k) {
+    let backup = []
+};
+
+
+// 剑指 Offer 59 - I. 滑动窗口的最大值  最大堆
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function(nums, k) {
+    let backup = [],res = []
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i]    
+        while(backup.length > 0 && nums[backup[backup.length -1]] < num) {
+            backup.pop()
+        }  
+        backup.push(i)
+        if(backup[0] == i - k) {
+            backup.shift()
+        }
+        if(i >= (k-1)) {
+            res.push(nums[backup[0]])
+        }
+    }
+    return res;
+};
