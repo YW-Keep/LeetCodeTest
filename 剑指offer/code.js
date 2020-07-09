@@ -1107,3 +1107,40 @@ var maxSlidingWindow = function(nums, k) {
     }
     return res;
 };
+
+// 剑指 Offer 59 - II. 队列的最大值  最大队列
+var MaxQueue = function() {
+    this.queue1 = []
+    this.queue2 = []
+};
+
+/**
+ * @return {number}
+ */
+MaxQueue.prototype.max_value = function() {
+    return this.queue2.length > 0 ? this.queue2[0] : -1
+};
+
+/** 
+ * @param {number} value
+ * @return {void}
+ */
+MaxQueue.prototype.push_back = function(value) {
+    this.queue1.push(value)
+    while(this.queue2.length > 0 && this.queue2[this.queue2.length -1] < value) {
+        this.queue2.pop();
+    }
+    this.queue2.push(value)
+};
+
+/**
+ * @return {number}
+ */
+MaxQueue.prototype.pop_front = function() {
+    if(this.queue1.length == 0) {return -1}
+    let num = this.queue1.shift()
+    if(num == this.queue2[0]) {
+        this.queue2.shift()
+    }
+    return num
+};
