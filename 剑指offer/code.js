@@ -1144,3 +1144,85 @@ MaxQueue.prototype.pop_front = function() {
     }
     return num
 };
+
+
+// 剑指 Offer 60. n个骰子的点数
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var twoSum = function(n) {
+    // let 
+};
+
+// 剑指 Offer 63. 股票的最大利润 基础逻辑
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    if(prices.length == 0) { return 0}
+    let max = 0,min = prices[0] 
+    for (let i = 0; i < prices.length; i++) {
+        let price = prices[i]
+        min = Math.min(min,price)
+        max = Math.max(max,price - min)
+
+    }
+    return max
+};
+
+// 剑指 Offer 64. 求1+2+…+n 位运算
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var sumNums = function(n) {
+    let num =  quickMulti(n, n+1)
+    num >>= 1
+    return num
+
+    function quickMulti(a,b) {
+        let ans = 0;
+        while(b > 0) {
+            if(b&1) {
+                ans += a;
+            }
+            b >>= 1
+            a <<= 1
+        }
+        return ans
+    }
+};
+
+// 剑指 Offer 65. 不用加减乘除做加法 位运算
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+var add = function(a, b) {
+    while(b != 0) {
+        c = (a & b) << 1
+        a ^= b 
+        b = c
+    }
+    return a
+};
+
+
+// 剑指 Offer 66. 构建乘积数组  基础逻辑
+/**
+ * @param {number[]} a 
+ * @return {number[]}
+ */
+var constructArr = function(a) {
+    let start = 1,end = 1,res = new Array(a.length).fill(1),length = a.length;
+    for (let i = 0; i < length; i++) {
+        res[i] *= start
+        start *= a[i]
+        res[length -i-1] *= end
+        end *= a[length - i - 1]
+    }
+    return res
+};
