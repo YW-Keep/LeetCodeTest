@@ -1155,6 +1155,21 @@ var twoSum = function(n) {
     // let 
 };
 
+
+// 剑指 Offer 62. 圆圈中最后剩下的数字   特殊算法 回朔倒算
+/**
+ * @param {number} n
+ * @param {number} m
+ * @return {number}
+ */
+var lastRemaining = function(n, m) {
+    let ans = 0
+    for (let i = 0; i <= n; i++) {
+        ans = (ans + m)%i
+    }
+    return ans
+};
+
 // 剑指 Offer 63. 股票的最大利润 基础逻辑
 /**
  * @param {number[]} prices
