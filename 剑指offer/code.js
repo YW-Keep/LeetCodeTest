@@ -1146,13 +1146,24 @@ MaxQueue.prototype.pop_front = function() {
 };
 
 
-// 剑指 Offer 60. n个骰子的点数
+// 剑指 Offer 60. n个骰子的点数 动态规划
 /**
  * @param {number} n
  * @return {number[]}
  */
 var twoSum = function(n) {
-    // let 
+    if (n < 1) {
+      return [];
+    }
+    const res = [0, 1, 1, 1, 1, 1, 1];
+    for (let i = 1; i < n; i++) {
+      for (let j = 6 * n; j > 0; j--) {
+        res[j] = res
+          .slice(Math.max(0, j - 6), j)
+          .reduce((acc, cur) => acc + cur, 0);
+      }
+    }
+    return res.map(num => num / Math.pow(6, n)).filter(Boolean);
 };
 
 
