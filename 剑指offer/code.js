@@ -1167,6 +1167,29 @@ var twoSum = function(n) {
 };
 
 
+// 剑指 Offer 61. 扑克牌中的顺子 基本逻辑题
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var isStraight = function(nums) {
+    let backup = new Map()
+    let max = 0, min = 20
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i]
+        if(num == 0) {
+            continue
+        }
+        if(backup.get(num)) {
+            return false
+        }
+        max = Math.max(max,num)
+        min = Math.min(min,num)
+        backup.set(num,1)
+    }
+    return max - min < 5
+};
+
 // 剑指 Offer 62. 圆圈中最后剩下的数字   特殊算法 回朔倒算
 /**
  * @param {number} n
