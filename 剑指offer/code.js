@@ -678,6 +678,16 @@ var majorityElement = function(nums) {
     return num
 };
 
+// 剑指 Offer 40. 最小的k个数 排序
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number[]}
+ */
+var getLeastNumbers = function(arr, k) {
+    return arr.sort((a, b) => a - b).slice(0, k)
+};
+
 // 面试题42. 连续子数组的最大和 动态规划
 /**
  * @param {number[]} nums
@@ -720,6 +730,24 @@ var countDigitOne = function(n) {
         digit = digit*10
     }
     return res
+};
+
+// 剑指 Offer 44. 数字序列中某一位的数字 找规律
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var findNthDigit = function(n) {
+    let count = 9,start = 1,digit = 1
+    while(n > count)  {
+        n -= count
+        digit++
+        start *=10
+        count = 9*digit*start
+    }
+    let num = start + Math.floor((n-1)/digit)
+    let index = (n-1)%digit
+    return num.toString()[index]
 };
 
 // 剑指 Offer 45. 把数组排成最小的数 排序拼接
@@ -785,6 +813,25 @@ var maxValue = function(grid) {
         backup = newBackup
     }
     return backup[backup.length - 1]
+};
+
+// 剑指 Offer 48. 最长不含重复字符的子字符串
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    let start = 0,end = 0,res = 0, backup = new Map()
+    while(end < s.length) {
+        let key = s[end]
+        if(backup.get(key) != null) {
+            start = Math.max(backup.get(key) + 1,start)
+        }
+        backup.set(key,end)
+        end++
+        res = Math.max(res,end - start)
+    }
+    return res
 };
 
 
