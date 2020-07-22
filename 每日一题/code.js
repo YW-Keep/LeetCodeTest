@@ -46,5 +46,23 @@ var generateTrees = function (n) {
     if (n === 0) return [];
     return buildTree(1, n);
   };
-  console.log(1)
-  twoSum([1,2,3],3)
+
+// 剑指 Offer 11. 旋转数组的最小数字 二分法
+/**
+ * @param {number[]} numbers
+ * @return {number}
+ */
+var minArray = function(numbers) {
+  let i = 0,j = numbers.length - 1
+  while(i < j) {
+      let mid = Math.floor((i + j)/2)
+      if(numbers[mid] < numbers[j]) {
+          j = mid
+      } else if(numbers[mid] > numbers[j]) {
+          i = mid + 1
+      }  else {
+          j--
+      }
+  }
+  return numbers[i]
+};
