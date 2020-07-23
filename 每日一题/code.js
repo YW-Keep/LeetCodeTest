@@ -66,3 +66,21 @@ var minArray = function(numbers) {
   }
   return numbers[i]
 };
+
+// 64. 最小路径和 动态规划
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var minPathSum = function(grid) {
+  let backup = new Array(grid[0].length).fill(Number.MAX_VALUE)
+  backup[0] = 0
+  for (let i = 0; i < grid.length; i++) {
+    let nums = grid[i]
+    backup[0] +=  nums[0]
+    for (let j = 1; j < nums.length; j++) {
+      backup[j] =  Math.min(backup[j-1],backup[j]) + nums[j]
+    }
+  }
+  return backup[backup.length -1]
+};
