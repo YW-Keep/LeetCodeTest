@@ -2677,3 +2677,53 @@ var trap = function(height) {
     }
     return res
 };
+
+// 1512. 好数对的数目 map记录
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var numIdenticalPairs = function(nums) {
+    let backup = new Map(),res = 0
+    for (let i = 0; i < nums.length; i++) {
+        let num = nums[i]
+        let numCount = backup.get(num)
+        if(numCount != null) {
+            res += numCount
+        } else {
+            numCount = 0
+        }
+        numCount++
+        backup.set(num,numCount)
+    }
+    return res
+};
+
+
+// 1518. 换酒问题  基础题
+/**
+ * @param {number} numBottles
+ * @param {number} numExchange
+ * @return {number}
+ */
+var numWaterBottles = function(numBottles, numExchange) {
+    let  res = numBottles,enpty = numBottles;
+    while(enpty >= numExchange) {
+        res += Math.floor(enpty/numExchange)
+        enpty = Math.floor(enpty/numExchange) + enpty%numExchange
+    }
+    return res
+};
+
+// LCP 06. 拿硬币  基础逻辑题
+
+var minCount = function(coins) {
+    let res = 0;
+    for (let i = 0; i < coins.length; i++) {
+        let coin =  coins[i]
+        res += Math.floor(coin/2) 
+        res += coin%2
+    }
+    return res
+};
+
