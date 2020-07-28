@@ -103,3 +103,28 @@ var isSubsequence = function(s, t) {
   }
   return false
 };
+
+// 104. 二叉树的最大深度 二叉树层序遍历
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+  if(!root) { return 0} 
+  let arr = [root],res = 0
+  while(arr.length > 0) {
+    res++;
+    let newArr = []
+    for (let i = 0; i < arr.length; i++) {
+      let node = arr[i]
+      if(node.left) {
+        newArr.push(node.left)
+      } 
+      if(node.right) {
+        newArr.push(node.right)
+      }
+    }
+    arr = newArr
+  }
+  return res;
+};
