@@ -2699,6 +2699,33 @@ var numIdenticalPairs = function(nums) {
     return res
 };
 
+// 1496. 判断路径是否相交 map记录
+/**
+ * @param {string} path
+ * @return {boolean}
+ */
+var isPathCrossing = function(path) {
+    let x = 0,y = 0,backup = new Map()
+    backup.set('0,0',1)
+    for (let i = 0; i < path.length; i++) {
+        let str =  path[i]
+        if(str == 'N') {
+            x++;
+        } else if(str == 'S') {
+            x--;
+        } else if(str == 'W') {
+            y++;
+        } else {
+            y--;
+        }
+        let key =  x.toString() + ',' + y.toString()
+        if(backup.get(key)!= null) {
+            return true
+        }
+        backup.set(key,1);
+    }
+    return false
+};
 
 // 1518. 换酒问题  基础题
 /**
