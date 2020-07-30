@@ -128,3 +128,22 @@ var maxDepth = function(root) {
   }
   return res;
 };
+
+// 343. 整数拆分 基础题
+/** 
+ * @param {number} n
+ * @return {number}
+ */
+var integerBreak = function(n) {
+  if(n == 2) {return 1}
+  if(n == 3) {return 2}
+  let num = Math.floor(n/3)
+  let res  = Math.pow(3,num)
+  let remainder = n%3
+  if(remainder == 1) {
+    res = res/3*4
+  } else if(remainder == 2) {
+    res = res*2
+  }
+  return res
+};
