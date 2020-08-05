@@ -147,3 +147,155 @@ var integerBreak = function(n) {
   }
   return res
 };
+
+// 114. 二叉树展开为链表 循环
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+var flatten = function(root) {
+  let node = root;
+  while(node != null) {
+    if(node.left != null) {
+      let rNode = node.left
+      while(rNode.right != null) {
+        rNode = rNode.right
+      } 
+      rNode.right = node.right;
+      node.right = node.left;
+      node.left = null
+    }
+    node = node.right
+  }
+};
+
+// 415. 字符串相加  基础逻辑
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var addStrings = function(num1, num2) {
+  let l1 = num1.length - 1, l2 = num2.length - 1,add = 0,res = ''
+  while(l1 >=0 || l2 >= 0 || add > 0) {
+    let num = add + (l1 >= 0 ? Number.parseInt(num1[l1]) : 0) + (l2 >= 0 ? Number.parseInt(num2[l2]) : 0)
+    add =  Math.floor(num/10)
+    num = num%10;
+    res = num.toString() + res;
+    l1--;
+    l2--;
+  }
+  return res;
+};
+
+// 面试题 08.03. 魔术索引 基础思考
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMagicIndex = function(nums) {
+  for (let i = 0;i < nums.length;i++) {
+    if(nums[i] == i) {
+      return i
+    } else if(nums[i] > i) {
+      i = nums[i] - 1
+    }
+  }
+  return -1
+};
+
+// 32. 最长有效括号  队列
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestValidParentheses = function(s) {
+  let backup = [-1],max = 0
+  for (let i = 0; i < s.length; i++) {
+    let char  = s[i]
+    if(char  == '(') {
+      backup.push(i)
+    } else {
+      backup.pop();
+      if(backup.length == 0) {
+        backup.push(i)
+      }
+      max = Math.max(max,i - backup[backup.length -1])
+    }
+  }
+  return max
+};
+
+// 207. 课程表 深度遍历
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {boolean}
+ */
+var canFinish = function(numCourses, prerequisites) {
+  let mark = new Array(numCourses).fill(0)
+  let backup = new Array()
+  for (let i = 0; i < numCourses; i++) {
+    backup.push(new Array())
+  }
+  for (let i = 0; i < prerequisites.length; i++) {
+    backup[prerequisites[i][0]].push(prerequisites[i][1])  
+  }
+  console.log(backup)
+  for (let i = 0; i < backup.length; i++) {
+    for (let j = 0; j < backup[i].length; j++) {
+      if(!check(backup[i][j])) {
+        return false
+      }
+    }
+  }
+  return true
+
+  function check(index) {
+    if(backup[index].length == 0) {
+      return true
+    }
+    if(mark[index] == -1) {
+      return true
+    }
+    if(mark[index] == 1) {
+      return false
+    }
+    mark[index] = 1
+    for (let k = 0; k < backup[index].length; k++) {
+      if(!check(backup[index][k])) {
+        return false;
+      }
+    }
+    // 回朔
+    mark[index] = -1
+    return true
+  }
+};
+
+// 337. 打家劫舍 III 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var rob = function(root) {
+ // 分为不含节点与含节点 2种情况 0是包含当前节点，1是不包含当前节点的
+ let res = dfs(root)
+ return Math.max(res[0],res[1])
+
+ function dfs(node) {
+   if(!node) {
+     return [0,0]
+   }
+   let left = dfs(node.left)
+   let right = dfs(node.right)
+   return[left[1] + right[1] + node.val, Math.max(left[0],left[1]) + Math.max(right[0],right[1])]
+ }
+};
