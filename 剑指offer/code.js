@@ -287,6 +287,13 @@ var hammingWeight = function(n) {
     return res
 };
 
+// 剑指 Offer 17. 打印从1到最大的n位数
+var printNumbers = function(n) {
+    let len = Math.pow(10, n)-1
+    return Array.from({length: len}, (item, index) => index+1)
+};
+
+
 // 面试题18. 删除链表的节点 基础题
 /**
  * Definition for singly-linked list.
