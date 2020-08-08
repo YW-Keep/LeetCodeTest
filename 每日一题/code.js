@@ -299,3 +299,50 @@ var rob = function(root) {
    return[left[1] + right[1] + node.val, Math.max(left[0],left[1]) + Math.max(right[0],right[1])]
  }
 };
+
+// 100. 相同的树  递归基础题
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+var isSameTree = function(p, q) {
+  if(!p  && !q) {return true}
+  if(!p || !q) {return false}
+  return p.val == q.val && isSameTree(p.left,q.left) && isSameTree(p.right,q.right) 
+};
+
+// 99. 恢复二叉搜索树 二叉树的中序遍历
+/**
+ * @param {TreeNode} root
+ * @return {void} Do not return anything, modify root in-place instead.
+ */
+
+var recoverTree = function(root) {
+  const stack = [];
+  let x = null, y = null, pred = null;
+
+  while (stack.length || root !== null) {
+    while (root !== null) {
+      stack.push(root);
+      root = root.left;
+    }
+    root = stack.pop();
+    if (pred !== null && root.val < pred.val) {
+      y = root;
+      if (x === null) {
+          x = pred;
+      }
+      else break;
+    }
+    pred = root;
+    root = root.right;
+  }
+  swap(x, y);
+
+  function swap (x, y) {
+    let temp = x.val;
+    x.val = y.val;
+    y.val = temp;
+  }
+};
