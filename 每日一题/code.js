@@ -346,3 +346,24 @@ var recoverTree = function(root) {
     y.val = temp;
   }
 };
+
+// 696. 计数二进制子串  整合
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countBinarySubstrings = function(s) {
+  let backup = 0,start = '0',now = 0,result = 0
+  for (let i = 0; i < s.length; i++) {
+    if(start == s[i]) {
+      now++
+    } else {
+      result += Math.min(backup,now)
+      backup = now
+      start = s[i]
+      now = 1
+    }
+  }
+  result += Math.min(backup,now)
+  return result
+};
