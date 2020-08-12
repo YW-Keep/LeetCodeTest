@@ -490,3 +490,39 @@ var restoreIpAddresses = function(s) {
     }
   }
 };
+
+// 133. 克隆图  因为值唯一 所以backup记录就好 栈调用
+/**
+ * // Definition for a Node.
+ * function Node(val, neighbors) {
+ *    this.val = val === undefined ? 0 : val;
+ *    this.neighbors = neighbors === undefined ? [] : neighbors;
+ * };
+ */
+
+/**
+ * @param {Node} node
+ * @return {Node}
+ */
+var cloneGraph = function(node) {
+  if(!node) {return null}
+  let backup = new Map()
+  let newNode = new Node(node.val,[])
+  let stack = [node]
+  backup.set(node.val,newNode)
+  while(stack.length) {
+    let _node = stack.pop()
+    let _newNode = backup.get(_node.val)
+    for (let i = 0; i < _node.neighbors.length; i++) {
+      let subNode = _node.neighbors[i]
+      let _subNewNode = backup.get(subNode.val)
+      if(!_subNewNode) {
+        stack.push(subNode)
+        _subNewNode = new Node(subNode.val,[]);
+        backup.set(subNode.val,_subNewNode)
+      }
+      _newNode.neighbors.push(_subNewNode)
+    }
+  }
+  return newNode; 
+};
