@@ -553,3 +553,33 @@ var multiply = function(num1, num2) {
   } 
   return arr.join('')
 };
+
+// 20. 有效的括号
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+  var key = {
+      "(" : ")",
+      "[" : "]",
+      "{" : "}"
+  };
+  var queue = Array();
+  for(i=0;i<s.length;i++) {
+      var arr  = s[i];
+      if (key[arr] != null) {
+          queue.push(arr);
+      } else {
+         var last = queue.pop();
+         if (key[last] != arr) {
+             return false;
+         }
+      }
+  }
+  if (queue.length == 0) {
+      return true;
+  } else {
+      return false;
+  }
+};
