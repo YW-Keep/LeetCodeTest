@@ -583,3 +583,21 @@ var isValid = function(s) {
       return false;
   }
 };
+
+// 1450. 在既定时间做作业的学生人数 基础逻辑
+/**
+ * @param {number[]} startTime
+ * @param {number[]} endTime
+ * @param {number} queryTime
+ * @return {number}
+ */
+var busyStudent = function(startTime, endTime, queryTime) {
+  let res = 0
+  for (let i = 0; i < startTime.length; i++) {
+    if ( startTime[i] <= queryTime && queryTime <= endTime[i]) {
+      res++
+    }
+  }
+  return res
+
+};
