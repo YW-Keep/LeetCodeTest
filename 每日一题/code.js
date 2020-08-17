@@ -601,3 +601,67 @@ var busyStudent = function(startTime, endTime, queryTime) {
   return res
 
 };
+
+// 733. 图像渲染 栈存储 循环
+/**
+ * @param {number[][]} image
+ * @param {number} sr
+ * @param {number} sc
+ * @param {number} newColor
+ * @return {number[][]}
+ */
+var floodFill = function(image, sr, sc, newColor) {
+  let old = image[sr][sc]
+  if(old == newColor) {return image}
+  let backup = [[sr,sc]]
+  let m = image.length,n =image[0].length
+  while(backup.length > 0) {
+    let node = backup.shift()
+    let i = node[0],j = node[1]
+    image[i][j] = newColor;
+    if(i - 1 >= 0 && image[i-1][j] == old) {
+      backup.push([i - 1,j])
+    }
+    if(i + 1 < m && image[i+1][j] == old) {
+      backup.push([i + 1,j])
+    }
+    if(j - 1 >= 0 && image[i][j-1] == old) {
+      backup.push([i,j -1])
+    }
+    if(j + 1 < n && image[i][j+1] == old) {
+      backup.push([i,j+1])
+    }
+  }
+  return image;
+};
+
+// 110. 平衡二叉树 可以用-1代表报错
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isBalanced = function(root) {
+
+  return getDeep(root) != -1
+  function getDeep(node) {
+    if(!node) {
+      return 0
+    }
+    let left = getDeep(node.left)
+    if(left == -1) {return -1}
+    let right = getDeep(node.right)
+    if(right == -1) {return -1}
+    if(Math.abs(left -right) > 1) {
+      return -1
+    }
+    return Math.max(left,right) +1;
+  }
+};
+
