@@ -665,3 +665,43 @@ var isBalanced = function(root) {
   }
 };
 
+// 109. 有序链表转换二叉搜索树 链表转数组
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {TreeNode}
+ */
+var sortedListToBST = function(head) {
+  let backup = []
+  let next =  head;
+  while(next) {
+    backup.push(next.val)
+    next =  next.next
+  }
+  return arrToBST(backup)
+  
+  function arrToBST(arr) {
+    if(arr.length == 0) {
+      return null
+    }
+    let num = Math.floor(arr.length/2)
+    let node = new TreeNode(arr[num])
+    node.left = arrToBST(arr.slice(0,num))
+    node.right = arrToBST(arr.slice(num+1))
+    return node
+  }
+};
