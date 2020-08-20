@@ -736,3 +736,50 @@ var countSubstrings = function(s) {
 
   return ans;
 };
+
+// 529. 扫雷游戏 dfs
+/**
+ * @param {character[][]} board
+ * @param {number[]} click
+ * @return {character[][]}
+ */
+var updateBoard = function(board, click) {
+  let dx = [0,1,0,-1,1,1,-1,-1];
+  let dy = [1,0,-1,0,1,-1,1,-1];
+  let x = click[0],y = click[1]
+
+  if(board[x][y] == 'M') {
+    board[x][y] = 'X';
+  } else {
+    dfs(x,y)
+  }
+  return board
+
+
+  function dfs(x,y) {
+    let count = 0
+    for (let i = 0; i < 8; i++) {
+      let tx = x + dx[i]
+      let ty = y + dy[i]
+      if(tx < 0 || tx >= board.length || ty < 0 || ty >= board[0].length) {
+        continue
+      }
+      if(board[tx][ty] == 'M') {
+        count++
+      }
+    }
+    if(count > 0) {
+      board[x][y] = count.toString()
+    } else {
+      board[x][y] = 'B'
+      for (let i = 0; i < 8; i++) {
+        let tx = x + dx[i]
+        let ty = y + dy[i]
+        if(tx < 0 || tx >= board.length || ty < 0 || ty >= board[0].length || board[tx][ty] != 'E') {
+          continue
+        }
+        dfs(tx,ty)
+      }
+    }
+  }
+};
