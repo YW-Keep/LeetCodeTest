@@ -783,3 +783,39 @@ var updateBoard = function(board, click) {
     }
   }
 };
+
+// 111. 二叉树的最小深度  循环 递归都可以
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function(root) {
+  if(!root) {return 0}
+  let res = 0,backup = [root]
+  while(backup.length > 0) {
+    res++
+    let newBackup = [] 
+    for (let i = 0; i < backup.length; i++) {
+      let node = backup[i];
+      if(!node.left && !node.right) {
+        return res
+      } 
+      if(node.left) {
+        newBackup.push(node.left)
+      }
+      if(node.right) {
+        newBackup.push(node.right)
+      }
+    }
+    backup = newBackup;
+  }
+  return res
+
+};
