@@ -819,3 +819,43 @@ var minDepth = function(root) {
   return res
 
 };
+
+// 679. 24 点游戏 穷举 4个里面选2个数有 12种可能 然后操作4  三个里挑2个有6中（有顺序的）再四个操作 在2个有顺序的  再四个操作
+// 12x4x6x4x2x4 = 9216种 所以最多也就这么多  递归两个数变成一个数
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var judgePoint24 = function(nums) {
+    const len = nums.length;
+  if (len == 1) { // 递归的出口，剩一个数，处理一下精度丢失的问题
+    const diff = nums[0] - 24;
+    return Math.abs(diff) < 0.00001;
+  }
+  for (let i = 0; i < len; i++) {
+    for (let j = i + 1; j < len; j++) {
+      const copyNums = nums.slice(); // 拷贝一份原数组
+      copyNums.splice(j, 1); // 先删除索引大的数字
+      copyNums.splice(i, 1); // 这样才不会影响索引小的数字的位置
+
+      let n1 = nums[i];
+      let n2 = nums[j];
+      let isValid = false; // 
+      
+      isValid = isValid || judgePoint24(copyNums.concat(n1 + n2));
+      // 减与被减
+      isValid = isValid || judgePoint24(copyNums.concat(n1 - n2));
+      isValid = isValid || judgePoint24(copyNums.concat(n2 - n1));
+      // 乘
+      isValid = isValid || judgePoint24(copyNums.concat(n1 * n2));
+      if (n2 !== 0) { // 除
+        isValid = isValid || judgePoint24(copyNums.concat(n1 / n2));
+      }
+      if (n1 !== 0) { // 被除
+        isValid = isValid || judgePoint24(copyNums.concat(n2 / n1));
+      }
+      if (isValid) return true; 
+    }
+  }
+  return false;
+};
