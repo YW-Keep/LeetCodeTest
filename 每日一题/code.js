@@ -859,3 +859,25 @@ var judgePoint24 = function(nums) {
   }
   return false;
 };
+
+// 459. 重复的子字符串  其实问题就变成了 s + s  能不能从1开始到s.length 中找个一个点正好s是s+s的子串
+var repeatedSubstringPattern = function(s) {
+  return (s + s).indexOf(s, 1) != s.length;
+};
+
+// 201. 数字范围按位与  因为是与所以 有0 就是0 所以只要计算开始结束2位的公共头
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var rangeBitwiseAnd = function(m, n) {
+  let shift = 0
+  while(m < n) {
+    m = m >> 1
+    n = n >> 1
+    shift += 1
+  }
+  return m << shift
+
+};
