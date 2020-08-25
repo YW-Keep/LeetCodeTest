@@ -881,3 +881,31 @@ var rangeBitwiseAnd = function(m, n) {
   return m << shift
 
 };
+
+// 491. 递增子序列 递归去重 递归结束后再添加
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var findSubsequences = function(nums) {
+  let res = []
+  dfs(0,[]);
+  return res;
+
+  function dfs(i,backup) {
+    if(i == nums.length ) {
+      if(backup.length > 1) {
+        res.push(backup.concat())
+      }
+      return;
+    }
+    if(backup.length == 0 || backup[backup.length -1 ] <= nums[i]) {
+      backup.push(nums[i])
+      dfs(i+1,backup)
+      backup.pop()
+    } 
+    if(backup.length == 0 || backup[backup.length -1] != nums[i]) {
+      dfs(i+1,backup)
+    }
+  }
+};
