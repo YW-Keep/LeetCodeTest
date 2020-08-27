@@ -948,3 +948,36 @@ var letterCombinations = function(digits) {
     }
   }
 };
+
+// 332. 重新安排行程 Hierholzer 算法
+
+/**
+ * @param {string[][]} tickets
+ * @return {string[]}
+ */
+var findItinerary = function(tickets) {
+  let graph = getGraph(tickets)
+  let ans = []
+  dfs('JFK')
+  return ans.reverse()
+};
+function dfs(cur){
+  if(!graph.has(cur)) return
+  const neighbors = graph.get(cur)
+  while(neighbors.length) dfs(graph, neighbors.shift(), ans)
+  ans.push(cur)
+}
+function getGraph(tickets){
+  const map = new Map()
+  for(let i = 0;i < tickets.length;i++){
+      const from = tickets[i][0]
+      const to = tickets[i][1]
+      if(!map.has(from)) map.set(from, [])
+      if(!map.has(to)) map.set(to, [])
+      map.get(from).push(to)
+  }
+  for(let [key, value] of map){
+      value.sort((a, b) => a < b ? -1 : a > b ? 1 : 0)
+  }
+  return map
+}
