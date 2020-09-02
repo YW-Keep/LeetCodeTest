@@ -981,3 +981,144 @@ function getGraph(tickets){
   }
   return map
 }
+
+// 657. 机器人能否返回原点 基础逻辑
+/**
+ * @param {string} moves
+ * @return {boolean}
+ */
+var judgeCircle = function(moves) {
+  let x = 0,y = 0
+  for (let i = 0; i < moves.length; i++) {
+    let char  = moves[i]
+    switch (char) {
+      case 'R':
+        x++
+        break;
+      case 'L':
+        x--
+        break;
+      case 'U':
+        y++
+        break;
+      case 'D':
+        y--
+        break;
+      default:
+        break;
+    }
+  }
+  return x == 0 && y == 0
+};
+
+// 557. 反转字符串中的单词 III 基础题
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function(s) {
+  const ret = [];
+  const length = s.length;
+  let i = 0;
+  while (i < length) {
+      let start = i;
+      while (i < length && s.charAt(i) != ' ') {
+          i++;
+      }
+      for (let p = start; p < i; p++) {
+          ret.push(s.charAt(start + i - 1 - p));
+      }
+      while (i < length && s.charAt(i) == ' ') {
+          i++;
+          ret.push(' ');
+      }
+  }
+  return ret.join('');
+};
+
+
+// 841. 钥匙和房间 遍历
+/**
+ * @param {number[][]} rooms
+ * @return {boolean}
+ */
+var canVisitAllRooms = function(rooms) {
+  let num = 0
+  let backup = new Array(rooms.length).fill(false)
+  let arr = [0];
+  while(arr.length > 0) {
+    let i = arr.pop()
+    if(!backup[i]) {
+      num++
+      if (num == rooms.length) {
+        return true
+      }
+      arr = arr.concat(rooms[i])
+      backup[i] = true;
+    }
+  }
+  return false
+};
+
+// 214. 最短回文串 KMP 算法 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+const shortestPalindrome = (s) => {
+  const rev_s = s.split('').reverse().join('');
+  const str = s + "#" + rev_s;
+  const next = new Array(str.length).fill(0);
+  // 抽出来，方便学习记忆，这是我写的模板
+  const kmp = (next, str) => {
+    next[0] = 0;
+    let len = 0;
+    let i = 1;
+    while (i < str.length) {
+      if (str[i] == str[len]) {
+        len++;
+        next[i] = len;
+        i++;
+      } else {
+        if (len == 0) {
+          next[i] = 0;
+          i++;
+        } else {
+          len = next[len - 1];
+        }
+      }
+    }
+  };
+  kmp(next, str);
+  const maxLen = next[str.length - 1]; // 最长回文前缀的长
+  const add = s.substring(maxLen).split('').reverse().join('');
+  return add + s;
+};
+
+// 486. 预测赢家 动态规划
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var PredictTheWinner = function(nums) {
+  let count = nums.length
+  let backup = new Array(count).fill(new Array(count).concat())
+  for (let i = 0; i < count; i++) {
+    backup[i][i] = nums[i]
+  }
+  for (let i = count - 2; i > -1; i--) {
+    for (let j = i + 1; j < count; j++) {
+      backup[i][j] = Math.max(nums[i] - backup[i + 1][j],nums[j] - backup[i][j - 1])
+    }
+  }
+  return backup[0][count -1] >= 0;
+};
+
+// 剑指 Offer 20. 表示数值的字符串 正则
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isNumber = function(s) {
+  return /^[+-]?(\d+(\.\d*)?|(\.\d+))(e[+-]?\d+)?$/i.test(s.trim());
+};
