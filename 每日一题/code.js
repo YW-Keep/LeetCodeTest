@@ -1122,3 +1122,77 @@ var PredictTheWinner = function(nums) {
 var isNumber = function(s) {
   return /^[+-]?(\d+(\.\d*)?|(\.\d+))(e[+-]?\d+)?$/i.test(s.trim());
 };
+
+// 51. N 皇后  遍历  可以回朔 我这里没有回朔
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+var solveNQueens = function (n) {
+  let result = [];
+  backStart(0, []);
+  return result;
+
+  function backStart(k, arr) {
+    if (k >= n) {
+        let ar = [];
+        arr.forEach(e => {//讲我们要的数据转换为需要的格式
+            let str = '..............................';
+            str=str.substring(0,n);
+            str = `${str.substring(0, e)}Q${str.substring(e + 1)}`
+            ar.push(str);
+        })
+        result.push(ar);
+    } else {
+        for (let i = 0; i < n; i++) {
+            arr[k] = i;
+            if (isBack(k, arr)) {
+                backStart(k + 1, arr)
+            }
+        }
+    }
+  }
+  function isBack(k, arr) {
+    for (let i = 0; i < k; i++) {
+        if (k - i == Math.abs(arr[i] - arr[k]) || arr[k] == arr[i]) {
+            return false;
+        }
+    }
+    return true;
+  }
+};
+
+// 257. 二叉树的所有路径 回朔
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {string[]}
+ */
+var binaryTreePaths = function(root) {
+  let res = []
+  let backArray = []
+  if(root) {
+    dfs(root)
+  }
+  return res;
+
+  function dfs(node) {
+    backArray.push(node.val);
+    if(!node.left && !node.right) {
+      res.push(backArray.join('->'))
+    }
+    if(node.left) {
+      dfs(node.left)
+    }
+    if(node.right) {
+      dfs(node.right);
+    }
+    backArray.pop()
+  }
+};
