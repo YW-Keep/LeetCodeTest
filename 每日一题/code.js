@@ -1196,3 +1196,26 @@ var binaryTreePaths = function(root) {
     backArray.pop()
   }
 };
+
+// 60. 第k个排列 按位计算 
+var getPermutation = (n, k) => { 
+  let nums = [];
+  let factorial = 1;               
+
+  for (let i = 1; i <= n; i++) {
+    nums.push(i);                  
+    factorial = factorial * i;   
+  }
+
+  k--;   
+  let resStr = '';
+
+  while (nums.length > 0) {              
+    factorial = factorial / nums.length; 
+    const index = k / factorial | 0;   
+    resStr += nums[index];               
+    nums.splice(index, 1);             
+    k = k % factorial;                 
+  }
+  return resStr;
+};
