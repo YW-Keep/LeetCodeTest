@@ -1219,3 +1219,55 @@ var getPermutation = (n, k) => {
   }
   return resStr;
 };
+
+// 107. 二叉树的层次遍历 II 二叉树层序遍历
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var levelOrderBottom = function(root) {
+  if(!root) {return []}
+  let backup = [root],res = [];
+  while(backup.length > 0) {
+    let inArray = []
+    let newBackup = []
+    for (let i = 0; i < backup.length; i++) {
+      let node = backup[i]
+      inArray.push(node.val);
+      if(node.left) {
+        newBackup.push(node.left)
+      }     
+      if(node.right) {
+        newBackup.push(node.right)
+      }  
+    }
+    res.unshift(inArray)
+    backup = newBackup
+  } 
+  return res
+};
+
+// 347. 前 K 个高频元素 字典排序
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+
+var topKFrequent = function(nums, k) {
+  var myMap = new Map();
+  for (let index = 0; index < nums.length; index++) {
+      const element = nums[index];
+      myMap.set(element,(myMap.get(element)|| 0) +1)
+  }
+
+  var reslut = Array();
+  for(var key of myMap) {
+      reslut.push(key[0]);
+  }
+  var sortArray = reslut.sort(copare);
+  function copare(x,y) {
+      return myMap.get(y) - myMap.get(x);
+  }
+  return sortArray.slice(0,k);
+};
