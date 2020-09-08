@@ -1271,3 +1271,29 @@ var topKFrequent = function(nums, k) {
   }
   return sortArray.slice(0,k);
 };
+
+// 77. 组合 遍历
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function(n, k) {
+  if(n < k) {return []}
+  let res = []
+  dfs([],1);
+  return res;
+
+  function dfs(arr,i) {
+    if(arr.length == k) {
+      res.push(arr)
+       return
+    }
+    if(i > n) {
+      return
+    }
+    dfs(arr.concat(),i+1);
+    arr.push(i) 
+    dfs(arr.concat(),i+1);
+  }
+};
