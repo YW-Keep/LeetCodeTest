@@ -1297,3 +1297,26 @@ var combine = function(n, k) {
     dfs(arr.concat(),i+1);
   }
 };
+
+// 39. 组合总和 遍历看清楚是否能重复使用
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum = function(candidates, target) {
+  let res = []
+  dfs([],0,0);
+  return res;
+  function dfs(arr,i,sum) {
+    if(sum == target) {
+      res.push(arr)
+    }
+    if(i >= candidates.length || sum >= target) {
+      return
+    }
+    dfs(arr.concat(),i+1,sum);
+    arr.push(candidates[i]) 
+    dfs(arr.concat(),i,sum + candidates[i]);
+  }
+};
