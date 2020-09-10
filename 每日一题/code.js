@@ -1320,3 +1320,31 @@ var combinationSum = function(candidates, target) {
     dfs(arr.concat(),i,sum + candidates[i]);
   }
 };
+
+// 40. 组合总和 II 排序 去重
+/**
+ * @param {number[]} candidates
+ * @param {number} target
+ * @return {number[][]}
+ */
+var combinationSum2 = function(candidates, target) {
+  candidates.sort()
+  let backup = new Map(),res =[]
+  dfs([],0,0);
+  return res;
+  function dfs(arr,i,sum) {
+    if(sum == target) {
+      let key = arr.join(',')
+      if(!backup.get(key)) {
+        res.push(arr)
+        backup.set(key,'1')
+      }
+    }
+    if(i >= candidates.length || sum >= target) {
+      return
+    }
+    dfs(arr.concat(),i+1,sum);
+    arr.push(candidates[i]) 
+    dfs(arr.concat(),i+1,sum + candidates[i]);
+  }
+};
