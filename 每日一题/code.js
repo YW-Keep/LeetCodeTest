@@ -1348,3 +1348,127 @@ var combinationSum2 = function(candidates, target) {
     dfs(arr.concat(),i+1,sum + candidates[i]);
   }
 };
+
+// 94. 二叉树的中序遍历
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function(root) {
+  let res = []
+  if(root) {
+    dfs(root)
+  }
+  return res
+  function dfs(node) {
+    if(node.left) {
+      dfs(node.left)
+    }
+    res.push(node.val)
+    if(node.right) {
+      dfs(node.right)
+    }
+  }
+};
+
+// 637. 二叉树的层平均值
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var averageOfLevels = function(root) {
+  if(!root) {
+    return []
+  }
+  let backup = [root],res =[]
+  while(backup.length > 0) {
+    let sum = 0,newBackup = []
+    for (let i = 0; i < backup.length; i++) {     
+      let node = backup[i]
+      sum += node.val
+      if(node.left) (newBackup.push(node.left))
+      if(node.right)(newBackup.push(node.right))
+    }
+    sum = sum/backup.length
+    res.push(sum)
+    backup = newBackup;
+  }
+  return res
+};
+
+// 216. 组合总和 III  dfs
+/**
+ * @param {number} k
+ * @param {number} n
+ * @return {number[][]}
+ */
+var combinationSum3 = function(k, n) {
+  let res = []
+  dfs(1,[],0)
+  return res
+  function  dfs(i,arr,sum) {
+     if(arr.length == k && sum == n) {
+       res.push(arr)
+     }
+     if(arr.length >= k  || i > 9 || (arr.length + (10-i)) < k) {
+       return
+     }
+     dfs(i+1,arr.concat(),sum)
+     arr.push(i)
+     dfs(i+1,arr.concat(),sum + i)
+   } 
+};
+
+// 79. 单词搜索  遍历
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+var exist = function(board, word) {
+  let h = board.length, w = board[0].length;
+  let directions = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+  let visited = new Array(h);
+  for (let i = 0; i < visited.length; ++i) {
+      visited[i] = new Array(w).fill(false);
+  }
+  for (let i = 0; i < h; i++) {
+      for (let j = 0; j < w; j++) {
+          const flag = check(i, j, word, 0);
+          if (flag) {
+              return true;
+          }
+      }
+  }
+  function check(i, j, s, k) {
+    if (board[i][j] != s.charAt(k)) {
+        return false;
+    } else if (k == s.length - 1) {
+        return true;
+    }
+    visited[i][j] = true;
+    let result = false;
+    for (const [dx, dy] of directions) {
+        let newi = i + dx, newj = j + dy;
+        if (newi >= 0 && newi < h && newj >= 0 && newj < w) {
+            if (!visited[newi][newj]) {
+                const flag = check(newi, newj, s, k + 1);
+                if (flag) {
+                    result = true;
+                    break;
+                }
+            }
+        }
+    }
+    visited[i][j] = false;
+    return result;
+ } 
+  return false;
+};
