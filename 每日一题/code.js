@@ -1472,3 +1472,23 @@ var exist = function(board, word) {
  } 
   return false;
 };
+
+// 1556. 千位分隔数  基础题
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var thousandSeparator = function(n) {
+  if(n == 0) {return '0'}
+  let res = '', backup = 0,num = n
+  while(num > 0) {
+    let last = num%10;
+    num = Math.floor(num/10)
+    res = last + res
+    backup++
+    if(num > 0 && backup%3 == 0) {
+      res = '.' + res
+    }
+  }  
+  return res
+};
