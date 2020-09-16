@@ -1492,3 +1492,26 @@ var thousandSeparator = function(n) {
   }  
   return res
 };
+
+// 226. 翻转二叉树 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var invertTree = function(root) {
+  if(!root) {
+    return root;
+  }
+  let left =  invertTree(root.right);
+  let right = invertTree(root.left);
+  root.left = left;
+  root.right = right;
+  return root;
+};
