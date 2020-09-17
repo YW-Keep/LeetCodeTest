@@ -1515,3 +1515,17 @@ var invertTree = function(root) {
   root.right = right;
   return root;
 };
+
+// 1561. 你可以获得的最大硬币数目 排序
+/**
+ * @param {number[]} piles
+ * @return {number}
+ */
+var maxCoins = function(piles) {
+  piles.sort((a, b) => b - a)
+  let num  = Math.floor(piles.length/3),res = 0
+  for (let i = 0; i < num; i++) {
+    res += piles[i*2 + 1]
+  }
+  return res
+};
