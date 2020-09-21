@@ -1529,3 +1529,101 @@ var maxCoins = function(piles) {
   }
   return res
 };
+
+// 47. 全排列 II  回朔算法
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+
+var permuteUnique = function(nums) {
+  const ans = [];
+  const vis = new Array(nums.length).fill(false);
+  nums.sort((x, y) => x - y);
+  backtrack([]);
+  return ans;
+
+  function backtrack(perm) {
+    if(perm.length == nums.length) {
+      ans.push(perm.slice())
+      return
+    }
+    for (let i = 0; i < nums.length; i++) {
+      if(vis[i] || (i > 0 && nums[i] == nums[i-1] && !vis[i-1])) {
+        continue;
+      }
+      perm.push(nums[i])
+      vis[i] = true
+      backtrack(perm);
+      vis[i] = false
+      perm.pop()
+    }
+  }
+};
+
+// 404. 左叶子之和 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumOfLeftLeaves = function(root) {
+  let res = 0
+  if(!root) {return  res}
+  if(root.left) {
+    if(!root.left.left && !root.left.right) {
+      res += root.left.val
+    } else {
+      res += sumOfLeftLeaves(root.left)
+    }
+  }
+  res += sumOfLeftLeaves(root.right)
+  return res
+};
+
+// 78. 子集 回朔
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function(nums) {
+  let res = []
+  dfs([],0)
+  function dfs(arr,i) {
+    if(i == nums.length) {
+      res.push(arr.slice())
+      return
+    }
+    dfs(arr,i+1)
+    arr.push(nums[i])
+    dfs(arr,i+1)
+    arr.pop()
+  }
+  return res;
+};
+
+// 538. 把二叉搜索树转换为累加树  反中序遍历
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var convertBST = function(root) {
+  let sum = 0
+  dfs(root);
+  return root
+
+  function dfs(node) {
+    if(!node) {return}
+    dfs(node.right)
+    sum += node.val
+    node.val = sum
+    dfs(node.left)
+  }
+
+};
