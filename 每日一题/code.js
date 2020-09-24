@@ -1681,3 +1681,47 @@ var mergeTrees = function(t1, t2) {
   newRoot.right = mergeTrees(t1.right,t2.right)
   return newRoot
 };
+// 501. 二叉搜索树中的众数  递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var findMode = function(root) {
+  if(!root) {
+    return [];
+  }
+  let res = [], num = root.val -1,numCount = 0,maxCount = 0
+  dfs(root)
+  if(numCount > maxCount) {
+    maxCount = numCount 
+    res = [num]
+  } else if (numCount == maxCount) {
+    res.push(num)
+  }
+  return res;
+
+  function dfs(node)  {
+    if(!node) {return }
+    dfs(node.left)
+    if(node.val == num) {
+      numCount++
+    } else {
+      if(numCount > maxCount) {
+        maxCount = numCount 
+        res = [num]
+      } else if (numCount == maxCount) {
+        res.push(num)
+      }
+      numCount = 1
+      num = node.val
+    }
+    dfs(node.right)
+  }
+};
