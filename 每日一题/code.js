@@ -1725,3 +1725,27 @@ var findMode = function(root) {
     dfs(node.right)
   }
 };
+
+//  106. 从中序与后序遍历序列构造二叉树 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} inorder
+ * @param {number[]} postorder
+ * @return {TreeNode}
+ */
+var buildTree = function(inorder, postorder) {
+  if(postorder.length == 0) {return null};
+  let root =  new TreeNode(postorder[postorder.length -1]);
+  let num = inorder.indexOf(root.val);
+  let left = inorder.slice(0,num);
+  let right = inorder.slice(num+1);
+  root.left = buildTree(inorder.slice(0,num),postorder.slice(0,num));
+  root.right = buildTree(inorder.slice(num+1),postorder.slice(num,inorder.length-1))
+  return root;
+};
