@@ -1749,3 +1749,62 @@ var buildTree = function(inorder, postorder) {
   root.right = buildTree(inorder.slice(num+1),postorder.slice(num,inorder.length-1))
   return root;
 };
+
+
+// 235. 二叉搜索树的最近公共祖先 基础递归
+
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function(root, p, q) {
+  if(!root || !p || !q) {
+    return null
+  }  
+  if(p.val > q.val) {
+    return lowestCommonAncestor(root,q,p)
+  }
+  if(p.val <= root.val && q.val >= root.val) {
+    return root
+  }  else if (root.val < p.val) {
+    return lowestCommonAncestor(root.right,p,q)
+  } else {
+    return lowestCommonAncestor(root.left,p,q)
+  }
+};
+
+// 113. 路径总和 II  回朔
+/** 
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} sum
+ * @return {number[][]}
+ */
+var pathSum = function(root, sum) {
+  let backup= [],result = []
+
+  dfs(root,0)
+  return result
+
+  function dfs(node, num) {
+    if(!node) {
+      return
+    }
+    backup.push(node.val) 
+    num += node.val
+    if(!node.left && !node.right && num == sum) {
+      result.push(backup.concat())
+    }
+    dfs(node.left,num)
+    dfs(node.right,num)
+    backup.pop()
+  }
+};
