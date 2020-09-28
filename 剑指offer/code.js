@@ -1329,3 +1329,46 @@ var constructArr = function(a) {
     }
     return res
 };
+
+// 117. 填充每个节点的下一个右侧节点指针 II  可以通过next 做到不需要额外内存
+/**
+ * // Definition for a Node.
+ * function Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+var connect = function(root) {
+    if(!root) {return root}
+    let nextStart,last,start = root
+    while (start) {
+        nextStart = null
+        last = null
+        for(let p = start;p !== null;p = p.next) {
+            if(p.left) {
+                handle(p.left)
+            }
+            if(p.right) {
+                handle(p.right)
+            }
+        }
+        start =nextStart;
+    }
+    return root
+    function handle(node) {
+        if(last !== null) {
+            last.next = node
+        }
+        if(nextStart == null) {
+            nextStart = node
+        }
+        last = node;
+    }
+};
