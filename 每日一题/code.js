@@ -1808,3 +1808,22 @@ var pathSum = function(root, sum) {
     backup.pop()
   }
 };
+
+// 145. 二叉树的后序遍历 递归
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var postorderTraversal = function(root) {
+  let result = []
+  dfs(root)
+  return result
+  function dfs(node) {
+    if(!node) {
+      return
+    }
+    dfs(node.left)
+    dfs(node.right)
+    result.push(node.val)
+  }
+};
