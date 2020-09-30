@@ -1827,3 +1827,32 @@ var postorderTraversal = function(root) {
     result.push(node.val)
   }
 };
+// 701. 二叉搜索树中的插入操作  递归 找位置
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @return {TreeNode}
+ */
+var insertIntoBST = function(root, val) {
+  if(!root) {
+    return new TreeNode(val)
+  }
+  dfs(root);
+  return root;
+
+  function dfs(node) {
+    if(node.val > val) {
+      if(node.left) {
+        dfs(node.left) 
+      } else {
+        node.left = new TreeNode(val)
+      }
+    } else {
+      if(node.right) {
+        dfs(node.right)
+      } else {
+        node.right = new TreeNode(val)
+      }
+    }
+  } 
+};
