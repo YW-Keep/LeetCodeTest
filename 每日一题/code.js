@@ -1923,3 +1923,63 @@ var detectCycle = function(head) {
   }
   return ptr;
 };
+
+// 530. 二叉搜索树的最小绝对差 二叉树中序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var getMinimumDifference = function(root) {
+  let res = Infinity;
+  let back = null;
+  dfs(root);
+  function dfs(node) {
+      if(node == null) {return};
+      dfs(node.left);
+      if(back != null) {
+          res = Math.min(res,node.val - back.val);
+      }
+      back = node;
+      dfs(node.right);
+  }
+  return res;
+};
+
+// 416. 分割等和子集 动态规划
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var canPartition = function(nums) {
+  const n = nums.length;
+  if (n < 2) {
+      return false;
+  }
+  let sum = 0, maxNum = 0;
+  for (const num of nums) {
+      sum += num;
+      maxNum = maxNum > num ? maxNum : num;
+  }
+  if (sum & 1) {
+      return false;
+  }
+  const target = Math.floor(sum / 2);
+  if (maxNum > target) {
+      return false;
+  }
+  const dp = new Array(target + 1).fill(false);
+  dp[0] = true;
+  for (const num of nums) {
+      for (let j = target; j >= num; --j) {
+          dp[j] |= dp[j - num];
+      }
+  }
+  return dp[target];
+};
