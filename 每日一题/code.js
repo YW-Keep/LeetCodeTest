@@ -1983,3 +1983,30 @@ var canPartition = function(nums) {
   }
   return dp[target];
 };
+
+// 24. 两两交换链表中的节点 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+  let root = new ListNode(1);
+  root.next = head;
+  let node = root;
+  while(node.next && node.next.next) {
+    let tem  = node.next
+    node.next = node.next.next
+    tem.next =  tem.next.next
+    node.next.next = tem
+    node = node.next.next
+  }
+  return root.next
+};
+
