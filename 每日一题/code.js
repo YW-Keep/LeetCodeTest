@@ -2010,3 +2010,30 @@ var swapPairs = function(head) {
   return root.next
 };
 
+// 1002. 查找常用字符 统计合并最小值
+/**
+ * @param {string[]} A
+ * @return {string[]}
+ */
+var commonChars = function(A) {
+  var backArray = new Array(26).fill(100);
+  for(let str of A) {
+      var newBack = new Array(26).fill(0);
+      for (let index = 0; index < str.length; index++) {
+          var num = str.substr(index,1).charCodeAt() - 97;
+          newBack[num] +=1;
+      }
+      for (let index = 0; index < backArray.length; index++) {
+          backArray[index] = Math.min(backArray[index],newBack[index]);
+      }
+  }
+  var result = [];
+  for (let index = 0; index < backArray.length; index++) {
+      var num = backArray[index];
+      while(num > 0) {
+          result.push(String.fromCharCode(97+index));
+          num--;
+      }
+  }
+  return result;
+};
