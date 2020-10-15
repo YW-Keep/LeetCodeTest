@@ -2037,3 +2037,34 @@ var commonChars = function(A) {
   }
   return result;
 };
+
+
+// 116. 填充每个节点的下一个右侧节点指针 二叉树层序遍历
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+var connect = function(root) {
+  if(!root) {
+    return root
+  }
+  let backup = [root]
+  while(backup.length > 0) {
+    let next = null,newBackup = []
+    for (let i = 0; i < backup.length; i++) {
+      let node = backup[i]
+      if(node.left) {
+        newBackup.push(node.left)
+      } 
+      if(node.right) {
+        newBackup.push(node.right)
+      }
+      if(next) {
+        next.next = node;
+      }
+      next = node;
+    }
+    backup =newBackup;
+  }
+  return root
+};
