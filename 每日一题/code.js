@@ -2068,3 +2068,36 @@ var connect = function(root) {
   }
   return root
 };
+
+// 977. 有序数组的平方 双指针
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortedSquares = function(A) {
+  let negative = -1;
+  for (let i = 0; i < A.length; i++) {
+    if(A[i] < 0) {
+      negative = i
+    } else {
+      break;
+    }
+  }
+  let res = [], i = negative,j =negative +1
+  while(i >= 0  || j < A.length) {
+    if(i < 0) {
+      res.push(A[j]*A[j])
+      j++
+    } else if(j >= A.length) {
+      res.push(A[i]*A[i])
+      i--
+    } else if(A[i]*A[i] < A[j]*A[j]) {
+      res.push(A[i]*A[i])
+      i--
+    } else {
+      res.push(A[j]*A[j])
+      j++
+    }
+  }
+  return res
+};
