@@ -2101,3 +2101,58 @@ var sortedSquares = function(A) {
   }
   return res
 };
+
+
+// 19. 删除链表的倒数第N个节点 双指针
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+  let begain = new ListNode(1);
+  begain.next = head;
+  let fast = begain,slow = begain
+  for (let i = 0; i < n; i++) {
+    fast = fast.next;
+  }
+  while(fast.next) {
+    fast = fast.next
+    slow = slow.next
+  }
+  slow.next = slow.next.next
+  return begain.next
+    
+};
+
+// 844. 比较含退格的字符串 基础题
+/**
+ * @param {string} S
+ * @param {string} T
+ * @return {boolean}
+ */
+var backspaceCompare = function(S, T) {
+  let newS = getrealStr(S)
+  let newT = getrealStr(T)
+  return newS == newT
+
+  function getrealStr(str) {
+    let res = []
+    for (let i = 0; i < str.length; i++) {
+      let char = str[i]
+      if(char == '#') {
+        res.pop()
+      } else {
+        res.push(char)
+      }
+    }
+    return res.join('');
+  }
+};
