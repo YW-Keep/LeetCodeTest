@@ -2156,3 +2156,39 @@ var backspaceCompare = function(S, T) {
     return res.join('');
   }
 };
+
+// 143. 重排链表  数组存储
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {void} Do not return anything, modify head in-place instead.
+ */
+var reorderList = function(head) {
+  if(!head) {return head}
+  let backup = [],node = head;
+  while(node.next) {
+    backup.push(node.next);
+    node = node.next
+  }
+  let isHead = false
+  node = head
+  while(backup.length > 0) {
+    let inNode = null
+    if(isHead) {
+      inNode = backup.shift()
+    } else {
+      inNode = backup.pop()
+    }
+    inNode.next = null
+    node.next = inNode
+    node = node.next
+    isHead = !isHead
+  }
+  return head;
+};
