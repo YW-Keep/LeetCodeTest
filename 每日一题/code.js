@@ -2192,3 +2192,45 @@ var reorderList = function(head) {
   }
   return head;
 };
+
+// 925. 长按键入 双指针
+/**
+ * @param {string} name
+ * @param {string} typed
+ * @return {boolean}
+ */
+var isLongPressedName = function(name, typed) {
+  let i = 0,j = 0
+  while(i < name.length || j < typed.length) {
+    if(name[i] == typed[j]) {
+      i++
+      j++
+    } else if(typed[j] == typed[j-1]) {
+      j++
+    } else {
+      return false
+    }
+  }
+  return i == name.length
+};
+
+// 763. 划分字母区间  map记录
+/**
+ * @param {string} S
+ * @return {number[]}
+ */
+var partitionLabels = function(S) {
+  let backup = new Map()
+  for (let i = 0; i < S.length; i++) {
+    backup.set(S[i],i)
+  }
+  let res = [], start = -1, max = 0
+  for (let i = 0; i < S.length; i++) {
+    max = Math.max(max,backup.get(S[i]))
+    if(max == i) {
+      res.push(i - start)
+      start = i
+    }
+  }
+  return res;
+};
