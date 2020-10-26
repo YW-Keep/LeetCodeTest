@@ -2260,3 +2260,78 @@ var isPalindrome = function(head) {
   }
   return true;
 };
+
+// 1024. 视频拼接 动态规划，贪心算法更好
+/**
+ * @param {number[][]} clips
+ * @param {number} T
+ * @return {number}
+ */
+var videoStitching = function(clips, T) {
+  let backup = new Array(T).fill(0)
+  for (let i = 0; i < clips.length; i++) {
+    let clip = clips[i]
+    if(clip[0] < T) {
+      backup[clip[0]] = Math.max(backup[clip[0]],clip[1])
+    }
+  }
+  let last = 0,pre = 0,ret = 0
+  for (let i = 0; i < T; i++) {
+    last = Math.max(last,backup[i])
+    if(i == last) {
+      return -1
+    }
+    if(i == pre) {
+      ret++
+      pre = last;
+    }
+  }
+  return ret
+};
+
+// 845. 数组中的最长山脉  先找到山峰 再计算
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var longestMountain = function (A) {
+  let res = 0
+  for(let i=1;i<A.length-1;i++) {
+      if(A[i] > A[i-1] && A[i] > A[i+1]) {
+          let len = i
+          let count = 1
+          while(A[len] > A[len-1] && len > 0) {
+              count++
+              len--
+          }
+          len = i
+          while(A[len] > A[len+1] && len < A.length) {
+              count++
+              len++
+          }
+          res = res > count ? res : count
+      }
+  }
+  return res
+};
+
+// 1365. 有多少小于当前数字的数字 基础题
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var smallerNumbersThanCurrent = function(nums) {
+  const cnt = new Array(101).fill(0);
+  const n = nums.length;
+  for (let i = 0; i < n; ++i) {
+      cnt[nums[i]] += 1;
+  }
+  for (let i = 1; i <= 100; ++i) {
+      cnt[i] += cnt[i - 1];
+  }
+  const ret = [];
+  for (let i = 0; i < n; ++i) {
+      ret.push(nums[i] ? cnt[nums[i] - 1] : 0);
+  }
+  return ret;
+};
