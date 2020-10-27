@@ -2335,3 +2335,34 @@ var smallerNumbersThanCurrent = function(nums) {
   }
   return ret;
 };
+
+// 144. 二叉树的前序遍历 基础逻辑
+/** 
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var preorderTraversal = function(root) {
+  let res = []
+  if(!root) {
+    return res
+  }
+  let backup = [],node = root
+  while(backup.length > 0 || node) {
+    while(node != null) {
+      res.push(node.val)
+      backup.push(node)
+      node = node.left
+    }
+    node = backup.pop()
+    node = node.right
+  }
+  return res
+};
