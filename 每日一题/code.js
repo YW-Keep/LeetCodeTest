@@ -2366,3 +2366,24 @@ var preorderTraversal = function(root) {
   }
   return res
 };
+
+
+// 1207. 独一无二的出现次数  基础题
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var uniqueOccurrences = function(arr) {
+  let backMap = new Map()
+  for (let num of arr) {
+     backMap.set(num,(backMap.get(num)||0) + 1);
+  }
+  let backMap2 = new Map();
+  for(let item of backMap) {
+      if(backMap2.get(item[1])) {
+          return false;
+      } 
+      backMap2.set(item[1],1)
+  }
+  return true;
+};
