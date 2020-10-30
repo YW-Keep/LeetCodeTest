@@ -2387,3 +2387,59 @@ var uniqueOccurrences = function(arr) {
   }
   return true;
 };
+
+// 129. 求根到叶子节点数字之和
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumNumbers = function(root) {
+  let backup = [],res = 0
+  if(!root) {
+    return 0
+  }
+  dfs(root)
+  return res
+  function dfs(node) {
+    backup.push(node.val)
+    if(!node.left && !node.right) {
+      res += Number.parseInt(backup.join(''))
+    }
+    if(node.left) {
+      dfs(node.left)
+    }
+    if(node.right) {
+      dfs(node.right)
+    }
+    backup.pop()
+  }
+};
+
+// 463. 岛屿的周长  基本逻辑
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var islandPerimeter = function(grid) {
+  let res = 0
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      if(grid[i][j] == 1) {
+        res += 4;
+        if( 0 <= (i-1) &&grid[i-1][j] == 1) {
+          res--
+        }
+        if(grid.length > (i+1) &&grid[i+1][j] == 1) {
+          res--
+        }
+        if( (j-1) >= 0 &&grid[i][j-1] == 1) {
+          res--
+        }
+        if((j+1) < grid[i].length && grid[i][j+1] ==1) {
+          res--
+        }
+      }
+    }
+  }
+  return res
+};
