@@ -2443,3 +2443,91 @@ var islandPerimeter = function(grid) {
   }
   return res
 };
+
+// 349. 两个数组的交集  基础题
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersection = function(nums1, nums2) {
+  let backup1 = new Map()
+  for (let num  of nums1) {
+    backup1.set(num,1)
+  }
+  let resBack = new Map(),res = []
+  for (let num of nums2) {
+    if(backup1.get(num)) {
+      resBack.set(num,1)
+    }
+  }
+  for (let item of resBack) {
+    res.push(item[0])
+  }
+  return res
+};
+
+// LCP 07. 传递信息 动态规划
+let numWays = (n, relation, k)=> {
+  let dp = new Array(k+1).fill(0).map(()=>new Array(n+1).fill(0))
+  dp[0][0] = 1
+  for(let i=1; i<= k; i++){
+      for(let r of relation){
+          dp[i][r[1]] += dp[i - 1][r[0]]
+      }
+  }
+  return dp[k][n - 1]
+};
+
+// 剑指 Offer 29. 顺时针打印矩阵  基础题
+var spiralOrder = function(matrix) {
+  if (matrix.length == 0) return [];
+  const res = [];
+
+  let top = 0;
+  let bottom = matrix.length - 1;
+  let left = 0;
+  let right = matrix[0].length - 1;
+
+  while (top <= bottom && left <= right) {
+    for (let i = left; i <= right; i++) {
+      res.push(matrix[top][i]);
+    }
+    top++;
+    for (let i = top; i <= bottom; i++) {
+      res.push(matrix[i][right]);
+    }
+    right--;
+
+    if (top > bottom || left > right) break;
+
+    for (let i = right; i >= left; i--) {
+      res.push(matrix[bottom][i]);
+    }
+    bottom--;
+    for (let i = bottom; i >= top; i--) {
+      res.push(matrix[i][left]);
+    }
+    left++;
+  }
+  return res;
+};
+
+// 941. 有效的山脉数组 基础题
+/**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+var validMountainArray = function(A) {
+  let N = A.length ,i = 0
+  while(i+1 < N && A[i] < A[i+1]) {
+    i++
+  }
+  if(i == 0 || i == N-1) {
+    return false
+  }
+  while(i+1 < N && A[i] > A[i+1]) {
+    i++
+  }
+  return i == (N-1)
+};
