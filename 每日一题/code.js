@@ -2560,3 +2560,35 @@ var insert = function(intervals, newInterval) {
   
   return res;
 }
+// 1603. 设计停车系统 基础题
+/**
+ * @param {number} big
+ * @param {number} medium
+ * @param {number} small
+ */
+var ParkingSystem = function(big, medium, small) {
+  this.small = small
+  this.medium = medium
+  this.big = big
+};
+
+/** 
+* @param {number} carType
+* @return {boolean}
+*/
+ParkingSystem.prototype.addCar = function(carType) {
+ switch(carType){
+     case 1:
+          this.big--
+          return this.big >=0
+      break;
+     case 2:
+          this.medium--
+          return this.medium >=0
+      break;
+     case 3:
+          this.small--
+          return this.small >=0
+      break; 
+ }
+};
