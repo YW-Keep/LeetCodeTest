@@ -2592,3 +2592,21 @@ ParkingSystem.prototype.addCar = function(carType) {
       break; 
  }
 };
+
+
+// 1356. 根据数字二进制下 1 的数目排序 基础题
+function sortByBits(arr) {
+  function countBits(n) {
+    let count = 0;
+    while (n != 0) {
+      count += (n & 1);
+      n >>= 1;
+    }
+    return count;
+  }
+
+  arr.sort((a, b) => {
+    return countBits(a) - countBits(b) || a - b;
+  });
+  return arr;
+}
