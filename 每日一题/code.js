@@ -2610,3 +2610,47 @@ function sortByBits(arr) {
   });
   return arr;
 }
+
+// 122. 买卖股票的最佳时机 II 贪心算法
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    let ans = 0;
+    for (let i = 0; i < prices.length -1; i++) {
+      ans += Math.max(prices[i+1] - prices[i],0);
+    }
+    return ans
+};
+
+
+// 973. 最接近原点的 K 个点  基础题
+var kClosest = function(points, K) {
+  return points.map(ele => {
+      return {
+          after: ele[0] * ele[0] + ele[1] * ele[1],
+          before: ele
+      }
+  }).sort((a, b) => {
+      return a.after - b.after
+  }).slice(0, K).map(ele => ele.before);
+};
+
+// 1491. 去掉最低工资和最高工资后的工资平均值 基础题
+
+/**
+ * @param {number[]} salary
+ * @return {number}
+ */
+var average = function(salary) {
+  let max = salary[0]
+  let min = salary[1]
+  let sum = 0
+  for (let i = 0; i < salary.length; i++) {
+    sum +=salary[i]
+    max = Math.max(max,salary[i])
+    min = Math.min(min,salary[i])
+  }
+  return (sum - max -min)/(salary.length -2)
+};
