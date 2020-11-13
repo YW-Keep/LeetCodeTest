@@ -2654,3 +2654,118 @@ var average = function(salary) {
   }
   return (sum - max -min)/(salary.length -2)
 };
+
+// 31. 下一个排列  基础题
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var nextPermutation = function(nums) {
+  let i = nums.length - 2
+  while(i>= 0 && nums[i] >= nums[i+1]) {
+    i--
+  }
+  if(i >= 0) {
+    let j = nums.length -1 
+    while(j>= 0 && nums[i] >= nums[j]) {
+      j--;
+    }
+    swap(i,j)
+  }
+  reverse(i+1,nums.length)
+
+  function reverse(i) {
+    let left = i ,right = nums.length -1 
+    while(left <right) {
+      swap(left,right)
+      left++
+      right--
+    }
+
+  }
+  function swap(i, j) {
+    let t = nums[i];
+    nums[i] = nums[j];
+    nums[j] = t;
+  }
+};
+
+// 1486. 数组异或操作
+/**
+ * @param {number} n
+ * @param {number} start
+ * @return {number}
+ */
+var xorOperation = function(n, start) {
+
+};
+
+// 1486. 数组异或操作 基础题
+/**
+ * @param {number} n
+ * @param {number} start
+ * @return {number}
+ */
+var xorOperation = function(n, start) {
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    ans ^=(start + i*2)
+  }
+  return ans;
+};
+
+// 922. 按奇偶排序数组 II 基础题
+/**
+ * @param {number[]} A
+ * @return {number[]}
+ */
+var sortArrayByParityII = function(A) {
+  let res =  Array(A.length)
+  let i = 0,j = 1;
+  for (let index = 0; index < A.length; index++) {
+    let num = A[index]
+    if(num%2 == 0) {
+      res[i] = num
+      i += 2
+    } else {
+      res[j] = num
+      j += 2
+    }
+  }
+  return res
+};
+
+// 328. 奇偶链表  基础逻辑题 遍历
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var oddEvenList = function(head) {
+  let newhead1 = new ListNode(0)
+  let newhead2 = new ListNode(0)
+  let i = newhead1,j = newhead2, num = 0
+  let next = head
+  while(next) {
+    let node =  next
+     next = next.next;
+     node.next = null
+    if(num %2 == 0) {
+      i.next = node;
+      i = i.next
+    } else {
+      j.next = node
+      j = j.next
+    }
+    num++
+  }
+  i.next = newhead2.next
+  newhead2.next = null
+  return newhead1.next;
+};
