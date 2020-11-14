@@ -2769,3 +2769,29 @@ var oddEvenList = function(head) {
   newhead2.next = null
   return newhead1.next;
 };
+
+// 1122. 数组的相对排序 基础题
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number[]}
+ */
+var relativeSortArray = function(arr1, arr2) {
+
+  let backup = new Map()
+  for (let i = 0; i < arr2.length; i++) {
+    backup.set(arr2[i],i)
+  }
+  arr1.sort((a,b) =>{
+    if(backup.get(a) != null && backup.get(b) != null) {
+      return backup.get(a) - backup.get(b)
+    } else if(backup.get(a)!= null) {
+      return -1
+    } else if(backup.get(b)!= null) {
+      return 1
+    } else {
+      return a - b 
+    }
+  })
+  return arr1
+};
