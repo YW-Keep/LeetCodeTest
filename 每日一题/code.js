@@ -2795,3 +2795,56 @@ var relativeSortArray = function(arr1, arr2) {
   })
   return arr1
 };
+ 
+//  402. 移掉K位数字 贪心算法
+/** 
+ * @param {string} num
+ * @param {number} k
+ * @return {string}
+ */
+var removeKdigits = function(num, k) {
+  const stk = [];
+  for (const digit of num) {
+      while (stk.length > 0 && stk[stk.length - 1] > digit && k) {
+          stk.pop();
+          k -= 1;
+      }
+      stk.push(digit);
+  }
+
+  for (; k > 0; --k) {
+      stk.pop();
+  }
+
+  let ans = "";
+  let isLeadingZero = true;
+  for (const digit of stk) {
+      if (isLeadingZero && digit === '0') {
+          continue;
+      }
+      isLeadingZero = false;
+      ans += digit;
+  }
+  return ans === "" ? "0" : ans;
+};
+
+// 406. 根据身高重建队列 高到低然后一个个按照位置添加即可
+/**
+ * @param {number[][]} people
+ * @return {number[][]}
+ */
+var reconstructQueue = function(people) {
+  let ans=[];
+  if(!people||!people.length){return []}
+  people.sort((a,b)=>{
+      if(a[0]===b[0]){
+          return a[1]-b[1]
+      }else{
+          return b[0]-a[0]
+      }
+  })
+  people.forEach(item=>{
+      ans.splice(item[1],0,item)
+  })
+  return ans;
+};
