@@ -2848,3 +2848,46 @@ var reconstructQueue = function(people) {
   })
   return ans;
 };
+
+// 1030. 距离顺序排列矩阵单元格 BFS
+/**
+ * @param {number} R
+ * @param {number} C
+ * @param {number} r0
+ * @param {number} c0
+ * @return {number[][]}
+ */
+var allCellsDistOrder = function (R, C, r0, c0) {
+  const res = [];
+  const visited = new Array(R);
+  for (let i = 0; i < R; i++) {
+      visited[i] = new Array(C).fill(false);
+  }
+
+  const queue = [[r0, c0]];
+  visited[r0][c0] = true;
+
+  while (queue.length) {
+      const cur = queue.shift();
+      const x = cur[0], y = cur[1];
+      res.push(cur);
+
+      if (x - 1 >= 0 && !visited[x - 1][y]) {
+          queue.push([x - 1, y]);
+          visited[x - 1][y] = true;
+      }
+      if (y - 1 >= 0 && !visited[x][y - 1]) {
+          queue.push([x, y - 1]);
+          visited[x][y - 1] = true;
+      }
+      if (x + 1 < R && !visited[x + 1][y]) {
+          queue.push([x + 1, y]);
+          visited[x + 1][y] = true;
+      }
+      if (y + 1 < C && !visited[x][y + 1]) {
+          queue.push([x, y + 1]);
+          visited[x][y + 1] = true;
+      }
+  }
+  return res;
+};
