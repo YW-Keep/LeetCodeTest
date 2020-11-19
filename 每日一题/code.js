@@ -2922,3 +2922,25 @@ var canCompleteCircuit = function(gas, cost) {
   }
   return -1;
 };
+
+// 283. 移动零 双指针
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function(nums) {
+  let i = 0,j= 0,n = nums.length
+  while(j < n) {
+    if(nums[j] != 0) {
+      swap(i,j)
+      i++
+    }
+    j++
+  }
+
+  function swap(a,b) {
+    let temp = nums[a]
+    nums[a] = nums[b]
+    nums[b] = temp
+  }
+};
