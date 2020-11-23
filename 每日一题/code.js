@@ -2944,3 +2944,134 @@ var moveZeroes = function(nums) {
     nums[b] = temp
   }
 };
+// 147. 对链表进行插入排序 基础逻辑
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var insertionSortList = function(head) {
+  if (head === null) {
+      return head;
+  }
+  const dummyHead = new ListNode(0);
+  dummyHead.next = head;
+  let lastSorted = head, curr = head.next;
+  while (curr !== null) {
+      if (lastSorted.val <= curr.val) {
+          lastSorted = lastSorted.next;
+      } else {
+          let prev = dummyHead;
+          while (prev.next.val <= curr.val) {
+              prev = prev.next;
+          }
+          lastSorted.next = curr.next;
+          curr.next = prev.next;
+          prev.next = curr;
+      }
+      curr = lastSorted.next;
+  }
+  return dummyHead.next;
+};
+
+// 148. 排序链表 递归
+var sortList = function(head) {
+  return toSortList(head, null);
+
+  function toSortList (head, tail) {
+    if (head === null) {
+        return head;
+    }
+    if (head.next === tail) {
+        head.next = null;
+        return head;
+    }
+    let slow = head, fast = head;
+    while (fast !== tail) {
+        slow = slow.next;
+        fast = fast.next;
+        if (fast !== tail) {
+            fast = fast.next;
+        }
+    }
+    const mid = slow;
+    return merge(toSortList(head, mid), toSortList(mid, tail));
+  }
+
+  function merge (head1, head2) {
+    const dummyHead = new ListNode(0);
+    let temp = dummyHead, temp1 = head1, temp2 = head2;
+    while (temp1 !== null && temp2 !== null) {
+        if (temp1.val <= temp2.val) {
+            temp.next = temp1;
+            temp1 = temp1.next;
+        } else {
+            temp.next = temp2;
+            temp2 = temp2.next;
+        }
+        temp = temp.next;
+    }
+    if (temp1 !== null) {
+        temp.next = temp1;
+    } else if (temp2 !== null) {
+        temp.next = temp2;
+    }
+    return dummyHead.next;
+  }
+};
+
+// 242. 有效的字母异位词 map 记录
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function(s, t) {
+  if(s.length != t.length) {return false};
+  let backup = new Map();
+  for (let index = 0; index < s.length; index++) {
+      let key  = s[index];
+      backup.set(key,backup.get(key)== null ? 1: backup.get(key) + 1)
+  }
+  for (let index = 0; index < t.length; index++) {
+      let key  = t[index];
+      let num = backup.get(key)
+      if(num == null) {
+          return false;
+      } else if( num == 1) {
+          backup.delete(key);
+      }else {
+          backup.set(key,num - 1);
+      }
+  }
+  return true;
+};
+
+
+// 452. 用最少数量的箭引爆气球  排序+ 贪心算法
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var findMinArrowShots = function(points) {
+  if (!points.length ) {
+      return 0;
+  }
+
+  points.sort((a, b) => a[1] - b[1]);
+  let pos = points[0][1]
+  let ans = 1;
+  for (let balloon of points) {
+      if (balloon[0] > pos) {
+          pos = balloon[1];
+          ans++;
+      }
+  }
+  return ans;
+};
