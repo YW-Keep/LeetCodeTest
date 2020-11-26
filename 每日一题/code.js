@@ -3123,3 +3123,21 @@ var sortString = function(s) {
   }
   return ret;
 };
+// 164. 最大间距  排序 可以用 桶排序
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maximumGap = function(nums) {
+    let n = nums.length;
+    if(n < 2) return 0;
+    nums = nums.sort((a,b) => a - b);
+    let max = -1;
+    for(let j = 1;j < n;j++){
+        let val = nums[j] - nums[j-1];
+        if(val > max){
+            max = val;
+        }
+    }
+    return max;
+};
