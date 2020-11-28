@@ -3156,3 +3156,23 @@ var fourSumCount = function(A, B, C, D) {
   }
   return ans;
 };
+
+// 893. 特殊等价字符串组 基础逻辑
+var numSpecialEquivGroups = function(A) {
+  let arr = [];
+  for(let i=0; i<A.length; i++) {
+      let curOdd = [],
+          curEven = [];
+      for(let j=0; j<A[i].length; j++) {
+          if(j%2 === 0) {
+              curEven.push(A[i][j]);
+          } else {
+              curOdd.push(A[i][j]);
+          }
+      }
+      curOdd.sort((a, b) => a.localeCompare(b))
+      curEven.sort((a, b) => a.localeCompare(b))
+      arr.push(curEven.join('')+curOdd.join(''))
+  }
+  return [...new Set(arr)].length
+};
