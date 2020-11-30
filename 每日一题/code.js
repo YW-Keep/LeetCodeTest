@@ -3176,3 +3176,64 @@ var numSpecialEquivGroups = function(A) {
   }
   return [...new Set(arr)].length
 };
+
+// 976. 三角形的最大周长 基础题  贪心
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestPerimeter = function(A) {
+  A.sort((a, b) => a - b);
+  for (let i = A.length - 1; i >= 2; --i) {
+      if (A[i - 2] + A[i - 1] > A[i]) {
+          return A[i - 2] + A[i - 1] + A[i];
+      }
+  }
+  return 0;
+};
+
+// 767. 重构字符串 贪心算法
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var reorganizeString = function(S) {
+    if (S.length < 2) {
+        return S;
+    }
+    const counts = new Array(26).fill(0);
+    let maxCount = 0;
+    const length = S.length;
+    for (let i = 0; i < length; i++) {
+        const c = S.charAt(i);
+        counts[getIdx(c)]++;
+        maxCount = Math.max(maxCount, counts[getIdx(c)]);
+    }
+    if (maxCount > Math.floor((length + 1) / 2)) {
+        return "";
+    }
+    const reorganizeArray = new Array(length);
+    let evenIndex = 0, oddIndex = 1;
+    const halfLength = Math.floor(length / 2);
+    for (let i = 0; i < 26; i++) {
+        const c = getAlpha('a'.charCodeAt() + i);
+        while (counts[i] > 0 && counts[i] <= halfLength && oddIndex < length) {
+            reorganizeArray[oddIndex] = c;
+            counts[i]--;
+            oddIndex += 2;
+        }
+        while (counts[i] > 0) {
+            reorganizeArray[evenIndex] = c;
+            counts[i]--;
+            evenIndex += 2;
+        }
+    }
+    return reorganizeArray.join('');
+
+    function getIdx(c) {
+      return c.charCodeAt() - 'a'.charCodeAt()
+    } 
+    function getAlpha(c) {
+      return String.fromCharCode(c)
+    }
+};
