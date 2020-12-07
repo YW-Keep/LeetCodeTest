@@ -3347,3 +3347,75 @@ var isPossible = function(nums) {
   }
   return true;
 };
+
+// 118. 杨辉三角 基础题
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function(numRows) {
+  if(numRows == 0) {
+    return []
+  } 
+  let backup = [1],start = 1,res = [[1]]
+  while (start < numRows) {
+    let newBackup  = [1]
+    for (let i = 1; i < backup.length; i++) {
+      newBackup.push(backup[i -1]+backup[i])
+    }
+    newBackup.push(1);
+    res.push(newBackup)
+    backup = newBackup;
+    start++;
+  }
+  return res
+};
+// 621. 任务调度器 贪心
+/**
+ * @param {character[]} tasks
+ * @param {number} n
+ * @return {number}
+ */
+var leastInterval = function(tasks, n) {
+  let newBack = new Map()
+  for (let i = 0; i < tasks.length; i++) {
+    let key = tasks[i];
+    newBack.set(key,(newBack.get(key) || 0)+1)
+  }
+  let maxNum = 0,maxCount = 1;
+  for(let item of newBack) {
+    let num = item[1]
+    if(num >  maxNum) {
+      maxNum = num;
+      maxCount = 1
+    } else if(num == maxNum) {
+      maxCount++
+    } 
+  }
+  return Math.max((maxNum -1)*(n+1)+ maxCount,tasks.length)
+
+};
+
+// 861. 翻转矩阵后的得分  贪心算法
+/**
+ * @param {number[][]} A
+ * @return {number}
+ */
+var matrixScore = function(A) {
+  const m = A.length, n = A[0].length;
+  let ret = m * (1 << (n - 1));
+
+  for (let j = 1; j < n; j++) {
+      let nOnes = 0;
+      for (let i = 0; i < m; i++) {
+          if (A[i][0] === 1) {
+              nOnes += A[i][j];
+          } else {
+              nOnes += (1 - A[i][j]); 
+          }
+      }
+      const k = Math.max(nOnes, m - nOnes);
+      ret += k * (1 << (n - j - 1));
+  }
+  return ret;
+};
