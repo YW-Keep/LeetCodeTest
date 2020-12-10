@@ -3457,3 +3457,39 @@ const backtrack = (list, S, length, index, sum, prev) => {
   }
   return false;
 }
+
+
+// 860. 柠檬水找零  基础题
+/**
+ * @param {number[]} bills
+ * @return {boolean}
+ */
+var lemonadeChange = function(bills) {
+  let num1 = 0,num2 = 0
+  for (let i = 0; i < bills.length; i++) {
+    const bill = bills[i];
+    if(bill == 5) {
+      num1++;
+    } else if(bill == 10) {
+      if(num1 > 0) {
+        num1--
+        num2++
+      } else {
+        return false
+      }
+    } else if(bill == 20) {
+      if(num2 > 0 && num1 > 0) {
+        num1--;
+        num2--;
+      } else if(num1 > 2) {
+        num1 = num1 -3
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+    
+  }
+  return true
+};
