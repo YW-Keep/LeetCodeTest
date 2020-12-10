@@ -3458,6 +3458,20 @@ const backtrack = (list, S, length, index, sum, prev) => {
   return false;
 }
 
+// 62. 不同路径 组合
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var uniquePaths = function(m, n) {
+  let ans = 1;
+  for (let x = n, y = 1; y < m; ++x, ++y) {
+      ans = Math.floor(ans * x / y);
+  }
+  return ans;
+};
+
 // 860. 柠檬水找零  基础题
 /**
  * @param {number[]} bills
