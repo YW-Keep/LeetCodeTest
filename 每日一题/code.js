@@ -3506,3 +3506,30 @@ var lemonadeChange = function(bills) {
   }
   return true
 };
+
+// 649. Dota2 参议院 循环队列
+/**
+ * @param {string} senate
+ * @return {string}
+ */
+var predictPartyVictory = function(senate) {
+  const n = senate.length
+  let Rarray = [],Darray = []
+  for (let i = 0; i < senate.length; i++) {
+    if(senate[i] == 'R') {
+      Rarray.push(i)
+    } else {
+      Darray.push(i)
+    }
+  }
+  while(Rarray.length  && Darray.length) {
+    if(Rarray[0] < Darray[0]) {
+      Rarray.push(Rarray[0] + n)
+    } else {
+      Darray.push(Darray[0] + n)
+    }
+    Darray.shift()
+    Rarray.shift()
+  }
+  return Rarray.length ? "Radiant" : "Dire"
+};
