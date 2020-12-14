@@ -3533,3 +3533,65 @@ var predictPartyVictory = function(senate) {
   }
   return Rarray.length ? "Radiant" : "Dire"
 };
+
+// 217. 存在重复元素 map映射
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function(nums) {
+  let map = new Map()
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i]
+    if(!map.get(num)) {
+      map.set(num,true)
+    } else {
+      return true
+    }
+  }
+  return false
+};
+
+// 49. 字母异位词分组 排序  或者哈希
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function(strs) {
+  const map = new Map();
+  for (let str of strs) {
+      let array = Array.from(str);
+      array.sort();
+      let key = array.toString();
+      let list = map.get(key) ? map.get(key) : new Array();
+      list.push(str);
+      map.set(key, list);
+  }
+  return Array.from(map.values());
+};
+
+// 376. 摆动序列  动态规划
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var wiggleMaxLength = function(nums) {
+  const n = nums.length;
+  if(n < 2) return n
+  const up = new Array(n).fill(0)
+  const down = new Array(n).fill(0)
+  up[0] = down[0] = 1
+  for (let i = 1; i < n; i++) {
+    if(nums[i] > nums[i-1]) {
+      up[i] = Math.max(up[i -1],down[i-1]+1)
+      down[i] = down[i-1]
+    } else if(nums[i] < nums[i-1]){
+      up[i] = up[i -1]
+      down[i] = Math.max(down[i-1],up[i-1]+1)
+    } else {
+      up[i] = up[i -1]
+      down[i] = down[i-1]
+    }
+  }
+  return Math.max(up[n -1],down[n-1])
+};
