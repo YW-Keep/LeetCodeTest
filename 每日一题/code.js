@@ -3642,3 +3642,24 @@ var wordPattern = function(pattern, s) {
   }
   return true;
 };
+
+// 714. 买卖股票的最佳时机含手续  动态规划
+/**
+ * @param {number[]} prices
+ * @param {number} fee
+ * @return {number}
+ */
+var maxProfit = function(prices, fee) {
+  if(prices.length == 0) {
+    return 0
+  }
+  let buy = -1*prices[0]
+  let sell = 0
+  for (let i = 1; i < prices.length; i++) {
+    let newSell =  Math.max(sell,buy + prices[i] - fee)
+    let newBuy = Math.max(buy,sell - prices[i])
+    sell = newSell
+    buy = newBuy
+  }
+  return sell;
+};
