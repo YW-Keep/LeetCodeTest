@@ -3678,3 +3678,70 @@ var findTheDifference = function(s, t) {
   num += t[t.length -1].charCodeAt();
   return String.fromCharCode(num);
 };
+
+
+// 48. 旋转图像 先水平翻转 再对角线翻转
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var rotate = function(matrix) {
+  const n = matrix.length;
+  // 水平翻转
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+      for (let j = 0; j < n; j++) {
+          [matrix[i][j], matrix[n - i - 1][j]] = [matrix[n - i - 1][j], matrix[i][j]];
+      }
+  }
+  // 主对角线翻转
+  for (let i = 0; i < n; i++) {
+      for (let j = 0; j < i; j++) {
+          [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+      }
+  }
+};
+
+// 316. 去除重复字母  贪心 + 栈
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var removeDuplicateLetters = function(s) {
+  const vis = new Array(26).fill(0);
+  const num = _.countBy(s);
+  
+  const sb = new Array();
+  for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      if (!vis[ch.charCodeAt() - 'a'.charCodeAt()]) {
+          while (sb.length > 0 && sb[sb.length - 1] > ch) {
+              if (num[sb[sb.length - 1]] > 0) {
+                  vis[sb[sb.length - 1].charCodeAt() - 'a'.charCodeAt()] = 0;
+                  sb.pop();
+              } else {
+                  break;
+              }
+          }
+          vis[ch.charCodeAt() - 'a'.charCodeAt()] = 1;
+          sb.push(ch);
+      }
+      num[ch]--;
+  }
+  return sb.join('');
+};
+
+// 746. 使用最小花费爬楼梯 动态规划
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function(cost) {
+  const n = cost.length;
+  let prev = 0, curr = 0;
+  for (let i = 2; i <= n; i++) {
+      let next = Math.min(curr + cost[i - 1], prev + cost[i - 2]);
+      prev = curr;
+      curr = next;
+  }
+  return curr;
+};
