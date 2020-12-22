@@ -3745,3 +3745,43 @@ var minCostClimbingStairs = function(cost) {
   }
   return curr;
 };
+
+// 103. 二叉树的锯齿形层序遍历  层序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+var zigzagLevelOrder = function(root) {
+  if(!root) {
+    return []
+  }
+  let backup = [root],result = [], isObey = true
+  while(backup.length > 0) {
+    let  sub = [],newBackup = []
+    for (let i = 0; i < backup.length; i++) {
+      let node = backup[i]
+      if(isObey) {
+        sub.push(node.val)
+      } else {
+        sub.unshift(node.val)
+      }
+      if(node.left) {
+        newBackup.push(node.left)
+      }
+      if(node.right) {
+        newBackup.push(node.right)
+      }
+    }
+    result.push(sub)
+    isObey = !isObey
+    backup = newBackup;
+  }
+  return result;
+};
