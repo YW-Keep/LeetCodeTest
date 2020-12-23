@@ -3785,3 +3785,23 @@ var zigzagLevelOrder = function(root) {
   }
   return result;
 };
+
+// 387. 字符串中的第一个唯一字符  基础题
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function(s) {
+  let backup =  new Map()
+  for (let i = 0; i < s.length; i++) {
+    const key =  s[i]
+    backup.set(key,(backup.get(key)||0) + 1)
+  }
+  for (let i = 0; i < s.length; i++) {
+    const key =  s[i]
+    if(backup.get(key)== 1) {
+      return i
+    }
+  }
+  return -1
+};
