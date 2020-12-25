@@ -3805,3 +3805,50 @@ var firstUniqChar = function(s) {
   }
   return -1
 };
+
+// 135. 分发糖果 贪心 两遍遍历
+/**
+ * @param {number[]} ratings
+ * @return {number}
+ */
+var candy = function(ratings) {
+  let leftArr = []
+  for (let i = 0; i < ratings.length; i++) {
+    if(i > 0 && ratings[i] > ratings[i-1]) {
+      leftArr.push(leftArr[i-1] +1)
+    } else {
+      leftArr.push(1)
+    }   
+  }
+  let right = 0,res = 0
+  for (let i = ratings.length -1; i > -1 ;i--) {
+    if(i< ratings.length -1 && ratings[i] > ratings[i+1]) {
+      right++
+    } else {
+      right = 1;
+    }
+    res += Math.max(right,leftArr[i])
+  }
+  return res;
+};
+// 455. 分发饼干 排序 贪心算法
+/**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function(g, s) {
+  g.sort((a,b) => a -b)
+  s.sort((a,b) => a -b)
+  let i = 0, j = 0,count = 0
+  while(i<g.length && j < s.length) {
+    if(s[j] >= g[i]) {
+      i++;
+      j++;
+      count++;
+    } else {
+      j++
+    }
+  }
+  return count;
+};
