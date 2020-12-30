@@ -3944,3 +3944,31 @@ var minPatches = function(nums, n) {
   }
   return patches;
 };
+
+// 1046. 最后一块石头的重量   基础题
+
+/**
+ * @param {number[]} stones
+ * @return {number}
+ */
+var lastStoneWeight = function(stones) {
+  stones.sort((a, b) => a - b);
+  while (stones.length > 1) {
+      let newStone = Math.abs(stones[stones.length - 1] - stones[stones.length - 2]);
+      stones = stones.slice(0, stones.length - 2);
+      if (newStone) {
+          stones.push(newStone);
+      }
+      for (let i = stones.length - 1; i > 0; i--) {
+          if (stones[i] < stones[i - 1]) {
+              const t = stones[i];
+              stones[i] = stones[i - 1];
+              stones[i - 1] = t;
+          } else {
+            break;
+          }
+      }
+  }
+
+  return stones[0] || 0;
+};
