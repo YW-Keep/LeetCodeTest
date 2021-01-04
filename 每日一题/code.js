@@ -3972,3 +3972,102 @@ var lastStoneWeight = function(stones) {
 
   return stones[0] || 0;
 };
+
+// 435. 无重叠区间 贪心
+/**
+ * @param {number[][]} intervals
+ * @return {number}
+ */
+var eraseOverlapIntervals = function(intervals) { 
+  if(!intervals.length) {
+    return 0;
+  }
+  intervals.sort((a,b)=>a[1]-b[1]);
+  const n = intervals.length
+  let right = intervals[0][1]
+  let ans = 1
+  for (let i = 0; i < n; i++) {
+    if(intervals[i][0] >= right) {
+      ans++;
+      right = intervals[i][1];
+    }
+  }
+  return n - ans;
+};
+
+// 605. 种花问题 贪心
+/**
+ * @param {number[]} flowerbed
+ * @param {number} n
+ * @return {boolean}
+ */
+var canPlaceFlowers = function(flowerbed, n) {
+  if(n == 0) {
+    return true
+  }
+  let  lastNO = true,k = n
+  flowerbed.push(0)
+  for (let i = 0; i < flowerbed.length -1; i++) {
+    if(lastNO && flowerbed[i] == 0 && flowerbed[i+1] == 0) {
+      k--;
+      if(k == 0) {
+        return true
+      }
+      lastNO = false
+    } else if(flowerbed[i] == 0) {
+      lastNO = true
+    } else if (flowerbed[i] == 1) {
+      lastNO = false
+    }
+  }
+  return false
+
+};
+
+// 86. 分隔链表  基础逻辑
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function(head, x) {
+  let bigHead = new ListNode(0),bigNext = bigHead
+  let smallHead = new ListNode(0),smallNext =  smallHead
+  let next = head;
+  while(next) {
+    if(next.val < x) {
+      smallNext.next = next
+      next = next.next
+      smallNext =  smallNext.next
+      smallNext.next = null
+    } else {
+      bigNext.next = next
+      next = next.next
+      bigNext =  bigNext.next
+      bigNext.next = null
+    }
+  }
+  smallNext.next = bigHead.next;
+  return smallHead.next;
+};
+
+// 509. 斐波那契数  基础动态规划
+var fib = function(n) {
+  if (n < 2) {
+      return n;
+  }
+  let p = 0, q = 0, r = 1;
+  for (let i = 2; i <= n; i++) {
+      p = q;
+      q = r;
+      r = p + q;
+  }
+  return r;
+};
