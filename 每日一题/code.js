@@ -4071,3 +4071,24 @@ var fib = function(n) {
   }
   return r;
 };
+
+// 830. 较大分组的位置 遍历 基础题
+/**
+ * @param {string} s
+ * @return {number[][]}
+ */
+var largeGroupPositions = function(s) {
+
+  let num = 1,res = []
+  for (let i = 1; i <= s.length; i++) {
+    if(i ==s.length || s[i] != s[i-1]) {
+      if(num > 2) {
+        res.push([i-num,i-1])
+      }
+      num = 1;
+    } else {
+      num++
+    }
+  }
+  return res
+};
