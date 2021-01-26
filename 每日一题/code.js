@@ -4161,3 +4161,99 @@ var calcEquation = function(equations, values, queries) {
   
   return ans;
 }
+
+// 547. 省份数量 连通
+/**
+ * @param {number[][]} M
+ * @return {number}
+ */
+var findCircleNum = function(M) {
+  class UF {
+      constructor(num) {
+          this.count = num;
+          this.size = Array(num)
+          this.parent = Array(num)
+          for (let i = 0; i < num; i++) {
+              this.parent[i] = i;
+              this.size[i] = 1;
+          }
+      }
+      union(p,q) {
+          let rootP = this.find(p)
+          let rootQ = this.find(q)
+          if(rootP == rootQ) {
+              return
+          }
+          if (this.size[rootP] > this.size[rootQ]) {
+              this.parent[rootQ] = rootP;
+              this.size[rootP] += this.size[rootQ];
+          } else {
+              this.parent[rootP] = rootQ;
+              this.size[rootQ] += this.size[rootP];
+          }
+          this.count--
+      }
+      connected(p,q) {
+          let rootP = this.find(p)
+          let rootQ = this.find(q)
+          return rootP == rootQ
+      }
+      find(x) {
+          while(this.parent[x] != x) {
+              // 进行路径压缩
+              this.parent[x] = this.parent[this.parent[x]];
+              x = this.parent[x];
+          }
+          return x;
+      }
+  }
+  let n = M.length
+  let uf = new UF(n);
+  for (let i = 0; i < n; i++) {
+      for (let j = 0; j < i; j++) {
+          if (M[i][j] == 1)
+              uf.union(i, j);
+      }
+  }
+  return uf.count;
+};
+// 547. 省份数量  递归 dfs 
+var findCircleNum = function(isConnected) {
+  const provinces = isConnected.length;
+  const visited = new Set();
+  let circles = 0;
+  for (let i = 0; i < provinces; i++) {
+      if (!visited.has(i)) {
+          dfs(isConnected, visited, provinces, i);
+          circles++;
+      }
+  }
+  return circles;
+};
+
+const dfs = (isConnected, visited, provinces, i) => {
+  for (let j = 0; j < provinces; j++) {
+      if (isConnected[i][j] == 1 && !visited.has(j)) {
+          visited.add(j);
+          dfs(isConnected, visited, provinces, j);
+      }
+  }
+};
+
+// 1128. 等价多米诺骨牌对的数量  基础题
+/**
+ * @param {number[][]} dominoes
+ * @return {number}
+ */
+var numEquivDominoPairs = function(dominoes) {
+  let backup = new Map()
+  let res = 0
+  for (let i = 0; i < dominoes.length; i++) {
+    const nums = dominoes[i]
+    let key  = nums[0] < nums[1] ? nums[0]*10 + nums[1] : nums[0] + nums[1]*10;
+    let before = backup.get(key) || 0
+    res += before
+    backup.set(key,before+1)
+  }
+  return res
+};
