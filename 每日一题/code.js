@@ -4257,3 +4257,26 @@ var numEquivDominoPairs = function(dominoes) {
   }
   return res
 };
+
+// 674. 最长连续递增序列 基础题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findLengthOfLCIS = function(nums) {
+  const num = nums.length;
+  if(num < 2) {
+    return num;
+  }
+  let res = 1, count = 1
+  for (let i = 1; i < num; i++) {
+    if(nums[i-1] < nums[i]) {
+      count++
+    } else {
+      res = Math.max(res,count)
+      count = 1
+    }
+  }
+  res = Math.max(res,count)
+  return res
+};
