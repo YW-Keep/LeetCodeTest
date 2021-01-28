@@ -4280,3 +4280,24 @@ var findLengthOfLCIS = function(nums) {
   res = Math.max(res,count)
   return res
 };
+
+// 724. 寻找数组的中心索引  基础题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var pivotIndex = function(nums) {
+  var backArray = [];
+  var sum = 0;
+  for(let num of nums) {
+      sum += num;
+      backArray.push(sum);
+  }
+  if(sum - nums[0] == 0) {return 0; }
+  for (let index = 1; index < nums.length; index++) {
+      if(backArray[index-1] == sum - backArray[index]) {
+          return index;
+      }
+  }
+  return -1;
+};
