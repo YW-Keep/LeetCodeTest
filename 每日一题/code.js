@@ -4337,3 +4337,28 @@ var minimumEffortPath = function(heights) {
   }
   return ans;
 };
+
+// 888. 公平的糖果棒交换  基础题
+/**
+ * @param {number[]} A
+ * @param {number[]} B
+ * @return {number[]}
+ */
+var fairCandySwap = function(A, B) {
+  var sumA = 0;
+  var sumB = 0;
+  var map = new Map()
+  for(let num of A) { sumA += num}
+  for(let num of B) { 
+      sumB += num
+      map.set(num,num);
+  }
+  var delta = (sumB - sumA)/2;
+
+  for(let num of A) {
+      if(map.get(delta + num)) {
+          return [num,delta + num];
+      }
+  }
+  return [];
+};
