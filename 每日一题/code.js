@@ -4436,3 +4436,24 @@ var medianSlidingWindow = function (nums, k) {
   }
   return res;
 };
+
+// 643. 子数组最大平均数 I  基础题
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findMaxAverage = function(nums, k) {
+  let result = -10000;
+  let sum = 0;
+  for (let index = 0; index < nums.length; index++) {
+      sum += nums[index];
+      if(index >= k) {
+          sum -= nums[index - k];
+      }
+      if(index >= k - 1) {
+          result = Math.max(sum/k,result);
+      }
+  }
+  return result;
+};
