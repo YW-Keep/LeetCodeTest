@@ -4457,3 +4457,30 @@ var findMaxAverage = function(nums, k) {
   }
   return result;
 };
+
+// 1208. 尽可能使字符串相等 双指针
+/**
+ * @param {string} s
+ * @param {string} t
+ * @param {number} maxCost
+ * @return {number}
+ */
+var equalSubstring = function(s, t, maxCost) {
+  let n =  s.length
+  let diff =  new Array()
+  for (let i = 0; i < n; i++) {
+    diff.push(Math.abs(s[i].charCodeAt() - t[i].charCodeAt()))
+  }
+  let res = 0,start = 0,end = 0,sum = 0
+  while(end < n) {
+    sum +=diff[end]
+    while(sum > maxCost) {
+      sum -= diff[start]
+      start++
+    }
+    res = Math.max(res, end - start + 1);
+    end++;
+  }
+  return res
+  
+};
