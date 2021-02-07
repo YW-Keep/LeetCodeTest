@@ -4484,3 +4484,50 @@ var equalSubstring = function(s, t, maxCost) {
   return res
   
 };
+
+// 665. 非递减数列 基础题
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var checkPossibility = function(nums) {
+  const n = nums.length;
+  let cnt = 0;
+  for (let i = 0; i < n - 1; ++i) {
+      const x = nums[i], y = nums[i + 1];
+      if (x > y) {
+          cnt++;
+          if (cnt > 1) {
+              return false;
+          }
+          if (i > 0 && y < nums[i - 1]) {
+              nums[i + 1] = x;
+          }
+      }
+  }
+  return true;
+};
+
+// 1423. 可获得的最大点数  窗口
+/**
+ * @param {number[]} cardPoints
+ * @param {number} k
+ * @return {number}
+ */
+var maxScore = function(cardPoints, k) {
+
+  let sum = 0, bSum =0, minSum = 0
+
+  for (let i = 0; i < cardPoints.length; i++) {
+    let num = cardPoints[i]
+    sum += num;
+    if(i < cardPoints.length - k) {
+      bSum += num
+      minSum = bSum
+    } else  {
+      bSum -= cardPoints[i -cardPoints.length + k]
+      minSum  = Math.min(bSum,minSum)
+    }
+  }
+  return sum - minSum
+};
