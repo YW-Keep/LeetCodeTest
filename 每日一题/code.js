@@ -4562,3 +4562,35 @@ var maxTurbulenceSize = function(arr) {
   }
   return ret;
 };
+
+// 992. K 个不同整数的子数组 把问题转化为最多包含K个不同整数的子区间的个数
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var subarraysWithKDistinct = function(A, K) {
+
+  return atMostKDistinct(A,K) -  atMostKDistinct(A,K-1)
+  // 最多包含 K 个不同整数的子区间的个数
+  function atMostKDistinct(A,K) {
+    let left = 0,right = 0,count = 0,res = 0
+    let freq = new Array(A.length +1).fill(0)
+    while(right < A.length) {
+      if(freq[A[right]] == 0) {
+        count++
+      }
+      freq[A[right]]++
+      right++
+      while(count > K) {
+        freq[A[left]]--
+        if(freq[A[left]] == 0) {
+          count--;
+        }
+        left++;
+      }
+      res += right - left 
+    }
+    return res
+  }
+};
