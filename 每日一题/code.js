@@ -4566,7 +4566,7 @@ var maxTurbulenceSize = function(arr) {
 // 992. K 个不同整数的子数组 把问题转化为最多包含K个不同整数的子区间的个数
 /**
  * @param {number[]} A
- * @param {number} K
+ * @param {number} K 
  * @return {number}
  */
 var subarraysWithKDistinct = function(A, K) {
@@ -4593,4 +4593,23 @@ var subarraysWithKDistinct = function(A, K) {
     }
     return res
   }
+};
+
+// 995. K 连续位的最小翻转次数  贪心 窗口 从左往右  翻转
+var minKBitFlips = function(A, K) {
+  const n = A.length;
+  const diff = new Array(n + 1).fill(0);
+  let ans = 0, revCnt = 0;
+  for (let i = 0; i < n; i++) {
+      revCnt += diff[i];
+      if ((A[i] + revCnt) % 2 === 0) {
+          if ((i + K) > n) {
+              return -1;
+          }
+          ++ans;
+          ++revCnt;
+          --diff[i + K]
+      }
+  }
+  return ans;
 };
