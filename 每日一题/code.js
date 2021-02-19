@@ -4613,3 +4613,24 @@ var minKBitFlips = function(A, K) {
   }
   return ans;
 };
+
+// 1004. 最大连续1的个数 III  双指针 
+/**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+var longestOnes = function(A, K) {
+  let left = 0, num = 0,ans = 0
+  for (let i = 0; i < A.length; i++) {
+    num += 1 - A[i]
+    while(num >K) {
+      if(A[left] == 0) {
+        num --
+      }
+      left++
+    }
+    ans = Math.max(ans,i - left +1)
+  }
+  return ans;
+};
