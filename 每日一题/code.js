@@ -4634,3 +4634,32 @@ var longestOnes = function(A, K) {
   }
   return ans;
 };
+
+
+// 697. 数组的度  哈希
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findShortestSubArray = function(nums) {
+  let backup = new Map()
+  for (let i = 0; i < nums.length; i++) {
+    let key = nums[i]
+    let arr = backup.get(key)
+    if(arr) {
+      backup.set(key,[arr[0]+1,arr[1],i])
+    } else {
+      backup.set(key,[1,i,i])
+    }
+  }
+  let max = 0, res =0
+  for(let item of backup.values()){
+    if(item[0] > max) {
+      max = item[0]
+      res = item[2] -item[1] +1
+    } else if(item[0] == max) {
+      res = Math.min(res,item[2] -item[1] +1)
+    }
+  }
+  return res
+};
