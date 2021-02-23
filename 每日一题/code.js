@@ -4663,3 +4663,77 @@ var findShortestSubArray = function(nums) {
   }
   return res
 };
+
+// 1052. 爱生气的书店老板  窗口
+/**
+ * @param {number[]} customers
+ * @param {number[]} grumpy
+ * @param {number} X
+ * @return {number}
+ */
+
+var maxSatisfied = function(customers, grumpy, X) {
+  let total = 0;
+  const n = customers.length;
+  for (let i = 0; i < n; i++) {
+      if (grumpy[i] === 0) {
+          total += customers[i];
+      }
+  }
+  let increase = 0;
+  for (let i = 0; i < X; i++) {
+      increase += customers[i] * grumpy[i];
+  }
+  let maxIncrease = increase;
+  for (let i = X; i < n; i++) {
+      increase = increase - customers[i - X] * grumpy[i - X] + customers[i] * grumpy[i];
+      maxIncrease = Math.max(maxIncrease, increase);
+  }
+  return total + maxIncrease;
+};
+
+// 766. 托普利茨矩阵 遍历比对
+var isToeplitzMatrix = function(matrix) {
+  const m = matrix.length, n = matrix[0].length;
+  for (let i = 1; i < m; i++) {
+      for (let j = 1; j < n; j++) {
+          if (matrix[i][j] != matrix[i - 1][j - 1]) {
+              return false;
+          }
+      }
+  }
+  return true;
+};
+
+// 1438. 绝对差不超过限制的最长连续子数组  单调队列
+var longestSubarray = function(nums, limit) {
+  const n = nums.length;
+  const maxQueue = [];
+  const minQueue = [];
+  let left = 0;
+  let res = 0;
+  for (let right = 0; right < n; right++) {
+      while (maxQueue.length && maxQueue[maxQueue.length - 1] < nums[right]) {
+          maxQueue.pop();
+      }
+      maxQueue.push(nums[right]);
+
+      while (minQueue.length && minQueue[minQueue.length - 1] > nums[right]) {
+          minQueue.pop();
+      }
+      minQueue.push(nums[right]);
+      if (Math.abs(maxQueue[0] - minQueue[0]) > limit) {
+          if (nums[left] === maxQueue[0]) {
+              maxQueue.shift();
+          }
+          if (nums[left] === minQueue[0]) {
+              minQueue.shift();
+          }
+          left++;
+      }
+      else {
+          res = right - left + 1;
+      }
+  }
+  return res;
+};
