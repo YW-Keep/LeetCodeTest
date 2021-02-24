@@ -4737,3 +4737,23 @@ var longestSubarray = function(nums, limit) {
   }
   return res;
 };
+
+// 832. 翻转图像 基础题
+/**
+ * @param {number[][]} A
+ * @return {number[][]}
+ */
+var flipAndInvertImage = function(A) {
+  let res = []
+  for (let i = 0; i < A.length; i++) {
+    let newItem = []
+    let item = A[i]
+    let count = item.length
+    for (let j = 0; j < count; j++) {
+      let num = item[count -1 -j]
+      newItem.push(num == 0 ? 1: 0)
+    }
+    res.push(newItem)
+  }
+  return res
+};
