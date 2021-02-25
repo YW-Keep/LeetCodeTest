@@ -4757,3 +4757,19 @@ var flipAndInvertImage = function(A) {
   }
   return res
 };
+// 867. 转置矩阵  基础题
+/**
+ * @param {number[][]} matrix
+ * @return {number[][]}
+ */
+var transpose = function(matrix) {
+  let res = []
+  for (let i = 0; i < matrix[0].length; i++) {
+    let newItem = []
+    for (let j = 0; j < matrix.length; j++) {
+      newItem.push(matrix[j][i])
+    }
+    res.push(newItem)
+  }
+  return res
+};
