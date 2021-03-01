@@ -4828,3 +4828,86 @@ function CountOne(n) {
   }
   return count;
 }
+
+// 303. 区域和检索 - 数组不可变  基础题
+/**
+ * @param {number[]} nums
+ */
+var NumArray = function(nums) {
+    const n = nums.length;
+    this.sums = new Array(n + 1).fill(0);
+    for (let i = 0; i < n; i++) {
+        this.sums[i + 1] = this.sums[i] + nums[i];
+    }
+};
+
+NumArray.prototype.sumRange = function(i, j) {
+    return this.sums[j + 1] - this.sums[i];
+};
+
+// 896. 单调数列 基础题
+/**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+var isMonotonic = function(A) {
+    let inc = true, dec = true;
+    const n = A.length;
+    for (let i = 0; i < n - 1; ++i) {
+        if (A[i] > A[i + 1]) {
+            inc = false;
+        }
+        if (A[i] < A[i + 1]) {
+            dec = false;
+        }
+    }
+    return inc || dec;
+};
+
+// 395. 至少有 K 个重复字符的最长子串  分治
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
+var longestSubstring = function(s, k) {
+    const n = s.length;
+    return dfs(s, 0, n - 1, k);
+}
+
+const dfs = (s, l, r, k) => {
+    const cnt = new Array(26).fill(0);
+    for (let i = l; i <= r; i++) {
+        cnt[s[i].charCodeAt() - 'a'.charCodeAt()]++;
+    }
+
+    let split = 0;
+    for (let i = 0; i < 26; i++) {
+        if (cnt[i] > 0 && cnt[i] < k) {
+            split = String.fromCharCode(i + 'a'.charCodeAt());
+            break;
+        }
+    }
+    if (split == 0) {
+        return r - l + 1;
+    }
+
+    let i = l;
+    let ret = 0;
+    while (i <= r) {
+        while (i <= r && s[i] === split) {
+            i++;
+        }
+        if (i > r) {
+            break;
+        }
+        let start = i;
+        while (i <= r && s[i] !== split) {
+            i++;
+        }
+
+        const length = dfs(s, start, i - 1, k);
+        ret = Math.max(ret, length);
+    }
+    return ret;
+};
