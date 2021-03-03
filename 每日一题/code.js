@@ -4932,3 +4932,16 @@ var NumMatrix = function(matrix) {
 NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {
   return this.sums[row2 + 1][col2 + 1] - this.sums[row1][col2 + 1] - this.sums[row2 + 1][col1] + this.sums[row1][col1];
 };
+
+// 338. 比特位计数 动态规划 位运算
+/**
+ * @param {number} num
+ * @return {number[]}
+ */
+var countBits = function(num) {
+  let res = [0]
+  for (let i = 1; i < num + 1; i++) {
+        res.push(res[i>>1]+ (i&1))
+  }
+  return res;
+};
