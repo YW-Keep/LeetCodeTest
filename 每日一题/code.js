@@ -4945,3 +4945,85 @@ var countBits = function(num) {
   }
   return res;
 };
+
+// 354. 俄罗斯套娃信封问题  二分查找
+/**
+ * @param {number[][]} envelopes
+ * @return {number}
+ */
+var maxEnvelopes = function(envelopes) {
+  if (envelopes.length === 0) {
+      return 0;
+  }
+  
+  const n = envelopes.length;
+  envelopes.sort((e1, e2) => {
+      if (e1[0] - e2[0]) {
+          return e1[0] - e2[0];
+      } else {
+          return e2[1] - e1[1];
+      }
+  })
+
+  const f = [envelopes[0][1]];
+  for (let i = 1; i < n; ++i) {
+      const num = envelopes[i][1];
+      if (num > f[f.length - 1]) {
+          f.push(num);
+      } else {
+          const index = binarySearch(f, num);
+          f[index] = num;
+      }
+  }
+  return f.length;
+
+  function binarySearch(f, target)  {
+    let low = 0, high = f.length - 1;
+    while (low < high) {
+        const mid = Math.floor((high - low) / 2) + low;
+        if (f[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+    return low;
+  };
+}
+
+// 232. 用栈实现队列 基础逻辑
+/**
+ * Initialize your data structure here.
+ */
+var MyQueue = function() {
+  this.inStack = [];
+  this.outStack = [];
+};
+
+MyQueue.prototype.push = function(x) {
+  this.inStack.push(x);
+};
+
+MyQueue.prototype.pop = function() {
+  if (!this.outStack.length) {
+      this.in2out();
+  }
+  return this.outStack.pop();
+};
+
+MyQueue.prototype.peek = function() {
+  if (!this.outStack.length) {
+      this.in2out();
+  }
+  return this.outStack[this.outStack.length - 1];
+};
+
+MyQueue.prototype.empty = function() {
+  return this.outStack.length === 0 && this.inStack.length === 0;
+};
+
+MyQueue.prototype.in2out = function() {
+  while (this.inStack.length) {
+      this.outStack.push(this.inStack.pop());
+  }
+}
