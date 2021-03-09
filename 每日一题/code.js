@@ -5110,3 +5110,22 @@ var minCut = function(s) {
 
   return f[n - 1];
 };
+
+
+// 1047. 删除字符串中的所有相邻重复项 基础题
+/**
+ * @param {string} S
+ * @return {string}
+ */
+var removeDuplicates = function(S) {
+   let res = []
+   for (const ch of S) {
+     if(res.length && res[res.length-1] ==  ch) {
+       res.pop()
+     } else {
+       res.push(ch)
+     }
+   }
+   return res.join('')
+
+};
