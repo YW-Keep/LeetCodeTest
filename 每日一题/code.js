@@ -5168,3 +5168,74 @@ var removeDuplicates = function(S) {
   }
   return ret;
 };
+
+// 331. 验证二叉树的前序序列化 判断槽位
+/**
+ * @param {string} preorder
+ * @return {boolean}
+ */
+
+ var isValidSerialization = function(preorder) {
+  const n = preorder.length;
+  let i = 0;
+  let slots = 1;
+  while (i < n) {
+      if (slots === 0) {
+          return false;
+      }
+      if (preorder[i] === ',') {
+          ++i;
+      } else if (preorder[i] === '#') {
+          --slots;
+          ++i;
+      } else {
+          // 读一个数字
+          while (i < n && preorder[i] !== ',') {
+              ++i;
+          }
+          ++slots; // slots = slots - 1 + 2
+      }
+  }
+  return slots === 0;
+};
+
+// 227. 基本计算器 II 基础逻辑题
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+ var calculate = function(s) {
+  s = s.trim();
+  const stack = new Array();
+  let preSign = '+';
+  let num = 0;
+  const n = s.length;
+  for (let i = 0; i < n; ++i) {
+      if (!isNaN(Number(s[i])) && s[i] !== ' ') {
+          num = num * 10 + s[i].charCodeAt() - '0'.charCodeAt();
+      }
+      if (isNaN(Number(s[i])) || i === n - 1) {
+          switch (preSign) {
+              case '+':
+                  stack.push(num);
+                  break;
+              case '-':
+                  stack.push(-num);
+                  break;
+              case '*':
+                  stack.push(stack.pop() * num);
+                  break;
+              default:
+                  stack.push(stack.pop() / num | 0);
+          }   
+          preSign = s[i];
+          num = 0;
+      }
+  }
+  let ans = 0;
+  while (stack.length) {
+      ans += stack.pop();
+  }
+  return ans;
+};
