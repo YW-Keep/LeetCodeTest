@@ -5239,3 +5239,121 @@ var removeDuplicates = function(S) {
   }
   return ans;
 };
+
+// 705. 设计哈希集合 哈希函数 ， 冲突处理， 扩容
+/**
+ * Initialize your data structure here.
+ */
+ var MyHashSet = function() {
+  this.BASE = 769;
+  this.data = new Array(this.BASE).fill(0).map(() => new Array());
+};
+
+MyHashSet.prototype.add = function(key) {
+  const h = this.hash(key);
+  for (const element of this.data[h]) {
+      if (element === key) {
+          return;
+      }
+  }
+  this.data[h].push(key);
+};
+
+MyHashSet.prototype.remove = function(key) {
+  const h = this.hash(key);
+  const it = this.data[h];
+  for (let i = 0; i < it.length; ++i) {
+      if (it[i] === key) {
+          it.splice(i, 1);
+          return;
+      }
+  }
+};
+
+MyHashSet.prototype.contains = function(key) {
+  const h = this.hash(key);
+  for (const element of this.data[h]) {
+      if (element === key) {
+          return true;
+      }
+  }
+  return false;
+};
+
+MyHashSet.prototype.hash = function(key) {
+  return key % this.BASE;
+}
+
+// 706. 设计哈希映射  哈希函数 ， 冲突处理， 扩容
+/**
+ * Initialize your data structure here.
+ */
+var MyHashMap = function() {
+  this.BASE = 769;
+  this.data = new Array(this.BASE).fill(0).map(() => new Array());
+};
+
+MyHashMap.prototype.put = function(key, value) {
+  const h = this.hash(key);
+  for (const it of this.data[h]) {
+      if (it[0] === key) {
+          it[1] = value;
+          return;
+      }
+  }
+  this.data[h].push([key, value]);
+};
+
+MyHashMap.prototype.get = function(key) {
+  const h = this.hash(key);
+  for (const it of this.data[h]) {
+      if (it[0] === key) {
+          return it[1];
+      }
+  }
+  return -1;
+};
+
+MyHashMap.prototype.remove = function(key) {
+  const h = this.hash(key);
+  for (const it of this.data[h]) {
+      if (it[0] === key) {
+          const idx = this.data[h].indexOf(it);
+          this.data[h].splice(idx, 1);
+          return;
+      }
+  }
+};
+
+MyHashMap.prototype.hash = function(key) {
+  return key % this.BASE;
+}
+
+// 54. 螺旋矩阵  基础题
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+ var spiralOrder = function(matrix) {
+  if (!matrix.length || !matrix[0].length) {
+      return [];
+  }
+  const rows = matrix.length, columns = matrix[0].length;
+  const visited = new Array(rows).fill(0).map(() => new Array(columns).fill(false));
+  const total = rows * columns;
+  const order = new Array(total).fill(0);
+
+  let directionIndex = 0, row = 0, column = 0;
+  const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+  for (let i = 0; i < total; i++) { 
+      order[i] = matrix[row][column];
+      visited[row][column] = true;
+      const nextRow = row + directions[directionIndex][0], nextColumn = column + directions[directionIndex][1];
+      if (!(0 <= nextRow && nextRow < rows && 0 <= nextColumn && nextColumn < columns && !(visited[nextRow][nextColumn]))) {
+          directionIndex = (directionIndex + 1) % 4;
+      }
+      row += directions[directionIndex][0];
+      column += directions[directionIndex][1];
+  }
+  return order;
+};
