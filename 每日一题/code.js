@@ -5357,3 +5357,24 @@ MyHashMap.prototype.hash = function(key) {
   }
   return order;
 };
+
+// 59. 螺旋矩阵 II 基础题 处理螺旋判断
+/**
+ * @param {number} n
+ * @return {number[][]}
+ */
+var generateMatrix = function(n) {
+  const visited = new Array(n).fill(0).map(() => new Array(n).fill(0));
+  let directionIndex = 0, row = 0, column = 0;
+  const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+  for (let i = 0; i < n*n; i++) { 
+      visited[row][column] = i+1;
+      const nextRow = row + directions[directionIndex][0], nextColumn = column + directions[directionIndex][1];
+      if (!(0 <= nextRow && nextRow < n && 0 <= nextColumn && nextColumn < n && !(visited[nextRow][nextColumn]))) {
+          directionIndex = (directionIndex + 1) % 4;
+      }
+      row += directions[directionIndex][0];
+      column += directions[directionIndex][1];
+  }
+  return visited
+};
