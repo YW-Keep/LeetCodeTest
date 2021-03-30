@@ -5639,3 +5639,113 @@ var deleteDuplicates = function(head) {
   }
   return head;
 };
+
+// 74. 搜索二维矩阵  映射成一维数组  二分查找
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+var searchMatrix = function(matrix, target) {
+  const m = matrix.length, n = matrix[0].length;
+  let low = 0, high = m * n - 1;
+  while (low <= high) {
+      const mid = Math.floor((high - low) / 2) + low;
+      const x = matrix[Math.floor(mid / n)][mid % n];
+      if (x < target) {
+          low = mid + 1;
+      } else if (x > target) {
+          high = mid - 1;
+      } else {
+          return true;
+      }
+  }
+  return false;
+};
+
+// 190. 颠倒二进制位  位运算
+var reverseBits = function(n) {
+  let rev = 0;
+  for (let i = 0; i < 32 && n > 0; ++i) {
+      rev |= (n & 1) << (31 - i);
+      n >>>= 1;
+  }
+  return rev >>> 0;
+};
+
+
+// 61. 旋转链表 闭环 断裂
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+ var rotateRight = function(head, k) {
+  if (k === 0 || !head || !head.next) {
+      return head;
+  }
+  let n = 1;
+  let cur = head;
+  while (cur.next) {
+      cur = cur.next;
+      n++;
+  }
+
+  let add = n - k % n;
+  if (add === n) {
+      return head;
+  }
+
+  cur.next = head;
+  while (add) {
+      cur = cur.next;
+      add--;
+  }
+
+  const ret = cur.next;
+  cur.next = null;
+  return ret;
+};
+
+// 173. 二叉搜索树迭代器  二叉树的中序遍历 
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ */
+var BSTIterator = function(root) {
+  this.idx = 0;
+  this.arr = [];
+  this.inorderTraversal(root, this.arr);
+};
+
+BSTIterator.prototype.next = function() {
+  return this.arr[this.idx++];
+};
+
+BSTIterator.prototype.hasNext = function() {
+  return this.idx < this.arr.length;
+};
+
+BSTIterator.prototype.inorderTraversal = function(root, arr) {
+  if (!root) {
+      return;
+  }
+  this.inorderTraversal(root.left, arr);
+  arr.push(root.val);
+  this.inorderTraversal(root.right, arr);
+};
