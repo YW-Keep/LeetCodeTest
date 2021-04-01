@@ -5775,3 +5775,53 @@ BSTIterator.prototype.inorderTraversal = function(root, arr) {
      t.pop()
    }
 };
+ 
+//  1006. 笨阶乘  堆栈 数学解析
+/**
+ * @param {number} N
+ * @return {number}
+ */
+ var clumsy = function(N) {
+   const stack = [N--]
+   let i = 0
+   while(N > 0) {
+     if(i%4 == 0) {
+       stack.push(stack.pop()*N);
+     } else if(i%4 == 1) {
+       const cur = stack.pop();
+       stack.push(cur > 0 ?Math.floor(cur / N) : Math.ceil(cur / N));
+     } else if (i%4 ==2) {
+       stack.push(N);
+     }  else {
+       stack.push(-N)
+     }
+     i++
+     N--;
+   }
+   let sum = 0
+   stack.forEach((element) => {
+    sum += element;
+   })
+   return sum;
+};
+
+// 数学简化
+var clumsy = function(N) {
+  if (N === 1) {
+      return 1;
+  } else if (N === 2) {
+      return 2;
+  } else if (N === 3) {
+      return 6;
+  } else if (N === 4) {
+      return 7;
+  }
+
+  if (N % 4 === 0) {
+      return N + 1;
+  } else if (N % 4 <= 2) {
+      return N + 2;
+  } else {
+      return N - 1;
+  }
+};
