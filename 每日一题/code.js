@@ -5825,3 +5825,25 @@ var clumsy = function(N) {
       return N - 1;
   }
 };
+
+//  面试题 17.21. 直方图的水量 双指针
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+ var trap = function(height) {
+   let left = 0,right =height.length - 1,lNum = 0,rNum =0,ans =0;
+
+   while(left < right) {
+    lNum = Math.max(lNum,height[left])
+    rNum = Math.max(rNum,height[right])
+    if(height[left] < height[right]) {
+      ans += lNum - height[left];
+      left++
+    } else {
+      ans += rNum - height[right]
+      right--
+    }
+   }
+   return ans
+};
