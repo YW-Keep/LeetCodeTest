@@ -5847,3 +5847,141 @@ var clumsy = function(N) {
    }
    return ans
 };
+
+// 1143. 最长公共子序列   动态规划 
+var longestCommonSubsequence = function(text1, text2) {
+  const m = text1.length, n = text2.length;
+  const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++) {
+      const c1 = text1[i - 1];
+      for (let j = 1; j <= n; j++) {
+          const c2 = text2[j - 1];
+          if (c1 === c2) {
+              dp[i][j] = dp[i - 1][j - 1] + 1;
+          } else {
+              dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+          }
+      }
+  }
+  return dp[m][n];
+};
+
+// 优化内存
+var longestCommonSubsequence = function(text1, text2) {
+  const m = text1.length, n = text2.length;
+  let dp = Array(n + 1).fill(0);
+  for (let i = 1; i <= m; i++) {
+    let newdp = [0]
+      const c1 = text1[i - 1];
+      for (let j = 1; j <= n; j++) {
+          const c2 = text2[j - 1];
+          if (c1 === c2) {
+            newdp.push(dp[j - 1] + 1);
+          } else {
+            newdp.push(Math.max(dp[j], newdp[j - 1]));
+          }
+      }
+      dp = newdp;
+  }
+  return dp[n];
+};
+
+// 781. 森林中的兔子 贪心算法
+/**
+ * @param {number[]} answers
+ * @return {number}
+ */
+ var numRabbits = function(answers) {
+  const count = new Map();
+  for (const y of answers) {
+      count.set(y, (count.get(y) || 0) + 1);
+  }
+  let ans = 0;
+  for (const [y, x] of count.entries()) {
+      ans += Math.floor((x + y) / (y + 1)) * (y + 1);
+  }
+  return ans;
+};
+
+// 88. 合并两个有序数组  倒序双指针
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+ var merge = function(nums1, m, nums2, n) {
+   let i = m -1,j = n -1,k = m +n -1
+   var cur;
+   while(j >= 0) {
+     if(i == -1) {
+       cur = nums2[j--]
+     } else if(nums1[i] > nums2[j]) {
+       cur = nums1[i--]
+     } else {
+       cur = nums2[j--]
+     }
+     nums1[k--] = cur
+   } 
+};
+// 80. 删除有序数组中的重复项 II  双指针 快慢指针
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var removeDuplicates = function(nums) {
+   let n = nums.length;
+   if(n <= 2) {
+     return n;
+   }
+   let slow = 2 ,fast = 2
+   while(fast < n) {
+     if(nums[slow -2] != nums[fast]) {
+       nums[slow] = nums[fast]
+       slow++;
+     }
+     fast++;
+   }
+   return slow;
+};
+
+// 81. 搜索旋转排序数组 II 二分查找
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {boolean}
+ */
+var search = function(nums, target) {
+  const n = nums.length;
+  if (n === 0) {
+      return false;
+  }
+  if (n === 1) {
+      return nums[0] === target;
+  }
+  let l = 0, r = n - 1;
+  while (l <= r) {
+      const mid = Math.floor((l + r) / 2);
+      if (nums[mid] === target) {
+          return true;
+      }
+      if (nums[l] === nums[mid] && nums[mid] === nums[r]) {
+          ++l;
+          --r;
+      } else if (nums[l] <= nums[mid]) {
+          if (nums[l] <= target && target < nums[mid]) {
+              r = mid - 1;
+          } else {
+              l = mid + 1;
+          }
+      } else {
+          if (nums[mid] < target && target <= nums[n - 1]) {
+              l = mid + 1;
+          } else {
+              r = mid - 1;
+          }
+      }
+  }
+  return false;
+};
