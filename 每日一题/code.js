@@ -6003,3 +6003,24 @@ var search = function(nums, target) {
    }
    return nums[i]
 };
+
+// 154. 寻找旋转排序数组中的最小值 II 二分查找
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMin = function(nums) {
+    let low = 0;
+    let high = nums.length - 1;
+    while (low < high) {
+        const pivot = Math.floor((high + low) / 2);
+        if (nums[pivot] < nums[high]) {
+            high = pivot;
+        } else if (nums[pivot] > nums[high]) {
+            low = pivot + 1;
+        } else {
+            high -= 1;
+        }
+    }
+    return nums[low];
+};
