@@ -6024,3 +6024,71 @@ var findMin = function(nums) {
     }
     return nums[low];
 };
+
+// 179. 最大数 排序
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+ var largestNumber = function(nums) {
+  nums.sort((x, y) => {
+      let sx = 10, sy = 10;
+      while (sx <= x) {
+          sx *= 10;
+      }
+      while (sy <= y) {
+          sy *= 10;
+      }
+      return '' + (sx * y + x) - ('' + (sy * x + y));
+  })
+  if (nums[0] === 0) {
+      return '0';
+  }
+  return nums.join('');
+};
+
+// 263. 丑数 基础题
+
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+ var isUgly = function(n) {
+   if(n <= 0) {
+     return false
+   }
+   let backup = [2,3,5], num = n
+   for (let i = 0; i < 3; i++) {
+     let item = backup[i]
+     while(num%item == 0) {
+       num = num/item
+     }
+   }
+   return num == 1 
+};
+
+// 264. 丑数 II  基础题
+ 
+/**
+ * @param {number} n
+ * @return {number}
+ */
+ var nthUglyNumber = function(n) {
+  const dp = new Array(n + 1).fill(0);
+  dp[1] = 1;
+  let p2 = 1, p3 = 1, p5 = 1;
+  for (let i = 2; i <= n; i++) {
+      const num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5;
+      dp[i] = Math.min(Math.min(num2, num3), num5);
+      if (dp[i] === num2) {
+          p2++;
+      }
+      if (dp[i] === num3) {
+          p3++;
+      }
+      if (dp[i] === num5) {
+          p5++;
+      }
+  }
+  return dp[n];
+};
