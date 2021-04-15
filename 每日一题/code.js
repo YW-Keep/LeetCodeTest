@@ -6161,3 +6161,30 @@ Trie.prototype.search = function(word) {
 Trie.prototype.startsWith = function(prefix) {
   return this.searchPrefix(prefix);
 };
+
+// 213. 打家劫舍 II 动态规划  如何保证第一个和最后一个只偷一个，剔除计算
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var rob = function(nums) {
+   if(nums.length == 0) {
+     return 0
+   } else if(nums.length == 1) {
+     return nums[0]
+   } else if (nums.length == 2) {
+     return Math.max(nums[0],nums[1])
+   } else {
+     return Math.max(rob1(1,nums.length -1),rob1(0,nums.length - 2))
+   }
+   function rob1(start,end) {
+     let temp1 = 0 ,temp2 = 0
+     for (let i = start; i <= end; i++) {
+       let temp = temp2;
+       temp2 = Math.max(temp1 + nums[i],temp2)
+       temp1 = temp
+     }
+     return temp2
+   }
+
+};
