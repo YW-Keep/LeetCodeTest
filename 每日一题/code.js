@@ -6188,3 +6188,33 @@ Trie.prototype.startsWith = function(prefix) {
    }
 
 };
+
+
+// 剑指 Offer 68 - I. 二叉搜索树的最近公共祖先 基础题
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+ var lowestCommonAncestor = function(root, p, q) {
+   let node = root
+   while(true) {
+     let value = node.val
+     if(p.val < value && q.val < value) {
+       node = node.left
+     } else if (value < p.val && value < q.val) {
+       node =  node.right
+     } else {
+       break;
+     }
+   }
+   return node
+};
