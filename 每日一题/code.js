@@ -6218,3 +6218,75 @@ Trie.prototype.startsWith = function(prefix) {
    }
    return node
 };
+
+// 26. 删除有序数组中的重复项 快慢指针
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var removeDuplicates = function(nums) {
+   let n = nums.length
+   if(n == 0) {
+     return 0
+   }
+   let fast = 1,slow = 1
+   while(fast < n) {
+     if(nums[fast] != nums[fast -1]) {
+       nums[slow] = nums[fast]
+       slow++
+     }
+     fast++
+   }
+   return slow
+};
+// 220. 存在重复元素 III 桶
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @param {number} t
+ * @return {boolean}
+ */
+ var containsNearbyAlmostDuplicate = function(nums, k, t) {
+  const n = nums.length;
+  const mp = new Map();
+  for (let i = 0; i < n; ++i) {
+      const x = nums[i];
+      const id = getID(x, t + 1);
+      if (mp.has(id)) {
+          return true;
+      }
+      if (mp.has(id - 1) && Math.abs(x - mp.get(id - 1)) <= t) {
+          return true;
+      }
+      if (mp.has(id + 1) && Math.abs(x - mp.get(id + 1)) <= t) {
+          return true;
+      }
+      mp.set(id, x);
+      if (i >= k) {
+          mp.delete(getID(nums[i - k], t + 1));
+      }
+  }
+  return false;
+};
+
+const getID = (x, w) => {
+  return x < 0 ? Math.floor((x + 1) / w) - 1 : Math.floor(x / w);
+}
+
+// 27. 移除元素 快慢指针
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+ var removeElement = function(nums, val) {
+   let fast = 0,slow = 0,n = nums.length
+   while(fast < n) {
+     if(nums[fast] != val) {
+       nums[slow] = nums[fast]
+       slow++
+     }
+     fast++
+   }
+   return slow
+};
