@@ -6423,3 +6423,61 @@ const getID = (x, w) => {
   }
   return res;
 };
+
+// 897. 递增顺序搜索树 二叉树的中序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+
+ var increasingBST = function(root) {
+  const res = [];
+  inorder(root, res);
+
+  const dummyNode = new TreeNode(-1);
+  let currNode = dummyNode;
+  for (const value of res) {
+      currNode.right = new TreeNode(value);
+      currNode = currNode.right;
+  }
+  return dummyNode.right;
+
+  function inorder (node, res) {
+    if (!node) {
+        return;
+    }
+    inorder(node.left, res);
+    res.push(node.val);
+    inorder(node.right, res);
+  }
+};
+
+// 377. 组合总和 Ⅳ 动态规划
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var combinationSum4 = function(nums, target) {
+    let backup = Array(target +1).fill(0);
+    nums.sort((a,b) => a-b)
+    backup[0] = 1;
+    for (let i = 1; i <= target; i++) {
+        for(let num of nums) {
+            if ( num <= i) {
+                backup[i] += backup[i - num];
+            } else {
+                break;
+            }
+        }
+    }
+    return backup[target];
+};
