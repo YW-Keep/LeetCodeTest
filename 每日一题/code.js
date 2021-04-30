@@ -6599,3 +6599,12 @@ var combinationSum4 = function(nums, target) {
   return false;
 };
 
+// 137. 只出现一次的数字 II 状态转化
+var singleNumber = function(nums) {
+  let a = 0, b = 0;
+  for (const num of nums) {
+      b = ~a & (b ^ num);
+      a = ~b & (a ^ num);
+  }
+  return b;
+};
