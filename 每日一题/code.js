@@ -6608,3 +6608,53 @@ var singleNumber = function(nums) {
   }
   return b;
 };
+
+// 1720. 解码异或后的数组  基础题
+/**
+ * @param {number[]} encoded
+ * @param {number} first
+ * @return {number[]}
+ */
+var decode = function(encoded, first) {
+  const n = encoded.length + 1;
+  const arr = new Array(n).fill(0);
+  arr[0] = first;
+  for (let i = 1; i < n; i++) {
+      arr[i] = arr[i - 1] ^ encoded[i - 1];
+  }
+  return arr;
+};
+
+// 690. 员工的重要性 遍历
+/**
+ * Definition for Employee.
+ * function Employee(id, importance, subordinates) {
+ *     this.id = id;
+ *     this.importance = importance;
+ *     this.subordinates = subordinates;
+ * }
+ */
+
+/**
+ * @param {Employee[]} employees
+ * @param {number} id
+ * @return {number}
+ */
+var GetImportance = function(employees, id) {
+  const map = new Map();
+  for (const employee of employees) {
+      map.set(employee.id, employee);
+  }
+  const dfs = (id) => {
+      const employee = map.get(id);
+      let total = employee.importance;
+      const subordinates = employee.subordinates;
+      for (const subId of subordinates) {
+          total += dfs(subId);
+      }
+      return total;
+      
+  }
+
+  return dfs(id);
+};
