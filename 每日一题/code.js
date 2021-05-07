@@ -6658,3 +6658,49 @@ var GetImportance = function(employees, id) {
 
   return dfs(id);
 };
+
+// 1486. 数组异或操作  数学题
+/**
+ * @param {number} n
+ * @param {number} start
+ * @return {number}
+ */
+var xorOperation = function(n, start) {
+    let s = start >> 1, e = n & start & 1;
+    let ret = sumXor(s - 1) ^ sumXor(s + n - 1);
+    return ret << 1 | e;
+};
+
+const sumXor = (x) => {
+    if (x % 4 === 0) {
+        return x;
+    }
+    if (x % 4 === 1) {
+        return 1;
+    }
+    if (x % 4 === 2) {
+        return x + 1;
+    }
+    return 0;
+}
+
+// 554. 砖墙 统计最多的边缘  统计长度，看看哪个最多
+/**
+ * @param {number[][]} wall
+ * @return {number}
+ */
+var leastBricks = function(wall) {
+  let backup = new Map(),num = wall.length
+  for (let i = 0; i < num; i++) {
+    let sum = 0,nums = wall[i]
+    for (let j = 0; j < nums.length -1; j++) {
+      sum += nums[j]
+      backup.set(sum,(backup.get(sum) || 0) +1)
+    }
+  }
+  let max = 0
+  backup.forEach(function(value,key){
+    max = Math.max(max,value)
+　}); 
+  return num - max;
+};
