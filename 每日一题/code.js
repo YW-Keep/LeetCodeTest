@@ -6765,3 +6765,76 @@ const backtrack = (jobs, workloads, i, limit) => {
     }
     return false;
 }
+
+// 872. 叶子相似的树 二叉树的遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {boolean}
+ */
+ var leafSimilar = function(root1, root2) {
+   let seq1 = []
+   dfs(root1,seq1);
+   let seq2 = []
+   dfs(root2,seq2);
+   return seq1.toString() === seq2.toString();
+
+  function dfs(node,seq) {
+    if(!node) {return}
+    if(!node.left && !node.right) {
+      seq.push(node.val);
+    } else {
+      dfs(node.left,seq)
+      dfs(node.right,seq)
+    }
+  }
+};
+
+// 1482. 制作 m 束花所需的最少天数 二分查找定位
+/**
+ * @param {number[]} bloomDay
+ * @param {number} m
+ * @param {number} k
+ * @return {number}
+ */
+var minDays = function(bloomDay, m, k) {
+    if (m > bloomDay.length / k) {
+        return -1;
+    }
+    let low = Math.min.apply(null, bloomDay), high = Math.max.apply(null, bloomDay);
+    while (low < high) {
+        const days = Math.floor((high - low) / 2) + low;
+        if (canMake(bloomDay, days, m, k)) {
+            high = days;
+        } else {
+            low = days + 1;
+        }
+    }
+    return low;
+};
+
+const canMake = (bloomDay, days, m, k) => {
+    let bouquets = 0;
+    let flowers = 0;
+    const length = bloomDay.length;
+    for (let i = 0; i < length && bouquets < m; i++) {
+        if (bloomDay[i] <= days) {
+            flowers++;
+            if (flowers == k) {
+                bouquets++;
+                flowers = 0;
+            }
+        } else {
+            flowers = 0;
+        }
+    }
+    return bouquets >= m;
+}
