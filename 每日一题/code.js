@@ -6838,3 +6838,56 @@ const canMake = (bloomDay, days, m, k) => {
     }
     return bouquets >= m;
 }
+
+// 1734. 解码异或后的排列 基础题
+/**
+ * @param {number[]} encoded
+ * @return {number[]}
+ */
+var decode = function(encoded) {
+  const n = encoded.length + 1;
+  let total = 0;
+  for (let i = 1; i <= n; i++) {
+      total ^= i;
+  }
+  let odd = 0;
+  for (let i = 1; i < n - 1; i += 2) {
+      odd ^= encoded[i];
+  }
+  const perm = new Array(n).fill(0);
+  perm[0] = total ^ odd;
+  for (let i = 0; i < n - 1; i++) {
+      perm[i + 1] = perm[i] ^ encoded[i];
+  }
+  return perm;
+};
+
+
+// 740. 删除并获得点数  打家劫舍变种
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var deleteAndEarn = function(nums) {
+  let maxVal = 0;
+  for (const val of nums) {
+      maxVal = Math.max(maxVal, val);
+  }
+  const sum = new Array(maxVal + 1).fill(0);
+  for (const val of nums) {
+      sum[val] += val;
+  }
+  return rob(sum);
+
+  function rob (nums) {
+    const size = nums.length;
+    let first = nums[0], second = Math.max(nums[0], nums[1]);
+    for (let i = 2; i < size; i++) {
+        let temp = second;
+        second = Math.max(first + nums[i], second);
+        first = temp;
+    }
+    return second;
+  }
+};
+
