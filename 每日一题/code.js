@@ -6891,3 +6891,42 @@ var decode = function(encoded) {
   }
 };
 
+// 1310. 子数组异或查询 数学题
+/**
+ * @param {number[]} arr
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+ var xorQueries = function(arr, queries) {
+  const n = arr.length;
+  const xors = new Array(n + 1).fill(0);
+  for (let i = 0; i < n; i++) {
+      xors[i + 1] = xors[i] ^ arr[i];
+  }
+  const m = queries.length;
+  const ans = new Array(m).fill(0);
+  for (let i = 0; i < m; i++) {
+      ans[i] = xors[queries[i][0]] ^ xors[queries[i][1] + 1];
+  }
+  return ans;
+};
+
+// 剑指 Offer 16. 数值的整数次方 递归
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+ var myPow = function(x, n) {
+  if(n === 0) return 1;
+  if(n === 1) return x;
+  if(n === -1) return 1/x;
+  if(n%2===0){
+      let a = myPow(x,n/2);
+      return a * a
+  }
+  else{
+      let b = myPow(x,(n-1)/2);
+      return b*b*x
+  }
+};
