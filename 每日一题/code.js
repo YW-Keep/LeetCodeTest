@@ -7068,3 +7068,40 @@ var romanToInt = function(s) {
   }
   return ans;
 };
+
+// 421. 数组中两个数的最大异或值
+
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var findMaximumXOR = function(nums) {
+   let maxXOR = -Infinity;
+   for(let i = 0;i<nums.length;i++) {
+    for(let j = i;j<nums.length;j++) {
+       maxXOR = Math.max(maxXOR,nums[i] ^ nums[j]);
+    }
+   }
+   return maxXOR;
+};
+
+// 1442. 形成两个异或相等数组的三元组数目  优化，哈希表
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var countTriplets = function(arr) {
+    const cnt = new Map(), total = new Map();
+    let ans = 0, s = 0;
+
+    for (const [k, val] of arr.entries()) {
+        const t = s ^ val;
+        if (cnt.has(t)) {
+            ans += cnt.get(t) * k - total.get(t);
+        }
+        cnt.set(s, (cnt.get(s) || 0) + 1);
+        total.set(s, (total.get(s) || 0) + k);
+        s = t;
+    }
+    return ans;
+};
