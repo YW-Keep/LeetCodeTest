@@ -7212,3 +7212,76 @@ var topKFrequent = function(words, k) {
   }
   return xor == 0;
 };
+
+// 1787. 使所有区间的异或结果为零 数学+动态规划
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+ var minChanges = function(nums, k) {
+  // x 的范围为 [0, 2^10)
+  const MAXX = 2**10;
+
+  const n = nums.length;
+  let f = new Array(MAXX).fill(Number.MAX_VALUE);
+  // 边界条件 f(-1,0)=0
+  f[0] = 0;
+
+  for (let i = 0; i < k; i++) {
+      // 第 i 个组的哈希映射
+      const count = new Map();
+      let size = 0;
+      for (let j = i; j < n; j += k) {
+          count.has(nums[j]) ? count.set(nums[j], count.get(nums[j]) + 1) : count.set(nums[j], 1);
+          size++;
+      }
+
+      // 求出 t2
+      const t2min = Math.min(...f);
+
+      const g = new Array(MAXX).fill(t2min);
+      for (let mask = 0; mask < MAXX; mask++) {
+          // t1 则需要枚举 x 才能求出
+          for (const [x, countx] of count.entries()) {
+              g[mask] = Math.min(g[mask], f[mask ^ x] - countx);
+          }
+      }
+
+      // 别忘了加上 size
+      for (const [index, val] of g.entries()) {
+          f[index] = val + size;
+      }
+  }
+
+  return f[0];
+};
+
+// 剑指 Offer 68 - II. 二叉树的最近公共祖先  遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+ var lowestCommonAncestor = function(root, p, q) {
+  let ans;
+  const dfs = (root, p, q) => {
+      if (root === null) return false;
+      const lson = dfs(root.left, p, q);
+      const rson = dfs(root.right, p, q);
+      if ((lson && rson) || ((root.val === p.val || root.val === q.val) && (lson || rson))) {
+          ans = root;
+      } 
+      return lson || rson || (root.val === p.val || root.val === q.val);
+  }
+  dfs(root, p, q);
+  return ans;
+};
