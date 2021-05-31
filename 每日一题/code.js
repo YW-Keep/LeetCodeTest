@@ -7333,3 +7333,21 @@ var reverseParentheses = function(s) {
   }
   return ret;
 };
+
+// 342. 4的幂 基础题
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+ var isPowerOfFour = function(n) {
+  return n > 0 && (n & (n - 1)) === 0 && n % 3 === 1;
+};
+
+// 231. 2 的幂  基础题
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfTwo = function(n) {
+    return n > 0 && (n & (n - 1)) === 0;
+};
