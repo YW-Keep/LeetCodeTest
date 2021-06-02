@@ -7378,3 +7378,31 @@ var canEat = function(candiesCount, queries) {
   }
   return ans;
 };
+
+// 523. 连续的子数组和 前缀 映射
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+ var checkSubarraySum = function(nums, k) {
+   if(nums.length < 2) {
+     return false;
+   }
+   let backup = new Map()
+   backup.set(0,-1)
+   let remainder = 0
+   for (let i = 0; i < nums.length; i++) {
+     remainder = (remainder + nums[i])%k
+     if(backup.has(remainder)) {
+       let prevI = backup.get(remainder)
+       if(i - prevI  >= 2) {
+         return true
+       }
+     } else {
+       backup.set(remainder,i);
+     }
+   }
+   return false
+};
