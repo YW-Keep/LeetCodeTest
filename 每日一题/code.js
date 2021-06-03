@@ -7406,3 +7406,28 @@ var canEat = function(candiesCount, queries) {
    }
    return false
 };
+
+// 525. 连续数组 前缀 映射
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var findMaxLength = function(nums) {
+  let backup = new Map()
+  backup.set(0,-1)
+  let remainder = 0,max = 0
+  for (let i = 0; i < nums.length; i++) {
+    if(nums[i] == 1) {
+      remainder++
+    } else {
+      remainder--
+    }
+    if(backup.has(remainder)) {
+      let prevI = backup.get(remainder)
+      max = Math.max(max,i - prevI);
+    } else {
+      backup.set(remainder,i);
+    }
+  }
+  return max
+};
