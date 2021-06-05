@@ -7457,3 +7457,32 @@ var canEat = function(candiesCount, queries) {
   }
   return pA;
 };
+
+
+// 203. 移除链表元素 基础题
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} val
+ * @return {ListNode}
+ */
+ var removeElements = function(head, val) {
+   let temp = new ListNode(0,head)
+   let next = temp
+   while(next.next) {
+     let node = next.next;
+     if(node.val  == val) {
+       next.next =  node.next
+       node.next = null
+     } else {
+       next = node;
+     }
+   }
+   return temp.next
+};
