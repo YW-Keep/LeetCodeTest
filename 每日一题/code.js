@@ -7486,3 +7486,76 @@ var canEat = function(candiesCount, queries) {
    }
    return temp.next
 };
+
+// 494. 目标和 递归
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+ var findTargetSumWays = function(nums, S) {
+  let n = 0;
+  const loop = (idx, sum) => {
+      if(nums.length > idx){
+          loop(idx + 1, sum + nums[idx]);
+          loop(idx + 1, sum - nums[idx]);
+      }else{
+          sum === S && n++;
+      }
+  }
+  loop(0, 0);
+  return n;
+};
+
+
+// 剑指 Offer 36. 二叉搜索树与双向链表 基础题
+/**
+ * // Definition for a Node.
+ * function Node(val,left,right) {
+ *    this.val = val;
+ *    this.left = left;
+ *    this.right = right;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+ var treeToDoublyList = function(root) {
+
+  //特殊情况的考虑
+  if(!root) return null;
+
+  //1.进行中序遍历,存入每个节点的指针
+  let nodeSet=[];
+  const inOrder=node=>{
+      if(!node){
+          return;
+      }
+      inOrder(node.left);
+      let p=node;
+      nodeSet.push(p);
+      inOrder(node.right);
+  };
+  inOrder(root);
+
+  //2.连接成循环双向链表
+  if(nodeSet.length===1){
+      nodeSet[0].left=nodeSet[0];
+      nodeSet[0].right=nodeSet[0];
+  }else{
+      for(let i=1;i<nodeSet.length-1;i++){
+          //首尾结点待会单独考虑
+          nodeSet[i].left=nodeSet[i-1];
+          nodeSet[i].right=nodeSet[i+1];
+      }
+      nodeSet[0].left=nodeSet[nodeSet.length-1];
+      nodeSet[0].right=nodeSet[1];
+      nodeSet[nodeSet.length-1].right=nodeSet[0];
+      nodeSet[nodeSet.length-1].left=nodeSet[nodeSet.length-2];
+  }
+  return nodeSet[0];
+
+};
+
+
