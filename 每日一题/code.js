@@ -7873,3 +7873,17 @@ var maxLength = function(arr) {
   }
   return recArr;
 };
+
+// 剑指 Offer 15. 二进制中1的个数 基础题
+/**
+ * @param {number} n - a positive integer
+ * @return {number}
+ */
+ var hammingWeight = function(n) {
+  let ret = 0;
+  while (n) {
+      n &= n - 1;
+      ret++;
+  }
+  return ret;
+};
