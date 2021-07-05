@@ -8118,3 +8118,142 @@ const rdeserialize = (dataList) => {
   }
   return dp[n - 1];
 };
+
+// 1833. 雪糕的最大数量  排序
+/**
+ * @param {number[]} costs
+ * @param {number} coins
+ * @return {number}
+ */
+ var maxIceCream = function(costs, coins) {
+  costs.sort((a, b) => a - b);
+  let count = 0;
+  const n = costs.length;
+  for (let i = 0; i < n; i++) {
+      const cost = costs[i];
+      if (coins >= cost) {
+          coins -= cost;
+          count++;
+      } else {
+          break;
+      }
+  }
+  return count;
+};
+
+// 451. 根据字符出现频率排序
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var frequencySort = function(s) {
+    const map = new Map();
+    const length = s.length;
+    for (let i = 0; i < length; i++) {
+        const c = s[i];
+        const frequency = (map.get(c) || 0) + 1;
+        map.set(c, frequency);
+    }
+    const list = [...map.keys()];
+    list.sort((a, b) => map.get(b) - map.get(a));
+    const sb = [];
+    const size = list.length;
+    for (let i = 0; i < size; i++) {
+        const c = list[i];
+        const frequency = map.get(c);
+        for (let j = 0; j < frequency; j++) {
+            sb.push(c);
+        }
+    }
+    return sb.join('');
+};
+
+// 645. 错误的集合 map
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findErrorNums = function(nums) {
+    const errorNums = new Array(2).fill(0);
+    const n = nums.length;
+    const map = new Map();
+    for (const num of nums) {
+        map.set(num, (map.get(num) || 0) + 1);
+    }
+    for (let i = 1; i <= n; i++) {
+        const count = map.get(i) || 0;
+        if (count === 2) {
+            errorNums[0] = i;
+        } else if (count === 0) {
+            errorNums[1] = i;
+        }
+    }
+    return errorNums;
+};
+
+// 726. 原子的数量 栈
+/**
+ * @param {string} formula
+ * @return {string}
+ */
+var countOfAtoms = function(formula) {
+    let i = 0;
+    const n = formula.length;
+
+    const stack = [new Map()];
+    while (i < n) {
+        const ch = formula[i];
+
+        const parseAtom = () => {
+            const sb = [];
+            sb.push(formula[i++]); // 扫描首字母
+            while (i < n && formula[i] >= 'a' && formula[i] <= 'z') {
+                sb.push(formula[i++]); // 扫描首字母后的小写字母
+            }
+            return sb.join('');
+        }
+
+        const parseNum = () => {
+            if (i === n || isNaN(Number(formula[i]))) {
+                return 1; // 不是数字，视作 1
+            }
+            let num = 0;
+            while (i < n && !isNaN(Number(formula[i]))) {
+                num = num * 10 + formula[i++].charCodeAt() - '0'.charCodeAt(); // 扫描数字
+            }
+            return num;
+        }
+
+        if (ch === '(') {
+            i++;
+            stack.unshift(new Map()); // 将一个空的哈希表压入栈中，准备统计括号内的原子数量
+        } else if (ch === ')') {
+            i++;
+            const num = parseNum(); // 括号右侧数字
+            const popMap = stack.shift(); // 弹出括号内的原子数量
+            const topMap = stack[0];
+            for (const [atom, v] of popMap.entries()) {
+                topMap.set(atom, (topMap.get(atom) || 0) + v * num); // 将括号内的原子数量乘上 num，加到上一层的原子数量中
+            }
+        } else {
+            const atom = parseAtom();
+            const num = parseNum();
+            const topMap = stack[0];
+            topMap.set(atom, (topMap.get(atom) || 0) + num); // 统计原子数量
+            
+        }
+    }
+
+    let map = stack.pop();
+    map = Array.from(map);
+    map.sort();
+    const sb = [];
+    for (const [atom, count] of map) {
+        sb.push(atom);
+        if (count > 1) {
+            sb.push(count);
+        }
+    }
+    return sb.join('');
+};
+
