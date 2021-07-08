@@ -8336,3 +8336,21 @@ var displayTable = function(orders) {
   }
   return pairs;
 };
+
+// 930. 和相同的二元子数组 map 前缀树
+/**
+ * @param {number[]} nums
+ * @param {number} goal
+ * @return {number}
+ */
+ var numSubarraysWithSum = function(nums, goal) {
+   let backup = new Map()
+   let sum = 0,ret = 0
+   for (let i = 0; i < nums.length; i++) {
+     backup.set(sum,(backup.get(sum)|| 0) +1)
+     sum += nums[i]
+     ret += (backup.get(sum - goal) || 0)
+   }
+   return ret;
+
+};
