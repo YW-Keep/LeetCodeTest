@@ -8382,3 +8382,38 @@ var displayTable = function(orders) {
   }
   return count * 2 > length ? candidate : -1;
 };
+
+// 275. H 指数 II 二分查找
+/**
+ * @param {number[]} citations
+ * @return {number}
+ */
+var hIndex = function(citations) {
+  let n = citations.length;
+  let left = 0, right = n - 1;
+  while (left <= right) {
+      const mid = left + Math.floor((right - left) / 2);
+      if (citations[mid] >= n - mid) {
+          right = mid - 1;
+      } else {
+          left = mid + 1;
+      }
+  }
+  return n - left;
+};
+
+// 274. H 指数 排序
+/**
+ * @param {number[]} citations
+ * @return {number}
+ */
+
+var hIndex = function(citations) {
+    citations.sort((a, b) => a - b);
+    let h = 0, i = citations.length - 1; 
+    while (i >= 0 && citations[i] > h) {
+        h++; 
+        i--;
+    }
+    return h;
+};
