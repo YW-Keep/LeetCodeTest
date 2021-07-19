@@ -8538,3 +8538,72 @@ var search = function(nums, target) {
   }
 
 };
+
+// 剑指 Offer 42. 连续子数组的最大和  动态规划
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var maxSubArray = function(nums) {
+  let max = nums[0]
+  for (let i = 1; i < nums.length; i++) {
+      let num = nums[i]
+      if(nums[i-1] > 0) {
+          num += nums[i-1]
+      }
+      if(num > max) {
+          max = num;
+      }
+      nums[i] = num
+  }
+  return max;
+};
+
+// 面试题 10.02. 变位词组 映射
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+ var groupAnagrams = function(strs) {
+  let bp = new Map()
+  for (let index = 0; index < strs.length; index++) {
+      let str  = strs[index]
+      let key = str.split('').sort(function(a,b){return b.localeCompare(a)}).join('')
+      if(bp.get(key)) {
+          bp.get(key).push(str)
+      } else {
+          bp.set(key,[str])
+      }
+  }
+  let result = []
+  for (let item of bp) {
+      result.push(item[1])      
+  }
+  return result;
+};
+
+// 1838. 最高频元素的频数 排序 + 滑动窗口
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var maxFrequency = function(nums, k) {
+  nums.sort((a, b) => a - b);
+  const n = nums.length;
+  let total = 0, res = 1, l = 0;
+
+  for (let r = 1; r < n; r++) {
+      total += (nums[r] - nums[r - 1]) * (r - l);
+      while (total > k) {
+          total -= nums[r] - nums[l];
+          l += 1;
+      }
+      res = Math.max(res, r - l + 1);
+  }
+  return res;
+};
