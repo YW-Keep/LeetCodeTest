@@ -8649,3 +8649,57 @@ var maxFrequency = function(nums, k) {
   return pA;
 };
 
+
+// 138. 复制带随机指针的链表  迭代 + 节点拆分
+/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+ var copyRandomList = function(head) {
+  if (head === null) {
+      return null;
+  }
+  for (let node = head; node !== null; node = node.next.next) {
+      const nodeNew = new Node(node.val, node.next, null);
+      node.next = nodeNew;
+  }
+  for (let node = head; node !== null; node = node.next.next) {
+      const nodeNew = node.next;
+      nodeNew.random = (node.random !== null) ? node.random.next : null;
+  }
+  const headNew = head.next;
+  for (let node = head; node !== null; node = node.next) {
+      const nodeNew = node.next;
+      node.next = node.next.next;
+      nodeNew.next = (nodeNew.next !== null) ? nodeNew.next.next : null;
+  }
+  return headNew;
+};
+
+
+// 1893. 检查是否区域内所有整数都被覆盖 差分数组
+var isCovered = function(ranges, left, right) {
+  const diff = new Array(52).fill(0); // 差分数组
+  for (const [l, r] of ranges) {
+      diff[l]++;
+      diff[r + 1]--;
+  }
+  // 前缀和
+  let curr = 0;
+  for (let i = 1; i < 51; i++) {
+      curr += diff[i];
+      if (left <= i && i <= right && curr <= 0) {
+          return false;
+      }
+  }
+  return true;
+};
