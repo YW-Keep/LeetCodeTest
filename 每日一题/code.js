@@ -8703,3 +8703,95 @@ var isCovered = function(ranges, left, right) {
   }
   return true;
 };
+
+// 1736. 替换隐藏数字得到的最晚时间  基础逻辑题
+/**
+ * @param {string} time
+ * @return {string}
+ */
+ var maximumTime = function(time) {
+  const arr = Array.from(time);
+  if (arr[0] === '?') {
+      arr[0] = ('4' <= arr[1] && arr[1] <= '9') ? '1' : '2';
+  }
+  if (arr[1] === '?') {
+      arr[1] = (arr[0] == '2') ? '3' : '9';
+  }
+  if (arr[3] === '?') {
+      arr[3] = '5';
+  }
+  if (arr[4] === '?') {
+      arr[4] = '9';
+  }
+  return arr.join('');
+};
+
+// 1743. 从相邻元素对还原数组 哈希表
+/**
+ * @param {number[][]} adjacentPairs
+ * @return {number[]}
+ */
+ var restoreArray = function(adjacentPairs) {
+  const map = new Map();
+  for (const adjacentPair of adjacentPairs) {
+      map.get(adjacentPair[0]) ? map.get(adjacentPair[0]).push(adjacentPair[1]) : map.set(adjacentPair[0], [adjacentPair[1]]);
+      map.get(adjacentPair[1]) ? map.get(adjacentPair[1]).push(adjacentPair[0]) : map.set(adjacentPair[1], [adjacentPair[0]]);
+  }
+
+  const n = adjacentPairs.length + 1;
+  const ret = new Array(n).fill(0);
+  for (const [e, adj] of map.entries()) {
+      if (adj.length === 1) {
+          ret[0] = e;
+          break;
+      }
+  }
+
+  ret[1] = map.get(ret[0])[0];
+  for (let i = 2; i < n; i++) {
+      const adj = map.get(ret[i - 1]);
+      ret[i] = ret[i - 2] == adj[0] ? adj[1] : adj[0];
+  }
+  return ret;
+};
+
+// 1713. 得到子序列的最少操作次数 转化问题 变成 获取最长的递增序列
+var minOperations = function(target, arr) {
+  const n = target.length;
+  const pos = new Map();
+  for (let i = 0; i < n; ++i) {
+      pos.set(target[i], i);
+  }
+  const d = [];
+  for (const val of arr) {
+      if (pos.has(val)) {
+          const idx = pos.get(val);
+          const it = binarySearch(d, idx);
+          if (it !== d.length) {
+              d[it] = idx;
+          } else {
+              d.push(idx);
+          }
+      }
+  }
+  return n - d.length;
+
+  function binarySearch(d, target)  {
+    const size = d.length;
+    if (size === 0 || d[size - 1] < target) {
+        return size;
+    }
+    let low = 0, high = size - 1;
+    while (low < high) {
+        const mid = Math.floor((high - low) / 2) + low;
+        if (d[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+    return low;
+  }
+};
+
+
