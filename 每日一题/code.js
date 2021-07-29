@@ -8884,3 +8884,25 @@ var minOperations = function(target, arr) {
 
   return ans;
 };
+
+// 1104. 二叉树寻路 先考虑顺序排列，在对单数排做特殊处理
+/**
+ * @param {number} label
+ * @return {number[]}
+ */
+ var pathInZigZagTree = function(label) {
+  let result = [];
+  while(label > 0) {
+      result.unshift(label);
+      label = Math.floor(label/2);
+  }
+  let flg = result.length%2;
+  let base = 2;
+  for (let index = 1; index < result.length; index++) {
+      if(flg == index%2) {
+          result[index] = base*3 - 1 - result[index];
+      }
+      base = base*2;
+  }
+  return result;
+};
