@@ -8906,3 +8906,70 @@ var minOperations = function(target, arr) {
   }
   return result;
 };
+
+// 171. Excel 表列序号 基础逻辑题
+/**
+ * @param {string} columnTitle
+ * @return {number}
+ */
+var titleToNumber = function(columnTitle) {
+  let number = 0;
+  let multiple = 1;
+  for (let i = columnTitle.length - 1; i >= 0; i--) {
+      const k = columnTitle[i].charCodeAt() - 'A'.charCodeAt() + 1;
+      number += k * multiple;
+      multiple *= 26;
+  }
+  return number;
+};
+
+// 987. 二叉树的垂序遍历 映射 排序
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[][]}
+ */
+ var verticalTraversal = function(root) {
+  const nodes = [];
+  dfs(root, 0, 0, nodes);
+  nodes.sort((tuple1, tuple2) => {
+      if (tuple1[0] !== tuple2[0]) {
+          return tuple1[0] - tuple2[0];
+      } else if (tuple1[1] !== tuple2[1]) {
+          return tuple1[1] - tuple2[1];
+      } else {
+          return tuple1[2] - tuple2[2];
+      }
+  });
+
+  const ans = [];
+  let lastcol = -Number.MAX_VALUE;
+  for (const tuple of nodes) {
+      let col = tuple[0], row = tuple[1], value = tuple[2];
+      if (col !== lastcol) {
+          lastcol = col;
+          ans.push([]);
+      }
+      ans[ans.length - 1].push(value);
+  }
+  return ans;
+
+
+  function dfs(node, row, col, nodes) {
+    if (node === null) {
+        return;
+    }
+    nodes.push([col, row, node.val]);
+    dfs(node.left, row + 1, col - 1, nodes);
+    dfs(node.right, row + 1, col + 1, nodes);
+  }
+}
+
+
