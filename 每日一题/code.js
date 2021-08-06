@@ -9098,3 +9098,31 @@ var kWeakestRows = function (mat, k) {
   }
 };
 
+// 面试题 16.14. 最佳直线 数学题
+/**
+ * @param {number[][]} points
+ * @return {number[]}
+ */
+var bestLine = function (points) {
+    var max=0;
+    var res=[];
+    var l=points.length;
+    for(var i=0; i<l; i++){
+        for(var j=i+1; j<l; j++){
+            var count=2;
+            for(var k=j+1; k<l; k++){
+                if(
+                        (points[j][0]-points[i][0])*(points[k][1]-points[j][1])==
+                        (points[j][1]-points[i][1])*(points[k][0]-points[j][0])                    
+                    ){
+                        count++;
+                }
+            }
+            if(count>max){
+                max=count;
+                res=[i,j];
+            }
+        }
+    }
+    return res;
+}
