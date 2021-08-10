@@ -9126,3 +9126,115 @@ var bestLine = function (points) {
     }
     return res;
 }
+
+// 457. 环形数组是否存在循环 双指针
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+ var circularArrayLoop = function(nums) {
+  const n = nums.length;
+  for (let i = 0; i < n; i++) {
+      if (nums[i] === 0) {
+          continue;
+      }
+      let slow = i, fast = next(nums, i);
+      // 判断非零且方向相同
+      while (nums[slow] * nums[fast] > 0 && nums[slow] * nums[next(nums, fast)] > 0) {
+          if (slow === fast) {
+              if (slow !== next(nums, slow)) {
+                  return true;
+              } else {
+                  break;
+              }
+          }
+          slow = next(nums, slow);
+          fast = next(nums, next(nums, fast));
+      }
+      let add = i;
+      while (nums[add] * nums[next(nums, add)] > 0) {
+          const tmp = add;
+          add = next(nums, add);
+          nums[tmp] = 0;
+      }
+  }
+  return false;
+
+  function next (nums, cur) {
+    const n = nums.length;
+    return ((cur + nums[cur]) % n + n) % n; // 保证返回值在 [0,n) 中
+  }
+}
+
+
+// 1137. 第 N 个泰波那契数 动态规划
+/**
+ * @param {number} n
+ * @return {number}
+ */
+ var tribonacci = function(n) {
+  if (n === 0) {
+      return 0;
+  }
+  if (n <= 2) {
+      return 1;
+  }
+  let p = 0, q = 0, r = 1, s = 1;
+  for (let i = 3; i <= n; ++i) {
+      p = q;
+      q = r;
+      r = s;
+      s = p + q + r;
+  }
+  return s;
+};
+
+// 313. 超级丑数 动态规划
+/**
+ * @param {number} n
+ * @param {number[]} primes
+ * @return {number}
+ */
+ var nthSuperUglyNumber = function(n, primes) {
+  const dp = new Array(n + 1).fill(0);
+  dp[1] = 1;
+  const m = primes.length;
+  const pointers = new Array(m).fill(1);
+  for (let i = 2; i <= n; i++) {
+      const nums = new Array(m).fill(m);
+      let minNum = Number.MAX_SAFE_INTEGER;
+      for (let j = 0; j < m; j++) {
+          nums[j] = dp[pointers[j]] * primes[j];
+          minNum = Math.min(minNum, nums[j]);
+      }
+      dp[i] = minNum;
+      for (let j = 0; j < m; j++) {
+          if (minNum == nums[j]) {
+              pointers[j]++;
+          }
+      }
+  }
+  return dp[n];
+};
+
+// 413. 等差数列划分
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var numberOfArithmeticSlices = function(nums) {
+   let len = nums.length 
+   if(len < 3) {
+     return 0
+   }
+   let res = 0,count =0
+   for (let i = 2; i < len; i++) {
+     if(nums[i] - nums[i - 1] === nums[i - 1] - nums[i - 2]) {
+       count++
+       res += count
+     } else {
+       count = 0
+     }
+   }
+   return res
+};
