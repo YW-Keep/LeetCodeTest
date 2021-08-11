@@ -9217,7 +9217,7 @@ var bestLine = function (points) {
   return dp[n];
 };
 
-// 413. 等差数列划分
+// 413. 等差数列划分 基础题
 /**
  * @param {number[]} nums
  * @return {number}
@@ -9238,3 +9238,27 @@ var bestLine = function (points) {
    }
    return res
 };
+
+// 446. 等差数列划分 II - 子序列 等差数列
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var numberOfArithmeticSlices = function(nums) {
+  let ans = 0;
+  const n = nums.length;
+  const f = new Map();
+  for (let i = 0; i < n; ++i) {
+      f[i] = new Map();
+  }
+  for (let i = 0; i < n; ++i) {
+      for (let j = 0; j < i; ++j) {
+          const d = nums[i] - nums[j];
+          const cnt = f[j].get(d) || 0;
+          ans += cnt;
+          f[i].set(d, (f[i].get(d) || 0) + cnt + 1);
+      }
+  }
+  return ans;
+};
+
