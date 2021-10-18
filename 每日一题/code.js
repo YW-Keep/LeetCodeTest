@@ -9326,3 +9326,37 @@ var numberOfArithmeticSlices = function(nums) {
   }
   return answer;
 };
+
+// 剑指 Offer II 069. 山峰数组的顶部 基础题
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+ var peakIndexInMountainArray = function(arr) {
+  const n = arr.length;
+  let ans = -1;
+
+  for (let i = 1; i < n - 1; ++i) {
+      if (arr[i] > arr[i + 1]) {
+          ans = i;
+          break;
+      }
+  }
+  return ans;
+};
+
+// 476. 数字的补数 位运算
+/**
+ * @param {number} num
+ * @return {number}
+ */
+ var findComplement = function(num) {
+  // 计算num二进制数的长度
+const len = num.toString(2).length;
+// 构造长度为len、全为1的字符串
+const str = new Array(len).fill(1).join('');
+// 转化为二进制数
+const N = parseInt(str, 2);
+return N ^ num;
+
+};
