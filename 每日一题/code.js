@@ -9421,3 +9421,17 @@ class TrieNode {
       return this.isEnd;
   }
 }
+
+// 453. 最小操作次数使数组元素相等  n-1个加就是一个减  基础题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var minMoves = function(nums) {
+  const minNum = Math.min(...nums);
+  let res = 0;
+  for (const num of nums) {
+      res += num - minNum;
+  }
+  return res;
+};
