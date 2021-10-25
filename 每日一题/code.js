@@ -9509,3 +9509,39 @@ class TrieNode {
 
   return ans;
 };
+
+// 492. 构造矩形 基础数学题
+/**
+ * @param {number} area
+ * @return {number[]}
+ */
+ var constructRectangle = function(area) {
+  let w = Math.floor(Math.sqrt(area));
+  while (area % w !== 0) {
+      --w;
+  }
+  return [Math.floor(area / w), w];
+};
+
+// 240. 搜索二维矩阵 II  z字查找法
+/**
+ * @param {number[][]} matrix
+ * @param {number} target
+ * @return {boolean}
+ */
+ var searchMatrix = function(matrix, target) {
+  const m = matrix.length, n = matrix[0].length;
+  let x = 0, y = n - 1;
+  while (x < m && y >= 0) {
+      if (matrix[x][y] === target) {
+          return true;
+      }
+      if (matrix[x][y] > target) {
+          --y;
+      } else {
+          ++x;
+      }
+  }
+  return false;
+};
+
