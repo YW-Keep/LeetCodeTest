@@ -9644,3 +9644,32 @@ class TrieNode {
   return cnt.join('');
 }
 };
+
+
+// 575. 分糖果 贪心算法
+/** 
+ * @param {number[]} candyType
+ * @return {number}
+ */
+ var distributeCandies = function(candyType) {
+  const set = new Set(candyType);
+  return Math.min(set.size, candyType.length / 2);
+};
+
+
+// 237. 删除链表中的节点 脑静急转弯
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} node
+ * @return {void} Do not return anything, modify node in-place instead.
+ */
+ var deleteNode = function(node) {
+  node.val = node.next.val
+  node.next = node.next.next
+};
