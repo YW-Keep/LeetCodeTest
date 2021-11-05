@@ -9674,7 +9674,6 @@ class TrieNode {
   node.next = node.next.next
 };
 
-
 // 42. 接雨水 双指针
 /**
  * @param {number[]} height
@@ -9697,3 +9696,38 @@ var trap = function(height) {
     }
     return ans;
 };
+
+// 367. 有效的完全平方数  基础题
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+ var isPerfectSquare = function(num) {
+  let x = 1, square = 1;
+  while (square <= num) {
+      if (square === num) {
+          return true;
+      }
+      ++x;
+      square = x * x;
+  }
+  return false;
+};
+
+
+//1218. 最长定差子序列  map 记录前值
+/**
+ * @param {number[]} arr
+ * @param {number} difference
+ * @return {number}
+ */
+ var longestSubsequence = function(arr, difference) {
+  let ans = 0;
+  const dp = new Map();
+  for (const v of arr) {
+      dp.set(v, (dp.get(v - difference) || 0) + 1);
+      ans = Math.max(ans, dp.get(v));
+  }
+  return ans;
+};
+
