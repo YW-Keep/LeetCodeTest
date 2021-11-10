@@ -9731,7 +9731,7 @@ var trap = function(height) {
   return ans;
 };
 
-// 268. 丢失的数字
+// 268. 丢失的数字 基础题
 /**
  * @param {number[]} nums
  * @return {number}
@@ -9744,4 +9744,47 @@ var trap = function(height) {
       arrSum += nums[i];
   }
   return total - arrSum;
+};
+
+
+// 598. 范围求和 II  算交集
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number[][]} ops
+ * @return {number}
+ */
+ var maxCount = function(m, n, ops) {
+  let mina = m, minb = n;
+  for (const op of ops) {
+      mina = Math.min(mina, op[0]);
+      minb = Math.min(minb, op[1]);
+  }
+  return mina * minb;
+};
+
+
+// 299. 猜数字游戏 数组记录
+/**
+ * @param {string} secret
+ * @param {string} guess
+ * @return {string}
+ */
+ var getHint = function(secret, guess) {
+  let bulls = 0;
+  const cntS = new Array(10).fill(0);
+  const cntG = new Array(10).fill(0);
+  for (let i = 0; i < secret.length; ++i) {
+      if (secret[i] == guess[i]) {
+          ++bulls;
+      } else {
+          ++cntS[secret[i].charCodeAt() - '0'.charCodeAt()];
+          ++cntG[guess[i].charCodeAt() - '0'.charCodeAt()];
+      }
+  }
+  let cows = 0;
+  for (let i = 0; i < 10; ++i) {
+      cows += Math.min(cntS[i], cntG[i]);
+  }
+  return '' + bulls + "A" + '' + cows + "B";
 };
