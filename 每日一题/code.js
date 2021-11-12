@@ -9788,3 +9788,67 @@ var trap = function(height) {
   }
   return '' + bulls + "A" + '' + cows + "B";
 };
+
+
+// 495. 提莫攻击  基础题
+/**
+ * @param {number[]} timeSeries
+ * @param {number} duration
+ * @return {number}
+ */
+ var findPoisonedDuration = function(timeSeries, duration) {
+   let res  = 0, max = 0
+   for (let i = 0; i < timeSeries.length; i++) {
+     let times = timeSeries[i]
+     if (times + duration > max) {
+       res += Math.min(times + duration -  max,duration)
+       max = times + duration
+     }
+   }
+   return res
+};
+
+//  629. K个逆序对数组 动态规划
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+ var kInversePairs = function(n, k) {
+  const MOD = 1000000007;
+  const f = new Array(2).fill(0).map(() => new Array(k + 1).fill(0));
+  f[0][0] = 1;
+  for (let i = 1; i <= n; ++i) {
+      for (let j = 0; j <= k; ++j) {
+          const cur = i & 1, prev = cur ^ 1;
+          f[cur][j] = (j - 1 >= 0 ? f[cur][j - 1] : 0) - (j - i >= 0 ? f[prev][j - i] : 0) + f[prev][j];
+          if (f[cur][j] >= MOD) {
+              f[cur][j] -= MOD;
+          } else if (f[cur][j] < 0) {
+              f[cur][j] += MOD;
+          }
+      }
+  }
+  return f[n & 1][k];
+};
+
+// 375. 猜数字大小 II  动态规划 f(1,n)= min(1~n) {x+max(f(1,x−1),f(x+1,n))}
+/**
+ * @param {number} n
+ * @return {number}
+ */
+ var getMoneyAmount = function(n) {
+  const f = new Array(n + 1).fill(0).map(() => new Array(n + 1).fill(0));
+  for (let i = n - 1; i >= 1; i--) {
+      for (let j = i + 1; j <= n; j++) {
+          let minCost = Number.MAX_VALUE;
+          for (let k = i; k < j; k++) {
+              let cost = k + Math.max(f[i][k - 1], f[k + 1][j]);
+              minCost = Math.min(minCost, cost);
+          }
+          f[i][j] = minCost;
+      }
+  }
+  return f[1][n];
+};
+
