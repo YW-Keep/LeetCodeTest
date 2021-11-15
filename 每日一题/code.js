@@ -9852,3 +9852,72 @@ var trap = function(height) {
   return f[1][n];
 };
 
+// 319. 灯泡开关 脑筋急转弯
+/**
+ * @param {number} n
+ * @return {number}
+ */
+ var bulbSwitch = function(n) {
+  return Math.floor(Math.sqrt(n + 0.5));
+};
+
+
+// 520. 检测大写字母 基础题
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
+ var detectCapitalUse = function(word) {
+  // 若第 1 个字母为小写，则需额外判断第 2 个字母是否为小写
+  if (word.length >= 2 && word[0] === word[0].toLowerCase() && word[1] === word[1].toUpperCase()) {
+      return false;
+  }
+  
+  // 无论第 1 个字母是否大写，其他字母必须与第 2 个字母的大小写相同
+  for (let i = 2; i < word.length; ++i) {
+      if (word[i] === word[i].toLowerCase() ^ word[1] === word[1].toLowerCase()) {
+          return false;
+      }
+  }
+  return true;
+};
+
+
+// 677. 键值映射 字典树
+
+class TrieNode {
+  constructor() {
+      this.val = 0;
+      this.next = new Array(26).fill(0);
+  }
+}
+
+var MapSum = function() {
+  this.root = new TrieNode();
+  this.map = new Map();
+
+};
+
+MapSum.prototype.insert = function(key, val) {
+  const delta = val - (this.map.get(key) || 0);
+  this.map.set(key, val);
+  let node = this.root;
+  for (const c of key) {
+      if (node.next[c.charCodeAt() - 'a'.charCodeAt()] === 0) {
+          node.next[c.charCodeAt() - 'a'.charCodeAt()] = new TrieNode();
+      }
+      node = node.next[c.charCodeAt() - 'a'.charCodeAt()];
+      node.val += delta;
+  }
+};
+
+MapSum.prototype.sum = function(prefix) {
+  let node = this.root;
+  for (const c of prefix) {
+      if (node.next[c.charCodeAt() - 'a'.charCodeAt()] === 0) {
+          return 0;
+      }
+      node = node.next[c.charCodeAt() - 'a'.charCodeAt()];
+  }
+  return node.val;
+};
