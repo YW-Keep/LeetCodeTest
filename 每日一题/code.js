@@ -9921,3 +9921,57 @@ MapSum.prototype.sum = function(prefix) {
   }
   return node.val;
 };
+
+// 391. 完美矩形  1.面积相加跟最大的一样  2.四个顶点出现一次 其他点出现2-4次
+/**
+ * @param {number[][]} rectangles
+ * @return {boolean}
+ */
+ var isRectangleCover = function(rectangles) {
+  const n = rectangles.length, record = new Set()
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, sumArea = 0
+  for (const [x1, y1, x2, y2] of rectangles) {
+    minX = Math.min(minX, x1)
+    minY = Math.min(minY, y1)
+    maxX = Math.max(maxX, x2)
+    maxY = Math.max(maxY, y2)
+    sumArea += (x2 - x1) * (y2 - y1)
+    const arr = [`${x1} ${y1}`, `${x1} ${y2}`, `${x2} ${y1}`, `${x2} ${y2}`]
+    arr.forEach(k => record.has(k) ? record.delete(k) : record.add(k))
+  }
+
+  return sumArea === (maxX - minX) * (maxY - minY) && record.size === 4 && [`${minX} ${minY}`, `${minX} ${maxY}`, `${maxX} ${minY}`, `${maxX} ${maxY}`].every(k => record.has(k))
+};
+
+//  318. 最大单词长度乘积  Map 记录 位运算
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+ var maxProduct = function(words) {
+  const map = new Map();
+  const length = words.length;
+  for (let i = 0; i < length; i++) {
+      let mask = 0;
+      const word = words[i];
+      const wordLength = word.length;
+      for (let j = 0; j < wordLength; j++) {
+          mask |= 1 << (word[j].charCodeAt() - 'a'.charCodeAt());
+      }
+      if (wordLength > (map.get(mask) || 0)) {
+          map.set(mask, wordLength);
+      }
+  }
+  let maxProd = 0;
+  const maskSet = Array.from(map.keys());
+  for (const mask1 of maskSet) {
+      const wordLength1 = map.get(mask1);
+      for (const mask2 of maskSet) {
+          if ((mask1 & mask2) === 0) {
+              const wordLength2 = map.get(mask2);
+              maxProd = Math.max(maxProd, wordLength1 * wordLength2);
+          }
+      }
+  }
+  return maxProd;
+};
