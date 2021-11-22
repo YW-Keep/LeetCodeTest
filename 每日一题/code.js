@@ -10006,3 +10006,112 @@ MapSum.prototype.sum = function(prefix) {
   dfs(root);
   return ans;
 };
+
+// 397. 整数替换 贪心算法
+/**
+ * @param {number} n
+ * @return {number}
+ */
+
+ var integerReplacement = function(n) {
+  let ans = 0;
+  while (n !== 1) {
+      if (n % 2 === 0) {
+          ++ans;
+          n = Math.floor(n / 2);
+      } else if (n % 4 === 1) {
+          ans += 2;
+          n = Math.floor(n / 2);
+      } else {
+          if (n === 3) {
+              ans += 2;
+              n = 1;
+          } else {
+              ans += 2;
+              n = Math.floor(n / 2) + 1;
+          }
+      }
+  }
+  return ans;
+};
+
+// 594. 最长和谐子序列  哈希表
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var findLHS = function(nums) {
+   let map = new Map(),res = 0
+   for (let i = 0; i < nums.length; i++) {
+     let num = nums[i]
+     map.set(num,(map.get(num) || 0) +1)
+   }
+
+   for (let i = 0; i < nums.length; i++) {
+    let num = nums[i]
+    if(map.get(num+1)) {
+      res = Math.max(res,map.get(num) + map.get(num+1))
+    }
+  }
+  return res
+};
+
+
+// 559. N 叉树的最大深度 二叉树层序遍历
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * @param {Node|null} root
+ * @return {number}
+ */
+ var maxDepth = function(root) {
+  if (!root) {
+      return 0;
+  }
+  const queue = [];
+  queue.push(root);
+  let ans = 0;
+  while (queue.length) {
+      let size = queue.length;
+      while (size > 0) {
+          const node = queue.shift();
+          const children = node.children;
+          for (const child of children) {
+              queue.push(child);
+          }
+          size--;
+      }
+      ans++;
+  }
+  return ans;
+};
+
+// 384. 打乱数组 Fisher-Yates 洗牌算法
+/**
+ * @param {number[]} nums
+ */
+ var Solution = function(nums) {
+  this.nums = nums;
+  this.original = this.nums.slice();
+};
+
+Solution.prototype.reset = function() {
+  this.nums = this.original.slice();
+  return this.nums;
+};
+
+Solution.prototype.shuffle = function() {
+  for (let i = 0; i < this.nums.length; ++i) {
+      const j = Math.floor(Math.random() * (this.nums.length - i)) + i;
+      const temp = this.nums[i];
+      this.nums[i] = this.nums[j];
+      this.nums[j] = temp;
+  }
+  return this.nums;
+};
