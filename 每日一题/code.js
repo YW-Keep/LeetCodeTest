@@ -10188,3 +10188,105 @@ Solution.prototype.shuffle = function() {
   }
   return ans.join('');
 };
+
+
+// 438. 找到字符串中所有字母异位词 map窗口
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ */
+ var findAnagrams = function(s, p) {
+  let pLength = p.length
+   if(pLength > s.length) {
+     return []
+   }
+   let bMap = new Map,res = []
+   for (let i = 0; i < pLength; i++) {
+     let char  =  p[i]
+     bMap.set(char,(bMap.get(char) || 0) -1)
+   }
+   for (let i = 0; i < s.length; i++) {
+    let char  =  s[i]
+    bMap.set(char,(bMap.get(char) || 0) +1)
+    if(bMap.get(char) == 0) {
+      bMap.delete(char)
+    }
+    if (i >= pLength) {
+      let inChar = s[i-pLength]
+      bMap.set(inChar,(bMap.get(inChar) || 0) -1)
+      if(bMap.get(inChar) == 0) {
+        bMap.delete(inChar)
+      }
+    }
+    if (bMap.size ==0) {
+      res.push(i-pLength+1)
+    }
+   }
+   return res
+};
+// 786. 第 K 个最小的素数分数 二分查找+双指针
+
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number[]}
+ */
+ var kthSmallestPrimeFraction = function(arr, k) {
+  const n = arr.length;
+  let left = 0.0, right = 1.0;
+  while (true) {
+      const mid = (left + right) / 2;
+      let i = -1, count = 0;
+      // 记录最大的分数
+      let x = 0, y = 1;
+      
+      for (let j = 1; j < n; ++j) {
+          while (arr[i + 1] / arr[j] < mid) {
+              ++i;
+              if (arr[i] * y > arr[j] * x) {
+                  x = arr[i];
+                  y = arr[j];
+              }
+          }
+          count += i + 1;
+      }
+
+      if (count === k) {
+          return [x, y];
+      }
+      if (count < k) {
+          left = mid;
+      } else {
+          right = mid;
+      }
+  }
+};
+
+
+// 519. 随机翻转矩阵 map
+/**
+ * @param {number} m
+ * @param {number} n
+ */
+ var Solution = function(m, n) {
+  this.m = m;
+  this.n = n;
+  this.total = m * n;
+  this.map = new Map();
+};
+
+Solution.prototype.flip = function() {
+  const x = Math.floor(Math.random() * this.total);
+  this.total--;
+  // 查找位置 x 对应的映射
+  const idx = this.map.get(x) || x;
+  // 将位置 x 对应的映射设置为位置 total 对应的映射
+  this.map.set(x, this.map.get(this.total) || this.total);
+  return [Math.floor(idx / this.n), idx % this.n];
+};
+
+Solution.prototype.reset = function() {
+  this.total = this.m * this.n;
+  this.map.clear();
+};
