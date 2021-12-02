@@ -10328,3 +10328,27 @@ Solution.prototype.reset = function() {
   }
   return ans;
 };
+
+// 506. 相对名次 排序map记录
+/**
+ * @param {number[]} score
+ * @return {string[]}
+ */
+ var findRelativeRanks = function(score) {
+   let bMap = new Map()
+   let n =  score.length
+   for (let i = 0; i < n; i++) {
+     bMap.set(score[i],i)
+   }
+   score.sort((a, b) => b - a)
+   let ans =  Array(n).fill(0)
+   let desc = ["Gold Medal", "Silver Medal", "Bronze Medal"]
+   for (let i = 0; i < n; i++) {
+     if (i < 3) {
+       ans[bMap.get(score[i])] = desc[i]
+     } else {
+      ans[bMap.get(score[i])] = '' + (i + 1)
+     }
+    }
+    return ans
+};
