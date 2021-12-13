@@ -10557,3 +10557,113 @@ const dfs = (grid, x, y, visited, borders, originalColor) => {
   }
 
 };
+
+// 748. 最短补全词 遍历
+/**
+ * @param {string} licensePlate
+ * @param {string[]} words
+ * @return {string}
+ */
+ var shortestCompletingWord = function(licensePlate, words) {
+  const cnt = new Array(26).fill(0);
+  for (const ch of licensePlate) {
+      if (/^[a-zA-Z]+$/.test(ch)) {
+          ++cnt[ch.toLowerCase().charCodeAt() - 'a'.charCodeAt()];
+      }
+  }
+  let min= "xxxxxxxxxxxxxxxx";
+  for (let i = 0; i < words.length; ++i) {
+      if (words[i].length >= min.length) {
+        continue
+      }
+      const c = Array(26).fill(0);
+      for (let j = 0; j < words[i].length; ++j) {
+          const ch = words[i][j];
+          ++c[ch.charCodeAt() - 'a'.charCodeAt()];
+      }
+      let ok = true;
+      for (let j = 0; j < 26; ++j) {
+          if (c[j] < cnt[j]) {
+              ok = false;
+              break;
+          }
+      }
+      if (ok) {
+        min = words[i]
+      }
+  }
+  return min;
+};
+
+// 807. 保持城市天际线 贪心算法
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+ var maxIncreaseKeepingSkyline = function(grid) {
+  const n = grid.length;
+  const rowMax = new Array(n).fill(0);
+  const colMax = new Array(n).fill(0);
+  for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+          rowMax[i] = Math.max(rowMax[i], grid[i][j]);
+          colMax[j] = Math.max(colMax[j], grid[i][j]);
+      }
+  }
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+          ans += Math.min(rowMax[i], colMax[j]) - grid[i][j];
+      }
+  }
+  return ans;
+};
+
+// 709. 转换成小写字母 基础题 
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ var toLowerCase = function(s) {
+  return s.toLowerCase();
+};
+
+// 911. 在线选举  二分查找
+/**
+ * @param {number[]} persons
+ * @param {number[]} times
+ */
+ var TopVotedCandidate = function(persons, times) {
+  this.tops = [];
+  this.voteCounts = new Map();
+  this.voteCounts.set(-1, -1);
+  this.times = times;
+  let top = -1;
+  for (let i = 0; i < persons.length; ++i) {
+      const p = persons[i];
+      if (!this.voteCounts.has(p)) {
+          this.voteCounts.set(p, 0);
+      } else {
+          this.voteCounts.set(p, this.voteCounts.get(p) + 1);
+      }
+      if (this.voteCounts.get(p) >= this.voteCounts.get(top)) {
+          top = p;
+      }
+      this.tops.push(top);
+  }
+};
+
+TopVotedCandidate.prototype.q = function(t) {
+  let l = 0, r = this.times.length - 1;
+  // 找到满足 times[l] <= t 的最大的 l
+  while (l < r) {
+      const m = l + Math.floor((r - l + 1) / 2);
+      if (this.times[m] <= t) {
+          l = m;
+      } else {
+          r = m - 1;
+      }
+  }
+
+  return this.tops[l];
+};
