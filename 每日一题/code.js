@@ -10667,3 +10667,24 @@ TopVotedCandidate.prototype.q = function(t) {
 
   return this.tops[l];
 };
+
+// 630. 课程表 III  最大堆
+/**
+ * @param {number[][]} courses
+ * @return {number}
+ */
+ function scheduleCourse(courses) {
+  courses.sort((a, b) => a[1] - b[1]);
+  const pq = new MaxPriorityQueue({ priority: p => p });
+  let startTime = 0;
+  for (const [duration, lastDay] of courses) {
+    if (startTime + duration <= lastDay) {
+      startTime += duration;
+      pq.enqueue(duration);
+    } else if (pq.size() && pq.front().element > duration) {
+      startTime += duration - pq.dequeue().element;
+      pq.enqueue(duration);
+    }
+  }
+  return pq.size();
+}
