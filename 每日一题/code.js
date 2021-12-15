@@ -10688,3 +10688,41 @@ TopVotedCandidate.prototype.q = function(t) {
   }
   return pq.size();
 }
+
+// 851.喧闹和富有 深度优先搜索
+/**
+ * @param {number[][]} richer
+ * @param {number[]} quiet
+ * @return {number[]}
+ */
+ var loudAndRich = function(richer, quiet) {
+  const n = quiet.length;
+  const g = new Array(n).fill(0);
+  for (let i = 0; i < n; ++i) {
+      g[i] = [];
+  }
+  for (const r of richer) {
+      g[r[1]].push(r[0]);
+  }
+
+  const ans = new Array(n).fill(-1);
+  for (let i = 0; i < n; ++i) {
+      dfs(i);
+  }
+
+  function dfs (x) {
+  if (ans[x] !== -1) {
+      return;
+  }
+  ans[x] = x;
+  for (const y of g[x]) {
+      dfs(y);
+      if (quiet[ans[y]] < quiet[ans[x]]) {
+          ans[x] = ans[y];
+      }
+  }
+}
+
+  return ans;
+};
+
