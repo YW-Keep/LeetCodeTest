@@ -10780,3 +10780,73 @@ TopVotedCandidate.prototype.q = function(t) {
  var numWaterBottles = function(numBottles, numExchange) {
   return numBottles + Math.floor((numBottles - 1) / (numExchange - 1))
 };
+
+// 419. 甲板上的战舰  遍历
+/**
+ * @param {character[][]} board
+ * @return {number}
+ */
+ var countBattleships = function(board) {
+  const row = board.length;
+  const col = board[0].length;
+  let ans = 0;
+  for (let i = 0; i < row; ++i) {
+      for (let j = 0; j < col; ++j) {
+          if (board[i][j] === 'X') {
+              board[i][j] = '.';
+              for (let k = j + 1; k < col && board[i][k] === 'X'; ++k) {
+                  board[i][k] = '.';
+              }                    
+              for (let k = i + 1; k < row && board[k][j] === 'X'; ++k) {
+                  board[k][j] = '.';
+              }
+              ans++;
+          }
+      }
+  }
+  return ans;
+};
+
+// 997. 找到小镇的法官 图入度和出度概念
+/**
+ * @param {number} n
+ * @param {number[][]} trust
+ * @return {number}
+ */
+ var findJudge = function(n, trust) {
+  const inDegrees = new Array(n + 1).fill(0);
+  const outDegrees = new Array(n + 1).fill(0);
+  for (const edge of trust) {
+      const x = edge[0], y = edge[1];
+      ++inDegrees[y];
+      ++outDegrees[x];
+  }
+  for (let i = 1; i <= n; ++i) {
+      if (inDegrees[i] === n - 1 && outDegrees[i] === 0) {
+          return i;
+      }
+  }
+  return -1;
+};
+
+// 475. 供暖器 双指针
+/**
+ * @param {number[]} houses
+ * @param {number[]} heaters
+ * @return {number}
+ */
+
+ var findRadius = function(houses, heaters) {
+  houses.sort((a, b) => a - b);
+  heaters.sort((a, b) => a - b);
+  let ans = 0;
+  for (let i = 0, j = 0; i < houses.length; i++) {
+      let curDistance = Math.abs(houses[i] - heaters[j]);
+      while (j < heaters.length - 1 && Math.abs(houses[i] - heaters[j]) >= Math.abs(houses[i] - heaters[j + 1])) {
+          j++;
+          curDistance = Math.min(curDistance, Math.abs(houses[i] - heaters[j]));
+      }
+      ans = Math.max(ans, curDistance);
+  }
+  return ans;
+};
