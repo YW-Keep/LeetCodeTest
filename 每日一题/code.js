@@ -10940,3 +10940,45 @@ TopVotedCandidate.prototype.q = function(t) {
     return '';
   }
 };
+
+// 1705. 吃苹果的最大数目  队列 这里还可以用二分查找优化
+/**
+ * @param {number[]} apples
+ * @param {number[]} days
+ * @return {number}
+ */
+
+ var eatenApples = function(apples, days) {
+  let alen = apples.length;
+  let dlen = days.length;
+  let eat = 0;
+  let queue = [];
+  let i = 0;
+  while (i < alen || queue.length > 0) {
+    // 如果今天有长出苹果，先放入苹果，按照腐烂度排序，快烂的放前面先吃
+    if (i < alen && apples[i] > 0) {
+      let j = queue.length - 1;
+      while (j >= 0 && ( (i + days[i]) < (queue[j] + days[queue[j]]) )) {
+        queue[j+1] = queue[j]
+        j--;
+      }
+      queue[j+1] = i;
+    }
+    // 把吃完的或者烂掉的清理掉
+    while (
+      queue.length > 0 && 
+      (
+        apples[queue[0]] <= 0 || (queue[0] + days[queue[0]] <= i)
+      )
+    ) {
+      queue.shift();
+    }
+    // 吃苹果
+    if (queue.length > 0) {
+      apples[queue[0]]--;
+      eat++;
+    }
+    i++;
+  }
+  return eat;
+};
