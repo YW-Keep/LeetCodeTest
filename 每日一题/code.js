@@ -11150,3 +11150,32 @@ TopVotedCandidate.prototype.q = function(t) {
   }
   return true;
 };
+
+// 507.完美数 穷举
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+ var checkPerfectNumber = function(num) {
+  return num === 6 || num === 28 || num === 496 || num === 8128 || num === 33550336;
+};
+
+
+// 2022. 将一维数组转变成二维数组 基础题
+/**
+ * @param {number[]} original
+ * @param {number} m
+ * @param {number} n
+ * @return {number[][]}
+ */
+ var construct2DArray = function(original, m, n) {
+  if (original.length !== m * n) {
+      return [];
+  }
+  const ans = new Array(m).fill(0).map(() => new Array(n).fill(0));
+  for (let i = 0; i < original.length; i += n) {
+      ans[Math.floor(i / n)].splice(0, n, ...original.slice(i, i + n)) 
+  }
+  return ans;
+};
+
