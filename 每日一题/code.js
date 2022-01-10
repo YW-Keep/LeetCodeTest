@@ -11242,3 +11242,106 @@ TopVotedCandidate.prototype.q = function(t) {
   }
   return ans;
 };
+
+//  306. 累加数 穷举
+/**
+ * @param {string} num
+ * @return {boolean}
+ */
+ var isAdditiveNumber = function(num) {
+  const n = num.length;
+  for (let secondStart = 1; secondStart < n - 1; ++secondStart) {
+      if (num[0] === '0' && secondStart !== 1) {
+          break;
+      }
+      for (let secondEnd = secondStart; secondEnd < n - 1; ++secondEnd) {
+          if (num[secondStart] === '0' && secondStart !== secondEnd) {
+              break;
+          }
+          if (valid(secondStart, secondEnd, num)) {
+              return true;
+          }
+      }
+  }
+  return false;
+};
+
+const valid = (secondStart, secondEnd, num) => {
+  const n = num.length;
+  let firstStart = 0, firstEnd = secondStart - 1;
+  while (secondEnd <= n - 1) {
+      const third = stringAdd(num, firstStart, firstEnd, secondStart, secondEnd);
+      const thirdStart = secondEnd + 1;
+      const thirdEnd = secondEnd + third.length;
+      if (thirdEnd >= n || num.slice(thirdStart, thirdEnd + 1) !== third) {
+          break;
+      }
+      if (thirdEnd === n - 1) {
+          return true;
+      }
+      firstStart = secondStart;
+      firstEnd = secondEnd;
+      secondStart = thirdStart;
+      secondEnd = thirdEnd;
+  }
+  return false;
+}
+
+const stringAdd = (s, firstStart, firstEnd, secondStart, secondEnd) => {
+  const third = [];
+  let carry = 0, cur = 0;
+  while (firstEnd >= firstStart || secondEnd >= secondStart || carry !== 0) {
+      cur = carry;
+      if (firstEnd >= firstStart) {
+          cur += s[firstEnd].charCodeAt() - '0'.charCodeAt();
+          --firstEnd;
+      }
+      if (secondEnd >= secondStart) {
+          cur += s[secondEnd].charCodeAt() - '0'.charCodeAt();
+          --secondEnd;
+      }
+      carry = Math.floor(cur / 10);
+      cur %= 10;
+      third.push(String.fromCharCode(cur + '0'.charCodeAt()));
+  }
+  third.reverse();
+  return third.join('');
+}
+
+// 89. 格雷编码 位运算
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+
+ var grayCode = function(n) {
+  const ret = [0];
+  for (let i = 1; i <= n; i++) {
+      const m = ret.length;
+      for (let j = m - 1; j >= 0; j--) {
+          ret.push(ret[j] | (1 << (i - 1)));
+      }
+  }
+  return ret;
+};
+
+// 1629. 按键持续时间最长的键 遍历
+/**
+ * @param {number[]} releaseTimes
+ * @param {string} keysPressed
+ * @return {character}
+ */
+ var slowestKey = function(releaseTimes, keysPressed) {
+  const n = releaseTimes.length;
+  let ans = keysPressed[0];
+  let maxTime = releaseTimes[0];
+  for (let i = 1; i < n; i++) {
+      const key = keysPressed[i];
+      const time = releaseTimes[i] - releaseTimes[i - 1];
+      if (time > maxTime || (time === maxTime && key > ans)) {
+          ans = key;
+          maxTime = time;
+      }
+  }
+  return ans;
+};
