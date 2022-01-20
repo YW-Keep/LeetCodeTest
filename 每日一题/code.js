@@ -11531,3 +11531,70 @@ const stringAdd = (s, firstStart, firstEnd, secondStart, secondEnd) => {
 Solution.prototype.getRandom = function() {
   return this.list[Math.floor(Math.random() * this.list.length)];
 };
+
+
+// 219. 存在重复元素 II 基础题
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+ var containsNearbyDuplicate = function(nums, k) {
+   let map = new Map()
+   for (let i = 0; i < nums.length; i++) {
+     let num = nums[i]
+     if(map.get(num)!= null && (i - map.get(num)) <= k) {
+       return true
+     }   
+     map.set(num,i)
+   }
+  return false
+
+};
+
+// 539. 最小时间差  排序判断
+/**
+ * @param {string[]} timePoints
+ * @return {number}
+ */
+var findMinDifference = function(timePoints) {
+  timePoints.sort();
+  let ans = Number.MAX_VALUE;
+  let t0Minutes = getMinutes(timePoints[0]);
+  let preMinutes = t0Minutes;
+  for (let i = 1; i < timePoints.length; ++i) {
+      const minutes = getMinutes(timePoints[i]);
+      ans = Math.min(ans, minutes - preMinutes); // 相邻时间的时间差
+      preMinutes = minutes;
+  }
+  ans = Math.min(ans, t0Minutes + 1440 - preMinutes); // 首尾时间的时间差
+
+  function getMinutes(t) {
+    return ((t[0].charCodeAt() - '0'.charCodeAt()) * 10 + (t[1].charCodeAt() - '0'.charCodeAt())) * 60 + (t[3].charCodeAt() - '0'.charCodeAt()) * 10 + (t[4].charCodeAt() - '0'.charCodeAt());
+  }
+
+  return ans;
+};
+ 
+// 2029. 石子游戏 IX 逻辑分析与总结
+/**
+ * @param {number[]} stones
+ * @return {boolean}
+ */
+ var stoneGameIX = function(stones) {
+  let cnt0 = 0, cnt1 = 0, cnt2 = 0;
+  for (const val of stones) {
+      const type = val % 3;
+      if (type === 0) {
+          ++cnt0;
+      } else if (type === 1) {
+          ++cnt1;
+      } else {
+          ++cnt2;
+      }
+  }
+  if (cnt0 % 2 === 0) {
+      return cnt1 >= 1 && cnt2 >= 1;
+  }
+  return cnt1 - cnt2 > 2 || cnt2 - cnt1 > 2;
+};
