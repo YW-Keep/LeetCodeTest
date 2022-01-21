@@ -11598,3 +11598,51 @@ var findMinDifference = function(timePoints) {
   }
   return cnt1 - cnt2 > 2 || cnt2 - cnt1 > 2;
 };
+
+
+// 1345. 跳跃游戏 IV dfs
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+ var minJumps = function(arr) {
+  const l = arr.length;
+  const map = new Map();
+  for (let i = 0; i < l; i++) {
+      if (map.has(arr[i])) {
+          map.get(arr[i]).push(i);
+      } else {
+          map.set(arr[i], [i]);
+      }
+  }
+  let queue = [0];
+  let steps = 0;
+  while (queue.length !== 0) {
+      const m = queue.length;
+      const newQueue = [];
+      for (let i = 0; i < m; i++) {
+          const index = queue[i];
+          if (index === l - 1) {
+              return steps;
+          }
+          const num = arr[index];
+          arr[index] = null;
+          if (index - 1 > 0 && arr[index-1] !== null) {
+              newQueue.push(index - 1);
+          }
+          if ( arr[index+1] !== null) {
+              newQueue.push(index + 1);
+          }
+          if (map.has(num)) {
+              map.get(num).forEach(ind=>{
+                  if ( arr[ind] !== null) {
+                      newQueue.push(ind);
+                  }
+              })
+              map.delete(num);
+          }
+      }
+      queue = newQueue;
+      steps++;
+  }
+};
