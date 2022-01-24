@@ -11646,3 +11646,62 @@ var findMinDifference = function(timePoints) {
       steps++;
   }
 };
+
+
+// 1332. 删除回文子序列 就是判断是不是回文序列
+/**
+ * @param {string} s
+ * @return {number}
+ */
+ var removePalindromeSub = function(s) {
+  const n = s.length;
+  for (let i = 0; i < Math.floor(n / 2); ++i) {
+      if (s[i] !== s[n - 1 - i]) {
+          return 2;
+      }
+  }
+  return 1;
+};
+
+// 2045. 到达目的地的第二短时间  先求第二段路径 在算时间
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number} time
+ * @param {number} change
+ * @return {number}
+ */
+ var secondMinimum = function(n, edges, time, change) {
+  const graph = new Array(n + 1).fill(0).map(() => new Array());
+  for (const edge of edges) {
+      graph[edge[0]].push(edge[1]);
+      graph[edge[1]].push(edge[0]);
+  }
+
+  // path[i][0] 表示从 1 到 i 的最短路长度，path[i][1] 表示从 1 到 i 的严格次短路长度
+  const path = new Array(n + 1).fill(0).map(() => new Array(2).fill(Number.MAX_VALUE));
+  path[1][0] = 0;
+  const queue = [];
+  queue.push([1, 0]);
+  while (path[n][1] === Number.MAX_VALUE) {
+      const [cur, len] = queue.shift();
+      for (const next of graph[cur]) {
+          if (len + 1 < path[next][0]) {
+              path[next][0] = len + 1;
+              queue.push([next, len + 1]);
+          } else if (len + 1 > path[next][0] && len + 1 < path[next][1]) {
+              path[next][1] = len + 1;
+              queue.push([next, len + 1]);
+          }
+      }
+  }
+
+  let ret = 0;
+  for (let i = 0; i < path[n][1]; i++) {
+      if (ret % (2 * change) >= change) {
+          ret = ret + (2 * change - ret % (2 * change));
+      }
+      ret = ret + time;
+  }
+  return ret;
+};
