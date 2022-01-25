@@ -11705,3 +11705,13 @@ var findMinDifference = function(timePoints) {
   }
   return ret;
 };
+
+// 1688. 比赛中的配对次数  每次比赛淘汰一人 ，最后决出一人，脑经急转弯
+/**
+ * @param {number} n
+ * @return {number}
+ */
+
+ var numberOfMatches = function(n) {
+  return n - 1
+};
