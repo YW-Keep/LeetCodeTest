@@ -11908,3 +11908,19 @@ DetectSquares.prototype.count = function(point) {
       return  '' + x + y;
   }
 }
+
+// 2006. 差的绝对值为 K 的数对数目 map记录
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+ var countKDifference = function(nums, k) {
+  let res = 0, n = nums.length;
+  const cnt = new Map();
+  for (let j = 0; j < n; ++j) {
+      res += (cnt.get(nums[j] - k) || 0) + (cnt.get(nums[j] + k) || 0);
+      cnt.set(nums[j], (cnt.get(nums[j]) || 0) + 1);
+  }
+  return res;
+};
