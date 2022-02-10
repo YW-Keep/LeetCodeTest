@@ -11924,3 +11924,28 @@ DetectSquares.prototype.count = function(point) {
   }
   return res;
 };
+
+// 1447. 最简分数 基础题
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+ var simplifiedFractions = function(n) {
+  let result = [];
+  for(let i = 1; i <= n-1; i++) {
+      for(let j = i+1; j <= n; j++) {
+          if(gcd(j, i) === 1) {
+              result.push(`${i}/${j}`);
+          }
+      }
+  }
+  return result;
+  function gcd(a, b) {
+      while(b > 0) {
+          return gcd(b, a%b);
+      }
+      return a;
+  }
+};
+
+
