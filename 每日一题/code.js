@@ -11983,3 +11983,101 @@ DetectSquares.prototype.count = function(point) {
   return nums[low];
 };
 
+// 1189. “气球” 的最大数量 基础题
+/**
+ * @param {string} text
+ * @return {number}
+ */
+ var maxNumberOfBalloons = function(text) {
+  let backup =[0,0,0,0,0];
+  for (let index = 0; index < text.length; index++) {
+      let char = text[index];
+      switch (char) {
+          case 'a':
+              backup[0] +=1;
+              break;
+          case 'b':
+                  backup[1] +=1;
+                  break;
+          case 'n':
+                  backup[2] +=1;
+                  break;
+          case 'l':
+                  backup[3] +=1;
+                  break;
+          case 'o':
+                  backup[4] +=1;
+                  break;
+          default:
+              break;
+      }
+  }
+  return Math.min(backup[0],backup[1],backup[2],Math.floor(backup[3]/2),Math.floor(backup[4]/2))
+};
+
+
+// 1020. 飞地的数量 深度优先搜索 把相连的陆地标记好
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var numEnclaves = function(grid) {
+  const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+  const m = grid.length;
+  const n = grid[0].length;
+  const visited = new Array(m).fill(0).map(() => new Array(n).fill(false));
+
+  const dfs = (row, col) => {
+      if (row < 0 || row >= m || col < 0 || col >= n || grid[row][col] == 0 || visited[row][col]) {
+          return;
+      }
+      visited[row][col] = true;
+      for (const dir of dirs) {
+          dfs(row + dir[0], col + dir[1]);
+      }
+  };
+
+  for (let i = 0; i < m; i++) {
+      dfs(i, 0);
+      dfs(i, n - 1);
+  }
+  for (let j = 1; j < n - 1; j++) {
+      dfs(0, j);
+      dfs(m - 1, j);
+  }
+  let enclaves = 0;
+  for (let i = 1; i < m - 1; i++) {
+      for (let j = 1; j < n - 1; j++) {
+          if (grid[i][j] === 1 && !visited[i][j]) {
+              enclaves++;
+          }
+      }
+  }
+  return enclaves;
+}
+
+// 1380. 矩阵中的幸运数  预处理
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+ var luckyNumbers  = function(matrix) {
+  const m = matrix.length, n = matrix[0].length;
+  const minRow = new Array(m).fill(Number.MAX_SAFE_INTEGER);
+  const maxCol = new Array(n).fill(0);
+  for (let i = 0; i < m; i++) {
+      for (let j = 0; j < n; j++) {
+          minRow[i] = Math.min(minRow[i], matrix[i][j]);
+          maxCol[j] = Math.max(maxCol[j], matrix[i][j]);
+      }
+  }
+  const ret = [];
+  for (let i = 0; i < m; i++) {
+      for (let j = 0; j < n; j++) {
+          if (matrix[i][j] === minRow[i] && matrix[i][j] === maxCol[j]) {
+              ret.push(matrix[i][j]);
+          }
+      }
+  }
+  return ret;
+};
