@@ -12149,3 +12149,82 @@ var findCenter = function(edges) {
   }
   return 0;
 };
+
+
+// 717. 1 比特与 2 比特字符  基础题
+/**
+ * @param {number[]} bits
+ * @return {boolean}
+ */
+ var isOneBitCharacter = function(bits) {
+  let i = 0, n = bits.length;
+  while (i < n - 1) {
+      i += bits[i] + 1;
+  }
+  return i === n - 1;
+};
+
+
+// 969. 煎饼排序 每2次能把一个数调换到最好
+/**
+ * @param {number[]} arr
+ * @return {number[]}
+ */
+ var pancakeSort = function(arr) {
+  const ret = [];
+  for (let n = arr.length; n > 1; n--) {
+      let index = 0;
+      for (let i = 1; i < n; i++) {
+          if (arr[i] >= arr[index]) {
+              index = i;
+          }
+      }
+      if (index === n - 1) {
+          continue;
+      }
+      reverse(arr, index);
+      reverse(arr, n - 1);
+      ret.push(index + 1);
+      ret.push(n);
+  }
+  return ret;
+  function reverse(arr, end) {
+      for (let i = 0, j = end; i < j; i++, j--) {
+          let temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+      }
+  };
+}
+
+// 838. 推多米诺 模拟
+/**
+ * @param {string} dominoes
+ * @return {string}
+ */
+ var pushDominoes = function(dominoes) {
+  const s = [...dominoes];
+  let n = s.length, i = 0;
+  let left = 'L';
+  while (i < n) {
+      let j = i;
+      while (j < n && s[j] == '.') { // 找到一段连续的没有被推动的骨牌
+          j++;
+      }
+      const right = j < n ? s[j] : 'R';
+      if (left === right) { // 方向相同，那么这些竖立骨牌也会倒向同一方向
+          while (i < j) {
+              s[i++] = right;
+          }
+      } else if (left === 'R' && right === 'L') { // 方向相对，那么就从两侧向中间倒
+          let k = j - 1;
+          while (i < k) {
+              s[i++] = 'R';
+              s[k--] = 'L';
+          }
+      }
+      left = right;
+      i = j + 1;
+  }
+  return s.join('');
+};
