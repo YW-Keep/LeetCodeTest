@@ -12294,3 +12294,85 @@ var complexNumberMultiply = function(num1, num2) {
   return '' + real1 * real2 - imag1 * imag2 + '+' + (real1 * imag2 + imag1 * real2) + 'i';
 };
 
+// 2016. 增量元素之间的最大差值 基础题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var maximumDifference = function(nums) {
+  const n = nums.length;
+  let ans = -1, premin = nums[0];
+  for (let i = 1; i < n; ++i) {
+      if (nums[i] > premin) {
+          ans = Math.max(ans, nums[i] - premin);
+      } else {
+          premin = nums[i];
+      }
+  }
+  return ans;
+};
+
+// 553. 最优除法 贪心算法
+
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+ var optimalDivision = function(nums) {
+  const ans = [], n = nums.length
+  ans.push(nums[0])
+  if(n > 1) {
+      ans.push("/")
+      if(n > 2)
+          ans.push("(")
+      ans.push(nums[1])
+      for(let i = 2; i < n; i++) {
+          ans.push("/")
+          ans.push(nums[i])
+      }
+      if(n > 2)
+          ans.push(")")
+  }
+  return ans.join("")
+};
+
+// 1601. 最多可达成的换楼请求数目 选或者不选 遍历 
+/**
+ * @param {number} n
+ * @param {number[][]} requests
+ * @return {number}
+ */
+ var maximumRequests = function(n, requests) {
+  const delta = new Array(n).fill(0);
+  let zero = n, ans = 0, cnt = 0;
+  const dfs = (requests, pos) => {
+      if (pos === requests.length) {
+          if (zero === n) {
+              ans = Math.max(ans, cnt);
+          }
+          return;
+      }
+
+      // 不选 requests[pos]
+      dfs(requests, pos + 1);
+
+      // 选 requests[pos]
+      let z = zero;
+      ++cnt;
+      const r = requests[pos];
+      let x = r[0], y = r[1];
+      zero -= delta[x] == 0 ? 1 : 0;
+      --delta[x];
+      zero += delta[x] == 0 ? 1 : 0;
+      zero -= delta[y] == 0 ? 1 : 0;
+      ++delta[y];
+      zero += delta[y] == 0 ? 1 : 0;
+      dfs(requests, pos + 1);
+      --delta[y];
+      ++delta[x];
+      --cnt;
+      zero = z;
+  }
+  dfs(requests, 0);
+  return ans;
+};
