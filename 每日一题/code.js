@@ -12407,3 +12407,11 @@ var complexNumberMultiply = function(num1, num2) {
   return ans.join('');
 };
 
+// 258. 各位相加  数学题
+/**
+ * @param {number} num
+ * @return {number}
+ */
+ var addDigits = function(num) {
+  return (num - 1) % 9 + 1;
+};
