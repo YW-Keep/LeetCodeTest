@@ -12415,3 +12415,22 @@ var complexNumberMultiply = function(num1, num2) {
  var addDigits = function(num) {
   return (num - 1) % 9 + 1;
 };
+
+// 2104. 子数组范围和 模拟遍历
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var subArrayRanges = function(nums) {
+  let result = 0;
+  const len = nums.length;
+  for (var i = 0; i < len; i++) {
+      let min = nums[i], max = min;
+      for (var j = i + 1; j < len; j++) {
+          min = Math.min(nums[j], min);
+          max = Math.max(nums[j], max);
+          result += max - min;
+      }
+  }
+  return result;
+};
