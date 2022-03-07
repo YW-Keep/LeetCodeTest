@@ -12434,3 +12434,66 @@ var complexNumberMultiply = function(num1, num2) {
   }
   return result;
 };
+
+// 504. 七进制数 基础题
+/**
+ * @param {number} num
+ * @return {string}
+ */
+ var convertToBase7 = function(num) {
+  if (num === 0) {
+      return "0";
+  }
+  let negative = num < 0;
+  num = Math.abs(num);
+  const digits = [];
+  while (num > 0) {
+      digits.push(num % 7);
+      num = Math.floor(num / 7);
+  }
+  if (negative) {
+      digits.push('-');
+  }
+  return digits.reverse().join('');
+};
+
+
+// 521. 最长特殊序列 Ⅰ  脑筋急转弯
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {number}
+ */
+
+ var findLUSlength = function(a, b) {
+  return a !== b ? Math.max(a.length, b.length) : -1;
+};
+
+// 2100. 适合打劫银行的日子 先算出每天递增递减天数，在进行判断
+/**
+ * @param {number[]} security
+ * @param {number} time
+ * @return {number[]}
+ */
+ var goodDaysToRobBank = function(security, time) {
+  const n = security.length;
+  const left = new Array(n).fill(0);
+  const right = new Array(n).fill(0);
+  for (let i = 1; i < n; i++) {
+      if (security[i] <= security[i - 1]) {
+          left[i] = left[i - 1] + 1;
+      }
+      if (security[n - i - 1] <= security[n - i]) {
+          right[n - i - 1] = right[n - i] + 1;
+      }
+  }
+
+  const ans = [];
+  for (let i = time; i < n - time; i++) {
+      if (left[i] >= time && right[i] >= time) {
+          ans.push(i);    
+      }
+  }
+  return ans;
+};
+
