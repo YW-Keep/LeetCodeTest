@@ -3427,7 +3427,7 @@ var splitIntoFibonacci = function(S) {
   return list;
 };
 
-const backtrack = (list, S, length, index, sum, prev) => {
+const backtrack2 = (list, S, length, index, sum, prev) => {
   if (index === length) {
       return list.length >= 3;
   }
@@ -6937,7 +6937,7 @@ var decode = function(encoded) {
  * @param {number} arrLen
  * @return {number}
  */
- var numWays = function(steps, arrLen) {
+ var numWays2 = function(steps, arrLen) {
   const MODULO = 1000000007;
   let maxColumn = Math.min(arrLen - 1, steps);
   let dp = new Array(maxColumn + 1).fill(0);
@@ -8106,7 +8106,7 @@ const rdeserialize = (dataList) => {
  * @param {number} k
  * @return {number}
  */
- var numWays = function(n, relation, k) {
+ var numWays3 = function(n, relation, k) {
   let dp = new Array(n).fill(0);
   dp[0] = 1;
   for (let i = 0; i < k; i++) {
@@ -12497,3 +12497,101 @@ var complexNumberMultiply = function(num1, num2) {
   return ans;
 };
 
+//  2055. 蜡烛之间的盘子 基础题 预处理
+/**
+ * @param {string} s
+ * @param {number[][]} queries
+ * @return {number[]}
+ */
+ var platesBetweenCandles = function(s, queries) {
+  const n = s.length;
+  const preSum = new Array(n).fill(0);
+  for (let i = 0, sum = 0; i < n; i++) {
+      if (s[i] === '*') {
+          sum++;
+      }
+      preSum[i] = sum;
+  }
+  const left = new Array(n).fill(0);;
+  for (let i = 0, l = -1; i < n; i++) {
+      if (s[i] === '|') {
+          l = i;
+      }
+      left[i] = l;
+  }
+  const right = new Array(n).fill(0);;
+  for (let i = n - 1, r = -1; i >= 0; i--) {
+      if (s[i] === '|') {
+          r = i;
+      }
+      right[i] = r;
+  }
+  const ans = new Array(queries.length).fill(0);
+  for (let i = 0; i < queries.length; i++) {
+      const query = queries[i];
+      const x = right[query[0]], y = left[query[1]];
+      ans[i] = x === -1 || y === -1 || x >= y ? 0 : preSum[y] - preSum[x];
+  }
+  return ans;
+};
+
+// 798. 得分最高的最小轮调 差分
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var bestRotation = function(nums) {
+  const n = nums.length;
+  const diffs = new Array(n).fill(0);
+  for (let i = 0; i < n; i++) {
+      const low = (i + 1) % n;
+      const high = (i - nums[i] + n + 1) % n;
+      diffs[low]++;
+      diffs[high]--;
+      if (low >= high) {
+          diffs[0]++;
+      }
+  }
+  let bestIndex = 0;
+  let maxScore = 0;
+  let score = 0;
+  for (let i = 0; i < n; i++) {
+      score += diffs[i];
+      if (score > maxScore) {
+          bestIndex = i;
+          maxScore = score;
+      }
+  }
+  return bestIndex;
+};
+
+// 589. N 叉树的前序遍历 递归调用
+/**
+ * // Definition for a Node.
+ * function Node(val, children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * @param {Node|null} root
+ * @return {number[]}
+ */
+ var preorder = function(root) {
+   let res = []
+   dfs(root)
+   return res;
+   
+   function dfs(node) {
+     if(node) {
+       res.push(node.val)
+     }
+     if(node && node.children) {
+       for (let i = 0; i < node.children.length; i++) {
+         dfs(node.children[i])
+       }
+     }
+   }
+    
+};
