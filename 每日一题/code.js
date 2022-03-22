@@ -12700,3 +12700,99 @@ Bank.prototype.withdraw = function(account, money) {
   this.balance[account - 1] -= money;
   return true;
 };
+
+
+// 653. 两数之和 IV - 输入 BST 遍历存贮
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {boolean}
+ */
+ var findTarget = function(root, k) {
+  const set = new Set();
+  const helper = (root, k) => {
+      if (!root) {
+          return false;
+      }
+      if (set.has(k - root.val)) {
+          return true;
+      }
+      set.add(root.val);
+      return helper(root.left, k) || helper(root.right, k);
+  }
+  return helper(root, k);
+};
+
+// 2038. 如果相邻两个颜色均相同则删除当前颜色 贪心统计操作次数
+/**
+ * @param {string} colors
+ * @return {boolean}
+ */
+ var winnerOfGame = function(colors) {
+  const freq = [0, 0];
+  let cur = 'C';
+  let cnt = 0;
+  for (let i = 0; i < colors.length; i++) {
+      const c = colors[i];
+      if (c !== cur) {
+          cur = c;
+          cnt = 1;
+      } else {
+          cnt += 1;
+          if (cnt >= 3) {
+              freq[cur.charCodeAt() - 'A'.charCodeAt()] += 1;
+          }
+      }
+  }            
+  return freq[0] > freq[1];
+};
+
+
+// 606. 根据二叉树创建字符串  递归
+/**
+ * @param {TreeNode} root
+ * @return {string}
+ */
+ var tree2str = function(root) {
+  if (!root) {
+      return "";
+  }
+  if (!root.left && !root.right) {
+      return '' + root.val;
+  }
+  if (!root.right) {
+      return root.val + '(' + tree2str(root.left) + ')';
+  }
+  return root.val + '(' + tree2str(root.left) + ')(' + tree2str(root.right) + ')';
+};
+
+// 2039. 网络空闲的时刻 广度遍历
+/**
+ * @param {number[][]} edges
+ * @param {number[]} patience
+ * @return {number}
+ */
+ var networkBecomesIdle = function(edges, patience) {
+  const grah = new Map // 构造无向图
+  for (const [x, y] of edges) { 
+    grah.get(x) ? grah.get(x).push(y) : grah.set(x, [y])
+    grah.get(y) ? grah.get(y).push(x) : grah.set(y, [x])
+  }
+  const queue = [0], visited = new Set([0])
+  let index = 0, distance = 0, maxIdleTime = 0
+  while (index < queue.length) { // 广度优先搜索，移动 index 指针，提高性能
+    distance++
+    const length = queue.length
+    while (index < length) {
+      const tmp = grah.get(queue[index++])
+      for (const child of tmp) {
+        if(visited.has(child)) continue // 记录已访问过的节点，避免重复遍历
+        visited.add(child)
+        const idleTime = ((2 * distance - 1) / patience[child] | 0) * patience[child] + 2 * distance + 1
+        if (idleTime > maxIdleTime) maxIdleTime = idleTime // 计算空闲时间，更新最大值
+        queue.push(child)
+      }
+    }
+  }
+  return maxIdleTime
+};
