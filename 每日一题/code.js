@@ -12857,3 +12857,16 @@ Bank.prototype.withdraw = function(account, money) {
   return ret;
 };
 
+// 172. 阶乘后的零 基础数学题
+/**
+ * @param {number} n
+ * @return {number}
+ */
+ var trailingZeroes = function(n) {
+  let ans = 0;
+  while (n !== 0) {
+      n = Math.floor(n / 5);
+      ans += n;
+  }
+  return ans;
+};
