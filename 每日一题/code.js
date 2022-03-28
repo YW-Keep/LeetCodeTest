@@ -12870,3 +12870,70 @@ Bank.prototype.withdraw = function(account, money) {
   }
   return ans;
 };
+
+//  682. 棒球比赛 模拟
+/**
+ * @param {string[]} ops
+ * @return {number}
+ */
+ var calPoints = function(ops) {
+  let ret = 0;
+  const points = [];
+  for (const op of ops) {
+      const n = points.length;
+      switch (op[0]) {
+          case '+':
+              ret += points[n - 1] + points[n - 2];
+              points.push(points[n - 1] + points[n - 2]);
+              break;
+          case 'D':
+              ret += 2 * points[n - 1];
+              points.push(2 * points[n - 1]);
+              break;
+          case 'C':
+              ret -= points[n - 1];
+              points.pop();
+              break;
+          default:
+              ret += parseInt(op);
+              points.push(parseInt(op));
+              break;
+      }
+  }
+  return ret;
+};
+
+// 693. 交替位二进制数  位运算
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+ var hasAlternatingBits = function(n) {
+  const a = n ^ (n >> 1);
+  return (a & (a + 1)) === 0;
+};
+
+// 2028. 找出缺失的观测数据  基础题
+/**
+ * @param {number[]} rolls
+ * @param {number} mean
+ * @param {number} n
+ * @return {number[]}
+ */
+ var missingRolls = function(rolls, mean, n) {
+  const m = rolls.length;
+  const sum = mean * (n + m);
+  let missingSum = sum;
+  for (const roll of rolls) {
+      missingSum -= roll;
+  }
+  if (missingSum < n || missingSum > 6 * n) {
+      return [];
+  }
+  const quotient = Math.floor(missingSum / n), remainder = missingSum % n;
+  const missing = new Array(n).fill(0);
+  for (let i = 0; i < n; i++) {
+      missing[i] = quotient + (i < remainder ? 1 : 0);
+  }
+  return missing;
+};
