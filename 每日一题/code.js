@@ -13118,3 +13118,89 @@ Bank.prototype.withdraw = function(account, money) {
       return parseFloat(ch).toString() === "NaN" ? false : true;
   }
 };
+
+// 744. 寻找比目标字母大的最小字母  二分查找
+/**
+ * @param {character[]} letters
+ * @param {character} target
+ * @return {character}
+ */
+ var nextGreatestLetter = function(letters, target) {
+  const length = letters.length;
+  if (target >= letters[length - 1]) {
+      return letters[0];
+  }
+  let low = 0, high = length - 1;
+  while (low < high) {
+      const mid = Math.floor((high - low) / 2) + low;
+      if (letters[mid] > target) {
+          high = mid;
+      } else {
+          low = mid + 1;
+      }
+  }
+  return letters[low];
+};
+
+
+// 310. 最小高度树  深度遍历
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+ var findMinHeightTrees = function(n, edges) {
+  const ans = [];
+  if (n === 1) {
+      ans.push(0);
+      return ans;
+  }
+  const adj = new Array(n).fill(0).map(() => new Array());
+  for (const edge of edges) {
+      adj[edge[0]].push(edge[1]);
+      adj[edge[1]].push(edge[0]);
+  }
+
+  const parent = new Array(n).fill(-1);
+  /* 找到与节点 0 最远的节点 x */
+  const x = findLongestNode(0, parent, adj);
+  /* 找到与节点 x 最远的节点 y */
+  let y = findLongestNode(x, parent, adj);
+  /* 求出节点 x 到节点 y 的路径 */
+  const path = [];
+  parent[x] = -1;
+  while (y !== -1) {
+      path.push(y);
+      y = parent[y];
+  }
+  const m = path.length;
+  if (m % 2 === 0) {
+      ans.push(path[Math.floor(m / 2) - 1]);
+  }
+  ans.push(path[Math.floor(m / 2)]);
+  return ans;
+  
+  function findLongestNode (u, parent, adj) {
+      const n = adj.length;
+      const queue = [];
+      const visit = new Array(n).fill(false);
+      queue.push(u);
+      visit[u] = true;
+      let node = -1;
+
+      while (queue.length) {
+          const curr = queue.shift();
+          node = curr;
+          for (const v of adj[curr]) {
+              if (!visit[v]) {
+                  visit[v] = true;
+                  parent[v] = curr;
+                  queue.push(v);
+              }
+          }
+      }
+      return node;
+  };
+}
+
+
