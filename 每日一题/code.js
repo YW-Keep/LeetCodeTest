@@ -13254,3 +13254,73 @@ NumArray.prototype.prefixSum = function(index) {
   }
   return sum;
 }
+
+//  429. N 叉树的层序遍历 循环
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+
+/**
+ * @param {Node|null} root
+ * @return {number[][]}
+ */
+ var levelOrder = function(root) {
+  if (!root) {
+      return [];
+  }
+
+  const ans = [];
+  const queue = [root];
+
+  while (queue.length) {
+      const cnt = queue.length;
+      const level = [];
+      for (let i = 0; i < cnt; ++i) {
+          const cur = queue.shift();
+          level.push(cur.val);
+          for (const child of cur.children) {
+              queue.push(child);
+          }
+      }
+      ans.push(level);
+  }
+
+  return ans;
+};
+
+// 762. 二进制表示中质数个计算置位 基础题
+/**
+ * @param {number} left
+ * @param {number} right
+ * @return {number}
+ */
+ var countPrimeSetBits = function(left, right) {
+  let ans = 0;
+  for (let x = left; x <= right; ++x) {
+      if (isPrime(bitCount(x))) {
+          ++ans;
+      }
+  }
+  return ans;
+
+  function isPrime(x) {
+      if (x < 2) {
+          return false;
+      }
+      for (let i = 2; i * i <= x; ++i) {
+          if (x % i === 0) {
+              return false;
+          }
+      }
+      return true;
+  }
+
+  function bitCount(x) {
+      return x.toString(2).split('0').join('').length;
+  }
+};
+
