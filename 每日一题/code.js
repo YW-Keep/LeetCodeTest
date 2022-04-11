@@ -13350,3 +13350,42 @@ NumArray.prototype.prefixSum = function(index) {
       return false;
   }
 };
+
+// 804. 唯一摩尔斯密码词 map
+/**
+ * @param {string[]} words
+ * @return {number}
+ */
+
+ var uniqueMorseRepresentations = function(words) {
+  const MORSE = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."];
+  const seen = new Set();
+  for (const word of words) {
+      let code = '';
+      for (const ch of word) {
+          code += (MORSE[ch.charCodeAt() - 'a'.charCodeAt()]);
+      }
+      seen.add(code);
+  }
+  return seen.size;
+}
+
+// 357. 统计各位数字都不同的数字个数 数学题
+/**
+ * @param {number} n
+ * @return {number}
+ */
+ var countNumbersWithUniqueDigits = function(n) {
+  if (n === 0) {
+      return 1;
+  }
+  if (n === 1) {
+      return 10;
+  }
+  let res = 10, cur = 9;
+  for (let i = 0; i < n - 1; i++) {
+      cur *= 9 - i;
+      res += cur;
+  }
+  return res;
+};
