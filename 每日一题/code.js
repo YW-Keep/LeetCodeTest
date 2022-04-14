@@ -13438,3 +13438,18 @@ RandomizedSet.prototype.getRandom = function() {
   const randomIndex = Math.floor(Math.random() * this.nums.length);
   return this.nums[randomIndex];
 };
+
+
+// 1672. 最富有客户的资产总量 基础遍历题
+/**
+ * @param {number[][]} accounts
+ * @return {number}
+ */
+
+ var maximumWealth = function(accounts) {
+  let maxWealth = -Number.MAX_VALUE;
+  for (const account of accounts) {
+      maxWealth = Math.max(maxWealth, account.reduce((a, b) => a + b));
+  }
+  return maxWealth;
+};
