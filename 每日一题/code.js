@@ -13650,3 +13650,36 @@ RandomizedSet.prototype.getRandom = function() {
   }
   return ans;
 }
+
+// 824. 山羊拉丁文 模拟
+/**
+ * @param {string} sentence
+ * @return {string}
+ */
+ var toGoatLatin = function(sentence) {
+  const vowels = new Set();
+  vowels.add('a');
+  vowels.add('e');
+  vowels.add('i');
+  vowels.add('o');
+  vowels.add('u');
+  vowels.add('A');
+  vowels.add('E');
+  vowels.add('I');
+  vowels.add('O');
+  vowels.add('U');
+  return sentence.split(" ").map((i, idx) => {
+      const res = new Array()
+      if(vowels.has(i.charAt(0))) {
+          res.push(i)
+      } else {
+          res.push(i.substring(1))
+          res.push(i.substring(0, 1))
+      }
+      res.push("ma")
+      for(let j = 0; j <= idx; j++)
+          res.push("a")
+      return res.join("")
+  }).join(" ")
+};
+
