@@ -13720,3 +13720,44 @@ RandomizedSet.prototype.getRandom = function() {
   }
   return ans;
 };
+
+// 883. 三维形体投影面积 基础计算
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+ var projectionArea = function(grid) {
+  const n = grid.length;
+  let xyArea = 0, yzArea = 0, zxArea = 0;
+  for (let i = 0; i < n; i++) {
+      let yzHeight = 0, zxHeight = 0;
+      for (let j = 0; j < n; j++) {
+          xyArea += grid[i][j] > 0 ? 1 : 0;
+          yzHeight = Math.max(yzHeight, grid[i][j]);
+          zxHeight = Math.max(zxHeight, grid[j][i]);
+      }
+      yzArea += yzHeight;
+      zxArea += zxHeight;
+  }
+  return xyArea + yzArea + zxArea;
+};
+
+// 398. 随机数索引  哈希表
+/**
+ * @param {number[]} nums
+ */
+var Solution = function(nums) {
+  this.pos = new Map();
+  for (let i = 0; i < nums.length; ++i) {
+      if (!this.pos.has(nums[i])) {
+          this.pos.set(nums[i], []);
+      }
+      
+      this.pos.get(nums[i]).push(i);
+  }
+};
+
+Solution.prototype.pick = function(target) {
+  const indices = this.pos.get(target);
+  return indices[Math.floor(Math.random() * indices.length)];
+};
