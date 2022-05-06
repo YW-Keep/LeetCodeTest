@@ -13851,3 +13851,16 @@ Solution.prototype.pick = function(target) {
   }
   return ret;
 };
+
+// 933. 最近的请求次数 基础题
+var RecentCounter = function() {
+  this.queue = [];
+};
+
+RecentCounter.prototype.ping = function(t) {
+  this.queue.push(t);
+  while (this.queue[0] < t - 3000) {
+      this.queue.shift();
+  }
+  return this.queue.length;
+};
