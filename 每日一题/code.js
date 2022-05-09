@@ -13913,3 +13913,39 @@ RecentCounter.prototype.ping = function(t) {
   }
   return -1;
 };
+
+// 942. 增减字符串匹配 贪心
+/**
+ * @param {string} s
+ * @return {number[]}
+ */
+ var diStringMatch = function(s) {
+  let n = s.length, lo = 0, hi = n;
+  const perm = new Array(n + 1).fill(0);
+  for (let i = 0; i < n; ++i) {
+      perm[i] = s[i] === 'I' ? lo++ : hi--;
+  }
+  perm[n] = lo; // 最后剩下一个数，此时 lo == hi
+  return perm;
+};
+
+// 442. 数组中重复的数据 正负标记法
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+ var findDuplicates = function(nums) {
+  const n = nums.length;
+  const ans = [];
+  for (let i = 0; i < n; ++i) {
+      const x = Math.abs(nums[i]);
+      if (nums[x - 1] > 0) {
+          nums[x - 1] = -nums[x - 1];
+      } else {
+          ans.push(x);
+      }
+  }
+  return ans;
+}
+
+
