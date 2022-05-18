@@ -14123,3 +14123,28 @@ var deserialize = function(data) {
   }
   return true;
 };
+
+// 668. 乘法表中第k小的数 二分查找
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+ var findKthNumber = function(m, n, k) {
+  let left = 1, right = m * n;
+  while (left < right) {
+      const x = left + Math.floor((right - left) / 2);
+      let count = Math.floor(x / n) * n;
+      for (let i = Math.floor(x / n) + 1; i <= m; ++i) {
+          count += Math.floor(x / i);
+      }
+      if (count >= k) {
+          right = x;
+      } else {
+          left = x + 1;
+      }
+  }
+  return left;
+};
+
