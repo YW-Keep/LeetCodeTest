@@ -14195,3 +14195,50 @@ var deserialize = function(data) {
   }
   return ans;
 };
+
+// 961. 在长度 2N 的数组中找出重复 N 次的元素 哈希表                                                                                                                                            
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var repeatedNTimes = function(nums) {
+  const found = new Set();
+  for (const num of nums) {
+      if (found.has(num)) {
+          return num;
+      }
+      found.add(num);
+  }
+  // 不可能的情况
+  return -1;
+};
+
+// 965. 单值二叉树  遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isUnivalTree = function(root) {
+  if (!root) {
+      return true;
+  }
+  if (root.left) {
+      if (root.val !== root.left.val || !isUnivalTree(root.left)) {
+          return false;
+      }
+  }
+  if (root.right) {
+      if (root.val !== root.right.val || !isUnivalTree(root.right)) {
+          return false;
+      }
+  }
+  return true;
+};
