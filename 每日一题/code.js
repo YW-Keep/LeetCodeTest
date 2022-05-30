@@ -14311,3 +14311,56 @@ var isUnivalTree = function(root) {
   }
   return ans;
 };
+
+
+// 1022. 从根到叶的二进制数之和 二叉树后续遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+ var sumRootToLeaf = function(root) {
+  const dfs = (root, val) => {
+      if (!root) {
+          return 0;
+      }
+      val = (val << 1) | root.val;
+      if (!root.left&& !root.right) {
+          return val;
+      }
+      return dfs(root.left, val) + dfs(root.right, val);
+  }
+  return dfs(root, 0);
+};
+
+//  1021. 删除最外层的括号 栈
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ var removeOuterParentheses = function(s) {
+  let res = '';
+  const stack = [];
+  for (let i = 0; i < s.length; i++) {
+      const c = s[i];
+      if (c === ')') {
+          stack.pop();
+      }
+      if (stack.length) {
+          res += c;
+      }
+      if (c === '(') {
+          stack.push(c);
+      }
+  }
+  return res;
+};
+
+
