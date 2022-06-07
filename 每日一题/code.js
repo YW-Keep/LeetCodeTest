@@ -14512,3 +14512,54 @@ var isUnivalTree = function(root) {
       return root;
   }
 };
+
+// 875. 爱吃香蕉的珂珂 二分查找
+/**
+ * @param {number[]} piles
+ * @param {number} h
+ * @return {number}
+ */
+ var minEatingSpeed = function(piles, h) {
+  let low = 1;
+  let high = 0;
+  for (const pile of piles) {
+      high = Math.max(high, pile);
+  }
+  let k = high;
+  while (low < high) {
+      const speed = Math.floor((high - low) / 2) + low;
+      const time = getTime(piles, speed);
+      if (time <= h) {
+          k = speed;
+          high = speed;
+      } else {
+          low = speed + 1;
+      }
+  }
+  return k;
+
+  function getTime (piles, speed) {
+      let time = 0;
+      for (const pile of piles) {
+          const curTime = Math.floor((pile + speed - 1) / speed);
+          time += curTime;
+      }
+      return time;
+  };
+}
+
+// 929. 独特的电子邮件地址  哈希表
+/**
+ * @param {string[]} emails
+ * @return {number}
+ */
+ var numUniqueEmails = function(emails) {
+  const emailSet = new Set();
+  for (const email of emails) {
+      const i = email.indexOf('@');
+      let local = email.slice(0, i).split("+")[0]; // 去掉本地名第一个加号之后的部分
+      local = local.replaceAll(".", ""); // 去掉本地名中所有的句点
+      emailSet.add(local + email.slice(i));
+  }
+  return emailSet.size;
+};
