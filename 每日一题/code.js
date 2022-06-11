@@ -14574,3 +14574,26 @@ var isUnivalTree = function(root) {
   const v2 = [points[2][0] - points[0][0], points[2][1] - points[0][1]];
   return v1[0] * v2[1] - v1[1] * v2[0] != 0;
 };
+
+
+// 926. 将字符串翻转到单调递增  动态规划
+/** 
+ * @param {string} s
+ * @return {number}
+ */
+ var minFlipsMonoIncr = function(s) {
+  const n = s.length;
+  let dp0 = 0, dp1 = 0;
+  for (let i = 0; i < n; i++) {
+      const c = s[i];
+      let dp0New = dp0, dp1New = Math.min(dp0, dp1);
+      if (c === '1') {
+          dp0New++;
+      } else {
+          dp1New++;
+      }
+      dp0 = dp0New;
+      dp1 = dp1New;
+  }
+  return Math.min(dp0, dp1);
+};
