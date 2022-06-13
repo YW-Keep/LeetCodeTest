@@ -14597,3 +14597,51 @@ var isUnivalTree = function(root) {
   }
   return Math.min(dp0, dp1);
 };
+
+// 1051. 高度检查器 排序
+/**
+ * @param {number[]} heights
+ * @return {number}
+ */
+ var heightChecker = function(heights) {
+  let n = heights.length, ans = 0;
+  const expected = new Array(n).fill(0);
+  expected.splice(0, n, ...heights);
+  expected.sort((a, b) => a - b);
+  for (let i = 0; i < n; ++i) {
+      if (heights[i] !== expected[i]) {
+          ++ans;
+      }
+  }
+  return ans;
+};
+
+// 890. 查找和替换模式 检测
+/**
+ * @param {string[]} words
+ * @param {string} pattern
+ * @return {string[]}
+ */
+ var findAndReplacePattern = function(words, pattern) {
+  const ans = [];
+  for (const word of words) {
+      if (match(word, pattern) && match(pattern, word)) {
+          ans.push(word);
+      }
+  }
+  return ans;
+
+
+  function match(word, pattern) {
+      const map = new Map();
+      for (let i = 0; i < word.length; ++i) {
+          const x = word[i], y = pattern[i];
+          if (!map.has(x)) {
+              map.set(x, y);
+          } else if (map.get(x) !== y) { 
+              return false;
+          }
+      }
+      return true;
+  }
+};
