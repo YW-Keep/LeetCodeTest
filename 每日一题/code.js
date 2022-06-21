@@ -14729,3 +14729,84 @@ var isUnivalTree = function(root) {
   }
   return res.size;
 };
+
+// 1089. 复写零 双指针 倒序赋值
+/**
+ * @param {number[]} arr
+ * @return {void} Do not return anything, modify arr in-place instead.
+ */
+ var duplicateZeros = function(arr) {
+  const n = arr.length;
+  let top = 0;
+  let i = -1;
+  while (top < n) {
+      i++;
+      if (arr[i] !== 0) {
+          top++;
+      } else {
+          top += 2;
+      }
+  }
+  let j = n - 1;
+  if (top === n + 1) {
+      arr[j] = 0;
+      j--;
+      i--;
+  } 
+  while (j >= 0) {
+      arr[j] = arr[i];
+      j--;
+      if (arr[i] === 0) {
+          arr[j] = arr[i];
+          j--;
+      } 
+      i--;
+  }
+};
+
+
+// 508. 出现次数最多的子树元素和  遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var findFrequentTreeSum = function(root) {
+  const cnt = new Map();
+  let maxCnt = 0;
+
+  const dfs = (node) => {
+      if (!node) {
+          return 0;
+      }
+      const sum = node.val + dfs(node.left) + dfs(node.right);
+      cnt.set(sum, (cnt.get(sum) || 0) + 1);
+      maxCnt = Math.max(maxCnt, cnt.get(sum));
+      return sum;
+  }
+
+  dfs(root);
+  const list = [];
+  for (const [s, c] of cnt.entries()) {
+      if (c === maxCnt) {
+          list.push(s);
+      }
+  }
+  return list;
+};
+
+// 1108. IP 地址无效化  基础替换
+/**
+ * @param {string} address
+ * @return {string}
+ */
+ var defangIPaddr = function(address) {
+  return address.replaceAll('\.', '[.]');
+};
