@@ -14810,3 +14810,31 @@ var isUnivalTree = function(root) {
  var defangIPaddr = function(address) {
   return address.replaceAll('\.', '[.]');
 };
+
+// 513. 找树左下角的值 层序遍历
+/** 
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+ var findBottomLeftValue = function(root) {
+  let num = root.val;
+  let backup =[root];
+  while(backup.length > 0) {
+      num = backup[0].val;
+      let newBackup = [];
+      for(let node of backup) {
+          if(node.left) { newBackup.push(node.left)}
+          if(node.right) {newBackup.push(node.right)}
+      }
+      backup = newBackup;
+  }
+  return num;
+};
