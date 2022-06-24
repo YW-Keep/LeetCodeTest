@@ -14885,3 +14885,36 @@ var isUnivalTree = function(root) {
   }
   return res;
 };
+
+// 515. 在每个树行中找最大值 层序遍历
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+ var largestValues = function(root) {
+  let res = [];
+  let backup =[];
+  if(root) {backup.push(root)}
+  while(backup.length > 0) {
+      let max = backup[0].val;
+      let newBackup = [];
+      for(let node of backup) {
+          max = Math.max(max,node.val)
+          if(node.left) { newBackup.push(node.left)}
+          if(node.right) {newBackup.push(node.right)}
+
+      }
+      res.push(max)
+      backup = newBackup;
+  }
+  return res;
+
+};
