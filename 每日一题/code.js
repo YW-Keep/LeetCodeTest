@@ -15094,3 +15094,49 @@ MyCalendar.prototype.book = function(start, end) {
   }
   return words.join(' ');
 };
+
+// 1217. 玩筹码 贪心，基偶性
+/**
+ * @param {number[]} position
+ * @return {number}
+ */
+
+ var minCostToMoveChips = function(position) {
+  let even = 0, odd = 0;
+  for (const pos of position) {
+      if ((pos & 1) !== 0) {
+          odd++;
+      } else {
+          even++;
+      }
+  }
+  return Math.min(odd, even);
+};
+
+// 873. 最长的斐波那契子序列的长度 动态规划 
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+ var lenLongestFibSubseq = function(arr) {
+  const indices = new Map();
+  const n = arr.length;
+  for (let i = 0; i < n; i++) {
+      indices.set(arr[i], i);
+  }
+  const dp = new Array(n).fill(0).map(() => new Array(n).fill(0));
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
+      for (let j = n - 1; j >= 0; j--) {
+          if (arr[j] * 2 <= arr[i]) {
+              break;
+          }
+          if (indices.has(arr[i] - arr[j])) {
+              const k = indices.get(arr[i] - arr[j]);
+              dp[j][i] = Math.max(dp[k][j] + 1, 3);
+              ans = Math.max(ans, dp[j][i]);
+          }
+      }
+  }
+  return ans;
+};
