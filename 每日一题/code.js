@@ -15191,3 +15191,27 @@ var asteroidCollision = function(asteroids) {
   }
   return ans;
 };
+
+// 745. 前缀和后缀搜索 哈希 
+/**
+ * @param {string[]} words
+ */
+ var WordFilter = function(words) {
+  this.dictionary = new Map();
+  for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      const m = word.length;
+      for (let prefixLength = 1; prefixLength <= m; prefixLength++) {
+          for (let suffixLength = 1; suffixLength <= m; suffixLength++) {
+              this.dictionary.set(word.substring(0, prefixLength) + "#" + word.substring(m - suffixLength), i);
+          }
+      }
+  }
+};
+
+WordFilter.prototype.f = function(pref, suff) {
+  if (this.dictionary.has(pref + "#" + suff)) {
+      return this.dictionary.get(pref + "#" + suff);
+  }
+  return -1;
+};
