@@ -15254,3 +15254,25 @@ WordFilter.prototype.f = function(pref, suff) {
   }
   return new Node(false, false, o1, o2, o3, o4);
 };
+
+// 剑指 Offer II 041. 滑动窗口的平均值 基础题
+/**
+ * Initialize your data structure here.
+ * @param {number} size
+ */
+ var MovingAverage = function(size) {
+  this.queue = [];
+  this.size = size;
+  this.sum = 0;
+};
+
+MovingAverage.prototype.next = function(val) {
+  if (this.queue.length === this.size) {
+      this.sum -= this.queue.shift();
+  }
+  this.queue.push(val);
+  this.sum += val;
+  return this.sum / this.queue.length;
+};
+
+
