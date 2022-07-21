@@ -15297,3 +15297,53 @@ MyCalendarTwo.prototype.book = function(start, end) {
   this.booked.push([start, end]);
   return true;
 };
+
+// 1260. 二维网格迁移 变成一维数组处理
+/**
+ * @param {number[][]} grid
+ * @param {number} k
+ * @return {number[][]}
+ */
+ var shiftGrid = function(grid, k) {
+  const m = grid.length, n = grid[0].length;
+  const ret = [];
+  for (let i = 0; i < m; i++) {
+      const row = [];
+      for (let j = 0; j < n; j++) {
+          row.push(0);
+      }
+      ret.push(row);
+  }
+  for (let i = 0; i < m; i++) {
+      for (let j = 0; j < n; j++) {
+          const index1 = (i * n + j + k) % (m * n);
+          ret[Math.floor(index1 / n)].splice(index1 % n, 1, grid[i][j]);
+      }
+  }
+  return ret;
+};
+
+// 814. 二叉树剪枝 递归
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+ var pruneTree = function(root) {
+  if (!root) {
+      return null;
+  }
+  root.left = pruneTree(root.left);
+  root.right = pruneTree(root.right);
+  if (!root.left && !root.right&& root.val === 0) {
+      return null;
+  }
+  return root;
+};
