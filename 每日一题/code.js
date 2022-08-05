@@ -15640,3 +15640,28 @@ MyCircularQueue.prototype.isFull = function() {
   }
   return ans;
 };
+
+// 623. 在二叉树中增加一行 递归
+/**
+ * @param {TreeNode} root
+ * @param {number} val
+ * @param {number} depth
+ * @return {TreeNode}
+ */
+ var addOneRow = function(root, val, depth) {
+  if (!root) {
+      return null;
+  }
+  if (depth === 1) {
+      return new TreeNode(val, root, null);
+  }
+  if (depth === 2) {
+      root.left = new TreeNode(val, root.left, null);
+      root.right = new TreeNode(val, null, root.right);
+  } else {
+      root.left = addOneRow(root.left, val, depth - 1);
+      root.right = addOneRow(root.right, val, depth - 1);
+  }
+  return root;
+};
+
