@@ -15682,3 +15682,17 @@ MyCircularQueue.prototype.isFull = function() {
   }
   return ret;
 };
+
+// 1413. 逐步求和得到正数的最小值  取最小值
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var minStartValue = function(nums) {
+  let accSum = 0, accSumMin = 0;
+  for (const num of nums) {
+      accSum += num;
+      accSumMin = Math.min(accSumMin, accSum);
+  }
+  return -accSumMin + 1;
+};
