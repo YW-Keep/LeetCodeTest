@@ -15777,3 +15777,61 @@ MyCircularQueue.prototype.isFull = function() {
     return parseFloat(ch).toString() === "NaN" ? false : true;
   }
 }
+
+
+// 1282. 用户分组 map
+/**
+ * @param {number[]} groupSizes
+ * @return {number[][]}
+ */
+ var groupThePeople = function(groupSizes) {
+  const groups = new Map();
+  const n = groupSizes.length;
+  for (let i = 0; i < n; i++) {
+      const size = groupSizes[i];
+      if (!groups.has(size)) {
+          groups.set(size, []);
+      }
+      groups.get(size).push(i);
+  }
+  const groupList = [];
+  for (const [size, people] of groups.entries()) {
+      const groupCount = Math.floor(people.length / size);
+      for (let i = 0; i < groupCount; i++) {
+          const group = [];
+          const start = i * size;
+          for (let j = 0; j < size; j++) {
+              group.push(people[start + j]);
+          }
+          groupList.push(group);
+      }
+  }
+  return groupList;
+};
+
+// 1656. 设计有序流 基础题
+/**
+ * @param {number} n
+ */
+ var OrderedStream = function(n) {
+  this.ptr = 1;
+  this.mStream = [];
+};
+
+/** 
+* @param {number} id 
+* @param {string} value
+* @return {string[]}
+*/
+OrderedStream.prototype.insert = function(id, value) {
+  this.mStream[id] = value;
+  var res = [];
+  //只有当前插入得id等于ptr才可能返回有序流，否则不会返回
+  if(id===this.ptr){
+      //ptr依次往后走，直到在数组中找不到这个key为止
+      while(this.ptr in this.mStream){
+          res.push(this.mStream[this.ptr++]);
+      }
+  }
+  return res;
+};
