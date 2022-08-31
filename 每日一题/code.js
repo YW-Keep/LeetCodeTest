@@ -16044,3 +16044,22 @@ var shuffle = function(nums, n) {
   parent.right = new TreeNode(val);
   return root;
 };
+
+// 946. 验证栈序列 模拟
+/**
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
+ */
+ var validateStackSequences = function(pushed, popped) {
+  const stack = [];
+  const n = pushed.length;
+  for (let i = 0, j = 0; i < n; i++) {
+      stack.push(pushed[i]);
+      while (stack.length && stack[stack.length - 1] == popped[j]) {
+          stack.pop();
+          j++;
+      }
+  }
+  return stack.length === 0;
+};
