@@ -16116,3 +16116,21 @@ var shuffle = function(nums, n) {
   dfs(root);
   return res;
 };
+
+
+// 646. 最长数对链 贪心算法
+/**
+ * @param {number[][]} pairs
+ * @return {number}
+ */
+ var findLongestChain = function(pairs) {
+  let curr = -Number.MAX_VALUE, res = 0;
+  pairs.sort((a, b) => a[1] - b[1]);
+  for (const p of pairs) {
+      if (curr < p[0]) {
+          curr = p[1];
+          res++;
+      }
+  }
+  return res;
+}
