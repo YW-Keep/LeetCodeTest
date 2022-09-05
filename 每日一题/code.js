@@ -16134,3 +16134,33 @@ var shuffle = function(nums, n) {
   }
   return res;
 }
+
+// 652. 寻找重复的子树 序列化
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode[]}
+ */
+ var findDuplicateSubtrees = function(root) {
+  const seen = new Map();
+  const repeat = new Set();
+  const dfs = (node) => {
+      if (!node) {
+          return "";
+      }
+      let sb = '';
+      sb += node.val;
+      sb += "(";
+      sb += dfs(node.left);
+      sb += ")(";
+      sb += dfs(node.right);
+      sb += ")";
+      if (seen.has(sb)) {
+          repeat.add(seen.get(sb));
+      } else {
+          seen.set(sb, node);
+      }
+      return sb;
+  }
+  dfs(root);
+  return [...repeat];
+};
