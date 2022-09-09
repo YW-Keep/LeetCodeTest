@@ -16257,3 +16257,24 @@ var shuffle = function(nums, n) {
   }
   return answer;
 };
+
+// 1598. 文件夹操作日志搜集器  模拟
+/**
+ * @param {string[]} logs
+ * @return {number}
+ */
+ var minOperations = function(logs) {
+  let depth = 0;
+  for (const log of logs) {
+      if ('./' === log) {
+          continue;
+      } else if ('../' === log) {
+          if (depth > 0) {
+              depth--;
+          }
+      } else {
+          depth++;
+      }
+  }
+  return depth;
+};
