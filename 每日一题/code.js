@@ -16310,4 +16310,17 @@ var shuffle = function(nums, n) {
   };
 }
 
-
+// 1619. 删除某些元素后的数组均值 排序求和
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+ var trimMean = function(arr) {
+  const n = arr.length;
+  arr.sort((a, b) => a - b);
+  let partialSum = 0;
+  for (let i = n / 20; i < 19 * n / 20; i++) {
+      partialSum += arr[i];
+  }
+  return partialSum / (n * 0.9);
+};
