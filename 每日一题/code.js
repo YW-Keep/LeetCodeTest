@@ -16345,3 +16345,40 @@ var shuffle = function(nums, n) {
 
 
 };
+
+// 1624. 两个相同字符之间的最长子字符串 遍历记录
+/**
+ * @param {string} s
+ * @return {number}
+ */
+ var maxLengthBetweenEqualCharacters = function(s) {
+  const firstIndex = new Array(26).fill(-1);
+  let maxLength = -1;
+  for (let i = 0; i < s.length; i++) {
+      if (firstIndex[s[i].charCodeAt() - 'a'.charCodeAt()] < 0) {
+          firstIndex[s[i].charCodeAt() - 'a'.charCodeAt()] = i;
+      } else {
+          maxLength = Math.max(maxLength, i - firstIndex[s[i].charCodeAt() - 'a'.charCodeAt()] - 1);
+      }
+  }
+  return maxLength;
+};
+
+// 1636. 按照频率将数组升序排序 模拟排序
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+ var frequencySort = function(nums) {
+  const cnt = new Map();
+  for (const num of nums) {
+      cnt.set(num, (cnt.get(num) || 0) + 1);
+  }
+  const list = [...nums];
+  list.sort((a, b) => {
+      const cnt1 = cnt.get(a), cnt2 = cnt.get(b);
+      return cnt1 !== cnt2 ? cnt1 - cnt2 : b - a;
+  });
+
+  return list;
+};
