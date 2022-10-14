@@ -16573,3 +16573,20 @@ var shuffle = function(nums, n) {
   return res;
 };
 
+// 940. 不同的子序列 II 动态规划
+/**
+ * @param {string} s
+ * @return {number}
+ */
+ var distinctSubseqII = function(s) {
+  const MOD = 1000000007;
+  const g = new Array(26).fill(0);
+  let n = s.length, total = 0;
+  for (let i = 0; i < n; ++i) {
+      let oi = s[i].charCodeAt() - 'a'.charCodeAt();
+      let prev = g[oi];
+      g[oi] = (total + 1) % MOD;
+      total = ((total + g[oi] - prev) % MOD + MOD) % MOD;
+  }
+  return total;
+};
