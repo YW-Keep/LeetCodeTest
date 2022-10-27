@@ -16711,3 +16711,20 @@ var totalFruit = function(fruits) {
   }
   return res < n + 1 ? res : -1;
 };
+
+// 1822. 数组元素积的符号  基础题
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var arraySign = function(nums) {
+  let count = 0
+  for (let i = 0; i < nums.length; i++) {
+    let num =  nums[i]
+    if (num == 0) {
+      return 0
+    }
+    count += num < 0 ? 1 : 0
+  }
+  return count%2 == 1 ? -1 : 1
+};
