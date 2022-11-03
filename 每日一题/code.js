@@ -16819,3 +16819,20 @@ var totalFruit = function(fruits) {
       return (tower[0] - coordinate[0]) * (tower[0] - coordinate[0]) + (tower[1] - coordinate[1]) * (tower[1] - coordinate[1]);
   };
 }
+
+// 1668. 最大重复子字符串 简单遍历
+/**
+ * @param {string} sequence
+ * @param {string} word
+ * @return {number}
+ */
+ var maxRepeating = function(sequence, word) {
+  let k = 0, n = sequence.length, str = word
+  while (str.length <= n) {
+    if (sequence.indexOf(str) === -1) break
+    ++k
+    str += word
+  }
+
+  return k
+};
