@@ -16852,3 +16852,45 @@ var totalFruit = function(fruits) {
   return target % 2 === 0 ? k : k + 1 + k % 2;
 };
 
+// 1106. 解析布尔表达式  栈
+/**
+ * @param {string} expression
+ * @return {boolean}
+ */
+ var parseBoolExpr = function(expression) {
+  const stack = [];
+  const n = expression.length;
+  for (let i = 0; i < n; i++) {
+      const c = expression[i];
+      if (c === ',') {
+          continue;
+      } else if (c !== ')') {
+          stack.push(c);
+      } else {
+          let t = 0, f = 0;
+          while (stack[stack.length - 1] !== '(') {
+              const val = stack.pop();
+              if (val === 't') {
+                  t++;
+              } else {
+                  f++;
+              }
+          }
+          stack.pop();
+          const op = stack.pop();
+          switch (op) {
+          case '!':
+              stack.push(f === 1 ? 't' : 'f');
+              break;
+          case '&':
+              stack.push(f === 0 ? 't' : 'f');
+              break;
+          case '|':
+              stack.push(t > 0 ? 't' : 'f');
+              break;
+          default:
+          }
+      }
+  }
+  return stack.pop() === 't';
+};
