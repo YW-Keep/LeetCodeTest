@@ -20,3 +20,33 @@ class Solution {
         return n == 0
     }
 }
+
+
+
+// 791. 自定义字符串排序 字典
+class Solution791 {
+    func customSortString(_ order: String, _ s: String) -> String {
+        var dic = [Character:Int]()
+        for c in s {
+            dic[c] = (dic[c] ?? 0) + 1 
+        }
+
+        var res = ""
+
+        for c in order {
+            if let num = dic[c] {
+                res += String(repeating: String(c), count: num)
+                dic[c] = nil 
+            }else{
+                break 
+            }
+        }
+        for (key, value) in dic {
+            res += String(repeating: String(key), count: value)
+        }
+
+
+        return res 
+
+    }
+}
