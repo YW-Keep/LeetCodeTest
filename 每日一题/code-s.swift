@@ -72,3 +72,21 @@ class Solution {
         return result
     }
 }
+
+// 775. 全局倒置与局部倒置 维护最小值
+class Solution {
+    func isIdealPermutation(_ nums: [Int]) -> Bool {
+        let n = nums.count
+        guard n > 2 else {
+            return true
+        }
+        var minNum = nums[n-1]
+        for i in (0...n-3).reversed(){
+            if nums[i] > minNum {
+                return false
+            }
+            minNum = min(minNum, nums[i+1])
+        }
+        return true
+    }
+}
