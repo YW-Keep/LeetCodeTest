@@ -90,3 +90,38 @@ class Solution {
         return true
     }
 }
+
+// 792. 匹配子序列的单词数 多指针
+class Solution {
+    func numMatchingSubseq(_ s: String, _ words: [String]) -> Int {
+        var map = [[(Int,Int)]](repeating: [], count: 26);
+        let firstChar: Character = "a"
+        for i in 0...(words.count-1) {
+            let word = words[i]
+            let char = word[word.startIndex]
+            let index = Int(char.asciiValue! - firstChar.asciiValue!)
+            map[index].append((i,0))
+        }
+        var res = 0
+        for char in s {
+            let index = Int(char.asciiValue! - firstChar.asciiValue!)
+            guard map[index].count > 0 else {
+                continue
+            }
+            var len = map[index].count
+            while (len > 0) {
+                let item = map[index].remove(at: 0)
+                if item.1 == words[item.0].count - 1 {
+                    res += 1
+                } else {
+                    let word = words[item.0]
+                    let char = word[word.index(word.startIndex, offsetBy: item.1+1)]
+                    let index = Int(char.asciiValue! - firstChar.asciiValue!)
+                    map[index].append((item.0,item.1+1))
+                }
+                len -= 1
+            }
+        }
+        return res
+    }
+}
