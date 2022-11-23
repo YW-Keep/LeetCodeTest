@@ -125,3 +125,23 @@ class Solution {
         return res
     }
 }
+
+// 1742. 盒子中小球的最大数量 哈希表
+class Solution {
+    func countBalls(_ lowLimit: Int, _ highLimit: Int) -> Int {
+      var dict = [Int:Int]()
+      var maxCount = 0
+      for i in lowLimit...highLimit {
+        var num = i 
+        var key = 0
+        while num > 0 {
+          key += num % 10
+          num /= 10
+        }
+
+        dict[key] = (dict[key] ?? 0) + 1
+        maxCount = max(maxCount, dict[key]!)
+      }
+      return maxCount
+    }
+}
