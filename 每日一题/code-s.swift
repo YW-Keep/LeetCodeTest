@@ -145,3 +145,22 @@ class Solution {
       return maxCount
     }
 }
+
+// 795. 区间子数组个数 逻辑题
+class Solution {
+    func numSubarrayBoundedMax(_ nums: [Int], _ left: Int, _ right: Int) -> Int {
+        var res = 0, last1 = -1, last2 = -1
+        for (i, num) in nums.enumerated() {
+            if num >= left && num <= right {
+                last1 = i
+            } else if num > right {
+                last2 = i
+                last1 = -1
+            }
+            if(last1 != -1) {
+                res += last1 - last2
+            }
+        }
+        return res
+    }
+}
