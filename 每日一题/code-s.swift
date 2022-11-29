@@ -164,3 +164,17 @@ class Solution {
         return res
     }
 }
+
+// 1758. 生成交替二进制字符串的最少操作数 基础题
+class Solution {
+    func minOperations(_ s: String) -> Int {
+        var change = 0
+        for num in 0..<s.count {
+            let char = String(s[s.index(s.startIndex,offsetBy: num)])
+            if num%2 == Int(char) {
+                change += 1
+            }
+        }
+        return min(change, s.count - change)
+    }
+}
