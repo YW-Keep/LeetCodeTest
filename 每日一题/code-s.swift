@@ -178,3 +178,42 @@ class Solution {
         return min(change, s.count - change)
     }
 }
+
+// 895. 最大频率栈  哈希表和栈 
+class FreqStack {
+    var freq: [Int: Int]
+    var group: [Int: [Int]]
+    var maxFreq: Int
+    init() {
+        self.freq = [Int: Int]()
+        self.group = [Int: [Int]]()
+        self.maxFreq = 0
+    }
+    
+    func push(_ val: Int) {
+        var valFreq = (freq[val] ?? 0) + 1
+        freq[val] = valFreq
+        maxFreq = max(maxFreq, valFreq)
+        var stack = group[valFreq] ?? []
+        stack.append(val)
+        group[valFreq] = stack
+    }
+    
+    func pop() -> Int {
+        guard let val = group[maxFreq]?.popLast() else {
+            return -1
+        }
+        guard let valFreq = freq[val] else {
+            return -1
+        }
+        if valFreq == 1 {
+            freq[val] = nil
+        } else {
+            freq[val] = valFreq - 1
+        }
+        if group[maxFreq]?.count == 0 {
+            maxFreq -= 1
+        }
+        return val
+    }
+}
