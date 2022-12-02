@@ -217,3 +217,53 @@ class FreqStack {
         return val
     }
 }
+
+// 1779. 找到最近的有相同 X 或 Y 坐标的点  基础遍历
+class Solution {
+    func nearestValidPoint(_ x: Int, _ y: Int, _ points: [[Int]]) -> Int {
+        var res = -1
+        var min = Int.max
+        for (index, item) in points.enumerated() {
+            if item[0] == x && abs(item[1] - y) < min {
+                res = index
+                min = abs(item[1] - y)
+            }
+            if item[1] == y && abs(item[0] - x) < min {
+                res = index
+                min = abs(item[0] - x)
+            }
+        }
+        return res
+    }
+}
+
+// 1769. 移动所有球到每个盒子所需的最小操作数 动态规划
+class Solution {
+   static func minOperations(_ boxes: String) -> [Int] {
+        var left = 0, right = 0
+        var res = [Int]()
+        var item = 0
+        for (index,char) in boxes.enumerated() {
+            if String(char) == "1" {
+                item += index
+                if index != 0 {
+                    right += 1
+                } else {
+                    left += 1
+                }
+            }
+        }
+        res.append(item)
+        
+        for i in 1..<boxes.count {
+            let index = boxes.index(boxes.startIndex,offsetBy: i)
+            item = item + left - right
+            if String(boxes[index]) == "1" {
+                left += 1
+                right -= 1
+            }
+            res.append(item)
+        }
+        return res;
+    }
+}
