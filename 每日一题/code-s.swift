@@ -267,3 +267,25 @@ class Solution {
         return res;
     }
 }
+
+// 1796. 字符串中第二大的数字 基础逻辑
+class Solution {
+    func secondHighest(_ s: String) -> Int {
+        var sec = -1
+        var max = -1
+
+        for c in s {
+            if c.isNumber {
+                let n = Int(String(c))!
+                if n > max {
+                    sec = max 
+                    max = n 
+                }else if n < max && n > sec {
+                    sec = n 
+                }
+            }
+        }
+        return sec 
+    }
+}
+
