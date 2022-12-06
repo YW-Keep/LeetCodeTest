@@ -289,3 +289,28 @@ class Solution {
     }
 }
 
+// 1805. 字符串中不同整数的数目 字符串处理 数组会越界
+class Solution {
+    func numDifferentIntegers(_ word: String) -> Int {
+        var num = "", map = [String:Bool]()
+        let newWord = word + "a"
+        for char in newWord {
+            if char.isNumber {
+                if num == "0" {
+                    if String(char) != "0" {
+                        num = String(char)
+                    }
+                } else {
+                    num = num + String(char)
+                }
+               
+            } else {
+                if num.count > 0 {
+                    map.updateValue(true, forKey: num)
+                    num = ""
+                }
+            }
+        }
+        return map.keys.count
+    }
+}
