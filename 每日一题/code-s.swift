@@ -314,3 +314,51 @@ class Solution {
         return map.keys.count
     }
 }
+
+// 1775. 通过最少操作次数使数组的和相等 贪心 
+class Solution {
+    func minOperations(_ nums1: [Int], _ nums2: [Int]) -> Int {
+        let n = nums1.count, m = nums2.count
+        if 6*n < m || 6*m < n {
+            return -1
+        }
+        var diff = 0;
+        var cnt1 = [Int](repeating: 0, count: 7)
+        var cnt2 = [Int](repeating: 0, count: 7)
+        for num in nums1 {
+            diff += num
+            cnt1[num] += 1
+        }
+        
+        for num in nums2 {
+            diff -= num
+            cnt2[num] += 1
+        }
+        if diff == 0 {
+            return 0
+        }
+        var h1 = cnt2, h2 = cnt1
+        if diff < 0 {
+            h1 = cnt1
+            h2 = cnt2
+            diff = -diff
+        }
+        
+        var h = [Int](repeating: 0, count: 7)
+        for i in 1...6 {
+            h[6 - i] += h1[i]
+            h[i - 1] += h2[i]
+        }
+        var res = 0
+       for index in 1...5 {
+           let i =  6 - index
+            let t = min((diff + i - 1)/i ,h[i])
+            res += t
+            diff -= t*i
+            if diff <= 0 {
+                return res
+            }
+        }
+       return res
+    }
+}
