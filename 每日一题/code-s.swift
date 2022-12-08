@@ -362,3 +362,11 @@ class Solution {
        return res
     }
 }
+
+// 1812. 判断国际象棋棋盘中一个格子的颜色 基础题
+class Solution {
+    func squareIsWhite(_ coordinates: String) -> Bool {
+        (Int(coordinates.first!.asciiValue! - 96) + coordinates.last!.wholeNumberValue!) % 2 != 0
+    }
+}
+
