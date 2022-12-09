@@ -370,3 +370,14 @@ class Solution {
     }
 }
 
+// 1780. 判断一个数字是否可以表示成三的幂的和 数学题
+class Solution {
+    func checkPowersOfThree(_ n: Int) -> Bool {
+        var temp = n
+        while temp > 0 {
+            if temp % 3 == 2 { return false }
+            temp /= 3
+        }
+        return true
+    }
+}
