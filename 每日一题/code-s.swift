@@ -410,3 +410,18 @@ class Solution {
     }
 }
 
+// 1832. 判断句子是否为全字母句 map
+class Solution {
+    func checkIfPangram(_ sentence: String) -> Bool {
+        var map = [Int](repeating: 0, count: 26), cnt = 0
+        for e in sentence {
+            let i = Int(e.asciiValue!) - 97
+            if map[i] == 0 {
+                if cnt == 25 { return true }
+                cnt += 1
+            }
+            map[i] += 1
+        }
+        return false
+    }
+}
