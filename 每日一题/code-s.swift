@@ -425,3 +425,23 @@ class Solution {
         return false
     }
 }
+
+// 1827. 最少操作使数组递增 贪心
+class Solution {
+    func minOperations(_ nums: [Int]) -> Int {
+        guard nums.count > 0 else {
+            return 0;
+        }
+        
+        var res = 0, last = nums[0] - 1
+        for num in nums {
+            if num > last {
+                last = num
+            } else {
+                last += 1
+                res += last - num
+            }
+        }
+        return res
+    }
+}
