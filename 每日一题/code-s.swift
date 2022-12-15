@@ -445,3 +445,32 @@ class Solution {
         return res
     }
 }
+
+// 1945. 字符串转化后的各位数字之和 基础逻辑
+class Solution {
+    func getLucky(_ s: String, _ k: Int) -> Int {
+
+        var numWord = "", c = k
+        for i in s.unicodeScalars {
+            numWord += String(i.value - 96)
+        }
+       
+        while c > 0 {
+            numWord = cal(numWord)
+            c -= 1
+        }
+        
+        return Int(numWord) ?? 0
+    }
+    
+    func cal(_ send: String) -> String {
+        
+        var res = 0
+        
+        for i in send {
+            res += Int(String(i))!
+        }
+        
+        return String(res)
+    }
+}
