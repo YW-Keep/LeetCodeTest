@@ -474,3 +474,17 @@ class Solution {
         return String(res)
     }
 }
+
+
+// 1785. 构成特定和需要添加的最少元素 基础逻辑
+class Solution {
+    func minElements(_ nums: [Int], _ limit: Int, _ goal: Int) -> Int {
+       var sum = 0;
+       for item in nums {
+           sum = sum + item;
+       }
+       let sub = goal - sum;
+       let count = Double(abs(sub)) / Double(abs(limit));
+       return Int(ceil(count));
+    }
+}
