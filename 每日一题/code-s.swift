@@ -488,3 +488,44 @@ class Solution {
        return Int(ceil(count));
     }
 }
+
+// 1971. 寻找图中是否存在路径 查并集
+class Solution {
+    func validPath(_ n: Int, _ edges: [[Int]], _ source: Int, _ destination: Int) -> Bool {
+        if destination ==  source {
+            return true
+        }
+        var map = [Int:[Int]]()
+        for edge in edges {
+            var arr1 = [Int]()
+            if let arr = map[edge[0]] {
+                arr1 = arr
+            }
+            arr1.append(edge[1])
+            map.updateValue(arr1, forKey: edge[0])
+            var arr2 = [Int]()
+            if let arr = map[edge[1]] {
+                arr2 =  arr
+            }
+            arr2.append(edge[0])
+            map.updateValue(arr2, forKey: edge[1])
+        }
+        var v = [Bool](repeating: false, count: n)
+        v[source] = true
+        var len = map[source]
+       while (len != nil && len!.count > 0) {
+            let num = len!.removeFirst()
+            if num == destination {
+                return true
+            }
+            v[num] = true
+            for num in map[num] ?? [] {
+                if !v[num] {
+                    len?.append(num)
+                }
+            }
+        }
+        
+        return false
+    }
+}
