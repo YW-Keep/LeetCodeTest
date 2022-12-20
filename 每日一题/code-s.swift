@@ -529,3 +529,25 @@ class Solution {
         return false
     }
 }
+
+// 1760. 袋子里最少数目的球 二分查找
+class Solution {
+    func minimumSize(_ nums: [Int], _ maxOperations: Int) -> Int {
+        var left = 1, right = nums.max()!
+        var ans = 0
+        while(left <= right) {
+            let y = Int((left + right) / 2);
+            var ops = 0
+            for num in nums {
+                ops += Int((num - 1) / y)
+            }
+            if ops <= maxOperations {
+                ans = y
+                right = y - 1
+            } else {
+                left = y + 1
+            }
+        }
+        return ans
+    }
+}
