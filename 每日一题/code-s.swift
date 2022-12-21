@@ -551,3 +551,34 @@ class Solution {
         return ans
     }
 }
+
+class Solution {
+    func minimumSize(_ nums: [Int], _ maxOperations: Int) -> Int {
+        var left = 1, right = nums.max()!
+        var ans = 0
+        while(left <= right) {
+            let y = Int((left + right) / 2);
+            var ops = 0
+            for num in nums {
+                ops += Int((num - 1) / y)
+            }
+            if ops <= maxOperations {
+                ans = y
+                right = y - 1
+            } else {
+                left = y + 1
+            }
+        }
+        return ans
+    }
+}
+
+// 1753. 移除石子的最大得分 贪心
+class Solution {
+  func maximumScore(_ a: Int, _ b: Int, _ c: Int) -> Int {
+      let sum =  a + b + c
+      let max =  max(a,b,c)
+      return min(sum - max, sum/2)
+  }
+}
+
