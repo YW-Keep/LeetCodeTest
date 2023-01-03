@@ -582,3 +582,22 @@ class Solution {
   }
 }
 
+// 2042. 检查句子中的数字是否递增 基础题
+class Solution {
+    func areNumbersAscending(_ s: String) -> Bool {
+        var last = -1
+        var num = ""
+        for char in s + " " {
+            if char.isNumber {
+                num =  num + String(char)
+            } else if num.count > 0 {
+                if last >= Int(num)! {
+                    return  false
+                }
+                last = Int(num)!
+                num = ""
+            }
+        }
+        return true
+    }
+}
