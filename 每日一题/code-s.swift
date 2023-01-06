@@ -601,3 +601,38 @@ class Solution {
         return true
     }
 }
+
+// 2351. 第一个出现两次的字母  基础题
+class Solution {
+    func repeatedCharacter(_ s: String) -> Character {
+        var map = [Character:Bool]()
+        for char in s {
+            if map[char] != nil {
+                return char
+            }
+            map.updateValue(true, forKey: char)
+        }
+        return Character("")
+    }
+}
+
+// 2180. 统计各位数字之和为偶数的整数个数  数学题
+class Solution {
+    func countEven(_ num: Int) -> Int {
+        var y: Int = num/10
+        var x = num%10
+        var res = y*5
+        var ySum = 0
+        while(y != 0) {
+            ySum += y%10
+            y = y/10
+        }
+        if ySum%2 == 0 {
+            res += x/2 + 1
+        } else {
+            res += (x+1)/2
+        }
+        return res - 1
+    }
+}
+
