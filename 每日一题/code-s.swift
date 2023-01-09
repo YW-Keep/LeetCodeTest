@@ -636,3 +636,15 @@ class Solution {
     }
 }
 
+// 2185. 统计包含给定前缀的字符串  基础题
+class Solution {
+    func prefixCount(_ words: [String], _ pref: String) -> Int {
+        var num = 0
+        for word in words {
+            if word.hasPrefix(pref) {
+                num += 1
+            }
+        }
+        return num
+    }
+}
