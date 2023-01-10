@@ -648,3 +648,32 @@ class Solution {
         return num
     }
 }
+
+// 1658. 将 x 减到 0 的最小操作数 窗口
+class Solution {
+    func minOperations(_ nums: [Int], _ x: Int) -> Int {
+        let sum = nums.reduce(0, +)
+        guard sum >= x else {
+            return  -1
+        }
+        let n = nums.count
+        var ans = n + 1
+        var lsum = 0
+        var rsum = sum
+        var right = 0
+        for left in -1...(n - 1) {
+            if left != -1 {
+                lsum += nums[left]
+            }
+            while right < n && lsum + rsum > x {
+                rsum -= nums[right]
+                right += 1
+            }
+            if (lsum + rsum) == x {
+                ans = min(ans, (left + 1) + (n - right))
+            }
+        }
+        
+        return ans > n ? -1 : ans;
+    }
+}
