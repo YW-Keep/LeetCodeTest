@@ -677,3 +677,22 @@ class Solution {
         return ans > n ? -1 : ans;
     }
 }
+
+// 2283. 判断一个数的数字计数是否等于数位的值 基础题
+class Solution {
+    func digitCount(_ num: String) -> Bool {
+        var map = [Int:Int]()
+        for char in num {
+            let key = Int(String(char))!
+            map.updateValue((map[key] ?? 0) + 1, forKey: key)
+        }
+        for (i,char) in num.enumerated() {
+            let key = Int(String(char))!
+            let value = map[i] ?? 0
+            if key != value {
+                return false
+            }
+        }
+        return true
+    }
+}
