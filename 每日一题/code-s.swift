@@ -696,3 +696,34 @@ class Solution {
         return true
     }
 }
+
+// 1807. 替换字符串中的括号内容 基础逻辑处理
+class Solution {
+    func evaluate(_ s: String, _ knowledge: [[String]]) -> String {
+        var map = [String:String]()
+        for item in knowledge {
+            map.updateValue(item[1], forKey: item[0])
+        }
+        var isKey = false
+        var key = ""
+        var result = ""
+        
+        for char in s  {
+            let str = String(char)
+            if str == "(" {
+                isKey = true
+            } else if str == ")" {
+                isKey = false
+                result += map[key] ?? "?"
+                key = ""
+            } else {
+                if isKey {
+                    key += str
+                } else {
+                    result += str
+                }
+            }
+        }
+        return result
+    }
+}
