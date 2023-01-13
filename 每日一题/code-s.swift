@@ -727,3 +727,30 @@ class Solution {
         return result
     }
 }
+
+// 2287. 重排字符形成目标字符串 map 对比
+class Solution {
+    func rearrangeCharacters(_ s: String, _ target: String) -> Int {
+        var sArr = [Int](repeating: 0, count: 26);
+        var tArr = [Int](repeating: 0, count: 26);
+        let firstChar: Character = "a"
+        for char in s  {
+            sArr[Int(char.asciiValue! - firstChar.asciiValue!)] += 1
+        }
+        for char in target  {
+            tArr[Int(char.asciiValue! - firstChar.asciiValue!)] += 1
+        }
+        var res = Int.max
+        for (i,num) in tArr.enumerated() {
+            if (num > 0) {
+                let sNum = sArr[i]
+                if sNum == 0 {
+                    return 0
+                }
+                res = min(res, sNum/num)
+            }
+        }
+        
+        return res
+    }
+}
