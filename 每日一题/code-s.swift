@@ -754,3 +754,19 @@ class Solution {
         return res
     }
 }
+
+// 1813. 句子相似性 III  双指针
+class Solution {
+    func areSentencesSimilar(_ sentence1: String, _ sentence2: String) -> Bool {
+        let arr1 =  sentence1.components(separatedBy: " ")
+        let arr2 =  sentence2.components(separatedBy: " ")
+        var i = 0,j = 0,num1 = arr1.count, num2 = arr2.count
+        while i < num1 && i < num2 && arr1[i] == arr2[i] {
+            i +=  1
+        }
+        while j < num1  - i && j < num2 - i && arr1[num1 - 1 - j] == arr2[num2 - 1 - j] {
+            j += 1
+        }
+        return i + j == min(num1,num2)
+    }
+}
