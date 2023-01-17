@@ -770,3 +770,23 @@ class Solution {
         return i + j == min(num1,num2)
     }
 }
+
+// 1814. 统计一个数组中好对子的数目 基础分析
+class Solution {
+    func countNicePairs(_ nums: [Int]) -> Int {
+        let MOD = 1000000007
+        var res = 0
+        var map = [Int:Int]()
+        for i in nums {
+            var temp = i, j = 0
+            while temp > 0 {
+                j =  j*10 + temp%10
+                temp = temp/10
+            }
+            res = (res + (map[i-j] ?? 0)) % MOD
+            map.updateValue((map[i-j] ?? 0) + 1, forKey: i-j)
+        }
+        
+        return res
+    }
+}
