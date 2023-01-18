@@ -774,7 +774,7 @@ class Solution {
 // 1814. 统计一个数组中好对子的数目 基础分析
 class Solution {
     func countNicePairs(_ nums: [Int]) -> Int {
-        let MOD = 1000000007
+        let MOD = 1000000007 
         var res = 0
         var map = [Int:Int]()
         for i in nums {
@@ -788,5 +788,25 @@ class Solution {
         }
         
         return res
+    }
+}
+
+// 2293. 极大极小游戏 模拟
+class Solution {
+    func minMaxGame(_ nums: [Int]) -> Int {
+        var nums = nums
+        while nums.count > 1 {
+            var new: [Int] = []
+            for i in 0 ..< nums.count / 2 {
+                if i % 2 == 0 {
+                    new.append(min(nums[2 * i], nums[2 * i + 1]))
+                } else {
+                    new.append(max(nums[2 * i], nums[2 * i + 1]))
+                }
+            }
+            nums = new
+        }
+        
+        return nums[0]
     }
 }
