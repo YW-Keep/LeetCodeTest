@@ -810,3 +810,55 @@ class Solution {
         return nums[0]
     }
 }
+
+// 2299. 强密码检验器 II 基础逻辑
+class Solution {
+    func strongPasswordCheckerII(_ password: String) -> Bool {
+        if password.count < 8 {
+            return false
+        }
+        
+        let passwordArr = password.map { $0 }
+        
+        var hasLowercase = false
+        var hasUppercase = false
+        var hasDigit = false
+        var hasSpecialCharacter = false
+        
+        
+        let specialCharacter = "!@#$%^&*()-+"
+        
+        for (i, char) in passwordArr.enumerated() {
+            
+            // 是否有小写
+            if char.asciiValue! >= Character("a").asciiValue! && char.asciiValue! <= Character("z").asciiValue! {
+                hasLowercase = true
+            }
+            
+            // 是否有大写
+            if char.asciiValue! >= Character("A").asciiValue! && char.asciiValue! <= Character("Z").asciiValue! {
+                hasUppercase = true
+            }
+            
+            // 是否包含数字
+            if char.asciiValue! >= Character("0").asciiValue! && char.asciiValue! <= Character("9").asciiValue! {
+                hasDigit = true
+            }
+            
+            // 是否包含特殊字符
+            if specialCharacter.contains(char) {
+                hasSpecialCharacter = true
+            }
+            
+            // 是否包含2个相同字符
+            if i < (password.count - 1) {
+                if passwordArr[i] == passwordArr[i + 1] {
+                    return false
+                }
+            }
+            
+        }
+        
+        return hasLowercase && hasUppercase && hasDigit && hasSpecialCharacter
+    }
+}
