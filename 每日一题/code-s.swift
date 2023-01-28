@@ -862,3 +862,33 @@ class Solution {
         return hasLowercase && hasUppercase && hasDigit && hasSpecialCharacter
     }
 }
+
+// 1664. 生成平衡数组的方案数 动态规划
+class Solution {
+    func waysToMakeFair(_ nums: [Int]) -> Int {
+        var odd1 = 0, even1 = 0,odd2 = 0, even2 = 0, res = 0
+        for  (i,num) in nums.enumerated() {
+            if i%2 == 0 {
+                even2 += num
+            } else {
+                odd2 += num
+            }
+        }
+        for (i,num) in nums.enumerated() {
+            if i%2 == 0 {
+                even2 -= num
+            } else {
+                odd2 -= num
+            }
+            if odd1 + even2 == odd2 + even1 {
+                res += 1
+            }
+            if i%2 == 0 {
+                even1 += num
+            } else {
+                odd1 += num
+            }
+        }
+        return res
+    }
+}
