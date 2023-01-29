@@ -892,3 +892,20 @@ class Solution {
         return res
     }
 }
+
+// 2315. 统计星号  基础题
+class Solution {
+    func countAsterisks(_ s: String) -> Int {
+        var num = 0, res  = 0
+        for char in s {
+            let s = String(char)
+            if s == "|" {
+                num += 1
+            } else if(s == "*" && num%2 == 0) {
+                res += 1
+            }
+        }
+        return res
+    }
+}
+
