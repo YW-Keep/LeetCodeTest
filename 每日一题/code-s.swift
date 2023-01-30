@@ -909,3 +909,44 @@ class Solution {
     }
 }
 
+// 1669. 合并两个链表 基础操作
+ public class ListNode {
+     public var val: Int
+     public var next: ListNode?
+     public init() { self.val = 0; self.next = nil; }
+     public init(_ val: Int) { self.val = val; self.next = nil; }
+     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ }
+class Solution {
+    func mergeInBetween(_ list1: ListNode?, _ a: Int, _ b: Int, _ list2: ListNode?) -> ListNode? {
+        guard list1 != nil, list2 != nil else {
+            return nil
+        }
+        
+        var curr1 = list1
+        var curr2 = list2
+
+        // 尾部
+        for i in 0..<b {
+            curr1 = curr1?.next
+        }
+
+        while curr2?.next != nil {
+            curr2 = curr2?.next
+        }
+        
+        curr2?.next = curr1?.next
+        curr1?.next = nil
+
+        // 头部
+        curr1 = list1
+
+        for i in 0..<a - 1 {
+            curr1 = curr1?.next
+        }
+
+        curr1?.next = list2
+
+        return list1
+     }
+}
