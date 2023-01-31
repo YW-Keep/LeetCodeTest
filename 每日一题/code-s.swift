@@ -950,3 +950,20 @@ class Solution {
         return list1
      }
 }
+
+// 2319. 判断矩阵是否是一个 X 矩阵 基础遍历
+class Solution {
+    func checkXMatrix(_ grid: [[Int]]) -> Bool {
+        let n = grid.count
+        for i in 0..<n {
+            for j in 0..<n {
+                if i == j || (i + j == n - 1) {
+                    guard grid[i][j] != 0 else {return false}
+                } else {
+                    guard grid[i][j] == 0 else {return false}
+                }
+            }
+        }
+        return true
+    }
+}
