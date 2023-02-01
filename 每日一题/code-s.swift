@@ -967,3 +967,24 @@ class Solution {
         return true
     }
 }
+
+// 2325. 解密消息 基础题
+class Solution {
+    func decodeMessage(_ key: String, _ message: String) -> String {
+        let lowercases = [Character]("abcdefghijklmnopqrstuvwxyz")
+        var map = [Character:Character]()
+        var idx = 0
+        for ch in key {
+            guard ch != " " else {
+                continue
+            }
+            if let _ = map[ch] {
+                continue
+            }
+            map[ch] = lowercases[idx]
+            idx += 1
+            guard map.count < 26 else {break}
+        }
+        return  String(message.map {map[$0] ?? " "})
+    }
+}
