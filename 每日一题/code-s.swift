@@ -1008,3 +1008,43 @@ class Solution {
         return evaluateTree(root.left) && evaluateTree(root.right)
     }
 }
+
+// 1233. 删除子文件夹 基础遍历
+class Solution {
+    func removeSubfolders(_ folder: [String]) -> [String] {
+        guard folder.count > 0 else {
+            return []
+        }
+        let newFolder = folder.sorted()
+        var res = [String]()
+        res.append(newFolder[0])
+        for i in 1...(newFolder.count - 1) {
+            let str1 = newFolder[i]
+            let str2 = res[res.count-1]
+            if !(str1 ==  str2 || str1.hasPrefix(str2 + "/")){
+                res.append(newFolder[i])
+            }
+        }
+        return res
+    }
+}
+
+// 1234. 替换子串得到平衡字符串 双指针
+class Solution {
+    func balancedString(_ s: String) -> Int {
+        var map: [Character : Int] = ["Q" : 0, "W" : 0, "E" : 0, "R" : 0], a = s.startIndex, b = s.startIndex, t = s.count / 4, m = Int.max
+        for e in s { map[e]! += 1 }
+        if map["Q"] == t && map["W"] == t && map["E"] == t { return 0 }
+        while b < s.endIndex {
+            map[s[b]]! -= 1
+            s.formIndex(after: &b)
+            // 直到所有字母都满足条件，不然字母过多，无法解决
+            while map["Q"]! <= t && map["W"]! <= t && map["E"]! <= t && map["R"]! <= t {
+                m = min(m, b.encodedOffset - a.encodedOffset)
+                map[s[a]]! += 1
+                s.formIndex(after: &a)
+            }
+        }
+        return m
+    }
+}
