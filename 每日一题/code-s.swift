@@ -1048,3 +1048,23 @@ class Solution {
         return m
     }
 }
+
+// 1124. 表现良好的最长时间段 map 记录
+class Solution {
+    func longestWPI(_ hours: [Int]) -> Int {
+        var map = [Int:Int]()
+        var s = 0, res = 0
+        for (i, num) in hours.enumerated() {
+            s += (num > 8 ? 1 : -1)
+            if (s > 0) {
+                res = max(res, i + 1)
+            } else if let j = map[s - 1]  {
+                res = max(res,i - j)
+            }
+            if map[s] == nil {
+                map.updateValue(i, forKey: s)
+            }
+        }
+        return res
+    }
+}
