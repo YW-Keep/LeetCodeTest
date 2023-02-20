@@ -1068,3 +1068,67 @@ class Solution {
         return res
     }
 }
+
+// 1250. 检查「好数组」 最大公约数
+class Solution {
+    func isGoodArray(_ nums: [Int]) -> Bool {
+        var divisor = nums[0]
+        for num in nums {
+            divisor = gcd(num1: divisor, num2: num)
+            if divisor == 1 {
+                break
+            }
+        }
+        return divisor == 1
+
+    }
+    func gcd(num1: Int,num2: Int) -> Int {
+        var n1 = num1, n2 = num2
+        while(n2 != 0) {
+            let temp = n1
+            n1 = n2
+            n2 =  temp%n2
+        }
+        return n1
+    }
+}
+
+// 2341. 数组能形成多少数对 基础题
+class Solution {
+    func numberOfPairs(_ nums: [Int]) -> [Int] {
+        var res = 0, map = [Int:Bool]()
+        for num in nums {
+            map.updateValue(!(map[num] ?? true), forKey: num)
+            if map[num]! {
+                 res += 1
+            }
+        }
+        return [res, nums.count - res*2]
+    }
+}
+
+// 2347. 最好的扑克手牌 基础逻辑
+class Solution {
+    func bestHand(_ ranks: [Int], _ suits: [Character]) -> String {
+        if suits[0] == suits[1],
+        suits[0] == suits[2],
+        suits[0] == suits[3],
+        suits[0] == suits[4] {
+            return "Flush"
+        }
+        
+        var res = "High Card"
+        var map = [Int:Int]()
+        
+        for num in ranks {
+            map.updateValue((map[num] ?? 0) + 1, forKey: num)
+            if map[num] == 3 {
+                res = "Three of a Kind"
+                break
+            } else if map[num] == 2 {
+                res = "Pair"
+            }
+        }
+        return res
+    }
+}
