@@ -1132,3 +1132,27 @@ class Solution {
         return res
     }
 }
+
+// 1326. 灌溉花园的最少水龙头数目 贪心
+class Solution {
+    func minTaps(_ n: Int, _ ranges: [Int]) -> Int {
+        var rightMost = [Int](repeating: 0, count: n+1)
+        for (i,range) in ranges.enumerated() {
+            let left = max(0, i - range)
+            let right = min(n, i + range)
+            rightMost[left] = max(right, rightMost[left])
+        }
+        var last = 0, res = 0, cur = 0
+        for i in 0...(n-1) {
+            last = max(last, rightMost[i])
+            if i == cur {
+                if i == last {
+                    return -1
+                }
+                cur = last
+                res += 1
+            }
+        }
+        return res
+    }
+}
