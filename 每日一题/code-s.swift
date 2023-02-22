@@ -1156,3 +1156,25 @@ class Solution {
         return res
     }
 }
+
+// 1140. 石子游戏 II 动态规划
+class Solution {
+    func stoneGameII(_ piles: [Int]) -> Int {
+        let len = piles.count
+        var sum = 0
+        var dp = [[Int]](repeating: [Int](repeating: 0, count: len + 1), count: len)
+        for i in (0...(len - 1)).reversed() {
+            sum += piles[i]
+            for M in 1...len {
+                if (i + 2*M) >= len {
+                    dp[i][M] = sum
+                } else {
+                    for x in 1...(2*M) {
+                        dp[i][M] = max(dp[i][M], sum - dp[i+x][max(M,x)])
+                    }
+                }
+            }
+        }
+        return dp[0][1]
+    }
+}
