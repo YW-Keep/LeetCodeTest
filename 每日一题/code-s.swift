@@ -1178,3 +1178,15 @@ class Solution {
         return dp[0][1]
     }
 }
+
+
+// 1238. 循环码排列 位运算
+class Solution {
+    func circularPermutation(_ n: Int, _ start: Int) -> [Int] {
+        var res = [Int]()
+        for i in 0 ..< 1 << n {
+            res.append(start ^ i ^ i >> 1)
+        }
+        return res 
+    }
+}
