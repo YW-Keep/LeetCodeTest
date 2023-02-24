@@ -1190,3 +1190,17 @@ class Solution {
         return res 
     }
 }
+
+// 2357. 使数组中所有元素都等于零  不同数字的数目 集合
+class Solution {
+    func minimumOperations(_ nums: [Int]) -> Int {
+        var set: Set<Int> = Set()
+        for num in nums {
+            if num != 0 {
+                set.insert(num)
+            }
+        }   
+            
+        return set.count
+    }
+}
