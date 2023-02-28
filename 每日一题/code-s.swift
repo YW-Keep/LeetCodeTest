@@ -1204,3 +1204,24 @@ class Solution {
         return set.count
     }
 }
+
+// 2363. 合并相似的物品 基础逻辑题
+class Solution {
+    func mergeSimilarItems(_ items1: [[Int]], _ items2: [[Int]]) -> [[Int]] {
+        var map = [Int:Int]()
+        for item in items1 {
+            map.updateValue((map[item[0]] ?? 0) + item[1], forKey: item[0])
+        }
+        for item in items2 {
+            map.updateValue((map[item[0]] ?? 0) + item[1], forKey: item[0])
+        }
+        var res = [[Int]]()
+        for (key,value) in map {
+            res.append([key,value])
+        }
+        
+        return res.sorted { item1, item2 in
+            return item1[0] > item2[0]
+        }
+    }
+}
