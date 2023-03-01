@@ -1225,3 +1225,21 @@ class Solution {
         }
     }
 }
+
+// 2373. 矩阵中的局部最大值 基础逻辑
+class Solution {
+    func largestLocal(_ grid: [[Int]]) -> [[Int]] {
+        let n = grid.count
+        var ans = [[Int]](repeating: [Int](repeating: 0, count: n - 2), count: n - 2)
+        for i in 1 ..< n - 1 {
+            for j in 1 ..< n - 1 {
+                var maxNum = grid[i][j]
+                for c in i - 1 ... i + 1 {
+                    maxNum = max(maxNum, grid[c][j - 1 ... j + 1].max()!)
+                }
+                ans[i - 1][j - 1] = maxNum
+            }
+        }
+        return ans
+    }
+}
