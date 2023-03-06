@@ -1243,3 +1243,27 @@ class Solution {
         return ans
     }
 }
+
+// 1653. 使字符串平衡的最少删除次数 基础逻辑
+class Solution {
+    func minimumDeletions(_ s: String) -> Int {
+        var leftB = 0, rightA = 0
+        
+        for char in s {
+            if String(char) == "a" {
+                rightA += 1
+            }
+        }
+        var res = rightA
+        for char in s {
+            if String(char) == "a" {
+                rightA -= 1
+            } else {
+                leftB += 1
+            }
+            res = min(res, leftB + rightA)
+        }
+        return res
+    }
+}
+
