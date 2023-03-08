@@ -1267,3 +1267,22 @@ class Solution {
     }
 }
 
+// 剑指 Offer 47. 礼物的最大价值  动态规划
+class Solution {
+    func maxValue(_ grid: [[Int]]) -> Int {
+        var arr = [Int]()
+        for (i, num)  in grid[0].enumerated() {
+            arr.append(i > 0 ? (arr[i-1] + num) : num)
+        }
+        if grid.count > 1 {
+            for i in 1...(grid.count - 1) {
+                let nums = grid[i]
+                for (i, num) in nums.enumerated() {
+                    arr[i] = i > 0 ? (max(arr[i],arr[i-1]) + num) : (arr[i] + num)
+                }
+            }
+        }
+        
+        return arr.last ?? 0
+    }
+}
