@@ -1286,3 +1286,26 @@ class Solution {
         return arr.last ?? 0
     }
 }
+
+// 2379. 得到 K 个黑块的最少涂色次数 窗口
+class Solution {
+    func minimumRecolors(_ blocks: String, _ k: Int) -> Int {
+        var left = 0, right = 0, cnt = 0
+        while right < k {
+            let char = blocks[blocks.index(blocks.startIndex, offsetBy: right)]
+            cnt += String(char) == "W" ? 1 : 0
+            right += 1
+        }
+        var res = cnt
+        while right < blocks.count {
+            let leftChar = blocks[blocks.index(blocks.startIndex, offsetBy: left)]
+            let rightChar = blocks[blocks.index(blocks.startIndex, offsetBy: right)]
+            cnt += String(rightChar) == "W" ? 1 : 0
+            cnt -= String(leftChar) == "W" ? 1 : 0
+            res = min(res, cnt)
+            right += 1
+            left += 1
+        }
+        return res
+    }
+}
