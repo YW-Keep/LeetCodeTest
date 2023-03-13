@@ -1309,3 +1309,25 @@ class Solution {
         return res
     }
 }
+// 2383. 赢得比赛需要的最少训练时长 基础逻辑
+class Solution {
+    func minNumberOfHours(_ initialEnergy: Int, _ initialExperience: Int, _ energy: [Int], _ experience: [Int]) -> Int {
+        var hours = 0
+        var sum = 0
+        for num in energy {
+            sum += num
+        }
+        hours = initialEnergy > sum ? 0 : (sum - initialEnergy + 1)
+        var nowExperience = initialExperience
+        for num in experience {
+            if nowExperience <= num {
+                hours += (num - nowExperience + 1)
+                nowExperience = num*2 + 1
+            } else {
+                nowExperience += num
+            }
+        }
+        
+        return hours
+    }
+}
