@@ -1331,3 +1331,22 @@ class Solution {
         return hours
     }
 }
+
+// 1605. 给定行和列的和求可行矩阵 贪心
+class Solution {
+    func restoreMatrix(_ rowSum: [Int], _ colSum: [Int]) -> [[Int]] {
+        var tRowSum = rowSum
+        var tColSum = colSum
+        // 创建数组
+        var result:[[Int]] = Array(repeating: Array(repeating: 0, count: colSum.count), count: rowSum.count)
+        
+        for i in 0..<tRowSum.count {
+            for j in 0..<tColSum.count {
+                result[i][j] = min(tRowSum[i], tColSum[j])
+                tRowSum[i] -= result[i][j]
+                tColSum[j] -= result[i][j]
+            }
+        }
+        return result
+    }
+}
