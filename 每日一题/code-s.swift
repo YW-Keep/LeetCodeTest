@@ -1350,3 +1350,21 @@ class Solution {
         return result
     }
 }
+
+// 1615. 最大网络秩 基础遍历
+class Solution {
+    func maximalNetworkRank(_ n: Int, _ roads: [[Int]]) -> Int {
+        var graph = [Set<Int>](repeating: [], count: n)
+        for road in roads {
+            graph[road[0]].insert(road[1])
+            graph[road[1]].insert(road[0])
+        }
+        var rank = 0
+        for i in 0...n-2 {
+            for j in i+1..<n {
+                rank = max(rank, graph[i].count + graph[j].count - (graph[i].contains(j) ? 1 : 0))
+            }
+        }
+        return rank
+    }
+}
