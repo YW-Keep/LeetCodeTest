@@ -1368,3 +1368,29 @@ class Solution {
         return rank
     }
 }
+
+// 2488. 统计中位数为 K 的子数组 问题转化
+class Solution {
+    func countSubarrays(_ nums: [Int], _ k: Int) -> Int {
+        let n = nums.count
+        var pos = 0
+        while nums[pos] != k {
+            pos += 1
+        }
+        var cnt :[Int: Int] = [:]
+        cnt[0] = 1
+        var c = 0
+        for i in pos+1..<n {
+            c += nums[i] > k ? 1: -1
+            cnt[c] = ( cnt[c] ?? 0 ) + 1
+        }
+        var res = cnt[0]! + (cnt[1] ?? 0)
+        c = 0
+        for i in 0..<pos {
+            let t = pos - 1 - i
+            c += nums[t] < k ? 1 : -1
+            res += (cnt[c] ?? 0) + (cnt[c+1] ?? 0)
+        }
+        return res
+    }
+}
