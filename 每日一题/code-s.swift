@@ -1394,3 +1394,30 @@ class Solution {
         return res
     }
 }
+
+// 2389. 和有限的最长子序列 二分查找
+class Solution {
+    func answerQueries(_ nums: [Int], _ queries: [Int]) -> [Int] {
+        let sotred = nums.sorted(by:<)
+        var sum = [Int]()
+        var all = 0
+        for num in sotred {
+            all += num
+            sum.append(all)
+        }
+        var res = [Int]()
+        for querie in queries {
+            var low = 0, high = sum.count
+            while low < high {
+                let mid  =  low + (high - low) / 2
+                if sum[mid] > querie {
+                    high = mid
+                } else {
+                    low = mid + 1
+                }
+            }
+            res.append(low)
+        }
+        return res
+    }
+}
