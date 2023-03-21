@@ -1421,3 +1421,10 @@ class Solution {
         return res
     }
 }
+
+// 2469. 温度转换 基础逻辑
+class Solution {
+    func convertTemperature(_ celsius: Double) -> [Double] {
+        return [celsius + 273.15, celsius * 1.80 + 32.00]
+    }
+}
