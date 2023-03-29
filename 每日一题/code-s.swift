@@ -1428,3 +1428,10 @@ class Solution {
         return [celsius + 273.15, celsius * 1.80 + 32.00]
     }
 }
+
+// 1641. 统计字典序元音字符串的数目  数学题
+class Solution {
+    func countVowelStrings(_ n: Int) -> Int {
+        return (n + 1) * (n + 2) * (n + 3) * (n + 4) / 24;
+    }
+}
