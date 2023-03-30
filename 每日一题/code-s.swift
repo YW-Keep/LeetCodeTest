@@ -1435,3 +1435,17 @@ class Solution {
         return (n + 1) * (n + 2) * (n + 3) * (n + 4) / 24;
     }
 }
+
+// 1637. 两点之间不包含任何点的最宽垂直区域 排序
+class Solution {
+    func maxWidthOfVerticalArea(_ points: [[Int]]) -> Int {
+        let newPoints = points.sorted { a, b in
+            return (a[0] - b[0]) < 0
+        }
+        var mx = 0
+        for i in 1...(newPoints.count-1) {
+            mx = max(newPoints[i][0] - newPoints[i-1][0], mx)
+        }
+        return mx
+    }
+}
