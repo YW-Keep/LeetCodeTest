@@ -1449,3 +1449,20 @@ class Solution {
         return mx
     }
 }
+
+// 2367. 算术三元组的数目  集合数学题
+class Solution {
+    func arithmeticTriplets(_ nums: [Int], _ diff: Int) -> Int {
+        var numsSet = Set<Int>()
+        for num in nums {
+            numsSet.update(with: num)
+        }
+        var res = 0
+        for num in nums {
+            if numsSet.contains(num + diff) && numsSet.contains(num + diff*2) {
+                res += 1
+            }
+        }
+        return res
+    }
+}
