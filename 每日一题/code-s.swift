@@ -1466,3 +1466,43 @@ class Solution {
         return res
     }
 }
+
+// 1053. 交换一次的先前排列 贪心
+class Solution {
+    func prevPermOpt1(_ arr: [Int]) -> [Int] {
+        var newArr = arr
+        for i in (0...(arr.count - 2)).reversed() {
+            if arr[i] > arr[i+1] {
+                var j = arr.count - 1
+                while arr[j] >= arr[i] || (j > 0 && arr[j] == arr[j - 1]) {
+                    j -= 1
+                }
+                newArr[i] = arr[j]
+                newArr[j] = arr[i]
+                break
+            }
+        }
+        return newArr
+    }
+}
+
+// 1019. 链表中的下一个更大节点 单调栈
+class Solution {
+    func nextLargerNodes(_ head: ListNode?) -> [Int] {
+        var stack = [(Int,Int)]()
+        var node = head
+        var index = 0
+        var result = [Int]()
+        while let n = node {
+            while let last = stack.last, last.0 < n.val {
+                    stack.removeLast()
+                    result[last.1] = n.val
+            }
+            stack.append((n.val,index))
+            index += 1
+            result.append(0)
+            node = n.next
+        }
+        return result
+    }
+}
