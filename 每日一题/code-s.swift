@@ -1528,3 +1528,23 @@ class Solution {
         return direcIndex != 0 || (x == 0 && y == 0)
     }
 }
+
+// 2404. 出现最频繁的偶数元素 基础逻辑
+class Solution {
+    func mostFrequentEven(_ nums: [Int]) -> Int {
+        var map = [Int:Int]()
+        for num in nums {
+            if num % 2  == 0 {
+                map.updateValue((map[num] ?? 0) + 1, forKey: num)
+            }
+        }
+        var res = -1, count = 0
+        for (key, value) in map {
+            if value > count || value == count &&  key < res {
+                res = key
+                count = value
+            }
+        }
+        return res
+    }
+}
