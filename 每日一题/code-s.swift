@@ -1548,3 +1548,29 @@ class Solution {
         return res
     }
 }
+
+// 1023. 驼峰式匹配 双指针
+class Solution {
+    func camelMatch(_ queries: [String], _ pattern: String) -> [Bool] {
+        var res = [Bool]()
+        let arr = pattern.map{String($0)}
+        for item in queries {
+            var i = 0
+            var itemRes = true
+            for char in item  {
+                let str = String(char)
+                if i < pattern.count && str == arr[i] {
+                    i += 1
+                } else if str.uppercased() == str {
+                    itemRes = false
+                    break;
+                }
+            }
+            if i < pattern.count {
+                itemRes = false
+            }
+            res.append(itemRes)
+        }
+        return res
+    }
+}
