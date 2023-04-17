@@ -1574,3 +1574,25 @@ class Solution {
         return res
     }
 }
+
+// 2409. 统计共同度过的日子数  基础逻辑
+class Solution {
+    func countDaysTogether(_ arriveAlice: String, _ leaveAlice: String, _ arriveBob: String, _ leaveBob: String) -> Int {
+        return max(0, min(getNum(leaveAlice),getNum(leaveBob)) - max(getNum(arriveAlice), getNum(arriveBob)) + 1)
+    }
+    func getNum(_ time: String) -> Int {
+        let arr = time.components(separatedBy: "-")
+        guard arr.count == 2 else {
+            return 0
+        }
+        var res = Int(arr[1]) ?? 0
+        let datesOfMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let num  = Int(arr[0]) ?? 0
+        var i = 0
+        while i < (num - 1) {
+            res += datesOfMonths[i]
+            i += 1
+        }
+        return res
+    }
+}
