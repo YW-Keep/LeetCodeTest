@@ -1596,3 +1596,29 @@ class Solution {
         return res
     }
 }
+
+// 1026. 节点与其祖先之间的最大差值 递归
+class Solution {
+    func maxAncestorDiff(_ root: TreeNode?) -> Int {
+        return dfs(root: root, mi: root?.val ?? 0, ma: root?.val ?? 0)
+    }
+    func dfs(root: TreeNode?, mi:Int, ma:Int) -> Int {
+        guard let node = root else {
+            return 0
+        }
+        var diff = max(abs(node.val - mi),abs(node.val - ma))
+        let nmi = min(mi, node.val)
+        let nma = max(ma, node.val)
+        diff = max(diff, dfs(root: node.left, mi: nmi, ma: nma))
+        diff = max(diff, dfs(root: node.right, mi: nmi, ma: nma))
+        return diff
+    }
+}
+
+// 2413. 最小偶倍数 数学题
+class Solution {
+    func smallestEvenMultiple(_ n: Int) -> Int {
+        return (n & 0b1) == 1 ? 2 * n : n;
+    }
+}
+
