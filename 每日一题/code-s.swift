@@ -1622,3 +1622,23 @@ class Solution {
     }
 }
 
+// 1105. 填充书架 动态规划
+class Solution {
+    func minHeightShelves(_ books: [[Int]], _ shelfWidth: Int) -> Int {
+        let num = books.count
+        var dp = Array(repeating: 1000000, count: num + 1)
+        dp[0] = 0
+        for i in 0...(num-1) {
+            var maxHeight = 0, curWidth = 0
+            for j in (0...i).reversed() {
+                curWidth += books[j][0]
+                if curWidth > shelfWidth {
+                    break
+                }
+                maxHeight = max(maxHeight, books[j][1])
+                dp[i+1] = min(dp[i+1],dp[j] + maxHeight)
+            }
+        }
+        return dp[num]
+    }
+}
