@@ -1642,3 +1642,20 @@ class Solution {
         return dp[num]
     }
 }
+
+// 2418. 按身高排序 基础逻辑
+class Solution {
+    func sortPeople(_ names: [String], _ heights: [Int]) -> [String] {
+        var map = [Int: String]()
+        for i in names.indices {
+            map[heights[i]] = names[i]
+        }
+        let h = heights.sorted(by: >)
+        var ans = [String]()
+        for n in h {
+            ans.append(map[n]!)
+        }
+        return ans
+    }
+}
+
