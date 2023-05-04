@@ -1659,3 +1659,28 @@ class Solution {
     }
 }
 
+// 1003. 检查替换后的词是否有效 栈 
+class Solution {
+    func isValid(_ s: String) -> Bool {
+        if s.count < 3 || s.count%3 != 0 {
+            return false
+        }
+        var stack = [Character]()
+        for c in s {
+            if c == "c" && stack.count >= 2{
+                if stack[stack.count - 1] == "b" && stack[stack.count - 2] == "a" {
+                    stack.removeLast()
+                    stack.removeLast()
+                } else {
+                    stack.append(c)
+                }
+            } else {
+                stack.append(c)
+            }
+        }
+        if  stack.count == 0 {
+            return true
+        }
+        return false
+    }
+}
