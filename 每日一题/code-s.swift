@@ -1684,3 +1684,53 @@ class Solution {
         return false
     }
 }
+
+// 2432. 处理用时最长的那个任务的员工  基础逻辑
+class Solution {
+    func hardestWorker(_ n: Int, _ logs: [[Int]]) -> Int {
+        var ans = logs[0][0], maxCost = logs[0][1]
+        for i in 1...(logs.count - 1) {
+            let idx = logs[i][0], cost = logs[i][1] - logs[i - 1][1]
+            if(cost > maxCost || (cost == maxCost && idx < ans)) {
+                ans = idx
+                maxCost = cost
+            }
+        }
+        return ans
+    }
+}
+
+// 1419. 数青蛙 基础逻辑
+class Solution {
+    func minNumberOfFrogs(_ croakOfFrogs: String) -> Int {
+        guard croakOfFrogs.count % 5 == 0 else {
+            return -1
+        }
+        var res = 0,frogNum = 0
+        var cnt = [0,0,0,0]
+        let map = ["c":0,"r":1,"o":2,"a":3,"k":4]
+        for c in croakOfFrogs {
+            let str =  String(c)
+            if map[str] == nil {
+                return -1
+            }
+            let num = map[str]!
+            if num == 0 {
+                cnt[num] += 1
+                frogNum += 1;
+                res = max(frogNum, res)
+            } else {
+                if cnt[num - 1] == 0 {
+                    return -1
+                }
+                cnt[num - 1] -= 1
+                if num == 4 {
+                    frogNum -= 1
+                }else {
+                    cnt[num] += 1
+                }
+            }
+        }
+        return frogNum > 0 ? -1 : res
+    }
+}
