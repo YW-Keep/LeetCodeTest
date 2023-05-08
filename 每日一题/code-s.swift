@@ -1734,3 +1734,21 @@ class Solution {
         return frogNum > 0 ? -1 : res
     }
 }
+
+// 1010. 总持续时间可被 60 整除的歌曲 基础逻辑
+class Solution {
+    func numPairsDivisibleBy60(_ time: [Int]) -> Int {
+        var dic = [Int: Int]()
+        var result = 0
+
+        for song in time {
+            let sMod = song % 60
+            if let exist = dic[sMod] {
+                result += exist
+            }
+            let pairMod = sMod == 0 ? 0 : 60 - sMod
+            dic[pairMod, default: 0] += 1
+        }
+        return result 
+    }
+}
