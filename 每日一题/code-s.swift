@@ -1752,3 +1752,20 @@ class Solution {
         return result 
     }
 }
+
+// 1015. 可被 K 整除的最小整数 基础逻辑
+class Solution {
+    func smallestRepunitDivByK(_ k: Int) -> Int {
+        // 如果 k 是偶数或者是 5 的倍数，则无法整除，直接返回 -1
+        if (k % 2 == 0 || k % 5 == 0) {
+            return -1;
+        }
+        var resid = 1 % k, len = 1;
+        while (resid != 0) {
+            resid = (resid * 10 + 1) % k;
+            len += 1;
+        }
+        return len
+    }
+}
+
