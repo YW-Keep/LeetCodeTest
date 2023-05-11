@@ -1769,3 +1769,16 @@ class Solution {
     }
 }
 
+// 1016. 子串能表示从 1 到 N 数字的二进制串 暴力破解
+class Solution {
+    func queryString(_ S: String, _ N: Int) -> Bool {
+        for n in 1...N {
+            if !S.contains(String(n, radix: 2)){
+                return false
+            }
+        }
+        return true
+    }
+}
+
+
