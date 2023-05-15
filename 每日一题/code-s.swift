@@ -1781,4 +1781,22 @@ class Solution {
     }
 }
 
-
+// 1072. 按列翻转得到最大值等行数  找寻相同的本质行数
+class Solution {
+    func maxEqualRowsAfterFlips(_ matrix: [[Int]]) -> Int {
+        var map = [String: Int](),res = 0
+        for item in matrix {
+            var key = "", isOne = true
+            for i in 0...(item.count - 1) {
+                if i == 0 && item[i] == 0 {
+                    isOne = false
+                }
+                key = key + ((isOne && item[i] == 1 || !isOne && item[i] == 0) ? "1" : "0")
+            }
+            let vaule = (map[key] ?? 0) + 1
+            res = max(res, vaule)
+            map.updateValue(vaule, forKey: key)
+        }
+        return res
+    }
+}
