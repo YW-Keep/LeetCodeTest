@@ -1800,3 +1800,20 @@ class Solution {
         return res
     }
 }
+
+// 2441. 与对应负数同时存在的最大正整数 基础题
+class Solution {
+    func findMaxK(_ nums: [Int]) -> Int {
+        var dic = [Int: Int]()
+        var set = Set<Int>.init()
+        var res = -1
+        for e in nums {
+            if set.contains(e) {
+                res = max(abs(e), res)
+            } else {
+                set.insert(-e)
+            }
+        }
+        return res
+    }
+}
