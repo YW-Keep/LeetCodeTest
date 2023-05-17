@@ -1817,3 +1817,10 @@ class Solution {
         return res
     }
 }
+
+// 2446. 判断两个事件是否存在冲突 基础逻辑
+class Solution {
+    func haveConflict(_ event1: [String], _ event2: [String]) -> Bool {
+       return !(event1[1] < event2[0] || event2[1] < event1[0]);
+    }
+}
