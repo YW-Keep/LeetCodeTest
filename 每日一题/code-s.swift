@@ -1824,3 +1824,28 @@ class Solution {
        return !(event1[1] < event2[0] || event2[1] < event1[0]);
     }
 }
+
+// 1073. 负二进制数相加 基础逻辑
+class Solution {
+    func addNegabinary(_ arr1: [Int], _ arr2: [Int]) -> [Int] {
+        var arr1 = [Int](arr1.reversed())
+        var arr2 = [Int](arr2.reversed())
+        var result:[Int] = [Int]()
+        var carry:Int = 0
+        var i:Int = 0
+        while(i < arr1.count || i < arr2.count || carry != 0)
+        {
+            let num1:Int = i < arr1.count ? arr1[i] : 0
+            let num2:Int = i < arr2.count ? arr2[i] : 0
+            let x:Int =  num1 + num2 + carry
+            result.append((x + 2) % 2)
+            carry = (x - result.last!) / -2
+            i += 1
+        }
+        while(result.count > 1 && result.last! == 0)
+        {
+            result.removeLast()
+        }
+        return result.reversed()
+    }
+}
