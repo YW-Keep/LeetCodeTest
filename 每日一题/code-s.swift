@@ -1849,3 +1849,30 @@ class Solution {
         return result.reversed()
     }
 }
+
+//1080. 根到叶路径上的不足节点 深度优先搜索
+class Solution {
+    func sufficientSubset(_ root: TreeNode?, _ limit: Int) -> TreeNode? {
+        let haveSufficient = checkSufficientLeaf(root, limit, 0);
+        return haveSufficient ? root : nil
+    }
+    
+    func checkSufficientLeaf(_ root: TreeNode?, _ limit: Int, _ sum: Int) -> Bool {
+        guard let item = root else {
+            return false
+        }
+        if (item.left == nil && item.right == nil) {
+            return (item.val + sum) >= limit
+        }
+        let haveLeft = checkSufficientLeaf(item.left, limit, item.val + sum)
+        if !haveLeft {
+            item.left = nil
+        }
+        
+        let haveRight = checkSufficientLeaf(item.right, limit, item.val + sum)
+        if !haveRight {
+            item.right = nil
+        }
+        return haveLeft || haveRight
+    }
+}
