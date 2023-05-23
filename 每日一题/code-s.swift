@@ -1876,3 +1876,26 @@ class Solution {
         return haveLeft || haveRight
     }
 }
+
+// 1090. 受标签影响的最大值 排序
+class Solution {
+    func largestValsFromLabels(_ values: [Int], _ labels: [Int], _ numWanted: Int, _ useLimit: Int) -> Int {
+        let idx = [Int](0...(values.count - 1)).sorted { a, b in
+            values[a] - values[b] > 0
+        }
+        var ans = 0, map = [Int:Int](), choose = 0
+        for i in 0...(values.count - 1) {
+            let label = labels[idx[i]]
+            if map[label] ?? 0 == useLimit {
+                continue
+            }
+            choose += 1
+            ans += values[idx[i]]
+            map.updateValue((map[label] ?? 0) + 1, forKey: label)
+            if choose == numWanted {
+                break
+            }
+        }
+        return ans
+    }
+}
