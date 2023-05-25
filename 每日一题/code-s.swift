@@ -1899,3 +1899,28 @@ class Solution {
         return ans
     }
 }
+
+// 2451. 差值数组不同的字符串  基础比对
+class Solution {
+    func oddString(_ words: [String]) -> String {
+        let diff0 = diffStr(words[0])
+        let diff1 = diffStr(words[1])
+        if diff0 == diff1 {
+            for i in 2...(words.count - 1) {
+                if diff0 != diffStr(words[i]) {
+                    return words[i]
+                }
+            }
+        }
+        return diff0 == diffStr(words[2]) ? words[1] : words[0]
+    }
+    func diffStr(_ str: String) -> String {
+        var diff = [String]()
+        for i in 1...(str.count - 1)  {
+            let last = Int(str[str.index(str.startIndex, offsetBy: i - 1)].asciiValue ?? 0)
+            let now = Int(str[str.index(str.startIndex, offsetBy: i)].asciiValue ?? 0)
+            diff.append(String(now - last) + ",")
+        }
+        return diff.joined()
+    }
+}
