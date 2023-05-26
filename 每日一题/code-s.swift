@@ -1924,3 +1924,32 @@ class Solution {
         return diff.joined()
     }
 }
+// 1091. 二进制矩阵中的最短路径 广度优先搜索 
+class Solution {
+    func shortestPathBinaryMatrix(_ grid: [[Int]]) -> Int {
+        let directions = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[-1,1],[1,-1],[-1,-1]], m = grid.count-1, n = grid[0].count-1
+        var visited = grid, que = [[0,0,1]], i = 0
+
+        while i >= 0, i < que.count {
+            let v = que[i]
+
+            if visited[v[0]][v[1]] == 0 {
+                visited[v[0]][v[1]] = 1
+                
+                if v[0] == m, v[1] == n {
+                    return v[2]
+                }
+
+                for d in directions {
+                    let nv = [v[0]+d[0], v[1]+d[1]]
+                    if nv[0] >= 0, nv[1] >= 0, nv[0] <= m, nv[1] <= n, visited[nv[0]][nv[1]] == 0 {
+                        que.append(nv + [v[2]+1])
+                    }
+                }
+            }
+            i+=1
+        }
+
+        return -1
+    }
+}
