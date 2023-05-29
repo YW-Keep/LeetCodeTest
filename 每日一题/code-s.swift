@@ -1953,3 +1953,19 @@ class Solution {
         return -1
     }
 }
+
+// 2455. 可被三整除的偶数的平均值 基本逻辑
+class Solution {
+    func averageValue(_ nums: [Int]) -> Int {
+        var total = 0;
+        var k = 0;
+        for num in nums {
+            if (num % 6 == 0) {
+                total += num;
+                k += 1;
+            }
+        }
+        return k > 0 ? Int(total / k) : 0
+    }
+}
+
