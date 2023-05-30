@@ -1969,3 +1969,26 @@ class Solution {
     }
 }
 
+// 1110. 删点成林 遍历
+class Solution {
+    func delNodes(_ root: TreeNode?, _ to_delete: [Int]) -> [TreeNode?] {
+        var result = [TreeNode?]()
+        delNodesHelper(root, to_delete, &result, false)
+        return result
+    }
+    func delNodesHelper(_ root: TreeNode?, _ to_delete: [Int],_ result: inout [TreeNode?],_ boolDel: Bool) -> Bool{
+        var del = false
+        guard let root = root else { return del }
+        del = to_delete.contains(root.val)
+        if delNodesHelper(root.left, to_delete, &result, !del) {
+            root.left = nil
+        }
+        if delNodesHelper(root.right, to_delete, &result, !del) {
+            root.right = nil
+        }
+        if !del && !boolDel {
+            result.append(root)
+        }
+        return del
+    }
+}
