@@ -1992,3 +1992,62 @@ class Solution {
         return del
     }
 }
+
+// 1130. 叶值的最小代价生成树 数学逻辑
+class Solution {
+    func mctFromLeafValues(_ arr: [Int]) -> Int {
+        var res = 0
+        var stack = [Int]()
+        for num in arr  {
+            while(stack.count > 0 && stack[stack.count - 1] < num) {
+                let y = stack.popLast()!
+                if stack.count == 0 || stack[stack.count - 1] > num {
+                    res += y*num
+                } else {
+                    res += stack[stack.count - 1]*y
+                }
+            }
+            stack.append(num)
+        }
+        while stack.count >= 2 {
+            let num = stack.popLast()!
+            res += stack[stack.count - 1]*num
+        }
+        return res
+    }
+}
+
+//  2517. 礼盒的最大甜蜜度 贪心+二分查找
+class Solution {
+    private func check(_ sortedPrice: [Int], _ k: Int, _ tastiness: Int) -> Bool {
+        var prev = Int.min / 2
+        var count = 0
+        
+        for price in sortedPrice {
+            if price - prev >= tastiness {
+                count += 1
+                prev = price
+            }
+        }
+        
+        return count >= k
+    }
+    
+    func maximumTastiness(_ price: [Int], _ k: Int) -> Int {
+        let sortedPrice = price.sorted()
+        
+        var left: Int = 0
+        var right = sortedPrice.last! - sortedPrice.first!
+        
+        while left < right {
+            let tastiness = (left + right + 1) / 2
+            if self.check(sortedPrice, k, tastiness) {
+                left = tastiness
+            } else {
+                right = tastiness - 1
+            }
+        }
+        
+        return left
+    }
+}
