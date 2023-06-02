@@ -2051,3 +2051,26 @@ class Solution {
         return left
     }
 }
+
+// 2559. 统计范围内的元音字符串数 基础逻辑
+class Solution {
+    func vowelStrings(_ words: [String], _ queries: [[Int]]) -> [Int] {
+        var sum = [Int](repeating: 0, count: words.count + 1)
+        var res = [Int]()
+        for i in 0...(words.count - 1) {
+            let value = isVowelString(words[i]) ? 1 : 0
+            sum[i+1] = sum[i] + value
+        }
+        for i in 0...(queries.count - 1) {
+            res.append(sum[queries[i][1]+1] - sum[queries[i][0]])
+        }
+        return res
+    }
+    func isVowelString(_ word: String) -> Bool {
+        return isVowelLetter(String(word[word.startIndex])) && isVowelLetter(String(word[word.index(before: word.endIndex)]))
+    }
+    
+    func isVowelLetter(_ str: String) -> Bool {
+        return str == "a" || str == "e" || str == "i" || str == "o" || str == "u";
+    }
+}
