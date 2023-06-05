@@ -2074,3 +2074,26 @@ class Solution {
         return str == "a" || str == "e" || str == "i" || str == "o" || str == "u";
     }
 }
+
+// 2460. 对数组执行操作 基础逻辑
+class Solution {
+    func applyOperations(_ nums: [Int]) -> [Int] {
+        var vNums = nums
+        vNums.append(0)
+        var res = [Int](repeating: 0, count: nums.count)
+        var j = 0
+        for i in 0...(vNums.count - 2) {
+             var num = vNums[i]
+            if vNums[i] == vNums[i + 1] {
+                num = num*2
+                vNums[i+1] = 0
+            }
+            if num > 0 {
+                res[j] = num
+                j += 1
+            }
+            
+        }
+        return res
+    }
+}
