@@ -2097,3 +2097,26 @@ class Solution {
         return res
     }
 }
+
+// 2352. 相等行列对 map 映射
+class Solution {
+    func equalPairs(_ grid: [[Int]]) -> Int {
+        var map = [String:Int]()
+        var res = 0
+        for nums in grid {
+            var str = ""
+            for num in nums {
+                str += (String(num) + ",")
+            }
+            map.updateValue((map[str] ?? 0) + 1, forKey: str)
+        }
+        for i in 0...(grid[0].count - 1) {
+            var str = ""
+            for j in 0...(grid.count - 1) {
+                str += (String(grid[j][i]) + ",")
+            }
+            res += (map[str] ?? 0)
+        }
+        return res
+    }
+}
