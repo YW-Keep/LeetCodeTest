@@ -2120,3 +2120,24 @@ class Solution {
         return res
     }
 }
+
+// 2611. 老鼠和奶酪 贪心
+class Solution {
+    func miceAndCheese(_ reward1: [Int], _ reward2: [Int], _ k: Int) -> Int {
+      
+        var ans = 0
+        var diffs = [Int]()
+        for i in 0...(reward1.count - 1) {
+            ans += reward2[i]
+            diffs.append(reward1[i] -  reward2[i])
+        }
+        diffs = diffs.sorted()
+        if k > 0 {
+            for i in 0...(k-1) {
+                ans += diffs[diffs.count - 1 - i]
+            }
+        }
+        
+        return ans
+    }
+}
