@@ -2141,3 +2141,17 @@ class Solution {
         return ans
     }
 }
+
+// 1375. 二进制字符串前缀一致的次数 脑筋急转弯
+class Solution {
+    func numTimesAllBlue(_ flips: [Int]) -> Int {
+        var ans = 0 ,right = 0
+        for i in 0...(flips.count - 1) {
+            right = max(right, flips[i])
+            if right == (i + 1) {
+                ans += 1
+            }
+        }
+        return ans
+    }
+}
