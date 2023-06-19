@@ -2155,3 +2155,20 @@ class Solution {
         return ans
     }
 }
+
+//  1262. 可被三整除的最大和 动态规划
+class Solution {
+    func maxSumDivThree(_ nums: [Int]) -> Int {
+        var result = [Int](repeating: 0, count: 3)
+        for i in 0..<nums.count {
+            //累加元素持续求和
+            let a = result[0] + nums[i]
+            let b = result[1] + nums[i]
+            let c = result[2] + nums[i]
+            result[a%3] = max(result[a%3], a)
+            result[b%3] = max(result[b%3], b)
+            result[c%3] = max(result[c%3], c)
+        }
+        return result[0]
+    }
+}
