@@ -2172,3 +2172,12 @@ class Solution {
         return result[0]
     }
 }
+
+// 1401. 圆和矩形是否有重叠  
+class Solution {
+    func checkOverlap(_ radius: Int, _ x_center: Int, _ y_center: Int, _ x1: Int, _ y1: Int, _ x2: Int, _ y2: Int) -> Bool {
+        let dx = x1 > x_center ? x1 - x_center : x2 < x_center ? x_center - x2 : 0;
+        let dy = y1 > y_center ? y1 - y_center : y2 < y_center ? y_center - y2 : 0;
+        return dx * dx + dy * dy <= radius * radius;
+    }
+}
