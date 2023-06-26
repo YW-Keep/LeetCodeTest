@@ -2181,3 +2181,15 @@ class Solution {
         return dx * dx + dy * dy <= radius * radius;
     }
 }
+
+// 2485. 找出中枢整数 数学题
+class Solution {
+    func pivotInteger(_ n: Int) -> Int {
+        let t = (n*n + n)/2
+        let x =  Int(sqrt(Double(t)))
+        if x * x == t {
+            return x
+        }
+        return -1
+    }
+}
