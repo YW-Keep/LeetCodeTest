@@ -2193,3 +2193,19 @@ class Solution {
         return -1
     }
 }
+
+// 1186. 删除一次得到子数组最大和 动态规划
+class Solution {
+    func maximumSum(_ arr: [Int]) -> Int {
+        guard arr.count > 1 else {
+            return arr[0]
+        }
+        var dp0 = arr[0], dp1 = 0, res = arr[0]
+        for i in 1...(arr.count - 1) {
+            dp1 = max(dp0, dp1 + arr[i])
+            dp0 = max(dp0, 0) + arr[i]
+            res = max(res, max(dp0, dp1))
+        }
+        return res
+    }
+}
