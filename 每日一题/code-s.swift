@@ -2209,3 +2209,39 @@ class Solution {
         return res
     }
 }
+
+// 1253. 重构 2 行二进制矩阵 基础逻辑
+class Solution {
+    func reconstructMatrix(_ upper: Int, _ lower: Int, _ colsum: [Int]) -> [[Int]] {
+        var sum = 0
+        var twoNum = 0
+        for num in colsum {
+            sum += num
+            if num == 2 {
+                twoNum += 1
+            }
+        }
+        guard sum == (upper +  lower), min(upper, lower) >= twoNum else {
+            return []
+        }
+        var res = [[Int]](repeating: [Int](repeating: 0, count: colsum.count), count: 2)
+        var nUpper = upper - twoNum
+        var nLower = lower - twoNum
+        for i in 0...(colsum.count - 1) {
+            if colsum[i] == 2 {
+                res[0][i] = 1
+                res[1][i] = 1
+            } else if colsum[i] == 1 {
+                if nUpper > 0 {
+                    res[0][i] = 1
+                    nUpper -= 1
+                } else {
+                    res[1][i] = 1
+                    nLower -= 1
+                }
+            }
+        }
+        
+        return res
+    }
+}
