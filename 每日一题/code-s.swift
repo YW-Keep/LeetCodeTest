@@ -2245,3 +2245,44 @@ class Solution {
         return res
     }
 }
+
+// 445. 两数相加 II 栈
+class Solution {
+   
+    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+ 
+      var stack1 = [Int]()
+      var stack2 = [Int]()
+    
+      var l1 = l1
+      var l2 = l2
+      while l1 != nil {
+        stack1.append(l1!.val)
+        l1 = l1!.next
+      }
+    
+      while l2 != nil {
+        stack2.append(l2!.val)
+        l2 = l2!.next
+      }
+      var carry = 0
+      var resNode:ListNode? = nil
+    
+      while !stack1.isEmpty || !stack2.isEmpty || carry != 0 {
+       var tempNumber = carry
+       if !stack1.isEmpty {
+         tempNumber += stack1.popLast()!
+       }
+       if !stack2.isEmpty {
+         tempNumber += stack2.popLast()!
+       }
+       
+       carry = tempNumber / 10
+       tempNumber = tempNumber % 10
+       let currentNode = ListNode.init(tempNumber)
+       currentNode.next = resNode
+       resNode = currentNode
+      }
+      return resNode
+    }
+}
