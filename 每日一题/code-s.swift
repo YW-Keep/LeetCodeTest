@@ -2286,3 +2286,23 @@ class Solution {
       return resNode
     }
 }
+
+// 2679. 矩阵中的和 排序
+class Solution {
+    func matrixSum(_ nums: [[Int]]) -> Int {
+        let newNums = nums.map { items in
+            items.sorted()
+        }
+        var res = 0
+        for j in (0...(newNums[0].count - 1)) {
+            var num = 0
+            for i in (0...(newNums.count - 1)) {
+                num = max(num, newNums[i][j])
+            }
+            res += num
+        }
+        return res
+    }
+}
+
+
