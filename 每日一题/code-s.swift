@@ -2305,4 +2305,16 @@ class Solution {
     }
 }
 
+// 2600. K 件物品的最大和 贪心
+class Solution {
+    func kItemsWithMaximumSum(_ numOnes: Int, _ numZeros: Int, _ numNegOnes: Int, _ k: Int) -> Int {
+        if k <= numOnes  {
+            return k
+        } else if k <= (numOnes + numZeros) {
+            return numOnes
+        } else {
+            return numOnes - (k - numOnes - numZeros)
+        }
+    }
+}
 
