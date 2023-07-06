@@ -2318,3 +2318,24 @@ class Solution {
     }
 }
 
+// 2178. 拆分成最多数目的正偶数之和 贪心
+class Solution {
+    func maximumEvenSplit(_ finalSum: Int) -> [Int] {
+        var res = [Int]()
+        guard finalSum % 2 == 0 else {
+            return res
+        }
+        var newSum = finalSum
+        var num = 2
+        while (newSum >= num) {
+            res.append(num)
+            newSum -= num
+            num += 2
+        }
+        res[res.count - 1] += newSum
+        return res
+        
+    }
+}
+
+
