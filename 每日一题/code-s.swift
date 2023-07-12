@@ -2375,4 +2375,16 @@ class Solution {
     }
 }
 
-
+// 2544. 交替数字和 基础题
+class Solution {
+    func alternateDigitSum(_ n: Int) -> Int {
+        var res = 0, sign = 1, newN = n
+        while (newN > 0) {
+            res += newN % 10 * sign
+            sign = -sign
+            newN /= 10
+        }
+        res = res * -sign
+        return res
+    }
+}
