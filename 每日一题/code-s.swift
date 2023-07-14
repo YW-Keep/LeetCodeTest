@@ -2388,3 +2388,47 @@ class Solution {
         return res
     }
 }
+
+// 931. 下降路径最小和 动态规划
+class Solution {
+    func minFallingPathSum(_ matrix: [[Int]]) -> Int {
+        let length = matrix.count
+        var sums = [[Int]](repeating: [Int](repeating: 0, count: length), count: 2)
+        sums[0] = matrix[0]
+        var result = Int.max
+        for row in 1..<length {
+            for col in 0..<length {
+                var minSum = sums[(row - 1) & 1][col]
+                if col + 1 < length {
+                    minSum = min(minSum, sums[(row - 1) & 1][col + 1])
+                }
+                if col > 0 {
+                    minSum = min(minSum, sums[(row - 1) & 1][col - 1])
+                }
+                sums[row & 1][col] = minSum + matrix[row][col]
+                if row == length - 1 { // 最后一行顺便求一下结果
+                    result = min(result, sums[row & 1][col])
+                }
+            }
+        }
+        return length == 1 ? matrix[0][0] : result
+    }
+}
+
+// 979. 在二叉树中分配硬币 深度优先搜索
+class Solution {
+    func distributeCoins(_ root: TreeNode?) -> Int {
+        var result = 0
+        dfs(root,&result)
+        return result
+    }
+    func dfs(_ root: TreeNode?,_ result:inout Int) -> Int {
+        guard let root = root else { return 0 }
+        
+        let left = dfs(root.left,&result)
+        let right = dfs(root.right,&result)
+        result += (abs(left) + abs(right))
+        return root.val + left + right - 1
+        
+    }
+}
