@@ -2432,3 +2432,38 @@ class Solution {
         
     }
 }
+
+// 415. 字符串相加 模拟
+class Solution {
+    func addStrings(_ num1: String, _ num2: String) -> String {
+        var arr1 = num1.map{ String($0) }
+        var arr2 = num2.map{ String($0) }
+        arr2 = arr2.reversed()
+        arr1 = arr1.reversed()
+        
+        let count = max(arr1.count, arr2.count)
+        var carry = 0
+        var res = [Int]()
+        
+        print(arr2)
+        for i in 0..<count {
+            let a1 = (i < arr1.count) ? Int(arr1[i])! : 0
+            let a2 = (i < arr2.count) ? Int(arr2[i])! : 0
+            let sum = a1 + a2 + carry
+            res.append(sum % 10)
+            carry = sum / 10
+        }
+        
+        if carry > 0 {
+            res.append(carry)
+        }
+        
+        var str = ""
+        for num in res.reversed() {
+            str += "\(num)"
+        }
+        
+        return str
+
+    }
+}
