@@ -2467,3 +2467,24 @@ class Solution {
 
     }
 }
+
+// 918. 环形子数组的最大和 动态规划
+class Solution 
+{
+    func maxSubarraySumCircular(_ nums: [Int]) -> Int 
+    {
+        var totalSum = 0, maxSum = nums[0], currentMaxSum = 0, minSum = nums[0], currentMinSum = 0
+        // 遍历nums数组
+        nums.forEach { num in 
+            // 求最大子数组之和，即题目子数组最大和的解法
+            currentMaxSum = max(currentMaxSum + num, num)
+            maxSum = max(maxSum, currentMaxSum)
+            // 求最小子数组之和
+            currentMinSum = min(currentMinSum + num, num)
+            minSum = min(minSum, currentMinSum)
+            totalSum += num
+        }
+        // 判断——maxSum是否为负数。如果为负数，则直接输出maxSum，因为minSum就是整个数组之和
+        return maxSum > 0 ? max(maxSum, totalSum - minSum) : maxSum
+    }
+}
