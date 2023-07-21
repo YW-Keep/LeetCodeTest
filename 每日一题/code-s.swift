@@ -2488,3 +2488,25 @@ class Solution
         return maxSum > 0 ? max(maxSum, totalSum - minSum) : maxSum
     }
 }
+
+// 1499. 满足不等式的最大值  栈
+class Solution {
+    func findMaxValueOfEquation(_ points: [[Int]], _ k: Int) -> Int {
+        var res = Int.min
+        var queue = [(Int,Int)]()
+        for point in points {
+            let x = point[0], y = point[1];
+            while(queue.count != 0 && x - queue[0].1 > k) {
+                queue.removeFirst()
+            }
+            if (queue.count != 0) {
+                res = max(res, x + y + queue[0].0)
+            }
+            while(queue.count != 0 && y - x > queue[queue.count - 1].0) {
+                queue.removeLast()
+            }
+            queue.append((y - x, x))
+        }
+        return res
+    }
+}
