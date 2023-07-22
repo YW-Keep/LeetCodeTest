@@ -2510,3 +2510,33 @@ class Solution {
         return res
     }
 }
+
+// 860. 柠檬水找零 基础逻辑
+class Solution {
+    func lemonadeChange(_ bills: [Int]) -> Bool {
+        var five = 0, ten = 0
+
+        for item in bills {
+            if item == 5 {
+                five += 1
+            }
+            if item == 10 {
+                if five <= 0 { return false }
+                five -= 1
+                ten += 1
+            }
+
+            if item == 20 {
+                if ten > 0 && five > 0{
+                    ten -= 1
+                    five -= 1
+                }else if five >= 3 {
+                    five -= 3
+                }else {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+}
