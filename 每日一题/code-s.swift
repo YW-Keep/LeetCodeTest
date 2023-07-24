@@ -2540,3 +2540,20 @@ class Solution {
         return true
     }
 }
+
+// 771. 宝石与石头 基础逻辑题
+class Solution {
+    func numJewelsInStones(_ jewels: String, _ stones: String) -> Int {
+        var dict = [Character: Bool]()
+        var result = 0
+        for c in jewels {
+            dict[c] = true
+        }
+        for c in stones {
+            if dict[c] == true {
+                result += 1
+            }
+        }
+        return result
+    }
+}
