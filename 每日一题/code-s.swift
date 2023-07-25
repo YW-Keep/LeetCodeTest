@@ -2557,3 +2557,42 @@ class Solution {
         return result
     }
 }
+
+// 2208. 将数组和减半的最少操作次数 二分查找
+class Solution {
+    func halveArray(_ nums: [Int]) -> Int {
+        var changeNum = nums.map { num in
+            Double(num)
+        }.sorted()
+        let sum = Double(nums.reduce(0, +)) / 2.0
+        var res = 0
+        var subSum = 0.0
+        // 如果最小数大于最大数一半  那肯定是 数组长度次数
+        if (changeNum[0] > changeNum[changeNum.count - 1] / 2.0) {
+            return changeNum.count
+        }
+        
+        while(subSum < sum) {
+            let num = changeNum.removeLast() / 2.0
+            subSum += num
+            res += 1
+            
+            // 这里需要通过二分插入数据
+            var l = 0
+            var r = changeNum.count - 1
+            while l < r {
+                let i = (l + r) / 2
+                if changeNum[i] < num {
+                    l = i + 1
+                } else {
+                    r = i
+                }
+            }
+            if changeNum.count > 0 && changeNum[l] < num {
+                l += 1
+            }
+            changeNum.insert(num, at: l)
+        }
+        return res
+    }
+}
