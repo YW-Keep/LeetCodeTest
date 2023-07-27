@@ -2596,3 +2596,21 @@ class Solution {
         return res
     }
 }
+
+// 2500. 删除每行中的最大值 排序遍历
+class Solution {
+    func deleteGreatestValue(_ grid: [[Int]]) -> Int {
+        let newGrid = grid.map { nums in
+            return nums.sorted()
+        }
+        var res = 0
+        for j in 0...(newGrid[0].count - 1) {
+            var maxNum = 0
+            for i in 0...(newGrid.count - 1) {
+                maxNum = max(newGrid[i][j], maxNum)
+            }
+            res += maxNum
+        }
+        return res
+    }
+}
