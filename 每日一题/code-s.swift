@@ -2614,3 +2614,50 @@ class Solution {
         return res
     }
 }
+
+// 143. 重排链表
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution {
+    func reorderList(_ head: ListNode?) {
+        if head == nil || head?.next == nil{
+            return
+        }
+        var slowNode = head
+        var fastNode = head
+        //先快慢指针找到中间指针
+        while fastNode != nil && fastNode?.next != nil {
+            fastNode = fastNode?.next?.next
+            slowNode = slowNode?.next
+        }
+        
+        //再将后半部分的链表反转
+        var reveNode = slowNode?.next
+        var pre:ListNode? = nil
+        slowNode?.next = nil
+        
+        while reveNode != nil {
+            let val = reveNode!.val
+            let node = ListNode.init(val)
+            node.next = pre
+            pre = node
+            reveNode = reveNode?.next
+        }
+        var newNode = head
+        while newNode != nil && pre != nil {
+            let temp = pre
+            pre = pre?.next
+            temp?.next = newNode?.next
+            newNode?.next = temp
+            newNode = newNode?.next?.next
+        }
+    }
+}
