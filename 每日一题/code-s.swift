@@ -2661,3 +2661,17 @@ class Solution {
         }
     }
 }
+
+// 2681. 英雄的力量 动态规划
+class Solution {
+    func sumOfPower(_ nums: [Int]) -> Int {
+        let mod = Int(1e9 + 7)
+        var dp = 0, pre_sum = 0,res  = 0
+        for num in nums.sorted() {
+            dp = (num + pre_sum) % mod
+            pre_sum = (dp + pre_sum) % mod
+            res = (res +  num * num % mod * dp % mod) % mod
+        }
+        return res
+    }
+}
