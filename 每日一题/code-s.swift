@@ -2675,3 +2675,27 @@ class Solution {
         return res
     }
 }
+
+// 822. 翻转卡片游戏 基础逻辑
+class Solution {
+    func flipgame(_ fronts: [Int], _ backs: [Int]) -> Int {
+        var same = Set<Int>()
+        for i in 0...(fronts.count - 1) {
+            if fronts[i] ==  backs[i] {
+                same.update(with: fronts[i])
+            }
+        }
+        var res = 3000
+        for i in 0...(fronts.count - 1) {
+            let front = fronts[i]
+            let back = backs[i]
+            if front < res && !same.contains(front){
+                res = front
+            }
+            if back < res && !same.contains(back){
+                res = back
+            }
+        }
+        return res % 3000
+    }
+}
