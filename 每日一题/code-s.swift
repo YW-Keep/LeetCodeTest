@@ -2737,3 +2737,16 @@ class Solution {
         return ans
     }
 }
+
+// 344. 反转字符串 双指针 - 元组
+class Solution {
+    func reverseString(_ s: inout [Character]) {
+        var l = 0;
+        var r = s.count - 1;
+        while l < r {
+            (s[l], s[r]) = (s[r], s[l])
+            l += 1
+            r -= 1
+        }
+    }
+}
