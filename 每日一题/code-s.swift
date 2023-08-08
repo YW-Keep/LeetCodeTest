@@ -2750,3 +2750,22 @@ class Solution {
         }
     }
 }
+
+// 1749. 任意子数组和的绝对值的最大值  动态规划
+class Solution {
+    func maxAbsoluteSum(_ nums: [Int]) -> Int {
+        var positiveMax = 0, negativeMin = 0
+        var positiveSum = 0, negativeSum = 0
+        for num in nums {
+            positiveSum += num
+            positiveMax = max(positiveMax, positiveSum)
+            positiveSum = max(0, positiveSum)
+            negativeSum += num
+            negativeMin = min(negativeMin, negativeSum)
+            negativeSum = min(0, negativeSum)
+
+        }
+        
+        return max(positiveMax, -negativeMin)
+    }
+}
