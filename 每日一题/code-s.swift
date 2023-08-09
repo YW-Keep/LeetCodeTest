@@ -2769,3 +2769,17 @@ class Solution {
         return max(positiveMax, -negativeMin)
     }
 }
+
+// 1281. 整数的各位积和之差 基础题
+class Solution {
+    func subtractProductAndSum(_ n: Int) -> Int {
+        var m = 1, s = 0, num = n
+        while num > 0 {
+            let x = num % 10
+            num = num / 10
+            m *= x
+            s += x
+        }
+        return m - s
+    }
+}
