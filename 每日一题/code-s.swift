@@ -2783,3 +2783,34 @@ class Solution {
         return m - s
     }
 }
+
+// 1289. 下降路径最小和 II 动态规划
+class Solution {
+    func minFallingPathSum(_ grid: [[Int]]) -> Int {
+        let n  = grid.count
+        var fmin = 0, smin = 0, findx = -1
+        for i in 0...(n - 1) {
+            var nfmin = Int.max, nsmin = Int.max, nfindex = -1
+            for j in 0...(n - 1) {
+               var nsum =  grid[i][j]
+                if j != findx {
+                    nsum += fmin
+                } else {
+                    nsum += smin
+                }
+                if nsum < nfmin {
+                    nsmin = nfmin
+                    nfmin = nsum
+                    nfindex = j
+                } else if  nsum < nsmin {
+                    nsmin = nsum
+                }
+            }
+            fmin = nfmin
+            smin = nsmin
+            findx = nfindex
+        }
+        
+        return fmin
+    }
+}
