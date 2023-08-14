@@ -2814,3 +2814,22 @@ class Solution {
         return fmin
     }
 }
+
+// 617. 合并二叉树 递归
+class Solution {
+    func mergeTrees(_ root1: TreeNode?, _ root2: TreeNode?) -> TreeNode? {
+        if root1 == nil {
+            return root2
+        }
+
+        if root2 == nil {
+            return root1
+        }
+
+        var mergeNode = TreeNode(root1!.val + root2!.val)
+        mergeNode.left = mergeTrees(root1!.left, root2!.left)
+        mergeNode.right = mergeTrees(root1!.right, root2!.right)
+
+        return mergeNode
+    }
+}
