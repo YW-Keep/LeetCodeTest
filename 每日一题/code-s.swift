@@ -2833,3 +2833,29 @@ class Solution {
         return mergeNode
     }
 }
+
+// 833. 字符串中的查找与替换 映射基础逻辑
+class Solution {
+    func findReplaceString(_ s: String, _ indices: [Int], _ sources: [String], _ targets: [String]) -> String {
+        var ops = [Int:Int]()
+        for i in 0...(indices.count - 1) {
+            ops.updateValue(i, forKey: indices[i])
+        }
+        var i = 0, res = ""
+        while i < s.count {
+            if let j = ops[i] {
+                let source = sources[j]
+                let range = s.index(s.startIndex, offsetBy: i)...s.index(s.startIndex, offsetBy: i + source.count - 1)
+                if s[range] == source {
+                    res += targets[j]
+                    i += source.count
+                    continue
+                }
+            }
+            res += String(s[s.index(s.startIndex, offsetBy: i)])
+            i += 1
+        }
+    
+        return res
+    }
+}
