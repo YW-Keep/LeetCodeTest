@@ -2859,3 +2859,23 @@ class Solution {
         return res
     }
 }
+
+// 2682. 找出转圈游戏输家  基础模拟
+class Solution {
+    func circularGameLosers(_ n: Int, _ k: Int) -> [Int] {
+        var map = [Int: Bool]()
+        var j = 0, i = k
+        while (map[j] == nil) {
+            map.updateValue(true, forKey: j)
+            j = (j + i) % n
+            i += k
+        }
+        var res = [Int]()
+        for i in 0...(n - 1) {
+            if map[i] == nil {
+                res.append(i + 1)
+            }
+        }
+        return res
+    }
+}
