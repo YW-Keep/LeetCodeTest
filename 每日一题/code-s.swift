@@ -2879,3 +2879,28 @@ class Solution {
         return res
     }
 }
+
+// 849. 到最近的人的最大距离 双指针
+class Solution {
+    func maxDistToClosest(_ seats: [Int]) -> Int {
+        var res = 0, l = 0
+        while(l < seats.count && seats[l] == 0) {
+            l += 1
+        }
+        res = max(res, l)
+        while (l < seats.count) {
+            var r = l + 1
+            while(r < seats.count && seats[r] == 0) {
+                r += 1
+            }
+            if r == seats.count {
+                res = max(res, r - l - 1)
+            } else {
+                res = max(res, Int((r - l) / 2))
+            }
+            l = r
+        }
+        return res
+        
+    }
+}
