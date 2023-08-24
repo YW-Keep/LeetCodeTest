@@ -2904,3 +2904,28 @@ class Solution {
         
     }
 }
+
+// 1267. 统计参与通信的服务器 基础逻辑
+class Solution {
+    func countServers(_ grid: [[Int]]) -> Int {
+        var rows = [Int: Int]()
+        var cols = [Int: Int]()
+        for i in  0...(grid.count - 1) {
+            for j in 0...(grid[i].count - 1) {
+                if grid[i][j] == 1 {
+                    rows.updateValue((rows[i] ?? 0) + 1, forKey: i)
+                    cols.updateValue((cols[j] ?? 0) + 1, forKey: j)
+                }
+            }
+        }
+        var res = 0
+        for i in  0...(grid.count - 1) {
+            for j in 0...(grid[i].count - 1) {
+                if grid[i][j] == 1 && ((rows[i] ?? 0) > 1 || (cols[j] ?? 0) > 1) {
+                    res += 1
+                }
+            }
+        }
+        return res
+    }
+}
