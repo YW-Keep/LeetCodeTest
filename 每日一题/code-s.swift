@@ -2929,3 +2929,24 @@ class Solution {
         return res
     }
 }
+//1448. 统计二叉树中好节点的数目 深度遍历
+class Solution {
+    var res = 0
+
+    func goodNodes(_ root: TreeNode?) -> Int {
+        dfs(root, root!.val)
+        return res
+    }
+
+    func dfs(_ root: TreeNode?, _ max: Int) {
+        guard let root = root else { return }
+
+        var max = max
+        if root.val >= max {
+            res += 1
+            max = root.val
+        }
+        dfs(root.left, max)
+        dfs(root.right, max)
+    }
+}
