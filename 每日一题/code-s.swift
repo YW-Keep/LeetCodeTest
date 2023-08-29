@@ -2950,3 +2950,63 @@ class Solution {
         dfs(root.right, max)
     }
 }
+
+// 57. 插入区间 基础逻辑
+class Solution {
+    func insert(_ intervals: [[Int]], _ newInterval: [Int]) -> [[Int]] {
+        var results = [[Int]]()
+        var left = newInterval[0], right = newInterval[1]
+        var overlap = false
+        
+        for interval in intervals {
+            if interval[0] > right {
+                // 情形一
+                if !overlap {
+                    results.append([left, right])
+                    overlap = true
+                }
+                
+                results.append(interval)
+            } else if interval[1] < left {
+                // 情形二
+                results.append(interval)
+            } else {
+                // 情形三：有重叠区间
+                left = min(interval[0], left)
+                right = max(interval[1], right)
+            }
+        }
+        
+        // 如果遍历完overlap仍为false，说明没有重叠区间，把新区间直接加到结果中
+        if !overlap {
+            results.append([left, right])
+        }
+        
+        return results
+    }
+}
+
+
+// 823. 带因子的二叉树 动态规划
+class Solution {
+    func numFactoredBinaryTrees(_ arr: [Int]) -> Int {
+        let nums = arr.sorted()
+        var dp: [Int: Int] = [:]
+        let kMode = 1000000007
+
+        for i in 0 ..< nums.count {
+            dp[nums[i]] = 1
+            for j in 0 ..< i where nums[i] % nums[j] == 0 && dp[nums[i] / nums[j]] != nil {
+                dp[nums[i]]! += (dp[nums[j]]! * dp[nums[i] / nums[j]]!) % kMode
+            }
+        }
+        
+        var ans = 0
+        
+        for (_, val) in dp {
+            ans += val
+        }
+
+        return ans % kMode
+    }
+}
