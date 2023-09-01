@@ -3010,3 +3010,19 @@ class Solution {
         return ans % kMode
     }
 }
+
+// 2240. 买钢笔和铅笔的方案数 基础逻辑
+class Solution {
+    func waysToBuyPensPencils(_ total: Int, _ cost1: Int, _ cost2: Int) -> Int {
+        if (cost1 < cost2) {
+            return waysToBuyPensPencils(total, cost2, cost1)
+        }
+        var res = 0, cnt = 0
+        while (cnt * cost1 <= total) {
+            res += Int((total - cnt * cost1) / cost2) + 1
+            cnt += 1
+            
+        }
+        return res
+    }
+}
