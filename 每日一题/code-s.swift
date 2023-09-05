@@ -3026,3 +3026,27 @@ class Solution {
         return res
     }
 }
+
+// 2605. 从两个数字数组里生成最小数字  
+class Solution {
+    func minNumber(_ nums1: [Int], _ nums2: [Int]) -> Int {
+        var map = [Int: Bool]()
+        for num in nums1 {
+            map.updateValue(true, forKey: num)
+        }
+        
+        var minNum = 10
+        for num in nums2 {
+            if map[num] != nil && num < minNum {
+                minNum = num
+            }
+        }
+        if minNum < 10 {
+            return minNum
+        }
+        let x = nums1.sorted()[0]
+        let y = nums2.sorted()[0]
+        return min(x * 10 + y, y*10 + x)
+    }
+}
+
