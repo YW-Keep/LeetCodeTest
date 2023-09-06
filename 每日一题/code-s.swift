@@ -3050,3 +3050,18 @@ class Solution {
     }
 }
 
+// 1123. 最深叶节点的最近公共祖先 递归
+class Solution {
+    func lcaDeepestLeaves(_ root: TreeNode?) -> TreeNode? {
+        if lcaDeepestLeavesHeight(root?.left) == lcaDeepestLeavesHeight(root?.right) {
+            return root
+        }else if lcaDeepestLeavesHeight(root?.left) > lcaDeepestLeavesHeight(root?.right) {
+            return lcaDeepestLeaves(root?.left)
+        }
+        return lcaDeepestLeaves(root?.right)
+    }
+    func lcaDeepestLeavesHeight(_ root: TreeNode?) -> Int {
+        guard let root = root else { return 0 }
+        return max(lcaDeepestLeavesHeight(root.left), lcaDeepestLeavesHeight(root.right)) + 1
+    }
+}
