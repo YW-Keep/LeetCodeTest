@@ -3065,3 +3065,26 @@ class Solution {
         return max(lcaDeepestLeavesHeight(root.left), lcaDeepestLeavesHeight(root.right)) + 1
     }
 }
+
+// 2594. 修车的最少时间 二分查找
+class Solution {
+    func repairCars(_ ranks: [Int], _ cars: Int) -> Int {
+        var l = 1, r = ranks[0] * cars * cars
+        while (l < r) {
+            let time = (l + r) >> 1
+            if check(ranks, cars, time) {
+                r = time
+            } else {
+                l = time + 1
+            }
+        }
+        return l
+    }
+    func check(_ ranks: [Int], _ cars: Int, _ time: Int) -> Bool {
+        var cnt = 0
+        for rank in ranks {
+            cnt += Int(floor(sqrt(Double(time) / Double(rank))))
+        }
+        return cnt >= cars
+    }
+}
