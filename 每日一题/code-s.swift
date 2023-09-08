@@ -3088,3 +3088,10 @@ class Solution {
         return cnt >= cars
     }
 }
+
+// 2651. 计算列车到站时间 基础题
+class Solution {
+    func findDelayedArrivalTime(_ arrivalTime: Int, _ delayedTime: Int) -> Int {
+        return (arrivalTime + delayedTime) % 24
+    }
+}
