@@ -3095,3 +3095,16 @@ class Solution {
         return (arrivalTime + delayedTime) % 24
     }
 }
+
+// LCP 50. 宝石补给 基础题
+class Solution {
+    func giveGem(_ gem: [Int], _ operations: [[Int]]) -> Int {
+        var gem2 = gem
+        for nums in operations {
+             let half = gem2[nums[0]] / 2
+            gem2[nums[0]] -= half
+            gem2[nums[1]] += half
+        }
+       return gem2.max()! - gem2.min()!
+    }
+}
