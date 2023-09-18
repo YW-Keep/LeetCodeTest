@@ -3108,3 +3108,21 @@ class Solution {
        return gem2.max()! - gem2.min()!
     }
 }
+
+// 337. 打家劫舍 III 动态规划
+class Solution {
+    
+    func rob(_ root: TreeNode?) -> Int {
+        let res = dfs(root)
+        return max(res.0, res.1)
+    }
+    
+    func dfs(_ root: TreeNode?) -> (Int, Int) {
+        guard root != nil else {
+            return (0, 0)
+        }
+        let left = dfs(root!.left)
+        let right = dfs(root!.right)
+        return (left.1 + right.1 + root!.val, max(left.0, left.1) + max(right.0, right.1))
+    }
+}
