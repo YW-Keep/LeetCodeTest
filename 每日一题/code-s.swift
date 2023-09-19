@@ -3126,3 +3126,30 @@ class Solution {
         return (left.1 + right.1 + root!.val, max(left.0, left.1) + max(right.0, right.1))
     }
 }
+
+// 2560. 打家劫舍 IV 二分查找
+class Solution {
+    func minCapability(_ nums: [Int], _ k: Int) -> Int {
+        var lower = nums.min()!
+        var upper = nums.max()!
+        while lower <= upper {
+            let mid = (lower + upper) / 2
+            var count = 0
+            var visited = false
+            for num in nums {
+                if num <= mid && !visited {
+                    count += 1
+                    visited = true
+                } else {
+                    visited = false
+                }
+            }
+            if count >= k {
+                upper = mid - 1
+            } else {
+                lower = mid + 1
+            }
+        }
+        return lower
+    }
+}
