@@ -3153,3 +3153,14 @@ class Solution {
         return lower
     }
 }
+
+// LCP 06. 拿硬币 基础题
+class Solution {
+    func minCount(_ coins: [Int]) -> Int {
+      var resCount = 0
+      for coin in coins {
+        resCount += (coin / 2) + (coin % 2)
+      }
+      return resCount
+    }
+}
