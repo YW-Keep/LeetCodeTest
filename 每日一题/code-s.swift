@@ -3164,3 +3164,11 @@ class Solution {
       return resCount
     }
 }
+
+// 2582. 递枕头 基础题
+class Solution {
+    func passThePillow(_ n: Int, _ time: Int) -> Int {
+        let newTime = time % ((n - 1) * 2)
+        return newTime < n ? newTime + 1 : n * 2 - newTime - 1
+    }
+}
