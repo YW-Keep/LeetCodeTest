@@ -3172,3 +3172,13 @@ class Solution {
         return newTime < n ? newTime + 1 : n * 2 - newTime - 1
     }
 }
+
+// 1333. 餐厅过滤器 筛选
+class Solution {
+  func filterRestaurants(_ restaurants: [[Int]], _ veganFriendly: Int, _ maxPrice: Int, _ maxDistance: Int) -> [Int] {
+      restaurants
+          .filter { (veganFriendly == 0 || $0[2] == veganFriendly) && $0[3] <= maxPrice && $0[4] <= maxDistance }
+          .sorted { $0[1] == $1[1] ? $0[0] > $1[0] : $0[1] > $1[1] }
+          .map { $0[0] }
+  }
+}
