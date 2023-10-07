@@ -3182,3 +3182,26 @@ class Solution {
           .map { $0[0] }
   }
 }
+
+// 901. 股票价格跨度 单调栈
+class StockSpanner {
+    var dq = Array<(Int,Int)>()
+    var cur = 0
+
+    init() {
+
+    }
+    
+    func next(_ price: Int) -> Int {
+        while !dq.isEmpty && dq.last!.1 <= price{
+            dq.removeLast()
+        }
+
+        let pre = dq.isEmpty ? -1 : dq.last!.0
+        let res = cur - pre
+        dq.append((cur,price))
+        cur += 1
+
+        return res
+    }
+}
