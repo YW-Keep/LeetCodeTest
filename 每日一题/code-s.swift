@@ -3205,3 +3205,76 @@ class StockSpanner {
         return res
     }
 }
+
+// 2034. 股票价格波动 基础题
+class StockPrice {
+    var stockpriceDic : [Int:Int]
+    var currentTimestamp: Int = 0
+
+    //用元组记录最大值，最小值与时间戳
+    var miniPrice: (Int,Int) = (0,0)
+    var maxiPrice: (Int,Int) = (0,0)
+    
+    init() {
+        stockpriceDic = [Int:Int]()
+    }
+    
+    func update(_ timestamp: Int, _ price: Int) {
+        stockpriceDic[timestamp] = price
+        currentTimestamp = max(currentTimestamp, timestamp)
+        if timestamp == miniPrice.0 || timestamp == maxiPrice.0 {
+            //如果是更新一个数据，且这个数据是最大值或者是最小值所在的时间点，就刷新最大值最小值
+            var min = stockpriceDic.first!
+            var max = stockpriceDic.first!
+            for (k,v) in stockpriceDic {
+                if v < min.value {
+                    min.key = k
+                    min.value = v
+                }
+                if v > max.value {
+                    max.key = k
+                    max.value = v
+                }
+            }
+            miniPrice = (min.key,min.value)
+            maxiPrice = (max.key,max.value)
+        }
+        else {
+            if stockpriceDic.count == 1 {
+                maxiPrice = (timestamp,price)
+                miniPrice = (timestamp,price)
+            }
+            if price > maxiPrice.1 {
+                maxiPrice = (timestamp,price)
+            }
+            else if price < miniPrice.1 {
+                miniPrice = (timestamp,price)
+            }
+        }
+    }
+    
+    func current() -> Int {
+        return stockpriceDic[currentTimestamp]!
+    }
+    
+    func maximum() -> Int {
+        return self.maxiPrice.1
+    }
+
+    func minimum() -> Int {
+        return self.miniPrice.1
+    }
+}
+
+// 2578. 最小和分割 基础题
+class Solution {
+    func splitNum(_ num: Int) -> Int {
+        let cs = Array(String(num))
+        let sortedCs = cs.sorted()
+        var a = [Int](repeating: 0, count: 2)
+        for i in 0..<sortedCs.count {
+            a[i % 2] = a[i % 2] * 10 + Int(String(sortedCs[i]))!
+        }
+        return a[0] + a[1]
+    }
+}
