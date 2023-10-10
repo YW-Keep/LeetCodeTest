@@ -3278,3 +3278,23 @@ class Solution {
         return a[0] + a[1]
     }
 }
+
+// 2731. 移动机器人 脑筋急转弯
+class Solution {
+    func sumDistance(_ nums: [Int], _ s: String, _ d: Int) -> Int {
+        var n = nums
+        let arrS = Array(s)
+        for i in 0..<nums.count {
+            n[i] += arrS[i] == "R" ? d : -d
+        }
+        n.sort()
+
+        var ans = 0, sum = 0
+        for i in 0..<nums.count {
+            ans = (ans + i*n[i] - sum) % (Int(1e9)+7)
+            sum += n[i]
+        }
+        return ans
+    }
+}
+
