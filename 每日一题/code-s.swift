@@ -3298,3 +3298,33 @@ class Solution {
     }
 }
 
+// 2512. 奖励最顶尖的 K 名学生  字典映射
+class Solution {
+    func topStudents(_ positive_feedback: [String], _ negative_feedback: [String], _ report: [String], _ student_id: [Int], _ k: Int) -> [Int] {
+        var map = [String: Int]()
+        for word in positive_feedback {
+            map.updateValue(3, forKey: word)
+        }
+        for word in negative_feedback {
+            map.updateValue(-1, forKey: word)
+        }
+        var backup = [(Int, Int)]()
+        for i in 0 ..< report.count {
+            let words = report[i]
+            var score = 0
+            for word in words.components(separatedBy: " ") {
+                score += map[word] ?? 0
+            }
+            backup.append((score, student_id[i]))
+        }
+       let res = backup.sorted { student1, student2 in
+            if student1.0 == student2.0 {
+                return student1.1 < student2.1
+            }
+            return student1.0 > student2.0
+        }.map { student1 in
+            student1.1
+        }.prefix(k)
+        return Array(res)
+    }
+}
