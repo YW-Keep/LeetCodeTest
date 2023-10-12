@@ -3328,3 +3328,20 @@ class Solution {
         return Array(res)
     }
 }
+
+// 2562. 找出数组的串联值 基础逻辑
+class Solution {
+    func findTheArrayConcVal(_ nums: [Int]) -> Int {
+        var i = 0 , j = nums.count - 1, res = 0
+        while i <= j {
+            if i == j {
+                res += nums[i]
+            } else {
+                res += (Int(String(nums[i]) + String(nums[j])) ?? 0)
+            }
+            i += 1
+            j -= 1
+        }
+        return res
+    }
+}
