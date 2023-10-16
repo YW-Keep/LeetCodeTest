@@ -3345,3 +3345,24 @@ class Solution {
         return res
     }
 }
+
+// 260. 只出现一次的数字 III 字典
+class Solution {
+    func singleNumber(_ nums: [Int]) -> [Int] {
+        var backup = [Int: Bool]()
+        for num in nums {
+            if let have = backup[num] {
+                backup.removeValue(forKey: num)
+            } else {
+                backup.updateValue(true, forKey: num)
+            }
+        }
+        var res = [Int]()
+        
+        for (key, _) in backup {
+            res.append(key)
+        }
+        
+        return res
+    }
+}
