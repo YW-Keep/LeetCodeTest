@@ -3366,3 +3366,16 @@ class Solution {
         return res
     }
 }
+
+// 2652. 倍数求和  数学题
+class Solution {
+    func sumOfMultiples(_ n: Int) -> Int {
+        var ans = 0
+        func f(_ m: Int, _ a: Int) -> Int {
+            let n = m / a
+            let d = a
+            return n * a + n * (n - 1) * d / 2
+        }
+        return f(n, 3) + f(n, 5) + f(n, 7) - f(n, 3 * 5) - f(n, 3 * 7) - f(n, 5 * 7) + f(n, 3 * 5 * 7)
+    }
+}
