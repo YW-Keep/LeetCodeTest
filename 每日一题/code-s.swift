@@ -3379,3 +3379,21 @@ class Solution {
         return f(n, 3) + f(n, 5) + f(n, 7) - f(n, 3 * 5) - f(n, 3 * 7) - f(n, 5 * 7) + f(n, 3 * 5 * 7)
     }
 }
+
+// 1726. 同积元组 基础题目
+class Solution {
+    func tupleSameProduct(_ nums: [Int]) -> Int {
+        var map = [Int: Int]()
+        for i in 0...(nums.count - 2) {
+            for j in (i+1)...(nums.count - 1) {
+                let key = nums[i] * nums[j]
+                map.updateValue((map[key] ?? 0) + 1, forKey: key)
+            }
+        }
+        var res = 0
+        for (_, value) in map {
+            res += (value - 1) * value * 4
+        }
+        return res
+    }
+}
