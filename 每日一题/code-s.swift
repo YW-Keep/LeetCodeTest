@@ -3397,3 +3397,22 @@ class Solution {
         return res
     }
 }
+
+// 2525. 根据规则将箱子分类 基础题
+class Solution {
+    func categorizeBox(_ length: Int, _ width: Int, _ height: Int, _ mass: Int) -> String {
+        let maxd = max(length, width, height)
+        let vol = length * width  * height
+        let isBulky = (maxd >= 10000 || vol >= Int(1e9))
+        let isHeavy = (mass >= 100)
+        if (isBulky && isHeavy) {
+             return "Both"
+          } else if (isBulky) {
+              return "Bulky"
+          } else if (isHeavy) {
+              return "Heavy"
+          } else {
+              return "Neither"
+          }
+    }
+}
