@@ -3431,3 +3431,23 @@ class Solution {
         return count
     }
 }
+
+// 1155. 掷骰子等于目标和的方法数 动态规划
+class Solution {
+    func numRollsToTarget(_ d: Int, _ f: Int, _ target: Int) -> Int {
+        var dp = Array.init(repeating:(Array.init(repeating:0,count:target + 1)),count:d + 1)
+        dp[0][0] = 1
+        let MOD:Int = Int(1e9) + 7;
+        for i in (1...d){
+            for j in (1...target){
+                var k = 1
+                //k <= f是核心，即一次骰一个骰子，不会出现增减大于f的数
+                while(k<=j && k<=f){
+                    dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % MOD
+                    k += 1
+                }
+            }
+        }
+        return dp[d][target]
+    }
+}
