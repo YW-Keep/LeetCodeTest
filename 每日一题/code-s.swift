@@ -3451,3 +3451,33 @@ class Solution {
         return dp[d][target]
     }
 }
+
+// 2698. 求一个整数的惩罚数 暴力破解
+class Solution {
+    func punishmentNumber(_ n: Int) -> Int {
+        let nums = [1, 9, 10, 36, 45, 55, 82, 91, 99, 100, 235, 297, 369, 370, 379, 414, 657, 675, 703, 756, 792, 909, 918, 945, 964, 990, 991, 999, 1000].filter { num in
+            num <= n
+        }
+        
+        var res = 0
+        for num in nums {
+            res += num * num
+        }
+        return res
+    }
+}
+
+// 2520. 统计能整除数字的位数 基础题
+class Solution {
+    func countDigits(_ num: Int) -> Int {
+        var t = num, res = 0
+        while t > 0 {
+            if num % ( t % 10) == 0 {
+                res +=  1
+            }
+            t  = t / 10
+        }
+        
+        return res
+    }
+}
