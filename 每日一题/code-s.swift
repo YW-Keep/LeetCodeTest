@@ -3481,3 +3481,24 @@ class Solution {
         return res
     }
 }
+
+// 1465. 切割后面积最大的蛋糕  贪心
+class Solution {
+    func maxArea(_ h: Int, _ w: Int, _ horizontalCuts: [Int], _ verticalCuts: [Int]) -> Int {
+        let hList = horizontalCuts.sorted()
+        let wList = verticalCuts.sorted()
+        var last = 0, hMax = 0, wMax = 0
+        for num in hList {
+            hMax = max(num - last, hMax)
+            last = num
+        }
+        hMax = max(hMax, h - (hList.last ?? 0))
+        last = 0
+        for num in wList {
+            wMax = max(num - last, wMax)
+            last = num
+        }
+        wMax = max(wMax, w - (wList.last ?? 0))
+        return  hMax*wMax % 1000000007
+    }
+}
