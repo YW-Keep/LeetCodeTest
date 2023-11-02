@@ -3502,3 +3502,45 @@ class Solution {
         return  hMax*wMax % 1000000007
     }
 }
+
+// 275. H 指数 II 二分查找
+class Solution {
+    func hIndex(_ citations: [Int]) -> Int {
+        var left = 0
+        var right = citations.count
+        while left<right {
+            let mid = (left+right)/2
+            if citations[mid] < citations.count - mid {
+                left = mid+1
+            }else{
+                right = mid
+            }
+        }
+        return citations.count - left
+    }
+}
+
+// 2103. 环和杆 位运算
+class Solution {
+    func countPoints(_ rings: String) -> Int {
+        var backup = Array(repeating: 0, count: 10)
+        let ringsArray = rings.map { c in String(c) }
+        for i in 0...(ringsArray.count - 1) where i % 2 == 0 {
+            let j = Int(ringsArray[i + 1]) ?? 0
+            if ringsArray[i] == "R" {
+                backup[j] |= 1
+            } else if ringsArray[i] == "G" {
+                backup[j] |= 2
+            } else {
+                backup[j] |= 4
+            }
+        }
+        var res = 0
+        for num in backup {
+            if num == 7 {
+                res += 1
+            }
+        }
+        return res
+    }
+}
