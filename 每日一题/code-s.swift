@@ -3544,3 +3544,33 @@ class Solution {
         return res
     }
 }
+
+//  117. 填充每个节点的下一个右侧节点指针 II 二叉树层序遍历
+class Solution {
+    func connect(_ root: Node?) -> Node? {
+        // 表示一层
+        var queue = [Node]()
+        if let node = root { queue.append(node) }
+        while !queue.isEmpty {
+            let count = queue.count
+            var current, previous: Node!
+            for i in 0 ..< count {
+                if i == 0 {
+                    previous = queue.removeFirst()
+                    current = previous
+                } else {
+                    current = queue.removeFirst()
+                    previous.next = current
+                    previous = current
+                }
+
+                if let node = current.left { queue.append(node) }
+                if let node = current.right { queue.append(node) }
+            }
+            previous.next = nil
+        }
+
+        return root
+    }
+    
+}
