@@ -3574,3 +3574,26 @@ class Solution {
     }
     
 }
+
+// 318. 最大单词长度乘积 位运算
+class Solution {
+    func maxProduct(_ words: [String]) -> Int {
+      var mask = [Int](repeating: 0, count: words.count)
+      for i in 0..<words.count {
+        let word = words[i]
+        for ch in word {
+          mask[i] |= 1 << (ch.asciiValue! - 97)
+        }
+      }
+    
+      var masProd = 0
+      for i in 0..<words.count {
+        for j in i+1..<words.count {
+          if mask[i] & mask[j] == 0 {
+            masProd = max(masProd, words[i].count * words[j].count)
+          }
+        }
+      }
+      return masProd
+    }
+}
