@@ -3597,3 +3597,18 @@ class Solution {
       return masProd
     }
 }
+
+// 2586. 统计范围内的元音字符串数 基本逻辑
+class Solution {
+    func vowelStrings(_ words: [String], _ left: Int, _ right: Int) -> Int {
+        var res = 0
+        let map = ["a": true, "e": true, "i": true, "o": true, "u": true,]
+        for i in left...right {
+            let word = words[i] 
+            if map[String(word.first!)] != nil && map[String(word.last!)] != nil {
+                res += 1
+            }
+        }
+        return res
+    }
+}
