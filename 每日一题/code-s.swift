@@ -3635,3 +3635,14 @@ class Solution {
         return ans
     }
 }
+
+// 2656. K 个元素的最大和 基础题
+class Solution {
+    func maximizeSum(_ nums: [Int], _ k: Int) -> Int {
+        var maxNum = nums[0]
+        for num in nums {
+            maxNum = max(num, maxNum)
+        }
+        return (2 * maxNum + k - 1) * k / 2
+    }
+}
