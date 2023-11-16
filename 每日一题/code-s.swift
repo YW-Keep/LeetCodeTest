@@ -3646,3 +3646,25 @@ class Solution {
         return (2 * maxNum + k - 1) * k / 2
     }
 }
+
+// 2760. 最长奇偶子数组 窗口
+class Solution {
+    func longestAlternatingSubarray(_ nums: [Int], _ threshold: Int) -> Int {
+        var res: Int = 0
+        var (left, right) = (0, 0)
+        
+        while right < nums.count {
+            let insertNum = nums[right]
+            if insertNum % 2 == 1 || insertNum > threshold { right += 1 }
+            else {
+                left = right
+                right += 1
+                while right < nums.count && nums[right] <= threshold && nums[right] % 2 != nums[right-1] % 2 {
+                    right += 1
+                }
+                res = max(res, right - left)
+            }
+        }
+        return res
+    }
+}
