@@ -3687,3 +3687,25 @@ class Solution {
         return max
     }
 }
+
+// 2216. 美化数组的最少删除数 基础逻辑
+class Solution {
+    func minDeletion(_ nums: [Int]) -> Int {
+        var ans = 0, check = true
+        if nums.count == 1 {
+            return 1
+        }
+        for i in 0...(nums.count - 2) {
+            if nums[i] == nums[i + 1] && check {
+                ans += 1
+            } else {
+                check = !check
+            }
+        }
+        if (nums.count - ans) % 2 == 1 {
+            ans += 1
+        }
+        return ans
+        
+    }
+}
