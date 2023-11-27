@@ -3709,3 +3709,45 @@ class Solution {
         
     }
 }
+
+// 2824. 统计和小于目标的下标对数目  基础逻辑
+class Solution {
+    func countPairs(_ nums: [Int], _ target: Int) -> Int {
+        let sortNums = nums.sorted()
+        var res = 0
+        var i = 0 , j = sortNums.count - 1
+        while(i < j) {
+            while (i < j && (sortNums[i] + sortNums[j]) >= target) {
+                j -= 1
+            }
+            res += (j - i)
+            i += 1
+        }
+        return res
+    }
+}
+// 907. 子数组的最小值之和 模拟
+class Solution {
+    func sumSubarrayMins(_ arr: [Int]) -> Int {
+        var idx = 0 
+        var res = 0 
+        var nums = [Int]()
+        let mod = 1000000007
+        while idx < arr.count {
+            let n = arr[idx] 
+            var sub = idx + 1
+            var value = n 
+            while sub < arr.count {
+                let s = arr[sub]
+                if s < value {
+                    value = s 
+                }
+                res = res+value
+                sub += 1 
+            }
+            res = (res + n) % mod
+            idx += 1 
+        }
+        return res
+    }
+}
