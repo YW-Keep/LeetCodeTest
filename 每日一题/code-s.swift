@@ -3751,3 +3751,39 @@ class Solution {
         return res
     }
 }
+
+// 1670. 设计前中后队列 基础逻辑
+class FrontMiddleBackQueue {
+
+    var arr:[Int] = []
+
+    init() {
+        arr = []
+    }
+    
+    func pushFront(_ val: Int) {
+        arr.insert(val, at:0)
+    }
+    
+    func pushMiddle(_ val: Int) {
+        let mid = arr.count/2
+        arr.insert(val, at:mid)
+    }
+    
+    func pushBack(_ val: Int) { // 1432
+        arr.append(val)
+    }
+    
+    func popFront() -> Int {
+        return arr.count == 0 ? -1 : arr.removeFirst()
+    }
+    
+    func popMiddle() -> Int {
+        let mid = arr.count/2 + (arr.count % 2 == 0 ? -1 : 0)
+        return arr.count == 0 ? -1 : arr.remove(at: mid)
+    }
+    
+    func popBack() -> Int {
+        return arr.count == 0 ? -1 : arr.removeLast()
+    }
+}
