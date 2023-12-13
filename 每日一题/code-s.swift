@@ -3787,3 +3787,26 @@ class FrontMiddleBackQueue {
         return arr.count == 0 ? -1 : arr.removeLast()
     }
 }
+
+// 2697. 字典序最小回文串 双指针
+class Solution {
+    func makeSmallestPalindrome(_ s: String) -> String {
+        var array = s.map { char in
+            return String(char)
+        }
+        var left = 0, right = array.count - 1
+        while left < right {
+            if array[left] != array[right] {
+                if array[left] < array[right] {
+                    array[right] = array[left]
+                } else {
+                    array[left] = array[right]
+                }
+            }
+            left += 1
+            right -= 1
+        }
+        
+        return array.joined()
+    }
+}
