@@ -3810,3 +3810,16 @@ class Solution {
         return array.joined()
     }
 }
+
+// 162. 寻找峰值 找最大值
+class Solution {
+    func findPeakElement(_ nums: [Int]) -> Int {
+        var res = 0
+        for index in 0...(nums.count - 1) {
+            if nums[index] > nums[res] {
+                res = index
+            }
+        }
+        return res
+    }
+}
