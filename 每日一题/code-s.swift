@@ -3823,3 +3823,53 @@ class Solution {
         return res
     }
 }
+
+// 1901. 寻找峰值 II 二分查找
+class Solution {
+    func findPeakGrid(_ mat: [[Int]]) -> [Int] {
+        var top = 0
+        var down = mat.count - 1
+
+        while top <= down {
+            let mid = top + (down-top)/2
+            let midMaxCol = rowMaxIndex(mat, mid)
+
+            if top == down {
+                return [mid,midMaxCol]
+            }
+
+            let preMaxCol = rowMaxIndex(mat, mid-1)
+            let nextMaxCol = rowMaxIndex(mat, mid+1)
+
+            let v1 = mid - 1 >= 0 ? mat[mid - 1][preMaxCol] : -1
+            let v2 = mat[mid][midMaxCol];
+            let v3 = mid + 1 < mat.count ? mat[mid + 1][nextMaxCol] : -1
+
+            if v2 > v3 && v2 > v1 {
+                return [mid,midMaxCol]
+            }
+
+            if v1 >= v2 && v1 > v3 {
+                down = mid - 1
+            } else {
+                top = mid + 1
+            }
+        }
+
+        return []
+    }
+
+    private func rowMaxIndex(_ mat: [[Int]], _ row: Int) -> Int {
+        guard row >= 0 && row < mat.count else { return -1 }
+
+        var col = 0
+
+        for i in 1..<mat[row].count {
+            if mat[row][i] > mat[row][col] {
+                col = i
+            }
+        }
+
+        return col
+    }
+}
