@@ -3873,3 +3873,18 @@ class Solution {
         return col
     }
 }
+// 2828. 判别首字母缩略词 基础逻辑
+class Solution {
+    func isAcronym(_ words: [String], _ s: String) -> Bool {
+        if words.count != s.count {
+            return false
+        }
+        let sArray = s.map { String($0)}
+        for i in 0...(words.count - 1) {
+            if words[i].map({ String($0)})[0] != sArray[i] {
+                return false
+            }
+        }
+        return true
+    }
+}
