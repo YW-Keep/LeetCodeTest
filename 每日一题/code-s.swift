@@ -3888,3 +3888,15 @@ class Solution {
         return true
     }
 }
+
+// 1276. 不浪费原料的汉堡制作方案 二元一次方程
+class Solution {
+    func numOfBurgers(_ tomatoSlices: Int, _ cheeseSlices: Int) -> [Int] {
+        guard tomatoSlices % 2 == 0, tomatoSlices >= cheeseSlices * 2, tomatoSlices <= cheeseSlices * 4 else {
+            return []
+        }
+        let num1 = (tomatoSlices - cheeseSlices * 2) / 2
+        let num2 = cheeseSlices -  num1
+        return [num1, num2]
+    }
+}
