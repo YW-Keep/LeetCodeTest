@@ -3900,3 +3900,25 @@ class Solution {
         return [num1, num2]
     }
 }
+
+// 2660. 保龄球游戏的获胜者 基础题
+class Solution {
+    func isWinner(_ player1: [Int], _ player2: [Int]) -> Int {
+        let score1 = score(player1)
+        let score2 = score(player2)
+        return score1 == score2 ?  0 : (score1 > score2 ? 1 : 2)
+    }
+    
+    func score(_ player: [Int]) -> Int {
+        var res = 0
+        for (i,num) in player.enumerated() {
+            res += num
+            if ((i > 0) && player[i-1] == 10) || ((i > 1) && player[i-2] == 10) {
+                res += num
+            }
+        }
+        
+        return res
+    }
+
+}
