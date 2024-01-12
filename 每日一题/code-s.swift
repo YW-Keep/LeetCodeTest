@@ -3963,3 +3963,23 @@ class Solution {
         return stack.count 
     }
 }
+
+// 2085. 统计出现过一次的公共字符串 基础逻辑
+class Solution {
+    func countWords(_ words1: [String], _ words2: [String]) -> Int {
+        var map = [String: Int]()
+        for w in words1 {
+            map[w] = (map[w] ?? 0) + 1 // 统计
+        }
+        for w in words2 {
+            map[w] = (map[w] == 1 ? 0 : -1) // 个数 1 的标 0，其余 -1
+        }
+        var ans = 0
+        for v in map.values {
+            if v == 0 { // 计算 0 的数量即为答案
+                ans += 1
+            }
+        }
+        return ans
+    }
+}
