@@ -3983,3 +3983,30 @@ class Solution {
         return ans
     }
 }
+ public class ListNode {
+     public var val: Int
+     public var next: ListNode?
+     public init() { self.val = 0; self.next = nil; }
+     public init(_ val: Int) { self.val = val; self.next = nil; }
+     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ }
+// 82. 删除排序链表中的重复元素 II 基础逻辑
+class Solution {
+    func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+        var newHead : ListNode? = ListNode() 
+        newHead?.next = head
+        var cur = newHead
+        while cur?.next != nil && cur?.next?.next != nil{
+            if cur!.next!.val == cur!.next!.next!.val{
+                var tmp = cur!.next!.val
+                while cur!.next != nil && cur!.next!.val == tmp{
+                    cur?.next = cur?.next?.next
+                }
+            }else{
+                cur = cur?.next
+            }
+            
+        }
+        return newHead?.next
+    }
+}
