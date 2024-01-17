@@ -3990,6 +3990,7 @@ class Solution {
      public init(_ val: Int) { self.val = val; self.next = nil; }
      public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
  }
+
 // 82. 删除排序链表中的重复元素 II 基础逻辑
 class Solution {
     func deleteDuplicates(_ head: ListNode?) -> ListNode? {
@@ -4008,5 +4009,21 @@ class Solution {
             
         }
         return newHead?.next
+    }
+}
+
+// 2744. 最大字符串配对数目 基础题
+class Solution {
+    func maximumNumberOfStringPairs(_ words: [String]) -> Int {
+        var map = [String: Bool]()
+        var res = 0
+        for word in words {
+            let key = String(word.reversed())
+            if map[key] != nil {
+                res += 1
+            }
+            map.updateValue(true, forKey: word)
+        }
+        return res
     }
 }
