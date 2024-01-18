@@ -4027,3 +4027,18 @@ class Solution {
         return res
     }
 }
+
+// 2171. 拿出最少数目的魔法豆 数学题
+class Solution {
+    func minimumRemoval(_ beans: [Int]) -> Int {
+        var ans = Int.max
+        var beans = beans.sorted()
+        var sum = beans.reduce(.zero,+)
+
+        for i in 0..<beans.count {
+            ans = min(ans, sum - beans[i] * (beans.count - i))
+        }
+
+        return ans
+    }
+}
