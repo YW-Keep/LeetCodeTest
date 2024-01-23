@@ -4042,3 +4042,57 @@ class Solution {
         return ans
     }
 }
+
+// 670. 最大交换 基础逻辑
+class Solution {
+    func maximumSwap(_ num: Int) -> Int {
+        var arr = Array(String(num)).map{ Int(String($0))! }
+        let sortedArray = arr.sorted(by:>)
+        var idx = 0, n = -1
+
+        for i in 0..<arr.count {
+            let val = arr[i]
+            let m = sortedArray[i]
+            if m > val {
+                idx = i 
+                n = m 
+                break
+            }
+        }
+        if n == -1 { return num }
+        for i in 0..<arr.count {
+            let j = arr.count-1-i 
+            let val = arr[j] 
+            if val == n {
+                arr.swapAt(idx,j)
+                break
+            }
+        }
+
+        let ans = arr.reduce(0) { (result, digit) in
+            return result * 10 + digit
+        }
+
+        return ans 
+    }
+}
+
+// 2765. 最长交替子数组 基本逻辑
+class Solution {
+    func alternatingSubarray(_ nums: [Int]) -> Int {
+        var res = -1
+        var firstIndex = 0
+        for i in 1...(nums.count - 1) {
+            let length = i - firstIndex + 1
+            if (nums[i] - nums[firstIndex]) == ((length - 1) % 2) {
+                res = max(res, length)
+            } else if nums[i] - nums[i - 1] == 1 {
+                firstIndex = i - 1
+                res = max(res, 2)
+            } else {
+                firstIndex = i
+            }
+        }
+        return res
+    }
+}
