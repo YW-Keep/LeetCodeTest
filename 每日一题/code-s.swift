@@ -4096,3 +4096,17 @@ class Solution {
         return res
     }
 }
+
+// 2859. 计算 K 置位下标对应元素的和 函数调用
+class Solution {
+    func sumIndicesWithKSetBits(_ nums: [Int], _ k: Int) -> Int {
+        var ans = 0
+        for i in 0..<nums.count {
+            if i.nonzeroBitCount == k {
+                ans += nums[i]
+            }
+        }
+        return ans
+    }
+}
+
