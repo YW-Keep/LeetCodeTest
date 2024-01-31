@@ -4110,3 +4110,25 @@ class Solution {
     }
 }
 
+// 2670. 找出不同元素数目差数组 基础逻辑
+class Solution {
+    func distinctDifferenceArray(_ nums: [Int]) -> [Int] {
+        var st = Set<Int>()
+        var sufCnt = [Int]()
+        sufCnt.append(0)
+        for num in nums.reversed() {
+            st.insert(num)
+            sufCnt.append(st.count)
+        }
+        
+        sufCnt = sufCnt.reversed()
+        
+        st.removeAll()
+        var res = [Int]()
+        for (idex, num) in nums.enumerated() {
+            st.insert(num)
+            res.append(st.count - sufCnt[idex + 1]);
+        }
+        return res
+    }
+}
