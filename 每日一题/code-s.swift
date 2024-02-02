@@ -4132,3 +4132,25 @@ class Solution {
         return res
     }
 }
+
+// 1686. 石子游戏 VI 基础逻辑
+class Solution {
+    func stoneGameVI(_ aliceValues: [Int], _ bobValues: [Int]) -> Int {
+        var nums = [(Int, Int, Int)]()
+        for (i,num) in aliceValues.enumerated() {
+            nums.append((num + bobValues[i],num,bobValues[i]))
+        }
+        nums = nums.sorted(by: { i, j in
+            return i.0 - j.0 > 0
+        })
+        var aliceSum = 0, bobSum = 0
+        for (i,num) in nums.enumerated() {
+            if i % 2 == 0 {
+                aliceSum += num.1
+            } else {
+                bobSum += num.2
+            }
+        }
+        return aliceSum == bobSum ? 0 : (aliceSum > bobSum ? 1 : -1)
+    }
+}
