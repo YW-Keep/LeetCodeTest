@@ -4154,3 +4154,10 @@ class Solution {
         return aliceSum == bobSum ? 0 : (aliceSum > bobSum ? 1 : -1)
     }
 }
+
+// 292. Nim 游戏 脑筋急转弯
+class Solution {
+    func canWinNim(_ n: Int) -> Bool {
+       return n % 4 != 0
+    }
+}
