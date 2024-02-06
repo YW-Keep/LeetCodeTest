@@ -4161,3 +4161,27 @@ class Solution {
        return n % 4 != 0
     }
 }
+
+// LCP 30. 魔塔游戏 最小堆
+class Solution {
+    func magicTower(_ nums: [Int]) -> Int {
+        var res = 0
+        var hp = 1
+        var arr = [Int]()
+        var delay = 0
+        for num in nums {
+            if num < 0 {
+                arr.append(num)
+            }
+            hp += num
+            if hp <= 0 {
+                arr =  arr.sorted()
+                let minNum = arr.removeFirst()
+                hp -= minNum
+                delay += minNum
+                res += 1
+            }
+        }
+        return hp + delay > 0 ? res : -1
+    }
+}
