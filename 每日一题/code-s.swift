@@ -4185,3 +4185,20 @@ class Solution {
         return hp + delay > 0 ? res : -1
     }
 }
+
+// 589. N 叉树的前序遍历 基础题
+class Solution {
+    func preorder(_ root: Node?) -> [Int] {
+    	var res = [Int]()
+        pre(root, &res)
+        return res
+    }
+    func pre(_ root: Node?, _ res: inout [Int]) {
+        guard let root = root else { return }
+        res.append(root.val)
+        for node in root.children {
+            pre(node, &res)
+        }
+    }
+}
+
