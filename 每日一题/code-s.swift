@@ -4202,3 +4202,19 @@ class Solution {
     }
 }
 
+// 590. N 叉树的后序遍历 
+class Solution {
+    func postorder(_ root: Node?) -> [Int] {
+    	guard let root = root else { return [] }
+        var ans = [Int]()
+        dfs(root, &ans)
+        return ans
+    }
+
+    func dfs(_ node: Node, _ ans: inout [Int]) {
+        for child in node.children {
+            dfs(child, &ans)
+        }
+        ans.append(node.val)
+    }
+}
