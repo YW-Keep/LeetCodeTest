@@ -4218,3 +4218,31 @@ class Solution {
         ans.append(node.val)
     }
 }
+
+// 105. 从前序与中序遍历序列构造二叉树
+class Solution {
+    func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+
+        // 将中序遍历顺序放到Map里， 省去了后面递归重复遍历过程
+        var dict: [Int: Int] = [:]
+        for i in 0..<inorder.count {
+            dict[inorder[i]] = i
+        }
+        return resultTree(preorder, 0, preorder.count - 1, dict, 0, inorder.count - 1)
+    }
+
+    // 为啥要构造一个新的函数，  是因为我们要把递归用到的参数都补上
+    func resultTree(_ preorder: [Int], _ preLeft: Int, _ preRight: Int, _ map: [Int: Int], _ inLeft: Int, _ inRight: Int) -> TreeNode? {
+        if preLeft > preRight || inLeft > inRight { return nil }
+
+        let roorVal = preorder[preLeft]
+        // 这里直接就可以获取到pIndex了。。
+        let pIndex = map[roorVal]! 
+        var node = TreeNode(roorVal)
+
+        // 具体这几个边界值， 不行就提前在草稿纸上计算出来
+        node.left = resultTree(preorder, preLeft + 1, preLeft + pIndex - inLeft, map, inLeft, pIndex - 1)
+        node.right = resultTree(preorder, preLeft + pIndex - inLeft + 1, preRight, map, pIndex + 1, inRight)
+        return node
+    }
+}
