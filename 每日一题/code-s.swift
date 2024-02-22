@@ -4246,3 +4246,30 @@ class Solution {
         return node
     }
 }
+
+// 889. 根据前序和后序遍历构造二叉树 基础逻辑
+class Solution {
+    func constructFromPrePost(_ preorder: [Int], _ postorder: [Int]) -> TreeNode? {
+        return myBuildTree(preorder, postorder, 0, preorder.count-1, 0, postorder.count-1)
+    }
+
+    func myBuildTree(_ preorder: [Int], _ postorder: [Int], _ preLeft: Int, _ preRight: Int, _ postLeft: Int, _ postRight: Int) -> TreeNode? {
+        if preLeft > preRight || postLeft > postRight { return nil }
+
+        var root = TreeNode(preorder[preLeft])
+        if preLeft == preRight { return root }
+
+        var index = postLeft //通过前序遍历中的左子树第一个点，在后续遍历中找到对应点的位置index
+        while preorder[preLeft+1] != postorder[index] {
+            index += 1
+        }
+        //左子树总共数目
+        let leftSubCount = index-postLeft
+
+        //递归更新调用创建左右子树，注意左右边界的计算方式
+        root.left = myBuildTree(preorder, postorder, preLeft+1, preLeft+1+leftSubCount, postLeft, index)
+        root.right = myBuildTree(preorder, postorder, preLeft+1+leftSubCount+1, preRight, index+1, postRight-1)
+
+        return root
+    }
+}
