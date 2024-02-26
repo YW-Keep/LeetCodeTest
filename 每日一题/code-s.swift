@@ -4273,3 +4273,19 @@ class Solution {
         return root
     }
 }
+
+// 938. 二叉搜索树的范围 基础题
+class Solution {
+    func rangeSumBST(_ root: TreeNode?, _ low: Int, _ high: Int) -> Int {
+        if root == nil {
+            return 0
+        }
+        if root!.val > high {
+            return rangeSumBST(root?.left, low, high)
+        } else if root!.val < low {
+            return rangeSumBST(root?.right, low, high)
+        } else {
+            return root!.val + rangeSumBST(root?.left, low, high) + rangeSumBST(root?.right, low, high)
+        }
+    }
+}
