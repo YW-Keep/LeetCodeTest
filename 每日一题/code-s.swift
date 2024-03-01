@@ -4289,3 +4289,28 @@ class Solution {
         }
     }
 }
+
+// 2369. 检查数组是否存在有效划分 动态规划
+class Solution {
+    func validPartition(_ nums: [Int]) -> Bool {
+        var dp = [Bool](repeating: false, count: nums.count + 1)
+        dp[0] = true
+        for i in 2...nums.count {
+           dp[i] = dp[i-2] && validTwo(num1: nums[i-2], num2: nums[i-1])
+            if !dp[i], i > 2 {
+                dp[i] = dp[i-3] && validThree(num1: nums[i-3], num2: nums[i-2], num3: nums[i-1])
+            }
+        }
+        
+        return dp[nums.count]
+    }
+    
+    func validTwo(num1: Int, num2:Int) -> Bool {
+        return num1 == num2
+    }
+    
+    func validThree(num1: Int, num2:Int, num3:Int) -> Bool {
+        return (num1 == num2 && num1 == num3) || (num1 + 1 == num2 && num2 + 1 == num3)
+    }
+    
+}
