@@ -4314,3 +4314,29 @@ class Solution {
     }
     
 }
+
+// 232. 用栈实现队列 基础逻辑
+class MyQueue {
+    var inStack: [Int]
+    
+    init() {
+        inStack = []
+    }
+    
+    func push(_ x: Int) {
+        inStack.append(x)
+    }
+    
+    func pop() -> Int {
+       
+        return inStack.isEmpty ? 0 : inStack.removeFirst()
+    }
+    
+    func peek() -> Int {
+        return inStack.isEmpty ? 0 : inStack.first!
+    }
+    
+    func empty() -> Bool {
+        return inStack.isEmpty
+    }
+}
