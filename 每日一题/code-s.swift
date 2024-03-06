@@ -4340,3 +4340,27 @@ class MyQueue {
         return inStack.isEmpty
     }
 }
+
+// 2917. 找出数组中的 K-or 值 基础题
+class Solution {
+    func findKOr(_ nums: [Int], _ k: Int) -> Int {
+        var res = 0
+        let n = nums.count
+
+        for i in 0..<32 {
+            var count = 0
+            
+            for j in 0..<n {
+                if (nums[j] & (1 << i)) != 0{
+                    count += 1
+                }
+
+                if count >= k{
+                    res |= (1 << i)
+                    break
+                }
+            } 
+        }   
+        return res
+    }
+}
