@@ -4364,3 +4364,24 @@ class Solution {
         return res
     }
 }
+
+// 2575. 找出字符串的可整除数组 基础逻辑
+class Solution {
+    func divisibilityArray(_ word: String, _ m: Int) -> [Int] {
+        var stringArr = Array(word)
+        var cur = 0
+        var div = Array(repeating: 0, count: word.count)
+        for index in 0..<word.count {
+            var string = String(stringArr[index])
+            var num = Int(string)!
+            var p = (cur * 10 + num) % m
+            if p > 0 {
+                cur = p
+            } else {
+                cur = 0
+                div[index] = 1
+            }
+        }
+        return div
+    }
+}
