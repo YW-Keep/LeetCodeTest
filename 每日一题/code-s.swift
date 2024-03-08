@@ -4385,3 +4385,16 @@ class Solution {
         return div
     }
 }
+
+// 2834. 找出美丽数组的最小和 数学题
+class Solution {
+    func minimumPossibleSum(_ n: Int, _ target: Int) -> Int {
+        let mod = 1000000007
+        let m = target / 2
+        if n <= m {
+            return ((1 + n) * n / 2 ) % mod
+        } else {
+           return (((1 + m) * m / 2) + (((target + target + (n - m) - 1) * (n - m) / 2))) % mod
+        }
+    }
+}
