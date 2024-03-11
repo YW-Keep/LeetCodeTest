@@ -4398,3 +4398,21 @@ class Solution {
         }
     }
 }
+
+// 2129. 将标题首字母大写 基础逻辑
+class Solution {
+    func capitalizeTitle(_ title: String) -> String {
+        let words = title.split(separator: " ")
+        var res = [String]()
+
+        for word in words{
+            if word.count <= 2{
+                res.append(word.lowercased())
+            }
+            else{
+                res.append(word.lowercased().capitalized)
+            }
+        }
+        return res.joined(separator: " ")
+    }
+}
