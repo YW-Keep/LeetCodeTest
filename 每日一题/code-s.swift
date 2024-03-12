@@ -4416,3 +4416,28 @@ class Solution {
         return res.joined(separator: " ")
     }
 }
+
+// 1261. 在受污染的二叉树中查找元素 基础题
+class FindElements {
+
+    var list = [Int]()
+    init(_ root: TreeNode?) {
+        guard let root = root else {
+            return
+        }
+        func dfs(_ node: TreeNode?,_ val: Int) {
+            guard let node = node else {
+                return
+            }
+            node.val = val
+            list.append(val)
+            dfs(node.left,2 * node.val + 1)
+            dfs(node.right,2 * node.val + 2)
+        }
+        dfs(root,0)
+    }
+    
+    func find(_ target: Int) -> Bool {
+        return list.contains(target)
+    }
+}
