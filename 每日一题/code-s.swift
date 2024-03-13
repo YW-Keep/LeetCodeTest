@@ -4441,3 +4441,16 @@ class FindElements {
         return list.contains(target)
     }
 }
+
+// 2864. 最大二进制奇数 基础逻辑
+class Solution {
+    func maximumOddBinaryNumber(_ s: String) -> String {
+        var cnt = 0
+        for char in s {
+            if String(char) ==  "1" {
+                cnt += 1
+            }
+        }
+        return String(repeating: "1", count: cnt - 1) + String(repeating: "0", count: s.count - cnt) + "1"
+    }
+}
