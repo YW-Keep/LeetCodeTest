@@ -4454,3 +4454,17 @@ class Solution {
         return String(repeating: "1", count: cnt - 1) + String(repeating: "0", count: s.count - cnt) + "1"
     }
 }
+
+// 2789. 合并后数组中的最大元素 
+class Solution {
+    func maxArrayValue(_ nums: [Int]) -> Int {
+        var sum = nums.last!
+        guard nums.count > 1 else {
+            return sum
+        }
+        for i in (0...(nums.count - 2)).reversed() {
+            sum = (nums[i] <= sum) ?  (nums[i] + sum) : nums[i]
+        }
+        return sum
+    }
+}
