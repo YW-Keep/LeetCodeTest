@@ -4468,3 +4468,20 @@ class Solution {
         return sum
     }
 }
+
+// 303. 区域和检索 - 数组不可变 基础逻辑
+class NumArray {
+    var preSum:[Int]
+    init(_ nums: [Int]) {
+        preSum = [Int](repeating:0, count:nums.count+1)
+        
+        for i in 0..<nums.count {
+            preSum[i+1] = preSum[i] + nums[i]
+        }
+
+    }
+    
+    func sumRange(_ left: Int, _ right: Int) -> Int {
+        return preSum[right+1] - preSum[left]
+    }
+}
