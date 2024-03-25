@@ -4485,3 +4485,20 @@ class NumArray {
         return preSum[right+1] - preSum[left]
     }
 }
+
+// 518. 零钱兑换 II 背包问题
+class Solution {
+    func change(_ amount: Int, _ coins: [Int]) -> Int {
+        var dp = Array(repeating: 0, count: amount + 1)
+        dp[0] = 1
+        for coin in coins {
+            for j in 0 ... amount {
+                if (j >= coin) {
+                    dp[j] += dp[j - coin]
+                }
+            }
+        }
+        return dp[amount]
+    }
+}
+
