@@ -4502,3 +4502,23 @@ class Solution {
     }
 }
 
+// 2908. 元素和最小的山形三元组 I 双头遍历
+class Solution {
+    func minimumSum(_ nums: [Int]) -> Int {
+        var res = 1000
+        var leftMin = [1000]
+        for i in 1...(nums.count - 1) {
+            leftMin.append(min(leftMin[i-1], nums[i-1]))
+       
+        }
+        var minRight = nums.last!
+        for i in (1...(nums.count - 2)).reversed() {
+            if leftMin[i] < nums[i], nums[i] > minRight {
+                res = min(res, leftMin[i] + nums[i] + minRight)
+            }
+            minRight = min(minRight, nums[i])
+         }
+        
+        return res < 1000 ? res : -1
+    }
+}
