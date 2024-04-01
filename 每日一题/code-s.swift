@@ -4522,3 +4522,24 @@ class Solution {
         return res < 1000 ? res : -1
     }
 }
+
+// 2810. 故障键盘 基础逻辑
+class Solution {
+    func finalString(_ s: String) -> String {
+        var head = false
+        var res = ""
+        for char in s {
+            let lastStr = String(char)
+            if lastStr != "i" {
+                if head {
+                    res = lastStr + res
+                } else {
+                    res = res + lastStr
+                }
+            } else {
+                head = !head
+            }
+        }
+        return head ? String(res.reversed()) : res
+    }
+}
