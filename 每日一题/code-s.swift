@@ -4543,3 +4543,18 @@ class Solution {
         return head ? String(res.reversed()) : res
     }
 }
+
+// 2529. 正整数和负整数的最大计数 基础逻辑
+class Solution {
+    func maximumCount(_ nums: [Int]) -> Int {
+        var pos = 0, neg = 0
+        for  num in nums {
+            if num > 0 {
+                pos += 1
+            } else if num < 0 {
+                neg += 1
+            }
+        }
+        return max(pos, neg)
+    }
+}
