@@ -4558,3 +4558,27 @@ class Solution {
         return max(pos, neg)
     }
 }
+
+// 1052. 爱生气的书店老板 滑动窗口
+class Solution {
+    func maxSatisfied(_ customers: [Int], _ grumpy: [Int], _ minutes: Int) -> Int {
+        var total = 0
+        for i in 0...(customers.count - 1) {
+            if grumpy[i] == 0 {
+                total += customers[i]
+            }
+        }
+        var increase = 0
+        for i in 0...(minutes - 1) {
+            increase += grumpy[i] * customers[i]
+        }
+        var maxIncrease = increase
+        if minutes <= customers.count - 1 {
+            for i in minutes...(customers.count - 1) {
+                increase = increase - customers[i - minutes] * grumpy[i - minutes] + customers[i] * grumpy[i]
+                maxIncrease = max(increase,maxIncrease)
+            }
+        }
+        return total + maxIncrease
+    }
+}
