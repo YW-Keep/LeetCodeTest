@@ -4582,3 +4582,11 @@ class Solution {
         return total + maxIncrease
     }
 }
+
+// 2798. 满足目标工作时长的员工数目 基础题
+class Solution {
+    func numberOfEmployeesWhoMetTarget(_ hours: [Int], _ target: Int) -> Int {
+        let e = hours.filter { h in return h >= target }
+        return e.count
+    }
+}
