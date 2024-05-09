@@ -4590,3 +4590,22 @@ class Solution {
         return e.count
     }
 }
+
+// 2079. 给植物浇水 基础逻辑
+class Solution {
+    func wateringPlants(_ plants: [Int], _ capacity: Int) -> Int {
+        var ans = 0
+        var rest = capacity
+        for i in 0...(plants.count - 1) {
+            if rest >= plants[i] {
+                ans += 1
+                rest -= plants[i]
+            } else {
+                ans += i*2 + 1
+                rest = capacity - plants[i]
+            }
+        }
+        return ans
+        
+    }
+}
