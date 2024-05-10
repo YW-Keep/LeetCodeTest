@@ -4609,3 +4609,20 @@ class Solution {
         
     }
 }
+
+// 2960. 统计已测试设备 模拟
+class Solution {
+    func countTestedDevices(_ batteryPercentages: [Int]) -> Int {
+        var ans = 0
+        var c = 0
+        for i in 0..<batteryPercentages.count {
+            if batteryPercentages[i] - c > 0 {
+                c += 1
+                ans += 1
+            }
+        }
+        return ans
+    }
+}
+
+
