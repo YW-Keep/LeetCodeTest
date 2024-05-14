@@ -4625,4 +4625,32 @@ class Solution {
     }
 }
 
+// 2244. 完成所有任务需要的最少轮数 基础逻辑
+class Solution {
+    func minimumRounds(_ tasks: [Int]) -> Int {
+        var map = [Int: Int]()
+        for i in tasks {
+            map[i, default: 0] += 1
+        }
+        var ans = 0
+        for (k, v) in map {
+            if v <= 1 {
+                return -1
+            }
+            if v % 3 == 0 {
+                ans += v / 3
+            } else {
+                if v % 3 == 2 {
+                    ans += (v - 2) / 3 + 1
+                    continue
+                }
+                if v % 3 == 1 {
+                    ans += (v - 4) / 3 + 2
+                }
+            }
+        }
+        return ans
+    }
+}
+
 
