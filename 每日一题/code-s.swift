@@ -4653,4 +4653,10 @@ class Solution {
     }
 }
 
+// 2769. 找出最大的可达成数字 基础逻辑
+class Solution {
+    func theMaximumAchievableX(_ num: Int, _ t: Int) -> Int {
+          return num + 2 * t
+    }
+}
 
