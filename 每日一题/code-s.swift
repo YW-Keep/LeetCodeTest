@@ -4660,3 +4660,24 @@ class Solution {
     }
 }
 
+// 2028. 找出缺失的观测数据 基础逻辑
+class Solution {
+    func missingRolls(_ rolls: [Int], _ mean: Int, _ n: Int) -> [Int] {
+        let m = rolls.count
+        var sum = mean * ( n + m)
+        for roll in rolls {
+            sum -= roll
+        }
+        if sum < n || sum > 6*n {
+            return []
+        }
+        var quotient: Int =  sum / n
+        var remainder = sum % n
+        var result: [Int] = []
+        for i in  0...(n - 1) {
+            let num = i < remainder ? 1 : 0
+            result.append(quotient + num)
+        }
+        return result
+    }
+}
