@@ -4681,3 +4681,19 @@ class Solution {
         return result
     }
 }
+
+// 2951. 找出峰值 基础逻辑
+class Solution {
+    func findPeaks(_ mountain: [Int]) -> [Int] {
+        guard mountain.count > 2 else {
+            return []
+        }
+        var result = [Int]()
+        for i in 1...(mountain.count - 2) {
+            if mountain[i-1] < mountain[i], mountain[i] > mountain[i+1] {
+                result.append(i)
+            }
+        }
+        return result
+    }
+}
