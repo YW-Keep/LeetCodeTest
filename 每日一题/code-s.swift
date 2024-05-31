@@ -4697,3 +4697,27 @@ class Solution {
         return result
     }
 }
+
+// 2965. 找出缺失和重复的数字 基础逻辑
+class Solution {
+    func findMissingAndRepeatedValues(_ grid: [[Int]]) -> [Int] {
+        let cont = grid.count
+        let nums  = cont * cont
+        var result = [Int]()
+        var sum = (1 + nums) * nums / 2
+        var map = [Int: Bool]()
+        for i in 0...(cont - 1) {
+            for j in 0...(cont - 1) {
+                let num = grid[i][j]
+                if map[num] == nil {
+                    sum -= num
+                    map.updateValue(true, forKey: num)
+                } else {
+                    result.append(num)
+                }
+            }
+        }
+        result.append(sum)
+        return result
+    }
+}
