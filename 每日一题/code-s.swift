@@ -4721,3 +4721,28 @@ class Solution {
         return result
     }
 }
+
+// 1103. 分糖果 II  数学题
+class Solution {
+    func distributeCandies(_ candies: Int, _ num_people: Int) -> [Int] {
+      let p = Int(sqrt(Double(2*candies)+0.25) - 0.5)
+      let remaining = candies - Int(p + 1) * p/2
+  
+      let rows = p/num_people
+      let cols = p%num_people
+    
+      var res = [Int](repeating: 0, count: num_people)
+    
+      for i in 0..<num_people {
+        res[i] = (i+1)*rows + (rows * (rows-1)/2) * num_people
+        if i < cols {
+          res[i] += i + 1 + rows * num_people
+        }
+      }
+    
+      res[cols] += remaining
+   
+      return res
+    }
+}
+
