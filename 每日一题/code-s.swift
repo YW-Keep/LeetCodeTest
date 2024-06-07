@@ -4746,3 +4746,19 @@ class Solution {
     }
 }
 
+// 3038. 相同分数的最大操作数目 I 模拟
+class Solution {
+    func maxOperations(_ nums: [Int]) -> Int {
+        let sum = nums[0] + nums[1]
+        var res = 0
+        for i in stride(from: 1, through: nums.count - 1, by: 2) {
+            if (nums[i] + nums[i - 1]) == sum {
+                res += 1
+            } else {
+                break
+            }
+        }
+        return res
+    }
+}
+
