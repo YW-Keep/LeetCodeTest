@@ -4776,3 +4776,12 @@ class Solution {
         return ans
     }
 }
+
+// 2806. 取整购买后的账户余额 基础逻辑
+class Solution {
+    func accountBalanceAfterPurchase(_ purchaseAmount: Int) -> Int {
+        let num =  purchaseAmount % 10
+        let newPurchaseAmount =  num < 5 ?  purchaseAmount - num : purchaseAmount + 10 - num
+        return 100 - newPurchaseAmount
+    }
+}
