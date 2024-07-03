@@ -4785,3 +4785,33 @@ class Solution {
         return 100 - newPurchaseAmount
     }
 }
+
+// 3115. 质数的最大距离  基础逻辑
+class Solution {
+    func maximumPrimeDifference(_ nums: [Int]) -> Int {
+        let primes = Set<Int>([2, 3, 5, 7, 11,13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97])
+        var first = -1, ans = 0
+        for i in 0...(nums.count - 1) {
+            if primes.contains(nums[i]) {
+                if first != -1 {
+                    ans = i - first
+                } else {
+                    first = i
+                }
+            }
+        }
+        return ans
+    }
+}
+
+// 
+class Solution {
+    func sumOfTheDigitsOfHarshadNumber(_ x: Int) -> Int {
+        var num = x, sum = 0
+        while num > 0 {
+            sum += num%10
+            num = num / 10
+        }
+        return x % sum == 0 ?  sum : -1
+    }
+}
