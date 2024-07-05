@@ -4815,3 +4815,23 @@ class Solution {
         return x % sum == 0 ?  sum : -1
     }
 }
+// 3033. 修改矩阵 基础逻辑
+class Solution {
+    func modifiedMatrix(_ matrix: [[Int]]) -> [[Int]] {
+        var resoult = matrix
+        let n = matrix.count
+        let m = matrix[0].count
+        for j in 0...(m - 1) {
+            var maxNum = -1
+            for i in 0...(n - 1) {
+                maxNum = max(maxNum, matrix[i][j])
+            }
+            for i in 0...(n - 1) {
+                if resoult[i][j] == -1 {
+                    resoult[i][j] = maxNum
+                }
+            }
+        }
+        return resoult
+    }
+}
