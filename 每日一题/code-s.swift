@@ -4835,3 +4835,16 @@ class Solution {
         return resoult
     }
 }
+
+// 724. 寻找数组的中心下标 基础逻辑
+class Solution {
+    func pivotIndex(_ nums: [Int]) -> Int {
+        var (leftSum, rightSum) = (0, nums.reduce(0, +))
+        for (i, num) in nums.enumerated() {
+            rightSum -= num
+            if leftSum == rightSum { return i }
+            leftSum += num
+        }
+        return -1
+    }
+}
