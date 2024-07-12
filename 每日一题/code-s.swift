@@ -4848,3 +4848,14 @@ class Solution {
         return -1
     }
 }
+
+// 2974. 最小数字游戏 基础逻辑
+class Solution {
+  func numberGame(_ nums: [Int]) -> [Int] {
+      var newNums = nums.sorted()
+      for i in 0...(nums.count / 2 - 1) {
+          (newNums[2*i], newNums[2*i + 1]) = (newNums[2*i + 1], newNums[2*i])
+      }
+      return newNums
+  }
+}
