@@ -4859,3 +4859,23 @@ class Solution {
       return newNums
   }
 }
+
+// 2956. 找到两个数组中的公共元素 字典
+class Solution {
+    func findIntersectionValues(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
+        var s1 = Set(nums1)
+        var s2 = Set(nums2)
+        var res = Array(repeating: 0, count: 2)
+        for x in nums1 {
+            if s2.contains(x) {
+                res[0] += 1
+            }
+        }
+        for x in nums2 {
+            if s1.contains(x) {
+                res[1] += 1
+            }
+        }
+        return res
+    }
+}
