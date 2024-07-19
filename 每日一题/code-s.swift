@@ -4879,3 +4879,25 @@ class Solution {
         return res
     }
 }
+
+
+// 3096. 得到更多分数的最少关卡数目 基础逻辑
+class Solution {
+    func minimumLevels(_ possible: [Int]) -> Int {
+        let n = possible.count
+        var sum = 0
+        for i in 1...n {
+            let t = possible[i - 1] == 0 ? -1 : 1
+            sum += t
+        }
+        var tep = 0
+        for i in 1..<n {
+            let t = possible[i - 1] == 0 ? -1 : 1
+            tep += t
+            if tep * 2 > sum {
+                return i
+            }
+        }
+        return -1
+    }
+}
