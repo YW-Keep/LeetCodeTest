@@ -4901,3 +4901,16 @@ class Solution {
         return -1
     }
 }
+
+// 2766. 重新放置石块 基础逻辑
+class Solution {
+    func relocateMarbles(_ nums: [Int], _ moveFrom: [Int], _ moveTo: [Int]) -> [Int] {
+        var numSet = Set(nums)
+        for i in 0..<moveFrom.count {
+            numSet.remove(moveFrom[i])
+            numSet.insert(moveTo[i])
+        }
+        return Array(numSet).sorted()
+        
+    }
+}
