@@ -4914,3 +4914,32 @@ class Solution {
         
     }
 }
+
+// 682. 棒球比赛 模拟
+class Solution {
+    func calPoints(_ ops: [String]) -> Int {
+        var sum = 0
+        var stack : [Int] = []
+        for e in ops {
+            switch e {
+            case "+":
+                let v = stack[stack.count - 1] + stack[stack.count - 2]
+                stack.append(v)
+                sum += v
+            case "D":
+                let v = stack[stack.count - 1] * 2
+                stack.append(v)
+                sum += v
+            case "C":
+                let v = stack.popLast()!
+                sum -= v
+            default:
+                let v = Int(e)!
+                stack.append(v)
+                sum += v
+            }
+        }
+        return sum
+    }
+
+}
