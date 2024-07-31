@@ -4943,3 +4943,22 @@ class Solution {
     }
 
 }
+
+// 3111. 覆盖所有点的最少矩形数目 基础逻辑
+class Solution {
+    func minRectanglesToCoverPoints(_ points: [[Int]], _ w: Int) -> Int {
+        let newPoints = points.sorted { a, b in
+            return a[0] - b[0] < 0
+        }
+        var res = 0
+        var bound = -1
+        for p in newPoints {
+            if p[0] > bound {
+                bound = p[0] + w
+                res += 1
+            }
+        }
+        
+        return res
+    }
+}
