@@ -4977,3 +4977,21 @@ class Solution {
         return true
     }
 }
+
+// 3152. 特殊数组 II 基础逻辑
+class Solution {
+    func isArraySpecial(_ nums: [Int], _ queries: [[Int]]) -> [Bool] {
+        var dp = Array(repeating: 1, count: nums.count)
+        for i in 1..<nums.count {
+           if nums[i] % 2 != nums[i - 1] % 2 {
+               dp[i] = dp[i - 1] + 1
+           }
+        }
+        var res = [Bool]()
+        for query in queries {
+            let x = query[0], y = query[1]
+            res.append(dp[y] >= (y - x + 1))
+        }
+        return res
+    }
+}
