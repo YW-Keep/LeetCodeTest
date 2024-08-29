@@ -4995,3 +4995,20 @@ class Solution {
         return res
     }
 }
+
+// 3142. 判断矩阵是否满足条件 基础逻辑
+class Solution {
+    func satisfiesConditions(_ grid: [[Int]]) -> Bool {
+        for  i in 0..<grid.count {
+            for j in 0..<grid[i].count {
+                if i + 1 < grid.count, grid[i][j] != grid[i+1][j] {
+                    return false
+                }
+                if j + 1 < grid[i].count, grid[i][j] == grid[i][j+1] {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+}
