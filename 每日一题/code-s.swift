@@ -5012,3 +5012,24 @@ class Solution {
         return true
     }
 }
+
+// 2024. 考试的最大困扰度 滑动窗口
+class Solution {
+    func maxConsecutiveAnswers(_ answerKey: String, _ k: Int) -> Int {
+        let chars = Array(answerKey)
+        var tCnt = 0, fCnt = 0
+        var i = 0, j = 0
+        var ans = 0
+        while i < chars.count {
+            while min(tCnt, fCnt) <= k {
+                ans = max(ans, abs(j - i))
+                if j >= chars.count { break}
+                chars[j] == "T" ? (tCnt += 1) : (fCnt += 1)
+                j += 1
+            }
+            chars[i] == "T" ? (tCnt -= 1) : (fCnt -= 1)
+            i += 1
+        }
+        return ans
+    }
+}
