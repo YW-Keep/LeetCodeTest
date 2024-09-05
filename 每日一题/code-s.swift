@@ -5033,3 +5033,18 @@ class Solution {
         return ans
     }
 }
+
+// 3174. 清除数字 基础逻辑
+class Solution {
+    func clearDigits(_ s: String) -> String {
+        var result = ""
+        for c in s {
+            if c.isNumber {
+                result.removeLast()
+            } else {
+                result.append(c)
+            }
+        }
+        return result
+    }
+}
