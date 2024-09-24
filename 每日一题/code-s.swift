@@ -5048,3 +5048,38 @@ class Solution {
         return result
     }
 }
+
+// 2414. 最长的字母序连续子字符串的长度 基础逻辑
+class Solution {
+    func longestContinuousSubstring(_ s: String) -> Int {
+        var res = 1, cur = 1
+        var last = s.first ?? Character("")
+        for char in s {
+            if char.asciiValue! == last.asciiValue! + 1 {
+                cur += 1
+            } else {
+                cur = 1
+            }
+            last = char
+            res = max(cur, res)
+        }
+        return res
+    }
+}
+
+// 2207. 字符串中最多数目的子序列 基础逻辑
+class Solution {
+    func maximumSubsequenceCount(_ text: String, _ pattern: String) -> Int {
+        var res = 0, cnt1 = 0, cnt2 = 0
+        for char in text {
+            if char == pattern.last! {
+                res += cnt1
+                cnt2 += 1
+            }
+            if char == pattern.first! {
+                cnt1 += 1
+            }
+        }
+        return res + max(cnt1, cnt2)
+    }
+}
