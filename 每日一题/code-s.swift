@@ -5083,3 +5083,35 @@ class Solution {
         return res + max(cnt1, cnt2)
     }
 }
+
+// 2535. 数组元素和与数字和的绝对差 基础逻辑
+class Solution {
+    func differenceOfSum(_ nums: [Int]) -> Int {
+        var ans = 0
+        for num in nums {
+            ans += num
+            var newNum = num
+            while newNum > 0 {
+                ans -= newNum % 10
+                newNum = newNum / 10
+            }
+        }
+        return ans
+
+    }
+}
+
+// 2073. 买票需要的时间 基础逻辑
+class Solution {
+    func timeRequiredToBuy(_ tickets: [Int], _ k: Int) -> Int {
+        var res = 0,  ticket = tickets[k]
+        for i in 0...(tickets.count - 1) {
+            if i <= k {
+                res += min(tickets[i], ticket)
+            } else {
+                res += min(tickets[i], ticket - 1)
+            }
+        }
+        return res
+    }
+}
