@@ -5115,3 +5115,21 @@ class Solution {
         return res
     }
 }
+
+// 3194. 最小元素和最大元素的最小平均值 基础逻辑
+class Solution {
+    func minimumAverage(_ nums: [Int]) -> Double {
+        guard nums.count > 1 else {
+            return 0
+        }
+        let newNums = nums.sorted()
+        var i = 0, j = nums.count - 1
+        var res = Double(newNums.first! + newNums.last!) / 2.0
+        while i < j {
+            res = min(res, Double(newNums[i] + newNums[j]) / 2.0)
+            i += 1
+            j -= 1
+        }
+        return res
+    }
+}
