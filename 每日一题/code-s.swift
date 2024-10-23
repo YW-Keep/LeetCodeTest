@@ -5133,3 +5133,16 @@ class Solution {
         return res
     }
 }
+
+// 3185. 构成整天的下标对数目 II 基础逻辑
+class Solution {
+    func countCompleteDayPairs(_ hours: [Int]) -> Int {
+        var map = [Int:Int]()
+        var ans = 0
+        for hour in hours {
+            ans += map[(24 - hour % 24) % 24] ?? 0
+            map[hour%24, default: 0] += 1
+        }
+        return ans
+    }
+}
